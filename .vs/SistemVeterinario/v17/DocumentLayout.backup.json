@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "D:\\Desarrollo de Sistema 2\\SistemVeterinario\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F442A6DF-DE3E-496A-8A46-B763D5A8A730}|CapaNegocio\\CapaNegocio.csproj|d:\\desarrollo de sistema 2\\sistemveterinario\\capanegocio\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F442A6DF-DE3E-496A-8A46-B763D5A8A730}|CapaNegocio\\CapaNegocio.csproj|solutionrelative:capanegocio\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E6FE8E7-47CA-4295-9918-A2B1FF27653E}|CapaDatos\\CapaDatos.csproj|d:\\desarrollo de sistema 2\\sistemveterinario\\capadatos\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E6FE8E7-47CA-4295-9918-A2B1FF27653E}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A5C7B629-1823-4196-8399-DC929AA7A3CC}|SistemVeterinario\\SistemVeterinario.csproj|d:\\desarrollo de sistema 2\\sistemveterinario\\sistemveterinario\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A5C7B629-1823-4196-8399-DC929AA7A3CC}|SistemVeterinario\\SistemVeterinario.csproj|solutionrelative:sistemveterinario\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
@@ -27,14 +35,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Form1.cs [Design]",
+              "Title": "Class1.cs",
+              "DocumentMoniker": "D:\\Desarrollo de Sistema 2\\SistemVeterinario\\CapaNegocio\\Class1.cs",
+              "RelativeDocumentMoniker": "CapaNegocio\\Class1.cs",
+              "ToolTip": "D:\\Desarrollo de Sistema 2\\SistemVeterinario\\CapaNegocio\\Class1.cs",
+              "RelativeToolTip": "CapaNegocio\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T21:28:52.092Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "D:\\Desarrollo de Sistema 2\\SistemVeterinario\\CapaDatos\\Class1.cs",
+              "RelativeDocumentMoniker": "CapaDatos\\Class1.cs",
+              "ToolTip": "D:\\Desarrollo de Sistema 2\\SistemVeterinario\\CapaDatos\\Class1.cs",
+              "RelativeToolTip": "CapaDatos\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T21:28:11.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs [Dise\u00F1o]",
               "DocumentMoniker": "D:\\Desarrollo de Sistema 2\\SistemVeterinario\\SistemVeterinario\\Form1.cs",
               "RelativeDocumentMoniker": "SistemVeterinario\\Form1.cs",
-              "ToolTip": "D:\\Desarrollo de Sistema 2\\SistemVeterinario\\SistemVeterinario\\Form1.cs [Design]",
-              "RelativeToolTip": "SistemVeterinario\\Form1.cs [Design]",
+              "ToolTip": "D:\\Desarrollo de Sistema 2\\SistemVeterinario\\SistemVeterinario\\Form1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "SistemVeterinario\\Form1.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-17T21:06:48.82Z",
-              "EditorCaption": " [Design]"
+              "EditorCaption": " [Dise\u00F1o]"
             }
           ]
         }
