@@ -4,9 +4,9 @@ using CapaNegocio;
 
 namespace SistemVeterinario
 {
-    public partial class LoginForm : Form
+    public partial class Login : Form
     {
-        public LoginForm()
+        public Login()
         {
             InitializeComponent();
         }
@@ -14,26 +14,28 @@ namespace SistemVeterinario
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string usuario = txtUsuario.Text.Trim();
-            string contraseña = txtContrasena.Text.Trim();
+            string contrasena = txtContrasena.Text.Trim();
 
-            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(contraseña))
+            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(contrasena))
             {
                 MessageBox.Show("Por favor ingrese usuario y contraseña", "Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            bool loginExitoso = NUsuario.ValidarLogin(usuario, contraseña);
+            bool loginExitoso = NUsuario.ValidarLogin(usuario, contrasena);
 
             if (loginExitoso)
             {
                 MessageBox.Show("Login exitoso", "Bienvenido", 
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
+                // Ocultar el login y mostrar el dashboard
                 this.Hide();
-                Form1 formPrincipal = new Form1();
-                formPrincipal.ShowDialog();
-                this.Close();
+                
+                Dashboard dashboard = new Dashboard();
+                dashboard.FormClosed += (s, args) => this.Close(); // Cerrar la aplicación cuando se cierre el dashboard
+                dashboard.ShowDialog();
             }
             else
             {
@@ -49,9 +51,25 @@ namespace SistemVeterinario
             Application.Exit();
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        private void Login_Load(object sender, EventArgs e)
         {
             txtUsuario.Focus();
+        }
+
+        private void txtContrasena_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnLogin_Click(sender, e);
+            }
+        }
+
+        private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                txtContrasena.Focus();
+            }
         }
     }
 }
