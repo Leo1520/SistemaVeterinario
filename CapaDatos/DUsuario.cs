@@ -8,19 +8,19 @@ using System.Data.SqlClient;
 
 namespace CapaDatos
 {
-    public class DUsuario : DbConnection
+    public class DUsuario
     {
         private int _idUsuario;
-        private string _nombreUsuario;
-        private string _clave;
-        private string _email;
+        private string _nombreUsuario = string.Empty;
+        private string _clave = string.Empty;
+        private string _email = string.Empty;
         private int? _idPersonal;
-        private string _rol;
+        private string _rol = string.Empty;
         private bool _estado;
         private DateTime? _fechaUltimoAcceso;
         private int _intentosLogin;
         private bool _bloqueado;
-        private string _textoBuscar;
+        private string _textoBuscar = string.Empty;
 
         public int IdUsuario { get => _idUsuario; set => _idUsuario = value; }
         public string NombreUsuario { get => _nombreUsuario; set => _nombreUsuario = value; }
@@ -51,271 +51,263 @@ namespace CapaDatos
         public string Insertar(DUsuario usuario)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            
+            try
             {
-                connection.Open();
-                try
+                using (SqlCommand command = new SqlCommand("SP_InsertarUsuario", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_InsertarUsuario", connection))
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
+                    command.Parameters.AddWithValue("@Clave", usuario.Clave);
+                    command.Parameters.AddWithValue("@Email", usuario.Email);
+                    command.Parameters.AddWithValue("@Rol", usuario.Rol ?? "AUXILIAR");
+                    command.Parameters.AddWithValue("@IdPersonal", usuario.IdPersonal ?? (object)DBNull.Value);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        command.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
-                        command.Parameters.AddWithValue("@Clave", usuario.Clave);
-                        command.Parameters.AddWithValue("@Email", usuario.Email);
-                        command.Parameters.AddWithValue("@Rol", usuario.Rol ?? "AUXILIAR");
-                        command.Parameters.AddWithValue("@IdPersonal", usuario.IdPersonal ?? (object)DBNull.Value);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            int idUsuario = Convert.ToInt32(reader["IdUsuario"]);
+                            if (idUsuario > 0)
                             {
-                                int idUsuario = Convert.ToInt32(reader["IdUsuario"]);
-                                if (idUsuario > 0)
-                                {
-                                    usuario.IdUsuario = idUsuario;
-                                    rpta = "OK";
-                                }
-                                else
-                                {
-                                    rpta = reader["Mensaje"].ToString();
-                                }
+                                usuario.IdUsuario = idUsuario;
+                                rpta = "OK";
+                            }
+                            else
+                            {
+                                rpta = reader["Mensaje"]?.ToString() ?? "Error desconocido";
                             }
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
             }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
+            
             return rpta;
         }
         public string Editar(DUsuario usuario)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            
+            try
             {
-                connection.Open();
-                try
+                using (SqlCommand command = new SqlCommand("SP_EditarUsuario", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_EditarUsuario", connection))
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
+                    command.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
+                    command.Parameters.AddWithValue("@Clave", usuario.Clave);
+                    command.Parameters.AddWithValue("@Email", usuario.Email);
+                    command.Parameters.AddWithValue("@Rol", usuario.Rol ?? "AUXILIAR");
+                    command.Parameters.AddWithValue("@IdPersonal", usuario.IdPersonal ?? (object)DBNull.Value);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        command.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
-                        command.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
-                        command.Parameters.AddWithValue("@Clave", usuario.Clave);
-                        command.Parameters.AddWithValue("@Email", usuario.Email);
-                        command.Parameters.AddWithValue("@Rol", usuario.Rol ?? "AUXILIAR");
-                        command.Parameters.AddWithValue("@IdPersonal", usuario.IdPersonal ?? (object)DBNull.Value);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                int resultado = Convert.ToInt32(reader["Resultado"]);
-                                rpta = resultado == 1 ? "OK" : reader["Mensaje"].ToString();
-                            }
+                            int resultado = Convert.ToInt32(reader["Resultado"]);
+                            rpta = resultado == 1 ? "OK" : reader["Mensaje"]?.ToString() ?? "Error desconocido";
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
             }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
+            
             return rpta;
         }
         public string Eliminar(DUsuario usuario)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            
+            try
             {
-                connection.Open();
-                try
+                using (SqlCommand command = new SqlCommand("SP_EliminarUsuario", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_EliminarUsuario", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
 
-                        using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                int resultado = Convert.ToInt32(reader["Resultado"]);
-                                rpta = resultado == 1 ? "OK" : reader["Mensaje"].ToString();
-                            }
+                            int resultado = Convert.ToInt32(reader["Resultado"]);
+                            rpta = resultado == 1 ? "OK" : reader["Mensaje"]?.ToString() ?? "Error desconocido";
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
             }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
+            
             return rpta;
         }
         public DataTable Mostrar()
         {
             DataTable dtResultado = new DataTable("Usuario");
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            
+            try
             {
-                connection.Open();
-                try
+                using (SqlCommand command = new SqlCommand("SP_MostrarUsuarios", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_MostrarUsuarios", connection))
+                    command.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
             }
+            catch
+            {
+                dtResultado = new DataTable("Usuario"); // Crear tabla vacía en caso de error
+            }
+            
             return dtResultado;
         }
         public DataTable BuscarPorNombre(DUsuario usuario)
         {
             DataTable dtResultado = new DataTable("Usuario");
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            
+            try
             {
-                connection.Open();
-                try
+                using (SqlCommand command = new SqlCommand("SP_BuscarUsuarioPorNombre", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_BuscarUsuarioPorNombre", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@TextoBuscar", usuario.TextoBuscar ?? "");
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@TextoBuscar", usuario.TextoBuscar ?? "");
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
             }
+            catch
+            {
+                dtResultado = new DataTable("Usuario"); // Crear tabla vacía en caso de error
+            }
+            
             return dtResultado;
         }
         public DataTable Login(DUsuario usuario)
         {
             DataTable dtResultado = new DataTable("LoginResult");
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            
+            try
             {
-                connection.Open();
-                try
+                string query = @"SELECT id AS UsuarioID, usuario AS NombreUsuario, 
+                                       CONCAT(nombre, ' ', apellido) AS NombreCompleto, 
+                                       email AS Email, rol AS Rol 
+                               FROM personal 
+                               WHERE usuario = @Usuario 
+                               AND contrasena = @Clave 
+                               AND activo = 1";
+                
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    string query = @"SELECT id AS UsuarioID, usuario AS NombreUsuario, 
-                                           CONCAT(nombre, ' ', apellido) AS NombreCompleto, 
-                                           email AS Email, rol AS Rol 
-                                   FROM personal 
-                                   WHERE usuario = @Usuario 
-                                   AND contrasena = @Clave 
-                                   AND activo = 1";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Usuario", usuario.NombreUsuario);
-                        command.Parameters.AddWithValue("@Clave", usuario.Clave);
+                    command.Parameters.AddWithValue("@Usuario", usuario.NombreUsuario);
+                    command.Parameters.AddWithValue("@Clave", usuario.Clave);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
+                    }
+                    
+                    // Actualizar fecha de último acceso si el login es exitoso
+                    if (dtResultado.Rows.Count > 0)
+                    {
+                        string updateQuery = @"UPDATE personal 
+                                             SET fecha_ultimo_acceso = GETDATE() 
+                                             WHERE usuario = @Usuario";
+                        using (SqlCommand updateCommand = new SqlCommand(updateQuery, connection))
                         {
-                            adapter.Fill(dtResultado);
-                        }
-                        
-                        // Actualizar fecha de último acceso si el login es exitoso
-                        if (dtResultado.Rows.Count > 0)
-                        {
-                            string updateQuery = @"UPDATE personal 
-                                                 SET fecha_ultimo_acceso = GETDATE() 
-                                                 WHERE usuario = @Usuario";
-                            using (SqlCommand updateCommand = new SqlCommand(updateQuery, connection))
-                            {
-                                updateCommand.Parameters.AddWithValue("@Usuario", usuario.NombreUsuario);
-                                updateCommand.ExecuteNonQuery();
-                            }
+                            updateCommand.Parameters.AddWithValue("@Usuario", usuario.NombreUsuario);
+                            updateCommand.ExecuteNonQuery();
                         }
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
             }
+            catch
+            {
+                dtResultado = new DataTable("LoginResult"); // Crear tabla vacía en caso de error
+            }
+            
             return dtResultado;
         }
 
         public string DesbloquearUsuario(int idUsuario)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            
+            try
             {
-                connection.Open();
-                try
+                using (SqlCommand command = new SqlCommand("SP_DesbloquearUsuario", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_DesbloquearUsuario", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
-                        using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                int resultado = Convert.ToInt32(reader["Resultado"]);
-                                rpta = resultado == 1 ? "OK" : reader["Mensaje"].ToString();
-                            }
+                            int resultado = Convert.ToInt32(reader["Resultado"]);
+                            rpta = resultado == 1 ? "OK" : reader["Mensaje"]?.ToString() ?? "Error desconocido";
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
             }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
+            
             return rpta;
         }
 
         public string CambiarClave(int idUsuario, string claveAnterior, string claveNueva)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            
+            try
             {
-                connection.Open();
-                try
+                using (SqlCommand command = new SqlCommand("SP_CambiarClave", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_CambiarClave", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@IdUsuario", idUsuario);
-                        command.Parameters.AddWithValue("@ClaveAnterior", claveAnterior);
-                        command.Parameters.AddWithValue("@ClaveNueva", claveNueva);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    command.Parameters.AddWithValue("@ClaveAnterior", claveAnterior);
+                    command.Parameters.AddWithValue("@ClaveNueva", claveNueva);
 
-                        using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                int resultado = Convert.ToInt32(reader["Resultado"]);
-                                rpta = resultado == 1 ? "OK" : reader["Mensaje"].ToString();
-                            }
+                            int resultado = Convert.ToInt32(reader["Resultado"]);
+                            rpta = resultado == 1 ? "OK" : reader["Mensaje"]?.ToString() ?? "Error desconocido";
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
             }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
+            
             return rpta;
         }
     }

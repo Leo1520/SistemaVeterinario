@@ -9,11 +9,70 @@ namespace CapaDatos
 {
     public class DbConnection
     {
-        private string connectionString = "Data Source=.;Initial Catalog=Sistema_Veterinario;Integrated Security=True;TrustServerCertificate=True";
+        private static DbConnection? _instance;
+        private static readonly object _lock = new object();
+        private SqlConnection? _connection;
+        private readonly string connectionString = "Data Source=.;Initial Catalog=Sistema_Veterinario;Integrated Security=True;TrustServerCertificate=True";
 
-        protected SqlConnection GetConnection()
+        private DbConnection()
         {
-            return new SqlConnection(connectionString);
+            _connection = new SqlConnection(connectionString);
+            _connection.Open();
+        }
+
+        public static DbConnection Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                            _instance = new DbConnection();
+                    }
+                }
+                return _instance;
+            }
+        }
+
+        public SqlConnection GetConnection()
+        {
+            // Verificar si la conexión está cerrada o rota y reconectar si es necesario
+            if (_connection == null || _connection.State != System.Data.ConnectionState.Open)
+            {
+                try
+                {
+                    _connection?.Close();
+                    _connection = new SqlConnection(connectionString);
+                    _connection.Open();
+                }
+                catch (Exception ex)
+                {
+                    // Log del error si es necesario
+                    throw new Exception($"Error al reconectar a la base de datos: {ex.Message}", ex);
+                }
+            }
+            return _connection;
+        }
+
+        public void CloseConnection()
+        {
+            if (_connection != null && _connection.State == System.Data.ConnectionState.Open)
+            {
+                _connection.Close();
+                _connection.Dispose();
+                _connection = null;
+            }
+        }
+
+        public static void CloseInstance()
+        {
+            if (_instance != null)
+            {
+                _instance.CloseConnection();
+                _instance = null;
+            }
         }
     }
 }
