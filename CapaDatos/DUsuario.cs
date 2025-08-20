@@ -215,11 +215,13 @@ namespace CapaDatos
                 connection.Open();
                 try
                 {
-                    string query = @"SELECT UsuarioID, NombreUsuario, NombreCompleto, Email, Rol 
-                                   FROM dbo.Usuarios 
-                                   WHERE NombreUsuario = @Usuario 
-                                   AND Contrasena = @Clave 
-                                   AND Estado = 1";
+                    string query = @"SELECT id AS UsuarioID, usuario AS NombreUsuario, 
+                                           CONCAT(nombre, ' ', apellido) AS NombreCompleto, 
+                                           email AS Email, rol AS Rol 
+                                   FROM personal 
+                                   WHERE usuario = @Usuario 
+                                   AND contrasena = @Clave 
+                                   AND activo = 1";
                     
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -229,6 +231,19 @@ namespace CapaDatos
                         using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                         {
                             adapter.Fill(dtResultado);
+                        }
+                        
+                        // Actualizar fecha de último acceso si el login es exitoso
+                        if (dtResultado.Rows.Count > 0)
+                        {
+                            string updateQuery = @"UPDATE personal 
+                                                 SET fecha_ultimo_acceso = GETDATE() 
+                                                 WHERE usuario = @Usuario";
+                            using (SqlCommand updateCommand = new SqlCommand(updateQuery, connection))
+                            {
+                                updateCommand.Parameters.AddWithValue("@Usuario", usuario.NombreUsuario);
+                                updateCommand.ExecuteNonQuery();
+                            }
                         }
                     }
                 }

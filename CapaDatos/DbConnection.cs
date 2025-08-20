@@ -9,7 +9,7 @@ namespace CapaDatos
 {
     public class DbConnection
     {
-        private string connectionString = "Data Source=DESKTOP-DCKO72L\\SQLEXPRESS;Initial Catalog=dbveterinaria;Integrated Security=True";
+        private string connectionString = "Data Source=.;Initial Catalog=Sistema_Veterinario;Integrated Security=True;TrustServerCertificate=True";
 
         protected SqlConnection GetConnection()
         {
