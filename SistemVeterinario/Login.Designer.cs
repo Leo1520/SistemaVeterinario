@@ -151,9 +151,10 @@ namespace SistemVeterinario
             txtUsuario.Location = new Point(76, 27);
             txtUsuario.Margin = new Padding(3, 4, 3, 4);
             txtUsuario.Name = "txtUsuario";
+            txtUsuario.PlaceholderText = "Usuario o Email";
             txtUsuario.Size = new Size(332, 34);
             txtUsuario.TabIndex = 2;
-            txtUsuario.Text = "Ingrese su correo...";
+            txtUsuario.Text = "";
             // 
             // pictureBox2
             // 
@@ -170,7 +171,7 @@ namespace SistemVeterinario
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
             lblTitulo.ForeColor = Color.FromArgb(52, 73, 94);
-            lblTitulo.Location = new Point(92, 202);
+            lblTitulo.Location = new Point(92, 220);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(268, 54);
             lblTitulo.TabIndex = 0;
@@ -181,7 +182,7 @@ namespace SistemVeterinario
             lblSubtitulo.AutoSize = true;
             lblSubtitulo.Font = new Font("Segoe UI", 12F);
             lblSubtitulo.ForeColor = Color.DimGray;
-            lblSubtitulo.Location = new Point(116, 244);
+            lblSubtitulo.Location = new Point(116, 270);
             lblSubtitulo.Name = "lblSubtitulo";
             lblSubtitulo.Size = new Size(218, 28);
             lblSubtitulo.TabIndex = 1;

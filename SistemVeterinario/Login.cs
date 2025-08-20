@@ -1,4 +1,3 @@
-
 using CapaNegocio;
 
 namespace SistemVeterinario
@@ -31,7 +30,7 @@ namespace SistemVeterinario
 
             // Configurar placeholder text (opcional)
             if (string.IsNullOrEmpty(txtUsuario.Text))
-                txtUsuario.Text = "Usuario o Email";
+                txtUsuario.PlaceholderText = "Usuario o Email";
 
             txtUsuario.Enter += TxtUsuario_Enter;
             txtUsuario.Leave += TxtUsuario_Leave;
@@ -51,9 +50,9 @@ namespace SistemVeterinario
 
         private void TxtUsuario_Enter(object? sender, EventArgs e)
         {
-            if (txtUsuario.Text == "Usuario o Email")
+            if (txtUsuario.PlaceholderText == "Usuario o Email")
             {
-                txtUsuario.Text = "";
+                txtUsuario.PlaceholderText = "";
                 txtUsuario.ForeColor = Color.Black;
             }
         }
@@ -62,7 +61,7 @@ namespace SistemVeterinario
         {
             if (string.IsNullOrWhiteSpace(txtUsuario.Text))
             {
-                txtUsuario.Text = "Usuario o Email";
+                txtUsuario.PlaceholderText = "Usuario o Email";
                 txtUsuario.ForeColor = Color.Gray;
             }
         }
@@ -185,7 +184,7 @@ namespace SistemVeterinario
                 }
                 else
                 {
-                    txtUsuario.Text = "Usuario o Email";
+                    txtUsuario.PlaceholderText = "Usuario o Email";
                     txtUsuario.ForeColor = Color.Gray;
                 }
 
