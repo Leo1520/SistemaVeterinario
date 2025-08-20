@@ -1,13 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using CapaNegocio;
+
 
 namespace SistemVeterinario
 {
@@ -16,66 +7,214 @@ namespace SistemVeterinario
     /// </summary>
     public partial class Dashboard : Form
     {
+        private NavigationManager? _navigationManager;
+
         public Dashboard()
         {
             InitializeComponent();
             ConfigurarDashboard();
+            InicializarNavegacion();
         }
 
         private void ConfigurarDashboard()
         {
-            // Configurar información del usuario básica
-            lblUsuario.Text = "Bienvenido al Sistema Veterinario";
-            
+            // Configurar información del usuario
+
+
+            lblUsuario.Text = $"Bienvenido, Falta obtener su nombre";
+            lblEmail.Text = "Falta obtener su email";
+
             // Configurar eventos de botones
             btnClientes.Click += BtnClientes_Click;
             btnMascotas.Click += BtnMascotas_Click;
             btnVentas.Click += BtnVentas_Click;
             btnProductos.Click += BtnProductos_Click;
             btnReportes.Click += BtnReportes_Click;
-            btnPersonal.Click += BtnPersonal_Click;
+            btnPersonal.Click += BtnConfiguracion_Click;
             btnLogout.Click += BtnLogout_Click;
         }
 
+        /// <summary>
+        /// Inicializa el sistema de navegación modular
+        /// </summary>
+        private void InicializarNavegacion()
+        {
+            try
+            {
+                // NO limpiar el panel - mantener el diseño original del Visual Studio Designer
+
+                // Crear el navegador
+                _navigationManager = new NavigationManager(panelContent);
+                _navigationManager.NavigationRequested += OnNavigationRequested;
+
+                // La pantalla de bienvenida ya está diseñada en el Visual Studio Designer
+                // Solo asegurarse de que esté visible
+                MostrarPantallaInicial();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error inicializando navegación: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Muestra la pantalla inicial (diseñada en Visual Studio Designer)
+        /// </summary>
+        private void MostrarPantallaInicial()
+        {
+            // Remover cualquier UserControl que pueda estar activo
+            var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+            foreach (var control in userControls)
+            {
+                panelContent.Controls.Remove(control);
+                control.Dispose();
+            }
+
+            // Hacer visibles todos los elementos del diseñador
+            foreach (Control control in panelContent.Controls)
+            {
+                control.Visible = true;
+            }
+
+            // Refrescar el panel para asegurar que se vea todo correctamente
+            panelContent.Refresh();
+        }
+
+        /// <summary>
+        /// Maneja las solicitudes de navegación entre vistas
+        /// </summary>
+        private void OnNavigationRequested(string module, ViewType viewType, object? data)
+        {
+            try
+            {
+                switch (module.ToLower())
+                {
+                    case "cliente":
+                        MessageBox.Show("Módulo de Clientes - Próximamente", "Información",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+
+                    case "mascota":
+                        MessageBox.Show("Módulo de Mascotas - Próximamente", "Información",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+
+                    case "producto":
+                        MessageBox.Show("Módulo de Productos - Próximamente", "Información",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+
+                    case "venta":
+                        // TODO: Implementar navegación de ventas
+                        MessageBox.Show("Módulo de Ventas - Próximamente", "Información",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+
+                    default:
+                        MessageBox.Show($"Módulo '{module}' no implementado", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error en navegación: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Oculta los elementos del diseñador cuando se navega a un módulo
+        /// </summary>
+        private void OcultarElementosDisenador()
+        {
+            foreach (Control control in panelContent.Controls)
+            {
+                if (!(control is UserControl))
+                {
+                    control.Visible = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Maneja la navegación específica del módulo de Clientes
+        /// </summary>
+        private void ManejarNavegacionCliente(ViewType viewType, object? data)
+        {
+            UserControl? vista = null;
+
+            // Ocultar elementos del diseñador
+            OcultarElementosDisenador();
+
+            switch (viewType)
+            {
+                case ViewType.Index:
+
+                    break;
+
+                case ViewType.Create:
+
+                    break;
+
+                case ViewType.Edit:
+
+                    break;
+            }
+
+            if (vista != null && _navigationManager != null)
+            {
+                _navigationManager.NavigateTo("Cliente", viewType, vista, data);
+            }
+        }
+
+
         private void BtnClientes_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Módulo 'Cliente' no implementado", "Información",
+            // proximamente modulo en desarrollo
+            MessageBox.Show("Módulo de Clientes - Próximamente", "Información",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnMascotas_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Módulo 'Mascota' no implementado", "Información",
+            // proximamente modulo en desarrollo
+            MessageBox.Show("Módulo de Mascotas - Próximamente", "Información",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnVentas_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Módulo 'Ventas' no implementado", "Información", 
+            // TODO: Implementar formulario de ventas
+            MessageBox.Show("Módulo de Ventas - Próximamente", "Información",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnProductos_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Módulo 'Productos' no implementado", "Información",
+            // proximamente modulo en desarrollo
+            MessageBox.Show("Módulo de Productos - Próximamente", "Información",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnReportes_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Módulo 'Reportes' no implementado", "Información", 
+            // TODO: Implementar formulario de reportes
+            MessageBox.Show("Módulo de Reportes - Próximamente", "Información",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void BtnPersonal_Click(object? sender, EventArgs e)
+        private void BtnConfiguracion_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Módulo 'Personal' no implementado", "Información", 
+            // TODO: Implementar formulario de configuración
+            MessageBox.Show("Módulo de Configuración - Próximamente", "Información",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnLogout_Click(object? sender, EventArgs e)
         {
-            var result = MessageBox.Show("¿Está seguro que desea cerrar sesión?", 
+            var result = MessageBox.Show("¿Está seguro que desea cerrar sesión?",
                 "Confirmar Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
@@ -87,10 +226,10 @@ namespace SistemVeterinario
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            // Solo preguntar si el usuario está cerrando manualmente
+            // Solo preguntar si el usuario está cerrando manualmente (no cuando se hace logout)
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                var result = MessageBox.Show("¿Está seguro que desea salir del sistema?", 
+                var result = MessageBox.Show("¿Está seguro que desea salir del sistema?",
                     "Confirmar Salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.No)
@@ -99,8 +238,45 @@ namespace SistemVeterinario
                     return;
                 }
             }
-            
+
+            // Limpiar recursos de navegación
+            _navigationManager?.Dispose();
+
             base.OnFormClosing(e);
         }
+
+        /// <summary>
+        /// Maneja la navegación específica del módulo de Mascotas
+        /// </summary>
+        private void ManejarNavegacionMascota(ViewType viewType, object? data)
+        {
+            UserControl? vista = null;
+
+            switch (viewType)
+            {
+                case ViewType.Index:
+
+                    break;
+
+                case ViewType.Create:
+
+                    break;
+
+                case ViewType.Edit:
+
+                    break;
+            }
+
+            if (vista != null && _navigationManager != null)
+            {
+                _navigationManager.NavigateTo("Mascota", viewType, vista, data);
+            }
+        }
+
+
+
+
+
+
     }
 }
