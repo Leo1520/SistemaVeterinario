@@ -7,7 +7,6 @@ namespace SistemVeterinario
     /// </summary>
     public partial class Dashboard : Form
     {
-        private NavigationManager? _navigationManager;
 
         public Dashboard()
         {
@@ -41,12 +40,6 @@ namespace SistemVeterinario
         {
             try
             {
-                // NO limpiar el panel - mantener el diseño original del Visual Studio Designer
-
-                // Crear el navegador
-                _navigationManager = new NavigationManager(panelContent);
-                _navigationManager.NavigationRequested += OnNavigationRequested;
-
                 // La pantalla de bienvenida ya está diseñada en el Visual Studio Designer
                 // Solo asegurarse de que esté visible
                 MostrarPantallaInicial();
@@ -82,49 +75,6 @@ namespace SistemVeterinario
         }
 
         /// <summary>
-        /// Maneja las solicitudes de navegación entre vistas
-        /// </summary>
-        private void OnNavigationRequested(string module, ViewType viewType, object? data)
-        {
-            try
-            {
-                switch (module.ToLower())
-                {
-                    case "cliente":
-                        MessageBox.Show("Módulo de Clientes - Próximamente", "Información",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
-
-                    case "mascota":
-                        MessageBox.Show("Módulo de Mascotas - Próximamente", "Información",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
-
-                    case "producto":
-                        MessageBox.Show("Módulo de Productos - Próximamente", "Información",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
-
-                    case "venta":
-                        // TODO: Implementar navegación de ventas
-                        MessageBox.Show("Módulo de Ventas - Próximamente", "Información",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
-
-                    default:
-                        MessageBox.Show($"Módulo '{module}' no implementado", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error en navegación: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
         /// Oculta los elementos del diseñador cuando se navega a un módulo
         /// </summary>
         private void OcultarElementosDisenador()
@@ -135,37 +85,6 @@ namespace SistemVeterinario
                 {
                     control.Visible = false;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Maneja la navegación específica del módulo de Clientes
-        /// </summary>
-        private void ManejarNavegacionCliente(ViewType viewType, object? data)
-        {
-            UserControl? vista = null;
-
-            // Ocultar elementos del diseñador
-            OcultarElementosDisenador();
-
-            switch (viewType)
-            {
-                case ViewType.Index:
-
-                    break;
-
-                case ViewType.Create:
-
-                    break;
-
-                case ViewType.Edit:
-
-                    break;
-            }
-
-            if (vista != null && _navigationManager != null)
-            {
-                _navigationManager.NavigateTo("Cliente", viewType, vista, data);
             }
         }
 
@@ -185,13 +104,7 @@ namespace SistemVeterinario
                     control.Dispose();
                 }
 
-                // Crear y mostrar el módulo de personas
-                var personaSearch = new Navigation.PersonaSearch();
-                personaSearch.Dock = DockStyle.Fill;
-                personaSearch.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-                
-                panelContent.Controls.Add(personaSearch);
-                personaSearch.BringToFront();
+             
             }
             catch (Exception ex)
             {
@@ -262,44 +175,8 @@ namespace SistemVeterinario
                 }
             }
 
-            // Limpiar recursos de navegación
-            _navigationManager?.Dispose();
-
             base.OnFormClosing(e);
         }
-
-        /// <summary>
-        /// Maneja la navegación específica del módulo de Mascotas
-        /// </summary>
-        private void ManejarNavegacionMascota(ViewType viewType, object? data)
-        {
-            UserControl? vista = null;
-
-            switch (viewType)
-            {
-                case ViewType.Index:
-
-                    break;
-
-                case ViewType.Create:
-
-                    break;
-
-                case ViewType.Edit:
-
-                    break;
-            }
-
-            if (vista != null && _navigationManager != null)
-            {
-                _navigationManager.NavigateTo("Mascota", viewType, vista, data);
-            }
-        }
-
-
-
-
-
-
+               
     }
 }
