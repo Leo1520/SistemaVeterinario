@@ -1658,6 +1658,421 @@ END;
 GO
 
 -- ============================================
+-- PROCEDIMIENTOS ALMACENADOS PARA REPORTES DE VENTAS
+-- Módulo de Reportes - Análisis de ventas por períodos
+-- ============================================
+
+-- SP_ReporteVentasPorRango: Reporte de ventas por rango de fechas específico
+CREATE OR ALTER PROCEDURE SP_ReporteVentasPorRango
+    @fecha_inicio DATE,
+    @fecha_fin DATE,
+    @estado VARCHAR(20) = NULL -- NULL = todos, 'Pagada', 'Pendiente', etc.
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    -- Validar fechas
+    IF @fecha_inicio > @fecha_fin
+    BEGIN
+        RAISERROR('La fecha de inicio no puede ser mayor a la fecha fin', 16, 1);
+        RETURN;
+    END
+    
+    SELECT 
+        f.id,
+        f.numero_factura,
+        f.fecha_emision,
+        f.fecha_vencimiento,
+        p.nombre_mostrar AS cliente,
+        p.tipo AS tipo_cliente,
+        f.subtotal,
+        f.impuestos,
+        f.descuentos,
+        f.total,
+        f.estado,
+        f.notas,
+        -- Calcular días transcurridos
+        DATEDIFF(DAY, f.fecha_emision, GETDATE()) AS dias_transcurridos,
+        -- Información adicional
+        (SELECT COUNT(*) FROM detalle_productos dp WHERE dp.factura_id = f.id) AS total_productos,
+        (SELECT COUNT(*) FROM detalle_servicios ds WHERE ds.factura_id = f.id) AS total_servicios
+    FROM factura f
+    INNER JOIN VW_PersonasCompletas p ON f.persona_id = p.id
+    WHERE f.fecha_emision BETWEEN @fecha_inicio AND @fecha_fin
+        AND (@estado IS NULL OR f.estado = @estado)
+    ORDER BY f.fecha_emision DESC, f.id DESC;
+END;
+GO
+
+-- SP_ReporteVentasResumen: Resumen general de ventas por período
+CREATE OR ALTER PROCEDURE SP_ReporteVentasResumen
+    @fecha_inicio DATE,
+    @fecha_fin DATE,
+    @agrupacion VARCHAR(10) = 'DIA' -- 'DIA', 'SEMANA', 'MES', 'AÑO'
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    -- Validar parámetros
+    IF @fecha_inicio > @fecha_fin
+    BEGIN
+        RAISERROR('La fecha de inicio no puede ser mayor a la fecha fin', 16, 1);
+        RETURN;
+    END
+    
+    IF @agrupacion NOT IN ('DIA', 'SEMANA', 'MES', 'AÑO')
+    BEGIN
+        RAISERROR('Agrupación debe ser: DIA, SEMANA, MES o AÑO', 16, 1);
+        RETURN;
+    END
+    
+    -- Resumen según agrupación
+    IF @agrupacion = 'DIA'
+    BEGIN
+        SELECT 
+            f.fecha_emision AS periodo,
+            DATENAME(WEEKDAY, f.fecha_emision) AS dia_semana,
+            COUNT(*) AS total_facturas,
+            COUNT(CASE WHEN f.estado = 'Pagada' THEN 1 END) AS facturas_pagadas,
+            COUNT(CASE WHEN f.estado = 'Pendiente' THEN 1 END) AS facturas_pendientes,
+            SUM(f.subtotal) AS subtotal_total,
+            SUM(f.impuestos) AS impuestos_total,
+            SUM(f.descuentos) AS descuentos_total,
+            SUM(f.total) AS ventas_netas,
+            AVG(f.total) AS promedio_venta,
+            MIN(f.total) AS venta_minima,
+            MAX(f.total) AS venta_maxima
+        FROM factura f
+        WHERE f.fecha_emision BETWEEN @fecha_inicio AND @fecha_fin
+        GROUP BY f.fecha_emision
+        ORDER BY f.fecha_emision DESC;
+    END
+    ELSE IF @agrupacion = 'SEMANA'
+    BEGIN
+        SELECT 
+            YEAR(f.fecha_emision) AS año,
+            DATEPART(WEEK, f.fecha_emision) AS semana,
+            MIN(f.fecha_emision) AS fecha_inicio_semana,
+            MAX(f.fecha_emision) AS fecha_fin_semana,
+            COUNT(*) AS total_facturas,
+            COUNT(CASE WHEN f.estado = 'Pagada' THEN 1 END) AS facturas_pagadas,
+            COUNT(CASE WHEN f.estado = 'Pendiente' THEN 1 END) AS facturas_pendientes,
+            SUM(f.subtotal) AS subtotal_total,
+            SUM(f.impuestos) AS impuestos_total,
+            SUM(f.descuentos) AS descuentos_total,
+            SUM(f.total) AS ventas_netas,
+            AVG(f.total) AS promedio_venta
+        FROM factura f
+        WHERE f.fecha_emision BETWEEN @fecha_inicio AND @fecha_fin
+        GROUP BY YEAR(f.fecha_emision), DATEPART(WEEK, f.fecha_emision)
+        ORDER BY año DESC, semana DESC;
+    END
+    ELSE IF @agrupacion = 'MES'
+    BEGIN
+        SELECT 
+            YEAR(f.fecha_emision) AS año,
+            MONTH(f.fecha_emision) AS mes,
+            DATENAME(MONTH, f.fecha_emision) AS nombre_mes,
+            COUNT(*) AS total_facturas,
+            COUNT(CASE WHEN f.estado = 'Pagada' THEN 1 END) AS facturas_pagadas,
+            COUNT(CASE WHEN f.estado = 'Pendiente' THEN 1 END) AS facturas_pendientes,
+            SUM(f.subtotal) AS subtotal_total,
+            SUM(f.impuestos) AS impuestos_total,
+            SUM(f.descuentos) AS descuentos_total,
+            SUM(f.total) AS ventas_netas,
+            AVG(f.total) AS promedio_venta
+        FROM factura f
+        WHERE f.fecha_emision BETWEEN @fecha_inicio AND @fecha_fin
+        GROUP BY YEAR(f.fecha_emision), MONTH(f.fecha_emision), DATENAME(MONTH, f.fecha_emision)
+        ORDER BY año DESC, mes DESC;
+    END
+    ELSE IF @agrupacion = 'AÑO'
+    BEGIN
+        SELECT 
+            YEAR(f.fecha_emision) AS año,
+            COUNT(*) AS total_facturas,
+            COUNT(CASE WHEN f.estado = 'Pagada' THEN 1 END) AS facturas_pagadas,
+            COUNT(CASE WHEN f.estado = 'Pendiente' THEN 1 END) AS facturas_pendientes,
+            SUM(f.subtotal) AS subtotal_total,
+            SUM(f.impuestos) AS impuestos_total,
+            SUM(f.descuentos) AS descuentos_total,
+            SUM(f.total) AS ventas_netas,
+            AVG(f.total) AS promedio_venta
+        FROM factura f
+        WHERE f.fecha_emision BETWEEN @fecha_inicio AND @fecha_fin
+        GROUP BY YEAR(f.fecha_emision)
+        ORDER BY año DESC;
+    END
+END;
+GO
+
+-- SP_ReporteVentasDetalle: Detalle completo de ventas (productos y servicios)
+CREATE OR ALTER PROCEDURE SP_ReporteVentasDetalle
+    @fecha_inicio DATE,
+    @fecha_fin DATE,
+    @factura_id INT = NULL -- NULL = todas las facturas del rango
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    -- Detalle de productos vendidos
+    SELECT 
+        'PRODUCTO' AS tipo_item,
+        f.id AS factura_id,
+        f.numero_factura,
+        f.fecha_emision,
+        p.nombre_mostrar AS cliente,
+        prod.codigo AS codigo_item,
+        prod.nombre AS nombre_item,
+        cat.nombre AS categoria,
+        dp.cantidad,
+        dp.precio_unitario,
+        dp.descuento_unitario,
+        dp.subtotal,
+        dp.lote,
+        dp.fecha_vencimiento_producto,
+        f.estado AS estado_factura
+    FROM factura f
+    INNER JOIN VW_PersonasCompletas p ON f.persona_id = p.id
+    INNER JOIN detalle_productos dp ON f.id = dp.factura_id
+    INNER JOIN producto prod ON dp.producto_id = prod.id
+    INNER JOIN categoria cat ON prod.categoria_id = cat.id
+    WHERE f.fecha_emision BETWEEN @fecha_inicio AND @fecha_fin
+        AND (@factura_id IS NULL OR f.id = @factura_id)
+    
+    UNION ALL
+    
+    -- Detalle de servicios prestados
+    SELECT 
+        'SERVICIO' AS tipo_item,
+        f.id AS factura_id,
+        f.numero_factura,
+        f.fecha_emision,
+        p.nombre_mostrar AS cliente,
+        diag.codigo AS codigo_item,
+        diag.nombre AS nombre_item,
+        diag.categoria_diagnostico AS categoria,
+        ds.cantidad,
+        ds.precio_unitario,
+        ds.descuento_unitario,
+        ds.subtotal,
+        NULL AS lote,
+        NULL AS fecha_vencimiento_producto,
+        f.estado AS estado_factura
+    FROM factura f
+    INNER JOIN VW_PersonasCompletas p ON f.persona_id = p.id
+    INNER JOIN detalle_servicios ds ON f.id = ds.factura_id
+    INNER JOIN diagnostico diag ON ds.diagnostico_id = diag.id
+    WHERE f.fecha_emision BETWEEN @fecha_inicio AND @fecha_fin
+        AND (@factura_id IS NULL OR f.id = @factura_id)
+    
+    ORDER BY fecha_emision DESC, factura_id, tipo_item;
+END;
+GO
+
+-- SP_ReporteVentasPeriodosPredefinidos: Reportes para períodos predefinidos comunes
+CREATE OR ALTER PROCEDURE SP_ReporteVentasPeriodosPredefinidos
+    @periodo VARCHAR(20) -- 'HOY', 'AYER', 'ULTIMOS_7_DIAS', 'MES_ACTUAL', 'ULTIMOS_30_DIAS', 'AÑO_ACTUAL'
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    DECLARE @fecha_inicio DATE;
+    DECLARE @fecha_fin DATE;
+    
+    -- Calcular fechas según período
+    IF @periodo = 'HOY'
+    BEGIN
+        SET @fecha_inicio = CAST(GETDATE() AS DATE);
+        SET @fecha_fin = CAST(GETDATE() AS DATE);
+    END
+    ELSE IF @periodo = 'AYER'
+    BEGIN
+        SET @fecha_inicio = CAST(DATEADD(DAY, -1, GETDATE()) AS DATE);
+        SET @fecha_fin = CAST(DATEADD(DAY, -1, GETDATE()) AS DATE);
+    END
+    ELSE IF @periodo = 'ULTIMOS_7_DIAS'
+    BEGIN
+        SET @fecha_inicio = CAST(DATEADD(DAY, -6, GETDATE()) AS DATE);
+        SET @fecha_fin = CAST(GETDATE() AS DATE);
+    END
+    ELSE IF @periodo = 'MES_ACTUAL'
+    BEGIN
+        SET @fecha_inicio = DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1);
+        SET @fecha_fin = CAST(GETDATE() AS DATE);
+    END
+    ELSE IF @periodo = 'ULTIMOS_30_DIAS'
+    BEGIN
+        SET @fecha_inicio = CAST(DATEADD(DAY, -29, GETDATE()) AS DATE);
+        SET @fecha_fin = CAST(GETDATE() AS DATE);
+    END
+    ELSE IF @periodo = 'AÑO_ACTUAL'
+    BEGIN
+        SET @fecha_inicio = DATEFROMPARTS(YEAR(GETDATE()), 1, 1);
+        SET @fecha_fin = CAST(GETDATE() AS DATE);
+    END
+    ELSE
+    BEGIN
+        RAISERROR('Período no válido. Use: HOY, AYER, ULTIMOS_7_DIAS, MES_ACTUAL, ULTIMOS_30_DIAS, AÑO_ACTUAL', 16, 1);
+        RETURN;
+    END
+    
+    -- Ejecutar reporte con las fechas calculadas
+    EXEC SP_ReporteVentasPorRango @fecha_inicio, @fecha_fin;
+END;
+GO
+
+-- SP_ReporteVentasTopClientes: Top clientes por ventas en un período
+CREATE OR ALTER PROCEDURE SP_ReporteVentasTopClientes
+    @fecha_inicio DATE,
+    @fecha_fin DATE,
+    @top_count INT = 10
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    SELECT TOP (@top_count)
+        p.id AS cliente_id,
+        p.nombre_mostrar AS cliente,
+        p.tipo AS tipo_cliente,
+        p.email,
+        p.telefono,
+        COUNT(f.id) AS total_facturas,
+        SUM(f.total) AS total_compras,
+        AVG(f.total) AS promedio_compra,
+        MAX(f.fecha_emision) AS ultima_compra,
+        MIN(f.fecha_emision) AS primera_compra_periodo
+    FROM factura f
+    INNER JOIN VW_PersonasCompletas p ON f.persona_id = p.id
+    WHERE f.fecha_emision BETWEEN @fecha_inicio AND @fecha_fin
+        AND f.estado IN ('Pagada', 'Pendiente')
+    GROUP BY p.id, p.nombre_mostrar, p.tipo, p.email, p.telefono
+    ORDER BY total_compras DESC;
+END;
+GO
+
+-- SP_ReporteVentasProductosTop: Productos más vendidos en un período
+CREATE OR ALTER PROCEDURE SP_ReporteVentasProductosTop
+    @fecha_inicio DATE,
+    @fecha_fin DATE,
+    @top_count INT = 10
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    SELECT TOP (@top_count)
+        prod.id AS producto_id,
+        prod.codigo,
+        prod.nombre AS producto,
+        cat.nombre AS categoria,
+        SUM(dp.cantidad) AS total_vendido,
+        COUNT(DISTINCT f.id) AS facturas_involucradas,
+        SUM(dp.subtotal) AS ingresos_generados,
+        AVG(dp.precio_unitario) AS precio_promedio,
+        prod.stock_actual,
+        prod.stock_minimo,
+        CASE 
+            WHEN prod.stock_actual <= prod.stock_minimo THEN 'STOCK BAJO'
+            WHEN prod.stock_actual <= (prod.stock_minimo * 2) THEN 'STOCK MEDIO'
+            ELSE 'STOCK OK'
+        END AS estado_stock
+    FROM detalle_productos dp
+    INNER JOIN factura f ON dp.factura_id = f.id
+    INNER JOIN producto prod ON dp.producto_id = prod.id
+    INNER JOIN categoria cat ON prod.categoria_id = cat.id
+    WHERE f.fecha_emision BETWEEN @fecha_inicio AND @fecha_fin
+        AND f.estado IN ('Pagada', 'Pendiente')
+    GROUP BY prod.id, prod.codigo, prod.nombre, cat.nombre, 
+             prod.stock_actual, prod.stock_minimo
+    ORDER BY total_vendido DESC;
+END;
+GO
+
+-- SP_ReporteVentasServiciosTop: Servicios más prestados en un período
+CREATE OR ALTER PROCEDURE SP_ReporteVentasServiciosTop
+    @fecha_inicio DATE,
+    @fecha_fin DATE,
+    @top_count INT = 10
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    SELECT TOP (@top_count)
+        diag.id AS servicio_id,
+        diag.codigo,
+        diag.nombre AS servicio,
+        diag.categoria_diagnostico AS categoria,
+        SUM(ds.cantidad) AS total_prestado,
+        COUNT(DISTINCT f.id) AS facturas_involucradas,
+        SUM(ds.subtotal) AS ingresos_generados,
+        AVG(ds.precio_unitario) AS precio_promedio,
+        diag.precio_base,
+        COUNT(DISTINCT ds.veterinario_id) AS veterinarios_involucrados
+    FROM detalle_servicios ds
+    INNER JOIN factura f ON ds.factura_id = f.id
+    INNER JOIN diagnostico diag ON ds.diagnostico_id = diag.id
+    WHERE f.fecha_emision BETWEEN @fecha_inicio AND @fecha_fin
+        AND f.estado IN ('Pagada', 'Pendiente')
+    GROUP BY diag.id, diag.codigo, diag.nombre, diag.categoria_diagnostico, diag.precio_base
+    ORDER BY total_prestado DESC;
+END;
+GO
+
+-- SP_ReporteVentasEstadisticasGenerales: Estadísticas generales del sistema de ventas
+CREATE OR ALTER PROCEDURE SP_ReporteVentasEstadisticasGenerales
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    -- Estadísticas generales
+    SELECT 
+        'ESTADISTICAS_GENERALES' AS tipo_estadistica,
+        COUNT(*) AS total_facturas,
+        COUNT(CASE WHEN estado = 'Pagada' THEN 1 END) AS facturas_pagadas,
+        COUNT(CASE WHEN estado = 'Pendiente' THEN 1 END) AS facturas_pendientes,
+        COUNT(CASE WHEN estado = 'Cancelada' THEN 1 END) AS facturas_canceladas,
+        SUM(total) AS ingresos_totales,
+        AVG(total) AS promedio_venta,
+        MIN(fecha_emision) AS primera_venta,
+        MAX(fecha_emision) AS ultima_venta
+    FROM factura
+    
+    UNION ALL
+    
+    -- Estadísticas del mes actual
+    SELECT 
+        'MES_ACTUAL' AS tipo_estadistica,
+        COUNT(*) AS total_facturas,
+        COUNT(CASE WHEN estado = 'Pagada' THEN 1 END) AS facturas_pagadas,
+        COUNT(CASE WHEN estado = 'Pendiente' THEN 1 END) AS facturas_pendientes,
+        COUNT(CASE WHEN estado = 'Cancelada' THEN 1 END) AS facturas_canceladas,
+        SUM(total) AS ingresos_totales,
+        AVG(total) AS promedio_venta,
+        MIN(fecha_emision) AS primera_venta,
+        MAX(fecha_emision) AS ultima_venta
+    FROM factura
+    WHERE YEAR(fecha_emision) = YEAR(GETDATE()) 
+        AND MONTH(fecha_emision) = MONTH(GETDATE())
+    
+    UNION ALL
+    
+    -- Estadísticas del año actual
+    SELECT 
+        'AÑO_ACTUAL' AS tipo_estadistica,
+        COUNT(*) AS total_facturas,
+        COUNT(CASE WHEN estado = 'Pagada' THEN 1 END) AS facturas_pagadas,
+        COUNT(CASE WHEN estado = 'Pendiente' THEN 1 END) AS facturas_pendientes,
+        COUNT(CASE WHEN estado = 'Cancelada' THEN 1 END) AS facturas_canceladas,
+        SUM(total) AS ingresos_totales,
+        AVG(total) AS promedio_venta,
+        MIN(fecha_emision) AS primera_venta,
+        MAX(fecha_emision) AS ultima_venta
+    FROM factura
+    WHERE YEAR(fecha_emision) = YEAR(GETDATE());
+END;
+GO
+
+-- ============================================
 -- DATOS INICIALES
 -- ============================================
 
@@ -1688,4 +2103,14 @@ GO
 PRINT 'Base de datos Sistema_Veterinario creada exitosamente con usuario administrador por defecto';
 PRINT 'Usuario: admin';
 PRINT 'Contrasena: admin123';
+PRINT '';
+PRINT 'Procedimientos almacenados para reportes de ventas agregados:';
+PRINT '- SP_ReporteVentasPorRango';
+PRINT '- SP_ReporteVentasResumen';
+PRINT '- SP_ReporteVentasDetalle';
+PRINT '- SP_ReporteVentasPeriodosPredefinidos';
+PRINT '- SP_ReporteVentasTopClientes';
+PRINT '- SP_ReporteVentasProductosTop';
+PRINT '- SP_ReporteVentasServiciosTop';
+PRINT '- SP_ReporteVentasEstadisticasGenerales';
 GO

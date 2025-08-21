@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace SistemVeterinario
 {
     partial class Dashboard

@@ -91,18 +91,48 @@ namespace SistemVeterinario
                 switch (module.ToLower())
                 {
                     case "cliente":
-                        MessageBox.Show("Módulo de Clientes - Próximamente", "Información",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        try
+                        {
+                            using (Cliente frmCliente = new Cliente())
+                            {
+                                frmCliente.ShowDialog(this);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al abrir el módulo de clientes: {ex.Message}", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         break;
 
                     case "mascota":
-                        MessageBox.Show("Módulo de Mascotas - Próximamente", "Información",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        try
+                        {
+                            using (Mascota frmMascota = new Mascota())
+                            {
+                                frmMascota.ShowDialog(this);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al abrir el módulo de mascotas: {ex.Message}", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         break;
 
                     case "producto":
-                        MessageBox.Show("Módulo de Productos - Próximamente", "Información",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        try
+                        {
+                            using (Producto frmProducto = new Producto())
+                            {
+                                frmProducto.ShowDialog(this);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al abrir el módulo de productos: {ex.Message}", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         break;
 
                     case "venta":
@@ -172,37 +202,82 @@ namespace SistemVeterinario
 
         private void BtnClientes_Click(object? sender, EventArgs e)
         {
-            // proximamente modulo en desarrollo
-            MessageBox.Show("Módulo de Clientes - Próximamente", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                using (Cliente frmCliente = new Cliente())
+                {
+                    frmCliente.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de clientes: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnMascotas_Click(object? sender, EventArgs e)
         {
-            // proximamente modulo en desarrollo
-            MessageBox.Show("Módulo de Mascotas - Próximamente", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                using (Mascota frmMascota = new Mascota())
+                {
+                    frmMascota.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de mascotas: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnVentas_Click(object? sender, EventArgs e)
         {
-            // TODO: Implementar formulario de ventas
-            MessageBox.Show("Módulo de Ventas - Próximamente", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                using (Venta frmVenta = new Venta())
+                {
+                    frmVenta.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de ventas: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnProductos_Click(object? sender, EventArgs e)
         {
-            // proximamente modulo en desarrollo
-            MessageBox.Show("Módulo de Productos - Próximamente", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                using (Producto frmProducto = new Producto())
+                {
+                    frmProducto.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de productos: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnReportes_Click(object? sender, EventArgs e)
         {
-            // TODO: Implementar formulario de reportes
-            MessageBox.Show("Módulo de Reportes - Próximamente", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                using (Reportes frmReportes = new Reportes())
+                {
+                    frmReportes.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de reportes: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnConfiguracion_Click(object? sender, EventArgs e)
