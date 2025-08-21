@@ -1,5 +1,7 @@
 
 
+using SistemVeterinario.Forms;
+
 namespace SistemVeterinario
 {
     /// <summary>
@@ -104,7 +106,14 @@ namespace SistemVeterinario
                     control.Dispose();
                 }
 
-             
+                // Crear e insertar el módulo de personas
+                PersonasModule personasModule = new PersonasModule
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                panelContent.Controls.Add(personasModule);
+                personasModule.BringToFront();
             }
             catch (Exception ex)
             {
