@@ -86,7 +86,7 @@ namespace CapaNegocio
         public static bool ValidarLogin(string nombreUsuario, string contrasena)
         {
             DataTable resultado = Login(nombreUsuario, contrasena);
-            return resultado.Rows.Count > 0;
+            return resultado != null && resultado.Rows.Count > 0;
         }
     }
 }

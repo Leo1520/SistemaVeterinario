@@ -103,51 +103,8 @@ namespace SistemVeterinario
                     return;
                 }
 
-                // Verificar conexión al servidor SQL primero
-                if (!DbConnection.TestServerConnection())
-                {
-                    MessageBox.Show("No se puede conectar al servidor SQL Server.\n\n" +
-                        "Verifique que:\n" +
-                        "• SQL Server Express esté ejecutándose\n" +
-                        "• Los servicios de SQL Server estén activos\n" +
-                        "• Windows Authentication esté habilitado", 
-                        "Error de Conexión al Servidor", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Verificar/crear base de datos
-                if (!DbConnection.TestConnection())
-                {
-                    var result = MessageBox.Show("La base de datos 'Sistema_Veterinario' no existe.\n\n" +
-                        "¿Desea crearla automáticamente?\n\n" +
-                        "Esto ejecutará el script de inicialización.", 
-                        "Base de Datos No Encontrada", 
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    
-                    if (result == DialogResult.Yes)
-                    {
-                        if (DbConnection.CreateDatabaseIfNotExists())
-                        {
-                            MessageBox.Show("Base de datos creada exitosamente.\n\n" +
-                                "IMPORTANTE: Debe ejecutar el script 'script_logi.sql' para crear las tablas y datos iniciales.\n\n" +
-                                "Ubicación del script: CapaDatos\\Sql\\migrations\\script_logi.sql", 
-                                "Base de Datos Creada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se pudo crear la base de datos.\n\n" +
-                                "Cree manualmente la base de datos 'Sistema_Veterinario' en SQL Server Express.", 
-                                "Error Creando Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-
-                // Realizar autenticación
+                
+    // Realizar autenticación
                 bool loginExitoso = NUsuario.ValidarLogin(usuario, contrasena);
 
                 if (loginExitoso)
