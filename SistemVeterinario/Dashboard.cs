@@ -172,9 +172,32 @@ namespace SistemVeterinario
 
         private void BtnClientes_Click(object? sender, EventArgs e)
         {
-            // proximamente modulo en desarrollo
-            MessageBox.Show("Módulo de Clientes - Próximamente", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                // Ocultar elementos del diseñador
+                OcultarElementosDisenador();
+
+                // Remover cualquier UserControl existente
+                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+                foreach (var control in userControls)
+                {
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
+                }
+
+                // Crear y mostrar el módulo de personas
+                var personaSearch = new Navigation.PersonaSearch();
+                personaSearch.Dock = DockStyle.Fill;
+                personaSearch.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                
+                panelContent.Controls.Add(personaSearch);
+                personaSearch.BringToFront();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de Clientes: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnMascotas_Click(object? sender, EventArgs e)
