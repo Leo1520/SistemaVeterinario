@@ -118,6 +118,9 @@ namespace SistemVeterinario.Forms
             // cmbTipoPersona
             // 
             cmbTipoPersona.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTipoPersona.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            cmbTipoPersona.ForeColor = Color.Black;
+            cmbTipoPersona.BackColor = Color.White;
             cmbTipoPersona.Location = new Point(10, 45);
             cmbTipoPersona.Name = "cmbTipoPersona";
             cmbTipoPersona.Size = new Size(150, 23);
@@ -126,6 +129,8 @@ namespace SistemVeterinario.Forms
             // lblTipoPersona
             // 
             lblTipoPersona.AutoSize = true;
+            lblTipoPersona.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTipoPersona.ForeColor = Color.Black;
             lblTipoPersona.Location = new Point(10, 27);
             lblTipoPersona.Name = "lblTipoPersona";
             lblTipoPersona.Size = new Size(91, 15);
@@ -147,6 +152,7 @@ namespace SistemVeterinario.Forms
             // 
             lblTipoPersonaForm.AutoSize = true;
             lblTipoPersonaForm.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTipoPersonaForm.ForeColor = Color.DarkBlue;
             lblTipoPersonaForm.Location = new Point(15, 65);
             lblTipoPersonaForm.Name = "lblTipoPersonaForm";
             lblTipoPersonaForm.Size = new Size(106, 15);
@@ -156,6 +162,9 @@ namespace SistemVeterinario.Forms
             // cmbTipoPersonaForm
             // 
             cmbTipoPersonaForm.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTipoPersonaForm.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            cmbTipoPersonaForm.ForeColor = Color.Black;
+            cmbTipoPersonaForm.BackColor = Color.White;
             cmbTipoPersonaForm.Location = new Point(130, 62);
             cmbTipoPersonaForm.Name = "cmbTipoPersonaForm";
             cmbTipoPersonaForm.Size = new Size(150, 23);
@@ -175,6 +184,7 @@ namespace SistemVeterinario.Forms
             grpPersonaFisica.Controls.Add(txtCi);
             grpPersonaFisica.Controls.Add(lblCi);
             grpPersonaFisica.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            grpPersonaFisica.ForeColor = Color.DarkBlue;
             grpPersonaFisica.Location = new Point(15, 100);
             grpPersonaFisica.Name = "grpPersonaFisica";
             grpPersonaFisica.Size = new Size(960, 120);
@@ -186,6 +196,7 @@ namespace SistemVeterinario.Forms
             // 
             lblCi.AutoSize = true;
             lblCi.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCi.ForeColor = Color.Black;
             lblCi.Location = new Point(15, 25);
             lblCi.Name = "lblCi";
             lblCi.Size = new Size(24, 15);
@@ -195,6 +206,8 @@ namespace SistemVeterinario.Forms
             // txtCi
             // 
             txtCi.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            txtCi.ForeColor = Color.Black;
+            txtCi.BackColor = Color.White;
             txtCi.Location = new Point(15, 45);
             txtCi.MaxLength = 15;
             txtCi.Name = "txtCi";
@@ -204,8 +217,8 @@ namespace SistemVeterinario.Forms
             // lblNombre
             // 
             lblNombre.AutoSize = true;
-            lblNombre.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            lblNombre.ForeColor = Color.Red;
+            lblNombre.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblNombre.ForeColor = Color.DarkRed;
             lblNombre.Location = new Point(180, 25);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(59, 15);
@@ -215,6 +228,8 @@ namespace SistemVeterinario.Forms
             // txtNombre
             // 
             txtNombre.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            txtNombre.ForeColor = Color.Black;
+            txtNombre.BackColor = Color.White;
             txtNombre.Location = new Point(180, 45);
             txtNombre.MaxLength = 100;
             txtNombre.Name = "txtNombre";
@@ -224,8 +239,8 @@ namespace SistemVeterinario.Forms
             // lblApellido
             // 
             lblApellido.AutoSize = true;
-            lblApellido.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            lblApellido.ForeColor = Color.Red;
+            lblApellido.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblApellido.ForeColor = Color.DarkRed;
             lblApellido.Location = new Point(395, 25);
             lblApellido.Name = "lblApellido";
             lblApellido.Size = new Size(60, 15);
@@ -236,6 +251,8 @@ namespace SistemVeterinario.Forms
             // 
             txtApellido.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtApellido.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            txtApellido.ForeColor = Color.Black;
+            txtApellido.BackColor = Color.White;
             txtApellido.Location = new Point(395, 45);
             txtApellido.MaxLength = 100;
             txtApellido.Name = "txtApellido";
@@ -246,6 +263,7 @@ namespace SistemVeterinario.Forms
             // 
             lblFechaNacimiento.AutoSize = true;
             lblFechaNacimiento.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblFechaNacimiento.ForeColor = Color.Black;
             lblFechaNacimiento.Location = new Point(15, 80);
             lblFechaNacimiento.Name = "lblFechaNacimiento";
             lblFechaNacimiento.Size = new Size(119, 15);
@@ -265,6 +283,7 @@ namespace SistemVeterinario.Forms
             // 
             lblGenero.AutoSize = true;
             lblGenero.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblGenero.ForeColor = Color.Black;
             lblGenero.Location = new Point(280, 80);
             lblGenero.Name = "lblGenero";
             lblGenero.Size = new Size(48, 15);
@@ -275,6 +294,8 @@ namespace SistemVeterinario.Forms
             // 
             cmbGenero.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbGenero.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            cmbGenero.ForeColor = Color.Black;
+            cmbGenero.BackColor = Color.White;
             cmbGenero.Location = new Point(335, 77);
             cmbGenero.Name = "cmbGenero";
             cmbGenero.Size = new Size(80, 23);
@@ -292,6 +313,7 @@ namespace SistemVeterinario.Forms
             grpPersonaJuridica.Controls.Add(txtRazonSocial);
             grpPersonaJuridica.Controls.Add(lblRazonSocial);
             grpPersonaJuridica.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            grpPersonaJuridica.ForeColor = Color.DarkGreen;
             grpPersonaJuridica.Location = new Point(15, 100);
             grpPersonaJuridica.Name = "grpPersonaJuridica";
             grpPersonaJuridica.Size = new Size(960, 120);
@@ -303,8 +325,8 @@ namespace SistemVeterinario.Forms
             // lblRazonSocial
             // 
             lblRazonSocial.AutoSize = true;
-            lblRazonSocial.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            lblRazonSocial.ForeColor = Color.Red;
+            lblRazonSocial.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblRazonSocial.ForeColor = Color.DarkRed;
             lblRazonSocial.Location = new Point(15, 25);
             lblRazonSocial.Name = "lblRazonSocial";
             lblRazonSocial.Size = new Size(86, 15);
@@ -326,6 +348,7 @@ namespace SistemVeterinario.Forms
             lblNit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblNit.AutoSize = true;
             lblNit.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNit.ForeColor = Color.Black;
             lblNit.Location = new Point(435, 25);
             lblNit.Name = "lblNit";
             lblNit.Size = new Size(28, 15);
@@ -346,6 +369,7 @@ namespace SistemVeterinario.Forms
             // 
             lblEncargadoNombre.AutoSize = true;
             lblEncargadoNombre.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblEncargadoNombre.ForeColor = Color.Black;
             lblEncargadoNombre.Location = new Point(15, 80);
             lblEncargadoNombre.Name = "lblEncargadoNombre";
             lblEncargadoNombre.Size = new Size(128, 15);
@@ -365,6 +389,7 @@ namespace SistemVeterinario.Forms
             // 
             lblEncargadoCargo.AutoSize = true;
             lblEncargadoCargo.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblEncargadoCargo.ForeColor = Color.Black;
             lblEncargadoCargo.Location = new Point(370, 80);
             lblEncargadoCargo.Name = "lblEncargadoCargo";
             lblEncargadoCargo.Size = new Size(113, 15);
@@ -391,6 +416,7 @@ namespace SistemVeterinario.Forms
             grpDatosComunes.Controls.Add(txtEmail);
             grpDatosComunes.Controls.Add(lblEmail);
             grpDatosComunes.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            grpDatosComunes.ForeColor = Color.DarkSlateGray;
             grpDatosComunes.Location = new Point(15, 235);
             grpDatosComunes.Name = "grpDatosComunes";
             grpDatosComunes.Size = new Size(960, 150);
@@ -402,6 +428,7 @@ namespace SistemVeterinario.Forms
             // 
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblEmail.ForeColor = Color.Black;
             lblEmail.Location = new Point(15, 25);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(39, 15);
@@ -412,6 +439,8 @@ namespace SistemVeterinario.Forms
             // 
             txtEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtEmail.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            txtEmail.ForeColor = Color.Black;
+            txtEmail.BackColor = Color.White;
             txtEmail.Location = new Point(15, 45);
             txtEmail.MaxLength = 100;
             txtEmail.Name = "txtEmail";
@@ -422,6 +451,7 @@ namespace SistemVeterinario.Forms
             // 
             lblDireccion.AutoSize = true;
             lblDireccion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblDireccion.ForeColor = Color.Black;
             lblDireccion.Location = new Point(15, 80);
             lblDireccion.Name = "lblDireccion";
             lblDireccion.Size = new Size(60, 15);
@@ -432,6 +462,8 @@ namespace SistemVeterinario.Forms
             // 
             txtDireccion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtDireccion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            txtDireccion.ForeColor = Color.Black;
+            txtDireccion.BackColor = Color.White;
             txtDireccion.Location = new Point(15, 100);
             txtDireccion.MaxLength = 255;
             txtDireccion.Multiline = true;
@@ -445,6 +477,7 @@ namespace SistemVeterinario.Forms
             lblTelefono.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTelefono.AutoSize = true;
             lblTelefono.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTelefono.ForeColor = Color.Black;
             lblTelefono.Location = new Point(650, 80);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(55, 15);
@@ -455,6 +488,8 @@ namespace SistemVeterinario.Forms
             // 
             txtTelefono.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtTelefono.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            txtTelefono.ForeColor = Color.Black;
+            txtTelefono.BackColor = Color.White;
             txtTelefono.Location = new Point(650, 100);
             txtTelefono.MaxLength = 15;
             txtTelefono.Name = "txtTelefono";

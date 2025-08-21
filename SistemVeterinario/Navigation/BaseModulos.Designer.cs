@@ -229,6 +229,8 @@ namespace SistemVeterinario.Navigation
             // lblModo
             // 
             lblModo.AutoSize = true;
+            lblModo.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblModo.ForeColor = Color.Black;
             lblModo.Location = new Point(10, 15);
             lblModo.Name = "lblModo";
             lblModo.Size = new Size(42, 15);
@@ -249,6 +251,8 @@ namespace SistemVeterinario.Navigation
             // lblId
             // 
             lblId.AutoSize = true;
+            lblId.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblId.ForeColor = Color.Black;
             lblId.Location = new Point(210, 15);
             lblId.Name = "lblId";
             lblId.Size = new Size(21, 15);

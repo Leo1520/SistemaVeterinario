@@ -251,7 +251,7 @@ namespace SistemVeterinario.Forms
                         if (row["fecha_nacimiento"] != DBNull.Value && row["fecha_nacimiento"] != null)
                             dtpFechaNacimiento.Value = Convert.ToDateTime(row["fecha_nacimiento"]);
 
-                        string genero = row["genero"]?.ToString();
+                        string? genero = row["genero"]?.ToString();
                         if (!string.IsNullOrEmpty(genero))
                         {
                             cmbGenero.SelectedItem = genero;
@@ -334,8 +334,8 @@ namespace SistemVeterinario.Forms
                 grpPersonaJuridica.Visible = false;
 
                 // Hacer obligatorios los campos de persona física
-                lblNombre.ForeColor = Color.Red;
-                lblApellido.ForeColor = Color.Red;
+                lblNombre.ForeColor = Color.DarkRed;
+                lblApellido.ForeColor = Color.DarkRed;
             }
             else
             {
@@ -344,7 +344,7 @@ namespace SistemVeterinario.Forms
                 grpPersonaJuridica.Visible = true;
 
                 // Hacer obligatorio el campo de razón social
-                lblRazonSocial.ForeColor = Color.Red;
+                lblRazonSocial.ForeColor = Color.DarkRed;
             }
 
             // Reajustar el layout del panel
