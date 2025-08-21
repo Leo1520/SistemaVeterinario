@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace SistemVeterinario.Navigation
 {
-    public partial class SearchBase : UserControl
+    public partial class BaseModulos : UserControl
     {
         #region Propiedades
 
@@ -20,7 +20,7 @@ namespace SistemVeterinario.Navigation
 
         #region Constructor
 
-        public SearchBase()
+        public BaseModulos()
         {
             InitializeComponent();
             InicializarControlBase();
