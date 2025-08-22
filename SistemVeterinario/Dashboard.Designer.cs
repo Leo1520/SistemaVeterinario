@@ -427,6 +427,7 @@ namespace SistemVeterinario
             // 
             // pictureBox3
             // 
+            pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox3.Image = Properties.Resources.LOGO;
             pictureBox3.Location = new Point(435, 107);
             pictureBox3.Name = "pictureBox3";

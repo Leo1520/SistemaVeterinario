@@ -1,5 +1,7 @@
 
 
+using SistemVeterinario.Forms;
+
 namespace SistemVeterinario
 {
     /// <summary>
@@ -7,7 +9,6 @@ namespace SistemVeterinario
     /// </summary>
     public partial class Dashboard : Form
     {
-        private NavigationManager? _navigationManager;
 
         public Dashboard()
         {
@@ -41,12 +42,6 @@ namespace SistemVeterinario
         {
             try
             {
-                // NO limpiar el panel - mantener el diseño original del Visual Studio Designer
-
-                // Crear el navegador
-                _navigationManager = new NavigationManager(panelContent);
-                _navigationManager.NavigationRequested += OnNavigationRequested;
-
                 // La pantalla de bienvenida ya está diseñada en el Visual Studio Designer
                 // Solo asegurarse de que esté visible
                 MostrarPantallaInicial();
@@ -82,79 +77,6 @@ namespace SistemVeterinario
         }
 
         /// <summary>
-        /// Maneja las solicitudes de navegación entre vistas
-        /// </summary>
-        private void OnNavigationRequested(string module, ViewType viewType, object? data)
-        {
-            try
-            {
-                switch (module.ToLower())
-                {
-                    case "cliente":
-                        try
-                        {
-                            using (Cliente frmCliente = new Cliente())
-                            {
-                                frmCliente.ShowDialog(this);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error al abrir el módulo de clientes: {ex.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        break;
-
-                    case "mascota":
-                        try
-                        {
-                            using (Mascota frmMascota = new Mascota())
-                            {
-                                frmMascota.ShowDialog(this);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error al abrir el módulo de mascotas: {ex.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        break;
-
-                    case "producto":
-                        try
-                        {
-                            using (Producto frmProducto = new Producto())
-                            {
-                                frmProducto.ShowDialog(this);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error al abrir el módulo de productos: {ex.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        break;
-
-                    case "venta":
-                        // TODO: Implementar navegación de ventas
-                        MessageBox.Show("Módulo de Ventas - Próximamente", "Información",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        break;
-
-                    default:
-                        MessageBox.Show($"Módulo '{module}' no implementado", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error en navegación: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
         /// Oculta los elementos del diseñador cuando se navega a un módulo
         /// </summary>
         private void OcultarElementosDisenador()
@@ -168,50 +90,34 @@ namespace SistemVeterinario
             }
         }
 
-        /// <summary>
-        /// Maneja la navegación específica del módulo de Clientes
-        /// </summary>
-        private void ManejarNavegacionCliente(ViewType viewType, object? data)
-        {
-            UserControl? vista = null;
-
-            // Ocultar elementos del diseñador
-            OcultarElementosDisenador();
-
-            switch (viewType)
-            {
-                case ViewType.Index:
-
-                    break;
-
-                case ViewType.Create:
-
-                    break;
-
-                case ViewType.Edit:
-
-                    break;
-            }
-
-            if (vista != null && _navigationManager != null)
-            {
-                _navigationManager.NavigateTo("Cliente", viewType, vista, data);
-            }
-        }
-
 
         private void BtnClientes_Click(object? sender, EventArgs e)
         {
             try
             {
-                using (Cliente frmCliente = new Cliente())
+                // Ocultar elementos del diseñador
+                OcultarElementosDisenador();
+
+                // Remover cualquier UserControl existente
+                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+                foreach (var control in userControls)
                 {
-                    frmCliente.ShowDialog(this);
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
                 }
+
+                // Crear e insertar el módulo de personas
+                PersonasModule personasModule = new PersonasModule
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                panelContent.Controls.Add(personasModule);
+                personasModule.BringToFront();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir el módulo de clientes: {ex.Message}", "Error",
+                MessageBox.Show($"Error al abrir el módulo de Clientes: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -314,44 +220,8 @@ namespace SistemVeterinario
                 }
             }
 
-            // Limpiar recursos de navegación
-            _navigationManager?.Dispose();
-
             base.OnFormClosing(e);
         }
-
-        /// <summary>
-        /// Maneja la navegación específica del módulo de Mascotas
-        /// </summary>
-        private void ManejarNavegacionMascota(ViewType viewType, object? data)
-        {
-            UserControl? vista = null;
-
-            switch (viewType)
-            {
-                case ViewType.Index:
-
-                    break;
-
-                case ViewType.Create:
-
-                    break;
-
-                case ViewType.Edit:
-
-                    break;
-            }
-
-            if (vista != null && _navigationManager != null)
-            {
-                _navigationManager.NavigateTo("Mascota", viewType, vista, data);
-            }
-        }
-
-
-
-
-
-
+               
     }
 }

@@ -103,9 +103,8 @@ namespace SistemVeterinario
                     return;
                 }
 
-                
-    // Realizar autenticación
-                bool loginExitoso = NUsuario.ValidarLogin(usuario, contrasena);
+                // Realizar autenticación en un hilo de fondo
+                bool loginExitoso = await Task.Run(() => NUsuario.ValidarLogin(usuario, contrasena));
 
                 if (loginExitoso)
                 {
