@@ -266,6 +266,14 @@ namespace CapaNegocio
             return new DPersona().BuscarPorTipo(tipoPersona);
         }
 
+        public static DataTable BuscarPorNombre(string nombre)
+        {
+            if (string.IsNullOrWhiteSpace(nombre))
+                return new DataTable("Persona"); // Retorna tabla vacía
+
+            return new DPersona().BuscarPorNombre(nombre);
+        }
+
         #endregion
 
         #region Métodos de Validación

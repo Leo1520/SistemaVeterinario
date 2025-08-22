@@ -392,6 +392,9 @@ namespace CapaDatos
                         adapter.Fill(dtResultado);
                     }
                 }
+                
+                // Agregar columna nombre_completo
+                AgregarColumnaNombreCompleto(dtResultado);
             }
             catch
             {
@@ -419,6 +422,9 @@ namespace CapaDatos
                         adapter.Fill(dtResultado);
                     }
                 }
+                
+                // Agregar columna nombre_completo
+                AgregarColumnaNombreCompleto(dtResultado);
             }
             catch
             {
@@ -446,6 +452,9 @@ namespace CapaDatos
                         adapter.Fill(dtResultado);
                     }
                 }
+                
+                // Agregar columna nombre_completo
+                AgregarColumnaNombreCompleto(dtResultado);
             }
             catch
             {
@@ -473,6 +482,9 @@ namespace CapaDatos
                         adapter.Fill(dtResultado);
                     }
                 }
+                
+                // Agregar columna nombre_completo
+                AgregarColumnaNombreCompleto(dtResultado);
             }
             catch
             {
@@ -592,16 +604,19 @@ namespace CapaDatos
 
             try
             {
-                using (SqlCommand command = new SqlCommand("SP_BuscarPersonaPorNombre", connection))
+                using (SqlCommand command = new SqlCommand("SP_BuscarPersonaPorTexto", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@nombre", nombre ?? "");
+                    command.Parameters.AddWithValue("@textoBuscar", nombre ?? "");
                     
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
                         adapter.Fill(dtResultado);
                     }
                 }
+                
+                // Agregar columna nombre_completo
+                AgregarColumnaNombreCompleto(dtResultado);
             }
             catch
             {
@@ -609,6 +624,40 @@ namespace CapaDatos
             }
 
             return dtResultado;
+        }
+
+        // Método auxiliar para agregar columna nombre_completo
+        private void AgregarColumnaNombreCompleto(DataTable dt)
+        {
+            if (dt == null || dt.Rows.Count == 0) return;
+
+            // Agregar la columna si no existe
+            if (!dt.Columns.Contains("nombre_completo"))
+            {
+                dt.Columns.Add("nombre_completo", typeof(string));
+            }
+
+            // Llenar la columna para cada fila
+            foreach (DataRow row in dt.Rows)
+            {
+                string tipo = row["tipo"]?.ToString() ?? "";
+                
+                if (tipo == "Física")
+                {
+                    string nombre = row["nombre"]?.ToString() ?? "";
+                    string apellido = row["apellido"]?.ToString() ?? "";
+                    row["nombre_completo"] = $"{nombre} {apellido}".Trim();
+                }
+                else if (tipo == "Jurídica")
+                {
+                    string razonSocial = row["razon_social"]?.ToString() ?? "";
+                    row["nombre_completo"] = razonSocial;
+                }
+                else
+                {
+                    row["nombre_completo"] = "Sin nombre";
+                }
+            }
         }
     }
 }

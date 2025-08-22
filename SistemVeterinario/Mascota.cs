@@ -478,7 +478,7 @@ namespace SistemVeterinario
                 if (personas != null && personas.Rows.Count > 0)
                 {
                     var propietario = personas.AsEnumerable()
-                        .FirstOrDefault(row => row.Field<string>("nombre_mostrar") == nombrePropietario);
+                        .FirstOrDefault(row => row.Field<string>("nombre_completo") == nombrePropietario);
                     
                     if (propietario != null)
                     {
@@ -1007,7 +1007,7 @@ namespace SistemVeterinario
                         column.Visible = false;
                     }
                     dgvClientes.Columns["id"].Visible = true;
-                    dgvClientes.Columns["nombre_mostrar"].Visible = true;
+                    dgvClientes.Columns["nombre_completo"].Visible = true;
                     dgvClientes.Columns["tipo"].Visible = true;
                     dgvClientes.Columns["telefono"].Visible = true;
                 }
