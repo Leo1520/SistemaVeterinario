@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class DProductos : DbConnection
+    public class DProductos
     {
         private int _id;
         private string _codigo;
@@ -63,7 +63,7 @@ namespace CapaDatos
         public string Insertar(DProductos producto)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -112,7 +112,7 @@ namespace CapaDatos
         public string Editar(DProductos producto)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -152,7 +152,7 @@ namespace CapaDatos
         public string Eliminar(DProductos producto)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -178,7 +178,7 @@ namespace CapaDatos
         public DataTable Mostrar()
         {
             DataTable dtResultado = new DataTable("Productos");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -213,7 +213,7 @@ namespace CapaDatos
         public DataTable BuscarPorNombre(DProductos producto)
         {
             DataTable dtResultado = new DataTable("ProductosBusqueda");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -255,7 +255,7 @@ namespace CapaDatos
         public DataTable BuscarPorCategoria(int categoriaId)
         {
             DataTable dtResultado = new DataTable("ProductosPorCategoria");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -288,7 +288,7 @@ namespace CapaDatos
         public DataTable ObtenerPorId(DProductos producto)
         {
             DataTable dtResultado = new DataTable("ProductoPorId");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -318,7 +318,7 @@ namespace CapaDatos
         public DataTable ObtenerProductosBajoStock()
         {
             DataTable dtResultado = new DataTable("ProductosBajoStock");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -348,7 +348,7 @@ namespace CapaDatos
         public string ActualizarStock(int productoId, int nuevaCantidad, string operacion = "SET")
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -393,7 +393,7 @@ namespace CapaDatos
 
         public bool ExisteCodigo(string codigo, int? idExcluir = null)
         {
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -430,7 +430,7 @@ namespace CapaDatos
         public DataTable ObtenerCategorias()
         {
             DataTable dtResultado = new DataTable("Categorias");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -454,7 +454,7 @@ namespace CapaDatos
         public string CrearCategoria(string nombre, string descripcion = "")
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try

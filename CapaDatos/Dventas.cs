@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class DVentas : DbConnection
+    public class DVentas
     {
         private int _idFactura;
         private string _numeroFactura;
@@ -57,7 +57,7 @@ namespace CapaDatos
         public string Insertar(DVentas venta)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -107,7 +107,7 @@ namespace CapaDatos
         public string Editar(DVentas venta)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -149,7 +149,7 @@ namespace CapaDatos
         public DataTable Mostrar()
         {
             DataTable dtResultado = new DataTable("Facturas");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -178,7 +178,7 @@ namespace CapaDatos
         public DataTable BuscarPorPersona(DVentas venta)
         {
             DataTable dtResultado = new DataTable("FacturasPorPersona");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -211,7 +211,7 @@ namespace CapaDatos
         public DataTable ObtenerDetalle(DVentas venta)
         {
             DataTable dtResultado = new DataTable("DetalleFactura");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -259,7 +259,7 @@ namespace CapaDatos
         public DataTable ReporteVentasPorRango(DateTime fechaInicio, DateTime fechaFin, string estado = null)
         {
             DataTable dtResultado = new DataTable("ReporteVentasPorRango");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -288,7 +288,7 @@ namespace CapaDatos
         public DataTable ReporteVentasResumen(DateTime fechaInicio, DateTime fechaFin, string agrupacion = "DIA")
         {
             DataTable dtResultado = new DataTable("ReporteVentasResumen");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -317,7 +317,7 @@ namespace CapaDatos
         public DataTable ReporteVentasDetalle(DateTime fechaInicio, DateTime fechaFin, int? facturaId = null)
         {
             DataTable dtResultado = new DataTable("ReporteVentasDetalle");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -346,7 +346,7 @@ namespace CapaDatos
         public DataTable ReporteVentasPeriodosPredefinidos(string periodo)
         {
             DataTable dtResultado = new DataTable("ReporteVentasPeriodosPredefinidos");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -373,7 +373,7 @@ namespace CapaDatos
         public DataTable ReporteVentasTopClientes(DateTime fechaInicio, DateTime fechaFin, int topCount = 10)
         {
             DataTable dtResultado = new DataTable("ReporteVentasTopClientes");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -402,7 +402,7 @@ namespace CapaDatos
         public DataTable ReporteVentasProductosTop(DateTime fechaInicio, DateTime fechaFin, int topCount = 10)
         {
             DataTable dtResultado = new DataTable("ReporteVentasProductosTop");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -431,7 +431,7 @@ namespace CapaDatos
         public DataTable ReporteVentasServiciosTop(DateTime fechaInicio, DateTime fechaFin, int topCount = 10)
         {
             DataTable dtResultado = new DataTable("ReporteVentasServiciosTop");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -460,7 +460,7 @@ namespace CapaDatos
         public DataTable ReporteVentasEstadisticasGenerales()
         {
             DataTable dtResultado = new DataTable("ReporteVentasEstadisticasGenerales");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try

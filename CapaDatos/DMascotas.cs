@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class DMascotas : DbConnection
+    public class DMascotas
     {
         private int _id;
         private string _nombre;
@@ -79,7 +79,7 @@ namespace CapaDatos
         public string Insertar(DMascotas mascota)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -129,7 +129,7 @@ namespace CapaDatos
         public string Editar(DMascotas mascota)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -170,7 +170,7 @@ namespace CapaDatos
         public string Eliminar(DMascotas mascota)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -196,7 +196,7 @@ namespace CapaDatos
         public DataTable Mostrar()
         {
             DataTable dtResultado = new DataTable("Mascotas");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -230,7 +230,7 @@ namespace CapaDatos
         public DataTable BuscarPorNombre(DMascotas mascota)
         {
             DataTable dtResultado = new DataTable("MascotasBusqueda");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -273,7 +273,7 @@ namespace CapaDatos
         public DataTable BuscarPorPropietario(int propietarioId)
         {
             DataTable dtResultado = new DataTable("MascotasPorPropietario");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -305,7 +305,7 @@ namespace CapaDatos
         public DataTable ObtenerPorId(DMascotas mascota)
         {
             DataTable dtResultado = new DataTable("MascotaPorId");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -341,7 +341,7 @@ namespace CapaDatos
         public DataTable ObtenerEspecies()
         {
             DataTable dtResultado = new DataTable("Especies");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -366,7 +366,7 @@ namespace CapaDatos
         public DataTable ObtenerRazasPorEspecie(string especie)
         {
             DataTable dtResultado = new DataTable("Razas");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -395,7 +395,7 @@ namespace CapaDatos
         public DataTable ObtenerHistorialClinico(int animalId)
         {
             DataTable dtResultado = new DataTable("HistorialClinico");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try

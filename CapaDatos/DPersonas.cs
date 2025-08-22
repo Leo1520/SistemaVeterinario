@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class DPersonas : DbConnection
+    public class DPersonas
     {
         private int _id;
         private string _tipo;
@@ -111,7 +111,7 @@ namespace CapaDatos
         public string InsertarPersonaFisica(DPersonas persona)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -159,7 +159,7 @@ namespace CapaDatos
         public string InsertarPersonaJuridica(DPersonas persona)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -222,7 +222,7 @@ namespace CapaDatos
         public string EditarPersonaFisica(DPersonas persona)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -261,7 +261,7 @@ namespace CapaDatos
         public string EditarPersonaJuridica(DPersonas persona)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -315,7 +315,7 @@ namespace CapaDatos
         public string Eliminar(DPersonas persona)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -342,7 +342,7 @@ namespace CapaDatos
         public DataTable Mostrar()
         {
             DataTable dtResultado = new DataTable("Personas");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -366,7 +366,7 @@ namespace CapaDatos
         public DataTable BuscarPorNombre(DPersonas persona)
         {
             DataTable dtResultado = new DataTable("PersonasBusqueda");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
@@ -399,7 +399,7 @@ namespace CapaDatos
         public DataTable ObtenerPorId(DPersonas persona)
         {
             DataTable dtResultado = new DataTable("PersonaPorId");
-            using (SqlConnection connection = GetConnection())
+            using (SqlConnection connection = DbConnection.Instance.GetConnection())
             {
                 connection.Open();
                 try
