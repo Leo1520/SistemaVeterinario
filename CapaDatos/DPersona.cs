@@ -583,5 +583,32 @@ namespace CapaDatos
 
             return false;
         }
+
+        // Método para buscar personas por nombre completo
+        public DataTable BuscarPorNombre(string nombre)
+        {
+            DataTable dtResultado = new DataTable("Persona");
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_BuscarPersonaPorNombre", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@nombre", nombre ?? "");
+                    
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
+                    }
+                }
+            }
+            catch
+            {
+                dtResultado = new DataTable("Persona");
+            }
+
+            return dtResultado;
+        }
     }
 }

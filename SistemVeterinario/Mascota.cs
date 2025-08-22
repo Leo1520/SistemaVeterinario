@@ -474,7 +474,7 @@ namespace SistemVeterinario
             {
                 if (string.IsNullOrEmpty(nombrePropietario)) return 0;
 
-                DataTable personas = NPersonas.BuscarPorNombre(nombrePropietario);
+                DataTable personas = NPersona.BuscarTexto(nombrePropietario);
                 if (personas != null && personas.Rows.Count > 0)
                 {
                     var propietario = personas.AsEnumerable()
@@ -998,7 +998,7 @@ namespace SistemVeterinario
         {
             try
             {
-                DataTable dt = NPersonas.Mostrar();
+                DataTable dt = NPersona.Mostrar();
                 if (dt != null)
                 {
                     dgvClientes.DataSource = dt;
@@ -1024,8 +1024,8 @@ namespace SistemVeterinario
             {
                 string texto = txtBuscar.Text.Trim();
                 DataTable dt = string.IsNullOrEmpty(texto) ? 
-                    NPersonas.Mostrar() : 
-                    NPersonas.BuscarPorNombre(texto);
+                    NPersona.Mostrar() : 
+                    NPersona.BuscarTexto(texto);
                 
                 dgvClientes.DataSource = dt;
             }

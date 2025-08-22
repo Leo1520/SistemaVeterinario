@@ -73,7 +73,7 @@ namespace SistemVeterinario
             try
             {
                 // Estadísticas de clientes
-                int totalClientes = NPersonas.Mostrar()?.Rows.Count ?? 0;
+                int totalClientes = NPersona.Mostrar()?.Rows.Count ?? 0;
                 if (lblTotalClientes != null)
                     lblTotalClientes.Text = $"Total Clientes: {totalClientes}";
 
@@ -211,7 +211,7 @@ namespace SistemVeterinario
             {
                 if (dgvReportes == null) return;
 
-                DataTable clientes = NPersonas.Mostrar();
+                DataTable clientes = NPersona.Mostrar();
                 if (clientes != null)
                 {
                     dgvReportes.DataSource = clientes;

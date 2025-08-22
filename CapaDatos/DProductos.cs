@@ -63,9 +63,7 @@ namespace CapaDatos
         public string Insertar(DProductos producto)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP07_CreateOrUpdateProducto", connection))
@@ -105,16 +103,13 @@ namespace CapaDatos
                 {
                     rpta = ex.Message;
                 }
-            }
             return rpta;
         }
 
         public string Editar(DProductos producto)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP07_CreateOrUpdateProducto", connection))
@@ -145,16 +140,13 @@ namespace CapaDatos
                 {
                     rpta = ex.Message;
                 }
-            }
             return rpta;
         }
 
         public string Eliminar(DProductos producto)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = "UPDATE producto SET activo = 0 WHERE id = @id";
@@ -171,16 +163,13 @@ namespace CapaDatos
                 {
                     rpta = ex.Message;
                 }
-            }
             return rpta;
         }
 
         public DataTable Mostrar()
         {
             DataTable dtResultado = new DataTable("Productos");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, 
@@ -206,16 +195,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable BuscarPorNombre(DProductos producto)
         {
             DataTable dtResultado = new DataTable("ProductosBusqueda");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, 
@@ -248,16 +234,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable BuscarPorCategoria(int categoriaId)
         {
             DataTable dtResultado = new DataTable("ProductosPorCategoria");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, 
@@ -281,16 +264,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ObtenerPorId(DProductos producto)
         {
             DataTable dtResultado = new DataTable("ProductoPorId");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT p.*, c.nombre as categoria_nombre 
@@ -311,16 +291,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ObtenerProductosBajoStock()
         {
             DataTable dtResultado = new DataTable("ProductosBajoStock");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT p.id, p.codigo, p.nombre, p.stock_actual, p.stock_minimo,
@@ -341,16 +318,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public string ActualizarStock(int productoId, int nuevaCantidad, string operacion = "SET")
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = "";
@@ -387,15 +361,12 @@ namespace CapaDatos
                 {
                     rpta = ex.Message;
                 }
-            }
             return rpta;
         }
 
         public bool ExisteCodigo(string codigo, int? idExcluir = null)
         {
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = "SELECT COUNT(*) FROM producto WHERE codigo = @codigo AND activo = 1";
@@ -420,7 +391,6 @@ namespace CapaDatos
                 {
                     return false;
                 }
-            }
         }
 
         #endregion
@@ -430,9 +400,7 @@ namespace CapaDatos
         public DataTable ObtenerCategorias()
         {
             DataTable dtResultado = new DataTable("Categorias");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT id, nombre, descripcion FROM categoria WHERE activo = 1 ORDER BY nombre";
@@ -447,16 +415,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public string CrearCategoria(string nombre, string descripcion = "")
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP06_CreateOrUpdateCategoria", connection))
@@ -482,7 +447,6 @@ namespace CapaDatos
                 {
                     rpta = ex.Message;
                 }
-            }
             return rpta;
         }
 

@@ -79,9 +79,7 @@ namespace CapaDatos
         public string Insertar(DMascotas mascota)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP05_CreateOrUpdateAnimal", connection))
@@ -122,16 +120,13 @@ namespace CapaDatos
                 {
                     rpta = ex.Message;
                 }
-            }
             return rpta;
         }
 
         public string Editar(DMascotas mascota)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP05_CreateOrUpdateAnimal", connection))
@@ -163,16 +158,13 @@ namespace CapaDatos
                 {
                     rpta = ex.Message;
                 }
-            }
             return rpta;
         }
 
         public string Eliminar(DMascotas mascota)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = "UPDATE animal SET activo = 0 WHERE id = @id";
@@ -189,16 +181,13 @@ namespace CapaDatos
                 {
                     rpta = ex.Message;
                 }
-            }
             return rpta;
         }
 
         public DataTable Mostrar()
         {
             DataTable dtResultado = new DataTable("Mascotas");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
@@ -223,16 +212,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable BuscarPorNombre(DMascotas mascota)
         {
             DataTable dtResultado = new DataTable("MascotasBusqueda");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
@@ -266,16 +252,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable BuscarPorPropietario(int propietarioId)
         {
             DataTable dtResultado = new DataTable("MascotasPorPropietario");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT a.id, a.nombre as animal_nombre, a.especie, a.raza, 
@@ -298,16 +281,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ObtenerPorId(DMascotas mascota)
         {
             DataTable dtResultado = new DataTable("MascotaPorId");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
@@ -334,16 +314,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ObtenerEspecies()
         {
             DataTable dtResultado = new DataTable("Especies");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT DISTINCT especie FROM animal WHERE activo = 1 AND especie IS NOT NULL 
@@ -359,16 +336,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ObtenerRazasPorEspecie(string especie)
         {
             DataTable dtResultado = new DataTable("Razas");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT DISTINCT raza FROM animal 
@@ -388,16 +362,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ObtenerHistorialClinico(int animalId)
         {
             DataTable dtResultado = new DataTable("HistorialClinico");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT dh.id, dh.tipo_evento, dh.fecha_evento, 
@@ -424,7 +395,6 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 

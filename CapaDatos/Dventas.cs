@@ -57,9 +57,7 @@ namespace CapaDatos
         public string Insertar(DVentas venta)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP_SaveFactura", connection))
@@ -100,16 +98,13 @@ namespace CapaDatos
                 {
                     rpta = ex.Message;
                 }
-            }
             return rpta;
         }
 
         public string Editar(DVentas venta)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP_SaveFactura", connection))
@@ -142,16 +137,13 @@ namespace CapaDatos
                 {
                     rpta = ex.Message;
                 }
-            }
             return rpta;
         }
 
         public DataTable Mostrar()
         {
             DataTable dtResultado = new DataTable("Facturas");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT f.id, f.numero_factura, f.fecha_emision, f.fecha_vencimiento,
@@ -171,16 +163,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable BuscarPorPersona(DVentas venta)
         {
             DataTable dtResultado = new DataTable("FacturasPorPersona");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT f.id, f.numero_factura, f.fecha_emision, f.fecha_vencimiento,
@@ -204,16 +193,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ObtenerDetalle(DVentas venta)
         {
             DataTable dtResultado = new DataTable("DetalleFactura");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     string query = @"SELECT 
@@ -248,7 +234,6 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
@@ -259,9 +244,7 @@ namespace CapaDatos
         public DataTable ReporteVentasPorRango(DateTime fechaInicio, DateTime fechaFin, string estado = null)
         {
             DataTable dtResultado = new DataTable("ReporteVentasPorRango");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP_ReporteVentasPorRango", connection))
@@ -281,16 +264,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ReporteVentasResumen(DateTime fechaInicio, DateTime fechaFin, string agrupacion = "DIA")
         {
             DataTable dtResultado = new DataTable("ReporteVentasResumen");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP_ReporteVentasResumen", connection))
@@ -310,16 +290,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ReporteVentasDetalle(DateTime fechaInicio, DateTime fechaFin, int? facturaId = null)
         {
             DataTable dtResultado = new DataTable("ReporteVentasDetalle");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP_ReporteVentasDetalle", connection))
@@ -339,16 +316,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ReporteVentasPeriodosPredefinidos(string periodo)
         {
             DataTable dtResultado = new DataTable("ReporteVentasPeriodosPredefinidos");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP_ReporteVentasPeriodosPredefinidos", connection))
@@ -366,16 +340,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ReporteVentasTopClientes(DateTime fechaInicio, DateTime fechaFin, int topCount = 10)
         {
             DataTable dtResultado = new DataTable("ReporteVentasTopClientes");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP_ReporteVentasTopClientes", connection))
@@ -395,16 +366,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ReporteVentasProductosTop(DateTime fechaInicio, DateTime fechaFin, int topCount = 10)
         {
             DataTable dtResultado = new DataTable("ReporteVentasProductosTop");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP_ReporteVentasProductosTop", connection))
@@ -424,16 +392,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ReporteVentasServiciosTop(DateTime fechaInicio, DateTime fechaFin, int topCount = 10)
         {
             DataTable dtResultado = new DataTable("ReporteVentasServiciosTop");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP_ReporteVentasServiciosTop", connection))
@@ -453,16 +418,13 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
 
         public DataTable ReporteVentasEstadisticasGenerales()
         {
             DataTable dtResultado = new DataTable("ReporteVentasEstadisticasGenerales");
-            using (SqlConnection connection = DbConnection.Instance.GetConnection())
-            {
-                connection.Open();
+            SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
                     using (SqlCommand command = new SqlCommand("SP_ReporteVentasEstadisticasGenerales", connection))
@@ -479,7 +441,6 @@ namespace CapaDatos
                 {
                     dtResultado = null;
                 }
-            }
             return dtResultado;
         }
     }
