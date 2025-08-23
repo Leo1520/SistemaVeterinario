@@ -1,5 +1,6 @@
 
 
+using FontAwesome.Sharp;
 using SistemVeterinario.Forms;
 
 namespace SistemVeterinario
@@ -15,6 +16,8 @@ namespace SistemVeterinario
             InitializeComponent();
             ConfigurarDashboard();
             InicializarNavegacion();
+            // Inicia el Timer al cargar el formulario
+            timer1.Start();
         }
 
         private void ConfigurarDashboard()
@@ -26,13 +29,12 @@ namespace SistemVeterinario
             lblEmail.Text = "Falta obtener su email";
 
             // Configurar eventos de botones
-            btnClientes.Click += BtnClientes_Click;
-            btnMascotas.Click += BtnMascotas_Click;
-            btnVentas.Click += BtnVentas_Click;
-            btnProductos.Click += BtnProductos_Click;
-            btnReportes.Click += BtnReportes_Click;
-            btnPersonal.Click += BtnConfiguracion_Click;
-            btnLogout.Click += BtnLogout_Click;
+            BtnClientes.Click += BtnClientes_Click;
+            BtnMascotas.Click += BtnMascotas_Click;
+            BtnVentas.Click += BtnVentas_Click;
+            BtnProductos.Click += BtnProductos_Click;
+            BtnReportes.Click += BtnReportes_Click;
+            BtnPersonal.Click += BtnConfiguracion_Click;
         }
 
         /// <summary>
@@ -91,8 +93,43 @@ namespace SistemVeterinario
         }
 
 
-        private void BtnClientes_Click(object? sender, EventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            // Solo preguntar si el usuario está cerrando manualmente (no cuando se hace logout)
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                var result = MessageBox.Show("¿Está seguro que desea salir del sistema?",
+                    "Confirmar Salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
+            base.OnFormClosing(e);
+        }
+
+
+
+        // Método para cambiar el icono y título superior
+        private void CambiarIconoSuperior(IconChar nuevoIcono, string nuevoTitulo)
+        {
+            if (iconoSuperior != null)
+            {
+                iconoSuperior.IconChar = nuevoIcono;
+            }
+            if (tituloSuperior != null)
+            {
+                tituloSuperior.Text = nuevoTitulo;
+            }
+        }
+
+        private void BtnClientes_Click(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.Users, "Clientes");
+
             try
             {
                 // Ocultar elementos del diseñador
@@ -122,8 +159,10 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnMascotas_Click(object? sender, EventArgs e)
+        private void BtnMascotas_Click(object sender, EventArgs e)
         {
+            CambiarIconoSuperior(IconChar.Paw, "Mascotas");
+
             try
             {
                 using (Mascota frmMascota = new Mascota())
@@ -138,8 +177,43 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnVentas_Click(object? sender, EventArgs e)
+        private void BtnPersonal_Click(object sender, EventArgs e)
         {
+            CambiarIconoSuperior(IconChar.UserTie, "Personal");
+
+        }
+
+        private void BtnInventario_Click(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.BoxesStacked, "Inventario");
+
+        }
+
+
+
+        private void BtnHistorial_Click(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.FileMedical, "Historial Médico");
+
+        }
+
+        private void BtnConsultas_Click(object sender, EventArgs e)
+        {
+            // Cambiar icono antes de abrir el formulario
+            CambiarIconoSuperior(IconChar.UserMd, "Consulta");
+        }
+
+
+        private void BtnDashboard_Click(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.TachometerAltFast, "Reportes");
+
+        }
+
+        private void BtnVentas_Click(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.ShoppingBag, "Ventas");
+
             try
             {
                 using (Venta frmVenta = new Venta())
@@ -154,24 +228,10 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnProductos_Click(object? sender, EventArgs e)
+        private void BtnReportes_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (Producto frmProducto = new Producto())
-                {
-                    frmProducto.ShowDialog(this);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al abrir el módulo de productos: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+            CambiarIconoSuperior(IconChar.ChartLine, "Reportes");
 
-        private void BtnReportes_Click(object? sender, EventArgs e)
-        {
             try
             {
                 using (Reportes frmReportes = new Reportes())
@@ -186,8 +246,10 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnConfiguracion_Click(object? sender, EventArgs e)
+        private void BtnConfiguracion_Click(object sender, EventArgs e)
         {
+            CambiarIconoSuperior(IconChar.Toolbox, "Reportes");
+
             // TODO: Implementar formulario de configuración
             MessageBox.Show("Módulo de Configuración - Próximamente", "Información",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -205,23 +267,34 @@ namespace SistemVeterinario
             }
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
+        private void BtnProductos_Click(object sender, EventArgs e)
         {
-            // Solo preguntar si el usuario está cerrando manualmente (no cuando se hace logout)
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                var result = MessageBox.Show("¿Está seguro que desea salir del sistema?",
-                    "Confirmar Salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            CambiarIconoSuperior(IconChar.BoxOpen, "Productos");
 
-                if (result == DialogResult.No)
+            try
+            {
+                using (Producto frmProducto = new Producto())
                 {
-                    e.Cancel = true;
-                    return;
+                    frmProducto.ShowDialog(this);
                 }
             }
-
-            base.OnFormClosing(e);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de productos: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-               
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            // Muestra la hora y fecha actualizadas cada segundo
+            lblHora.Text = DateTime.Now.ToString("HH:mm:ss - dd/MM/yyyy");
+        }
+
+        private void Dashboard_Load(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.Home, "Home");
+
+        }
     }
 }

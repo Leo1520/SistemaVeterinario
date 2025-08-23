@@ -10,8 +10,9 @@
 
 namespace SistemVeterinario.Properties {
     using System;
-    
-    
+    using System.Drawing;
+
+
     /// <summary>
     ///   Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
     /// </summary>
@@ -31,7 +32,9 @@ namespace SistemVeterinario.Properties {
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
-        
+
+        public static Image UPDS { get; internal set; }
+
         /// <summary>
         ///   Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
         /// </summary>
