@@ -126,10 +126,25 @@ namespace SistemVeterinario
         {
             try
             {
-                using (Mascota frmMascota = new Mascota())
+                // Ocultar elementos del diseñador
+                OcultarElementosDisenador();
+
+                // Remover cualquier UserControl existente
+                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+                foreach (var control in userControls)
                 {
-                    frmMascota.ShowDialog(this);
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
                 }
+
+                // Crear e insertar el módulo de mascotas
+                Forms.MascotasModule mascotasModule = new Forms.MascotasModule
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                panelContent.Controls.Add(mascotasModule);
+                mascotasModule.BringToFront();
             }
             catch (Exception ex)
             {
@@ -158,10 +173,18 @@ namespace SistemVeterinario
         {
             try
             {
-                using (Producto frmProducto = new Producto())
+                // Limpiar controles existentes del panel
+                foreach (Control control in panelContent.Controls.Cast<Control>().ToList())
                 {
-                    frmProducto.ShowDialog(this);
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
                 }
+                // Crear e insertar el módulo de productos
+                Forms.ProductosModule productosModule = new Forms.ProductosModule
+                {
+                    Dock = DockStyle.Fill
+                };
+                panelContent.Controls.Add(productosModule);
             }
             catch (Exception ex)
             {

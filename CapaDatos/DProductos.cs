@@ -176,8 +176,8 @@ namespace CapaDatos
                                           p.stock_minimo, p.stock_actual, p.requiere_receta, p.activo,
                                           c.nombre as categoria_nombre, p.categoria_id,
                                           CASE 
-                                            WHEN p.stock_actual <= p.stock_minimo THEN 'Stock Bajo'
                                             WHEN p.stock_actual = 0 THEN 'Sin Stock'
+                                            WHEN p.stock_actual <= p.stock_minimo THEN 'Stock Bajo'
                                             ELSE 'Stock OK'
                                           END as estado_stock
                                    FROM producto p
@@ -208,8 +208,8 @@ namespace CapaDatos
                                           p.stock_minimo, p.stock_actual, p.requiere_receta, p.activo,
                                           c.nombre as categoria_nombre, p.categoria_id,
                                           CASE 
-                                            WHEN p.stock_actual <= p.stock_minimo THEN 'Stock Bajo'
                                             WHEN p.stock_actual = 0 THEN 'Sin Stock'
+                                            WHEN p.stock_actual <= p.stock_minimo THEN 'Stock Bajo'
                                             ELSE 'Stock OK'
                                           END as estado_stock
                                    FROM producto p

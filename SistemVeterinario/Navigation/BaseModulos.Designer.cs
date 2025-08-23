@@ -323,12 +323,12 @@ namespace SistemVeterinario.Navigation
             btnEliminar.Visible = false;
             btnEliminar.Click += BtnEliminar_Click;
             // 
-            // SearchBase
+            // BaseModulos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tabControlPrincipal);
-            Name = "SearchBase";
+            Name = "BaseModulos";
             Size = new Size(1000, 600);
             Load += SearchBase_Load;
             tabControlPrincipal.ResumeLayout(false);

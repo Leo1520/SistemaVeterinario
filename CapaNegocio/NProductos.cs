@@ -132,6 +132,89 @@ namespace CapaNegocio
             };
         }
 
+        public static string InicializarCategoriasVeterinarias()
+        {
+            try
+            {
+                // Verificar si ya existen categorías
+                DataTable categoriasExistentes = ObtenerCategorias();
+                if (categoriasExistentes != null && categoriasExistentes.Rows.Count > 0)
+                {
+                    return "Las categorías ya están inicializadas";
+                }
+
+                // Definir categorías veterinarias esenciales con descripciones
+                var categoriasVeterinarias = new Dictionary<string, string>
+                {
+                    {"Medicamentos", "Fármacos y medicinas para tratamiento veterinario"},
+                    {"Vacunas", "Inmunizaciones preventivas para animales"},
+                    {"Antiparasitarios", "Tratamientos contra parásitos internos y externos"},
+                    {"Antibióticos", "Medicamentos antibacterianos para animales"},
+                    {"Analgésicos", "Medicamentos para el control del dolor"},
+                    {"Alimentos Terapéuticos", "Alimentación especializada para tratamientos"},
+                    {"Suplementos", "Complementos nutricionales y vitamínicos"},
+                    {"Material Quirúrgico", "Instrumental y suministros médicos"},
+                    {"Higiene y Cuidado", "Productos de aseo y cuidado animal"},
+                    {"Equipos Médicos", "Dispositivos e instrumentos veterinarios"},
+                    {"Accesorios", "Collares, correas, camas y juguetes"},
+                    {"Primeros Auxilios", "Suministros para atención de emergencia"}
+                };
+
+                int categoriasCreadas = 0;
+                string errores = "";
+
+                // Crear cada categoría
+                foreach (var categoria in categoriasVeterinarias)
+                {
+                    string resultado = CrearCategoria(categoria.Key, categoria.Value);
+                    if (resultado == "OK" || resultado.Contains("exitosamente"))
+                    {
+                        categoriasCreadas++;
+                    }
+                    else
+                    {
+                        errores += $"{categoria.Key}: {resultado}; ";
+                    }
+                }
+
+                if (categoriasCreadas > 0)
+                {
+                    string mensaje = $"Se crearon {categoriasCreadas} categorías veterinarias automáticamente.";
+                    if (!string.IsNullOrEmpty(errores))
+                    {
+                        mensaje += $" Errores: {errores}";
+                    }
+                    return mensaje;
+                }
+                else
+                {
+                    return $"No se pudieron crear las categorías. Errores: {errores}";
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Error inicializando categorías: {ex.Message}";
+            }
+        }
+
+        public static bool VerificarYCrearCategoriasIniciales()
+        {
+            try
+            {
+                DataTable categorias = ObtenerCategorias();
+                if (categorias == null || categorias.Rows.Count == 0)
+                {
+                    string resultado = InicializarCategoriasVeterinarias();
+                    return resultado.Contains("crearon") || resultado.Contains("inicializadas");
+                }
+                return true; // Ya existen categorías
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region Validaciones de Negocio

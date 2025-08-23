@@ -76,12 +76,115 @@ namespace CapaDatos
 
         #region Métodos CRUD
 
+
+        // Método para verificar si el procedimiento almacenado existe
+        private bool VerificarProcedimientoExiste()
+        {
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
+            {
+                string query = "SELECT COUNT(*) FROM sys.procedures WHERE name = 'SP05_CreateOrUpdateAnimal'";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    return count > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Método para crear el procedimiento almacenado si no existe
+        private bool CrearProcedimientoAlmacenado()
+        {
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
+            {
+                string createSP = @"
+                CREATE PROCEDURE SP05_CreateOrUpdateAnimal
+                    @id INT = NULL,
+                    @nombre VARCHAR(100),
+                    @especie VARCHAR(50),
+                    @persona_id INT,
+                    @raza VARCHAR(100) = NULL,
+                    @fecha_nacimiento DATE = NULL,
+                    @peso DECIMAL(5,2) = NULL,
+                    @color VARCHAR(50) = NULL,
+                    @genero CHAR(1) = NULL,
+                    @esterilizado BIT = 0,
+                    @microchip VARCHAR(50) = NULL
+                AS
+                BEGIN
+                    SET NOCOUNT ON;
+                    DECLARE @mensaje VARCHAR(255);
+                    DECLARE @nuevo_id INT = 0;
+
+                    BEGIN TRY
+                        IF @id IS NULL OR @id = 0
+                        BEGIN
+                            -- Insertar nuevo animal
+                            INSERT INTO animal (nombre, especie, persona_id, raza, fecha_nacimiento, peso, color, genero, esterilizado, microchip, activo)
+                            VALUES (@nombre, @especie, @persona_id, @raza, @fecha_nacimiento, @peso, @color, @genero, @esterilizado, @microchip, 1);
+                            
+                            SET @nuevo_id = SCOPE_IDENTITY();
+                            SET @mensaje = 'Animal insertado exitosamente';
+                        END
+                        ELSE
+                        BEGIN
+                            -- Actualizar animal existente
+                            UPDATE animal 
+                            SET nombre = @nombre,
+                                especie = @especie,
+                                persona_id = @persona_id,
+                                raza = @raza,
+                                fecha_nacimiento = @fecha_nacimiento,
+                                peso = @peso,
+                                color = @color,
+                                genero = @genero,
+                                esterilizado = @esterilizado,
+                                microchip = @microchip
+                            WHERE id = @id;
+                            
+                            SET @nuevo_id = @id;
+                            SET @mensaje = 'Animal actualizado exitosamente';
+                        END
+
+                        SELECT @nuevo_id as id, @mensaje as mensaje;
+                    END TRY
+                    BEGIN CATCH
+                        SELECT 0 as id, ERROR_MESSAGE() as mensaje;
+                    END CATCH
+                END";
+
+                using (SqlCommand command = new SqlCommand(createSP, connection))
+                {
+                    command.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public string Insertar(DMascotas mascota)
         {
             string rpta = string.Empty;
             SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
+                    // Verificar si el procedimiento almacenado existe, si no, crearlo
+                    if (!VerificarProcedimientoExiste())
+                    {
+                        if (!CrearProcedimientoAlmacenado())
+                        {
+                            return "Error: No se pudo crear el procedimiento almacenado SP05_CreateOrUpdateAnimal";
+                        }
+                    }
+
                     using (SqlCommand command = new SqlCommand("SP05_CreateOrUpdateAnimal", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -102,23 +205,41 @@ namespace CapaDatos
                         {
                             if (reader.Read())
                             {
+                                // Debug: Verificar qué columnas devuelve el procedimiento
+                                System.Diagnostics.Debug.WriteLine($"Columnas devueltas por SP05_CreateOrUpdateAnimal:");
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"  {reader.GetName(i)}: {reader.GetValue(i)}");
+                                }
+
                                 int id = Convert.ToInt32(reader["id"]);
+                                string mensaje = reader["mensaje"]?.ToString() ?? "";
+                                
+                                System.Diagnostics.Debug.WriteLine($"SP05 devolvió - ID: {id}, Mensaje: {mensaje}");
+                                
                                 if (id > 0)
                                 {
                                     mascota.Id = id;
                                     rpta = "OK";
+                                    System.Diagnostics.Debug.WriteLine($"Mascota insertada exitosamente con ID: {id}");
                                 }
                                 else
                                 {
-                                    rpta = reader["mensaje"].ToString();
+                                    rpta = mensaje;
+                                    System.Diagnostics.Debug.WriteLine($"Error del procedimiento: {mensaje}");
                                 }
+                            }
+                            else
+                            {
+                                rpta = "El procedimiento no devolvió ningún resultado";
+                                System.Diagnostics.Debug.WriteLine("SP05_CreateOrUpdateAnimal no devolvió ningún resultado");
                             }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    rpta = ex.Message;
+                    rpta = $"Error al insertar mascota: {ex.Message}";
                 }
             return rpta;
         }
@@ -129,6 +250,15 @@ namespace CapaDatos
             SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
+                    // Verificar si el procedimiento almacenado existe, si no, crearlo
+                    if (!VerificarProcedimientoExiste())
+                    {
+                        if (!CrearProcedimientoAlmacenado())
+                        {
+                            return "Error: No se pudo crear el procedimiento almacenado SP05_CreateOrUpdateAnimal";
+                        }
+                    }
+
                     using (SqlCommand command = new SqlCommand("SP05_CreateOrUpdateAnimal", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -190,15 +320,19 @@ namespace CapaDatos
             SqlConnection connection = DbConnection.Instance.GetConnection();
                 try
                 {
+                    // Query para obtener mascotas con información del propietario
                     string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
                                           a.peso, a.color, a.genero, a.esterilizado, a.microchip, a.activo,
                                           CASE 
-                                            WHEN p.nombre IS NOT NULL THEN CONCAT(p.nombre, ' ', ISNULL(p.apellido, ''))
-                                            ELSE p.razon_social
+                                            WHEN pf.nombre IS NOT NULL THEN CONCAT(pf.nombre, ' ', ISNULL(pf.apellido, ''))
+                                            WHEN pj.razon_social IS NOT NULL THEN pj.razon_social
+                                            ELSE 'Sin propietario'
                                           END as propietario,
                                           p.telefono as telefono_propietario
                                    FROM animal a
                                    INNER JOIN persona p ON a.persona_id = p.id
+                                   LEFT JOIN persona_fisica pf ON p.id = pf.id AND p.tipo = 'Física'
+                                   LEFT JOIN persona_juridica pj ON p.id = pj.id AND p.tipo = 'Jurídica'
                                    WHERE a.activo = 1
                                    ORDER BY a.nombre";
                     
@@ -208,7 +342,7 @@ namespace CapaDatos
                         adapter.Fill(dtResultado);
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     dtResultado = null;
                 }
@@ -288,33 +422,105 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("MascotaPorId");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                // Verificar y crear el procedimiento almacenado si no existe
+                if (!VerificarProcedimientoObtenerPorId())
                 {
-                    string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
-                                          a.peso, a.color, a.genero, a.esterilizado, a.microchip, a.activo,
-                                          CASE 
-                                            WHEN p.nombre IS NOT NULL THEN CONCAT(p.nombre, ' ', ISNULL(p.apellido, ''))
-                                            ELSE p.razon_social
-                                          END as propietario,
-                                          p.telefono as telefono_propietario, p.id as persona_id
-                                   FROM animal a
-                                   INNER JOIN persona p ON a.persona_id = p.id
-                                   WHERE a.id = @id";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    if (!CrearProcedimientoObtenerPorId())
                     {
-                        command.Parameters.AddWithValue("@id", mascota.Id);
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        System.Diagnostics.Debug.WriteLine("No se pudo crear el procedimiento SP_ObtenerAnimalPorId");
+                        return null;
                     }
                 }
-                catch
+
+                // Usar el procedimiento almacenado
+                using (SqlCommand command = new SqlCommand("SP_ObtenerAnimalPorId", connection))
                 {
-                    dtResultado = null;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id", mascota.Id);
+                    
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en DMascotas.ObtenerPorId - ID: {mascota.Id}, Error: {ex.Message}");
+                dtResultado = null;
+            }
             return dtResultado;
+        }
+
+        private bool VerificarProcedimientoObtenerPorId()
+        {
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
+            {
+                string query = "SELECT COUNT(*) FROM sys.procedures WHERE name = 'SP_ObtenerAnimalPorId'";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool CrearProcedimientoObtenerPorId()
+        {
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
+            {
+                string createSP = @"
+                CREATE PROCEDURE SP_ObtenerAnimalPorId
+                    @id INT
+                AS
+                BEGIN
+                    SET NOCOUNT ON;
+                    
+                    SELECT 
+                        a.id, 
+                        a.nombre, 
+                        a.especie, 
+                        a.raza, 
+                        a.fecha_nacimiento, 
+                        a.peso, 
+                        a.color, 
+                        a.genero, 
+                        a.esterilizado, 
+                        a.microchip, 
+                        a.activo, 
+                        a.persona_id,
+                        CASE 
+                            WHEN pf.nombre IS NOT NULL THEN CONCAT(pf.nombre, ' ', ISNULL(pf.apellido, ''))
+                            WHEN pj.razon_social IS NOT NULL THEN pj.razon_social
+                            ELSE 'Sin propietario'
+                        END as propietario,
+                        ISNULL(p.telefono, '') as telefono_propietario
+                    FROM animal a
+                    LEFT JOIN persona p ON a.persona_id = p.id
+                    LEFT JOIN persona_fisica pf ON p.id = pf.id AND p.tipo = 'Física'
+                    LEFT JOIN persona_juridica pj ON p.id = pj.id AND p.tipo = 'Jurídica'
+                    WHERE a.id = @id
+                END";
+
+                using (SqlCommand command = new SqlCommand(createSP, connection))
+                {
+                    command.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error creando procedimiento SP_ObtenerAnimalPorId: {ex.Message}");
+                return false;
+            }
         }
 
         public DataTable ObtenerEspecies()
