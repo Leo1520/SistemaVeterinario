@@ -1,5 +1,4 @@
-
-
+using FontAwesome.Sharp;
 using SistemVeterinario.Forms;
 
 namespace SistemVeterinario
@@ -15,6 +14,8 @@ namespace SistemVeterinario
             InitializeComponent();
             ConfigurarDashboard();
             InicializarNavegacion();
+            // Inicia el Timer al cargar el formulario
+            timer1.Start();
         }
 
         private void ConfigurarDashboard()
@@ -26,13 +27,12 @@ namespace SistemVeterinario
             lblEmail.Text = "Falta obtener su email";
 
             // Configurar eventos de botones
-            btnClientes.Click += BtnClientes_Click;
-            btnMascotas.Click += BtnMascotas_Click;
-            btnVentas.Click += BtnVentas_Click;
-            btnProductos.Click += BtnProductos_Click;
-            btnReportes.Click += BtnReportes_Click;
-            btnPersonal.Click += BtnConfiguracion_Click;
-            btnLogout.Click += BtnLogout_Click;
+            BtnClientes.Click += BtnClientes_Click;
+            BtnMascotas.Click += BtnMascotas_Click;
+            BtnVentas.Click += BtnVentas_Click;
+            BtnProductos.Click += BtnProductos_Click;
+            BtnReportes.Click += BtnReportes_Click;
+            BtnPersonal.Click += BtnConfiguracion_Click;
         }
 
         /// <summary>
@@ -91,143 +91,6 @@ namespace SistemVeterinario
         }
 
 
-        private void BtnClientes_Click(object? sender, EventArgs e)
-        {
-            try
-            {
-                // Ocultar elementos del diseñador
-                OcultarElementosDisenador();
-
-                // Remover cualquier UserControl existente
-                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
-                foreach (var control in userControls)
-                {
-                    panelContent.Controls.Remove(control);
-                    control.Dispose();
-                }
-
-                // Crear e insertar el módulo de personas
-                PersonasModule personasModule = new PersonasModule
-                {
-                    Dock = DockStyle.Fill
-                };
-
-                panelContent.Controls.Add(personasModule);
-                personasModule.BringToFront();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al abrir el módulo de Clientes: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void BtnMascotas_Click(object? sender, EventArgs e)
-        {
-            try
-            {
-                // Ocultar elementos del diseñador
-                OcultarElementosDisenador();
-
-                // Remover cualquier UserControl existente
-                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
-                foreach (var control in userControls)
-                {
-                    panelContent.Controls.Remove(control);
-                    control.Dispose();
-                }
-
-                // Crear e insertar el módulo de mascotas
-                Forms.MascotasModule mascotasModule = new Forms.MascotasModule
-                {
-                    Dock = DockStyle.Fill
-                };
-
-                panelContent.Controls.Add(mascotasModule);
-                mascotasModule.BringToFront();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al abrir el módulo de mascotas: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void BtnVentas_Click(object? sender, EventArgs e)
-        {
-            try
-            {
-                using (Venta frmVenta = new Venta())
-                {
-                    frmVenta.ShowDialog(this);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al abrir el módulo de ventas: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void BtnProductos_Click(object? sender, EventArgs e)
-        {
-            try
-            {
-                // Limpiar controles existentes del panel
-                foreach (Control control in panelContent.Controls.Cast<Control>().ToList())
-                {
-                    panelContent.Controls.Remove(control);
-                    control.Dispose();
-                }
-                // Crear e insertar el módulo de productos
-                Forms.ProductosModule productosModule = new Forms.ProductosModule
-                {
-                    Dock = DockStyle.Fill
-                };
-                panelContent.Controls.Add(productosModule);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al abrir el módulo de productos: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void BtnReportes_Click(object? sender, EventArgs e)
-        {
-            try
-            {
-                using (Reportes frmReportes = new Reportes())
-                {
-                    frmReportes.ShowDialog(this);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al abrir el módulo de reportes: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void BtnConfiguracion_Click(object? sender, EventArgs e)
-        {
-            // TODO: Implementar formulario de configuración
-            MessageBox.Show("Módulo de Configuración - Próximamente", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void BtnLogout_Click(object? sender, EventArgs e)
-        {
-            var result = MessageBox.Show("¿Está seguro que desea cerrar sesión?",
-                "Confirmar Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                // Cerrar el dashboard - esto hará que se regrese al login automáticamente
-                this.Close();
-            }
-        }
-
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             // Solo preguntar si el usuario está cerrando manualmente (no cuando se hace logout)
@@ -245,6 +108,209 @@ namespace SistemVeterinario
 
             base.OnFormClosing(e);
         }
-               
+
+
+
+        // Método para cambiar el icono y título superior
+        private void CambiarIconoSuperior(IconChar nuevoIcono, string nuevoTitulo)
+        {
+            if (iconoSuperior != null)
+            {
+                iconoSuperior.IconChar = nuevoIcono;
+            }
+            if (tituloSuperior != null)
+            {
+                tituloSuperior.Text = nuevoTitulo;
+            }
+        }
+
+        private void BtnClientes_Click(object? sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.Users, "Clientes");
+
+            try
+            {
+                OcultarElementosDisenador();
+                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+                foreach (var control in userControls)
+                {
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
+                }
+
+                PersonasModule personasModule = new PersonasModule
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                panelContent.Controls.Add(personasModule);
+                personasModule.BringToFront();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de Clientes: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnMascotas_Click(object? sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.Paw, "Mascotas");
+
+            try
+            {
+                OcultarElementosDisenador();
+                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+                foreach (var control in userControls)
+                {
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
+                }
+
+                Forms.MascotasModule mascotasModule = new Forms.MascotasModule
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                panelContent.Controls.Add(mascotasModule);
+                mascotasModule.BringToFront();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de mascotas: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnPersonal_Click(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.UserTie, "Personal");
+
+        }
+
+        private void BtnInventario_Click(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.BoxesStacked, "Inventario");
+
+        }
+
+
+
+        private void BtnHistorial_Click(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.FileMedical, "Historial Médico");
+
+        }
+
+        private void BtnConsultas_Click(object sender, EventArgs e)
+        {
+            // Cambiar icono antes de abrir el formulario
+            CambiarIconoSuperior(IconChar.UserMd, "Consulta");
+        }
+
+
+        private void BtnDashboard_Click(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.TachometerAltFast, "Reportes");
+
+        }
+
+        private void BtnVentas_Click(object? sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.ShoppingBag, "Ventas");
+
+            try
+            {
+                using (Venta frmVenta = new Venta())
+                {
+                    frmVenta.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de ventas: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnReportes_Click(object? sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.ChartLine, "Reportes");
+
+            try
+            {
+                foreach (Control control in panelContent.Controls.Cast<Control>().ToList())
+                {
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
+                }
+
+                Forms.ProductosModule productosModule = new Forms.ProductosModule
+                {
+                    Dock = DockStyle.Fill
+                };
+                panelContent.Controls.Add(productosModule);
+
+                using (Reportes frmReportes = new Reportes())
+                {
+                    frmReportes.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de reportes: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnConfiguracion_Click(object? sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.Toolbox, "Reportes");
+
+            MessageBox.Show("Módulo de Configuración - Próximamente", "Información",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void BtnLogout_Click(object? sender, EventArgs e)
+        {
+            var result = MessageBox.Show("¿Está seguro que desea cerrar sesión?",
+                "Confirmar Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Cerrar el dashboard - esto hará que se regrese al login automáticamente
+                this.Close();
+            }
+        }
+
+        private void BtnProductos_Click(object? sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.BoxOpen, "Productos");
+
+            try
+            {
+                using (Producto frmProducto = new Producto())
+                {
+                    frmProducto.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de productos: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            // Muestra la hora y fecha actualizadas cada segundo
+            lblHora.Text = DateTime.Now.ToString("HH:mm:ss - dd/MM/yyyy");
+        }
+
+        private void Dashboard_Load(object sender, EventArgs e)
+        {
+            CambiarIconoSuperior(IconChar.Home, "Home");
+
+        }
     }
 }
