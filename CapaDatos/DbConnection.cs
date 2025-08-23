@@ -12,12 +12,19 @@ namespace CapaDatos
         private static DbConnection? _instance;
         private static readonly object _lock = new object();
         private SqlConnection? _connection;
-        private readonly string connectionString = "Data Source=.;Initial Catalog=Sistema_Veterinario;Integrated Security=True;TrustServerCertificate=True";
+        private readonly string connectionString = "Data Source=.;Initial Catalog=Sistema_Veterinario;Integrated Security=True;TrustServerCertificate=True;Connection Timeout=30;";
 
         private DbConnection()
         {
-            _connection = new SqlConnection(connectionString);
-            _connection.Open();
+            try
+            {
+                _connection = new SqlConnection(connectionString);
+                _connection.Open();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al conectar con la base de datos: {ex.Message}", ex);
+            }
         }
 
         public static DbConnection Instance
@@ -44,6 +51,7 @@ namespace CapaDatos
                 try
                 {
                     _connection?.Close();
+                    _connection?.Dispose();
                     _connection = new SqlConnection(connectionString);
                     _connection.Open();
                 }

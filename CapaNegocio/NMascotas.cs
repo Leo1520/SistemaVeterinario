@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 using CapaDatos;
 
 namespace CapaNegocio
@@ -348,11 +349,17 @@ namespace CapaNegocio
         {
             try
             {
-                DataTable mascotas = Mostrar();
-                return mascotas?.Rows.Count ?? 0;
+                var connection = DbConnection.Instance.GetConnection();
+                using (var command = new SqlCommand("SP_ContarMascotasActivas", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    var result = command.ExecuteScalar();
+                    return Convert.ToInt32(result);
+                }
             }
-            catch
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Error contando mascotas activas: {ex.Message}");
                 return 0;
             }
         }

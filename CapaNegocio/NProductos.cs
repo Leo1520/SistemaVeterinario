@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 using CapaDatos;
 
 namespace CapaNegocio
@@ -356,11 +357,17 @@ namespace CapaNegocio
         {
             try
             {
-                DataTable productos = Mostrar();
-                return productos?.Rows.Count ?? 0;
+                var connection = DbConnection.Instance.GetConnection();
+                using (var command = new SqlCommand("SP_ContarProductosActivos", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    var result = command.ExecuteScalar();
+                    return Convert.ToInt32(result);
+                }
             }
-            catch
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Error contando productos activos: {ex.Message}");
                 return 0;
             }
         }
@@ -369,11 +376,17 @@ namespace CapaNegocio
         {
             try
             {
-                DataTable productos = ObtenerProductosBajoStock();
-                return productos?.Rows.Count ?? 0;
+                var connection = DbConnection.Instance.GetConnection();
+                using (var command = new SqlCommand("SP_ContarProductosBajoStock", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    var result = command.ExecuteScalar();
+                    return Convert.ToInt32(result);
+                }
             }
-            catch
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Error contando productos bajo stock: {ex.Message}");
                 return 0;
             }
         }
@@ -382,16 +395,17 @@ namespace CapaNegocio
         {
             try
             {
-                DataTable productos = Mostrar();
-                if (productos != null)
+                var connection = DbConnection.Instance.GetConnection();
+                using (var command = new SqlCommand("SP_CalcularValorInventarioTotal", connection))
                 {
-                    return productos.AsEnumerable()
-                        .Sum(row => (row.Field<int?>("stock_actual") ?? 0) * (row.Field<decimal?>("precio") ?? 0));
+                    command.CommandType = CommandType.StoredProcedure;
+                    var result = command.ExecuteScalar();
+                    return Convert.ToDecimal(result);
                 }
-                return 0;
             }
-            catch
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Error calculando valor inventario: {ex.Message}");
                 return 0;
             }
         }
