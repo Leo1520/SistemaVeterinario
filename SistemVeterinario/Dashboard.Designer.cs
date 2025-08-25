@@ -552,6 +552,7 @@ namespace SistemVeterinario
             lblTitulo.Size = new Size(454, 41);
             lblTitulo.TabIndex = 1;
             lblTitulo.Text = "VETERINARIA -ZOOFIPETSS-";
+            lblTitulo.Click += lblTitulo_Click;
             // 
             // pictureBox6
             // 
@@ -592,7 +593,7 @@ namespace SistemVeterinario
             lblSubtitulo.AutoSize = true;
             lblSubtitulo.Font = new Font("Century", 13.8F, FontStyle.Bold);
             lblSubtitulo.ForeColor = Color.DimGray;
-            lblSubtitulo.Location = new Point(418, 546);
+            lblSubtitulo.Location = new Point(408, 806);
             lblSubtitulo.Name = "lblSubtitulo";
             lblSubtitulo.Size = new Size(303, 28);
             lblSubtitulo.TabIndex = 2;

@@ -312,5 +312,10 @@ namespace SistemVeterinario
             CambiarIconoSuperior(IconChar.Home, "Home");
 
         }
+
+        private void lblTitulo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
