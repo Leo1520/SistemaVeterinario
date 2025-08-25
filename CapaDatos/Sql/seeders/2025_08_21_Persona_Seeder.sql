@@ -6,9 +6,6 @@
 -- Actualizado: Genera 100 personas físicas y 100 jurídicas
 -- =============================================
 
-USE [Sistema_Veterinario] -- Cambiar por el nombre de su base de datos
-GO
-
 -- =============================================
 -- PERSONAS FÍSICAS (100 registros)
 -- =============================================
@@ -114,7 +111,7 @@ EXEC SP01_CreateOrUpdatePFisica @ci = '10000080', @nombre = 'Esteban', @apellido
 -- 81-90
 EXEC SP01_CreateOrUpdatePFisica @ci = '10000081', @nombre = 'Rebeca', @apellido = 'Colque Quispe', @email = 'rebeca.colque81@gmail.com', @direccion = 'Av. Costanera #234, Zona Sur', @telefono = '75123901', @fecha_nacimiento = '1989-11-04', @genero = 'F';
 EXEC SP01_CreateOrUpdatePFisica @ci = '10000082', @nombre = 'Ignacio', @apellido = 'Quispe Mamani', @email = 'ignacio.quispe82@hotmail.com', @direccion = 'Calle Yanacocha #567, Zona Sur', @telefono = '68234234', @fecha_nacimiento = '1983-12-17', @genero = 'M';
-EXEC SP01_CreateOrUpdatePFisica @ci = '10000083', @nombre = 'Sonia', @apellido = 'Mamani Condori', @email = 'sonia.mamani83@yahoo.com', @direccion = 'Av. Hernando Siles #890, Calacoto', @telefono = '71345567', @fecha_nacimiento = '1990-02-29', @genero = 'F';
+EXEC SP01_CreateOrUpdatePFisica @ci = '10000083', @nombre = 'Sonia', @apellido = 'Mamani Condori', @email = 'sonia.mamani83@yahoo.com', @direccion = 'Av. Hernando Siles #890, Calacoto', @telefono = '71345567', @fecha_nacimiento = '1990-02-28', @genero = 'F';
 EXEC SP01_CreateOrUpdatePFisica @ci = '10000084', @nombre = 'Nestor', @apellido = 'Condori Flores', @email = 'nestor.condori84@gmail.com', @direccion = 'Calle Campero #123, Centro', @telefono = '69456890', @fecha_nacimiento = '1979-06-12', @genero = 'M';
 EXEC SP01_CreateOrUpdatePFisica @ci = '10000085', @nombre = 'Lilian', @apellido = 'Flores Apaza', @email = 'lilian.flores85@outlook.com', @direccion = 'Av. Los Alamos #456, Calacoto', @telefono = '76567123', @fecha_nacimiento = '1985-09-25', @genero = 'F';
 EXEC SP01_CreateOrUpdatePFisica @ci = '10000086', @nombre = 'Walter', @apellido = 'Apaza Limachi', @email = 'walter.apaza86@gmail.com', @direccion = 'Calle Plaza Villarroel #789, Centro', @telefono = '72678456', @fecha_nacimiento = '1982-01-07', @genero = 'M';

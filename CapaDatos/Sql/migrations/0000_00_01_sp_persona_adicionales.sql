@@ -1,11 +1,3 @@
--- ============================================
--- PROCEDIMIENTOS ALMACENADOS ADICIONALES PARA PERSONA
--- ============================================
-
-USE Sistema_Veterinario;
-GO
-
--- Procedimiento para eliminar persona (cambiar estado a inactivo)
 CREATE PROCEDURE SP_EliminarPersona
     @id INT
 AS
@@ -32,7 +24,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para buscar personas por texto
 CREATE PROCEDURE SP_BuscarPersonaPorTexto
     @textoBuscar VARCHAR(255)
 AS
@@ -63,7 +54,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para buscar personas por tipo
 CREATE PROCEDURE SP_BuscarPersonaPorTipo
     @tipoPersona VARCHAR(20)
 AS
@@ -86,7 +76,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para mostrar todas las personas activas
 CREATE PROCEDURE SP_MostrarPersonas
 AS
 BEGIN
@@ -107,7 +96,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para obtener una persona por ID
 CREATE PROCEDURE SP_ObtenerPersonaPorId
     @id INT
 AS
@@ -126,7 +114,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para validar CI único
 CREATE PROCEDURE SP_ValidarCIUnico
     @ci VARCHAR(15),
     @idPersona INT = NULL
@@ -151,7 +138,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para validar NIT único
 CREATE PROCEDURE SP_ValidarNITUnico
     @nit VARCHAR(20),
     @idPersona INT = NULL
@@ -176,7 +162,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para validar email único
 CREATE PROCEDURE SP_ValidarEmailUnico
     @email VARCHAR(255),
     @idPersona INT = NULL

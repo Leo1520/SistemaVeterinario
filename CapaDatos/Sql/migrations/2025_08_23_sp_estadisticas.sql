@@ -1,11 +1,3 @@
--- ============================================
--- PROCEDIMIENTOS ALMACENADOS PARA ESTADÍSTICAS
--- ============================================
-
-USE Sistema_Veterinario;
-GO
-
--- Procedimiento para contar mascotas activas
 CREATE OR ALTER PROCEDURE SP_ContarMascotasActivas
 AS
 BEGIN
@@ -17,7 +9,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para contar productos activos
 CREATE OR ALTER PROCEDURE SP_ContarProductosActivos
 AS
 BEGIN
@@ -29,7 +20,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para contar productos bajo stock
 CREATE OR ALTER PROCEDURE SP_ContarProductosBajoStock
 AS
 BEGIN
@@ -41,7 +31,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para calcular valor total del inventario
 CREATE OR ALTER PROCEDURE SP_CalcularValorInventarioTotal
 AS
 BEGIN
@@ -53,7 +42,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para obtener estadísticas por especie de mascotas
 CREATE OR ALTER PROCEDURE SP_EstadisticasMascotasPorEspecie
 AS
 BEGIN
@@ -70,7 +58,6 @@ BEGIN
 END;
 GO
 
--- Procedimiento para obtener estadísticas por categoría de productos
 CREATE OR ALTER PROCEDURE SP_EstadisticasProductosPorCategoria
 AS
 BEGIN
