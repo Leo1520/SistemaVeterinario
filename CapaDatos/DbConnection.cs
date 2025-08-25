@@ -12,7 +12,7 @@ namespace CapaDatos
         private static DbConnection? _instance;
         private static readonly object _lock = new object();
         private SqlConnection? _connection;
-        private readonly string connectionString = "Data Source=.;Initial Catalog=Sistema_Veterinario;Integrated Security=True;TrustServerCertificate=True;Connection Timeout=30;";
+        private readonly string connectionString = "Data Source=DESKTOP-DCKO72L\\SQLEXPRESS;Initial Catalog=Sistema_Veterinario;Integrated Security=True;TrustServerCertificate=True;Connection Timeout=30;";
 
         private DbConnection()
         {

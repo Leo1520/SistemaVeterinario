@@ -4,32 +4,216 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using CapaNegocio;
+using SistemVeterinario.Navigation;
 
-namespace SistemVeterinario
+namespace SistemVeterinario.Forms
 {
     /// <summary>
-    /// Formulario para gestión de ventas/facturas
+    /// Módulo para gestión de ventas/facturas
     /// Incluye listado y mantenimiento (CRUD)
+    /// Hereda de BaseModulos para funcionalidad estándar
     /// </summary>
-    public partial class Venta : Form
+    public partial class VentasModule : BaseModulos
     {
         private bool IsEditing = false;
         private int CurrentFacturaId = 0;
 
-        public Venta()
+        public VentasModule()
         {
             InitializeComponent();
             ValidarControlesInicializados();
-            ConfigurarFormulario();
-            
-            // Solo cargar datos si el DataGridView está correctamente inicializado
-            if (dgvVentas != null)
+            ConfigurarModulo();
+        }
+
+        protected override void OnLoad()
+        {
+            CargarDatosVentas();
+        }
+
+        protected override void OnBuscar()
+        {
+            if (!string.IsNullOrWhiteSpace(txtBuscar?.Text))
             {
-                CargarDatos();
+                BuscarVentas(txtBuscar.Text);
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("No se cargan datos: dgvVentas es null");
+                CargarDatosVentas();
+            }
+        }
+
+        protected override void OnNuevo()
+        {
+            LimpiarFormulario();
+            IsEditing = false;
+            CurrentFacturaId = 0;
+            ConfigurarEstadoBotones(true);
+            if (tabControlPrincipal != null)
+                tabControlPrincipal.SelectedTab = tabConfiguraciones;
+            txtNumeroFactura?.Focus();
+        }
+
+        protected override void OnEditar(DataGridViewRow fila)
+        {
+            if (fila != null)
+            {
+                CargarDatosParaEdicion(fila);
+                IsEditing = true;
+                ConfigurarEstadoBotones(true);
+                if (tabControlPrincipal != null)
+                    tabControlPrincipal.SelectedTab = tabConfiguraciones;
+                txtNumeroFactura?.Focus();
+            }
+        }
+
+        protected override void OnEliminarFila(DataGridViewRow fila)
+        {
+            if (fila != null)
+            {
+                if (MessageBox.Show("¿Está seguro de eliminar esta factura?", "Confirmar Eliminación",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        MessageBox.Show("Funcionalidad de eliminación - Próximamente", "Información",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al eliminar: {ex.Message}", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void CargarDatosVentas()
+        {
+            try
+            {
+                if (dgvDatos == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("dgvDatos es null en CargarDatos");
+                    return;
+                }
+
+                DataTable dt = NVentas.Mostrar();
+
+                if (dt != null && dt.Rows.Count >= 0)
+                {
+                    dgvDatos.DataSource = dt;
+                    PersonalizarColumnasVentas();
+                }
+                else
+                {
+                    dgvDatos.DataSource = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar datos: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if (dgvDatos != null)
+                    dgvDatos.DataSource = null;
+            }
+        }
+
+        private void PersonalizarColumnasVentas()
+        {
+            if (dgvDatos?.DataSource == null) return;
+
+            try
+            {
+                foreach (DataGridViewColumn column in dgvDatos.Columns)
+                {
+                    if (column == null || string.IsNullOrEmpty(column.Name))
+                        continue;
+
+                    switch (column.Name.ToLower())
+                    {
+                        case "id":
+                            column.HeaderText = "ID";
+                            column.Width = 50;
+                            break;
+                        case "numero_factura":
+                            column.HeaderText = "Nº Factura";
+                            column.Width = 100;
+                            break;
+                        case "fecha_emision":
+                            column.HeaderText = "Fecha Emisión";
+                            column.Width = 100;
+                            break;
+                        case "fecha_vencimiento":
+                            column.HeaderText = "Fecha Vencimiento";
+                            column.Width = 120;
+                            break;
+                        case "cliente":
+                            column.HeaderText = "Cliente";
+                            column.Width = 200;
+                            break;
+                        case "subtotal":
+                            column.HeaderText = "Subtotal";
+                            column.Width = 80;
+                            column.DefaultCellStyle.Format = "C2";
+                            break;
+                        case "impuestos":
+                            column.HeaderText = "Impuestos";
+                            column.Width = 80;
+                            column.DefaultCellStyle.Format = "C2";
+                            break;
+                        case "descuentos":
+                            column.HeaderText = "Descuentos";
+                            column.Width = 80;
+                            column.DefaultCellStyle.Format = "C2";
+                            break;
+                        case "total":
+                            column.HeaderText = "Total";
+                            column.Width = 80;
+                            column.DefaultCellStyle.Format = "C2";
+                            break;
+                        case "estado":
+                            column.HeaderText = "Estado";
+                            column.Width = 80;
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en PersonalizarColumnas: {ex.Message}");
+            }
+        }
+
+        private void BuscarVentas(string textoBuscar)
+        {
+            try
+            {
+                if (int.TryParse(textoBuscar, out int personaId))
+                {
+                    DataTable dt = NVentas.BuscarPorPersona(personaId);
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        dgvDatos.DataSource = dt;
+                        PersonalizarColumnasVentas();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron facturas para esta persona", "Información",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        dgvDatos.DataSource = null;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese un ID de persona válido para buscar", "Información",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error en la búsqueda: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -37,18 +221,16 @@ namespace SistemVeterinario
         {
             var controlesRequeridos = new Dictionary<string, Control?>
             {
-                { "tabControl", tabControl },
-                { "dgvVentas", dgvVentas },
+                { "tabControlPrincipal", tabControlPrincipal },
+                { "dgvDatos", dgvDatos },
                 { "btnNuevo", btnNuevo },
                 { "btnGuardar", btnGuardar },
-                { "btnEditar", btnEditar },
-                { "btnEliminar", btnEliminar },
                 { "btnCancelar", btnCancelar },
                 { "cmbEstado", cmbEstado }
             };
 
             var controlesNulos = controlesRequeridos.Where(c => c.Value == null).Select(c => c.Key).ToList();
-            
+
             if (controlesNulos.Any())
             {
                 string mensaje = $"Error de Inicialización:\n\nLos siguientes controles no se inicializaron:\n• {string.Join("\n• ", controlesNulos)}\n\nEl formulario puede no funcionar correctamente.";
@@ -61,24 +243,24 @@ namespace SistemVeterinario
             }
         }
 
-        private void ConfigurarFormulario()
+        private void ConfigurarModulo()
         {
             try
             {
                 // Configurar eventos - con validación null
                 if (btnNuevo != null) btnNuevo.Click += BtnNuevo_Click;
                 if (btnGuardar != null) btnGuardar.Click += BtnGuardar_Click;
-                if (btnEditar != null) btnEditar.Click += BtnEditar_Click;
+                // btnEditar se maneja desde BaseModulos
                 if (btnCancelar != null) btnCancelar.Click += BtnCancelar_Click;
                 if (btnEliminar != null) btnEliminar.Click += BtnEliminar_Click;
                 if (btnBuscar != null) btnBuscar.Click += BtnBuscar_Click;
                 if (btnRefrescar != null) btnRefrescar.Click += BtnRefrescar_Click;
 
-                // Eventos del DataGridView
-                if (dgvVentas != null)
+                // Eventos del DataGridView - usar dgvDatos del BaseModulos
+                if (dgvDatos != null)
                 {
-                    dgvVentas.SelectionChanged += DgvVentas_SelectionChanged;
-                    dgvVentas.CellDoubleClick += DgvVentas_CellDoubleClick;
+                    dgvDatos.SelectionChanged += DgvDatos_SelectionChanged;
+                    dgvDatos.CellDoubleClick += DgvDatos_CellDoubleClick;
                 }
 
                 // Configurar ComboBox de Estado
@@ -98,7 +280,7 @@ namespace SistemVeterinario
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al configurar formulario: {ex.Message}\n\nDetalle: {ex.StackTrace}", 
+                MessageBox.Show($"Error al configurar módulo: {ex.Message}\n\nDetalle: {ex.StackTrace}",
                     "Error de Inicialización", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -107,12 +289,7 @@ namespace SistemVeterinario
 
         private void BtnNuevo_Click(object? sender, EventArgs e)
         {
-            LimpiarFormulario();
-            IsEditing = false;
-            CurrentFacturaId = 0;
-            ConfigurarEstadoBotones(true);
-            tabControl.SelectedTab = tabMantenimiento;
-            txtNumeroFactura.Focus();
+            OnNuevo();
         }
 
         private void BtnGuardar_Click(object? sender, EventArgs e)
@@ -122,7 +299,7 @@ namespace SistemVeterinario
                 try
                 {
                     string resultado;
-                    
+
                     if (IsEditing)
                     {
                         resultado = NVentas.Editar(
@@ -156,22 +333,22 @@ namespace SistemVeterinario
 
                     if (resultado == "OK")
                     {
-                        MessageBox.Show(IsEditing ? "Factura actualizada exitosamente" : "Factura creada exitosamente", 
+                        MessageBox.Show(IsEditing ? "Factura actualizada exitosamente" : "Factura creada exitosamente",
                             "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        CargarDatos();
+                        CargarDatosVentas();
                         LimpiarFormulario();
                         ConfigurarEstadoBotones(false);
-                        tabControl.SelectedTab = tabListado;
+                        tabControlPrincipal.SelectedTab = tabInicio;
                     }
                     else
                     {
-                        MessageBox.Show($"Error: {resultado}", "Error", 
+                        MessageBox.Show($"Error: {resultado}", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error inesperado: {ex.Message}", "Error", 
+                    MessageBox.Show($"Error inesperado: {ex.Message}", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -179,24 +356,20 @@ namespace SistemVeterinario
 
         private void BtnEditar_Click(object? sender, EventArgs e)
         {
-            if (dgvVentas.CurrentRow != null)
+            if (dgvDatos?.CurrentRow != null)
             {
-                CargarDatosParaEdicion();
-                IsEditing = true;
-                ConfigurarEstadoBotones(true);
-                tabControl.SelectedTab = tabMantenimiento;
-                txtNumeroFactura.Focus();
+                OnEditar(dgvDatos.CurrentRow);
             }
             else
             {
-                MessageBox.Show("Seleccione una factura para editar", "Información", 
+                MessageBox.Show("Seleccione una factura para editar", "Información",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void BtnCancelar_Click(object? sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Está seguro de cancelar? Se perderán los cambios no guardados.", 
+            if (MessageBox.Show("¿Está seguro de cancelar? Se perderán los cambios no guardados.",
                 "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 LimpiarFormulario();
@@ -208,89 +381,44 @@ namespace SistemVeterinario
 
         private void BtnEliminar_Click(object? sender, EventArgs e)
         {
-            if (dgvVentas.CurrentRow != null)
+            if (dgvDatos?.CurrentRow != null)
             {
-                if (MessageBox.Show("¿Está seguro de eliminar esta factura?", "Confirmar Eliminación", 
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        // Aquí implementarías la lógica de eliminación
-                        // Por ahora solo mostramos un mensaje
-                        MessageBox.Show("Funcionalidad de eliminación - Próximamente", "Información", 
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error al eliminar: {ex.Message}", "Error", 
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                OnEliminarFila(dgvDatos.CurrentRow);
             }
             else
             {
-                MessageBox.Show("Seleccione una factura para eliminar", "Información", 
+                MessageBox.Show("Seleccione una factura para eliminar", "Información",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void BtnBuscar_Click(object? sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtBuscarPersonaId.Text))
-            {
-                try
-                {
-                    int personaId = Convert.ToInt32(txtBuscarPersonaId.Text);
-                    DataTable dt = NVentas.BuscarPorPersona(personaId);
-                    
-                    if (dt != null && dt.Rows.Count > 0)
-                    {
-                        dgvVentas.DataSource = dt;
-                        ConfigurarColumnasGrid();
-                        lblTotalRegistros.Text = $"Total registros: {dt.Rows.Count}";
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se encontraron facturas para esta persona", "Información", 
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        dgvVentas.DataSource = null;
-                        lblTotalRegistros.Text = "Total registros: 0";
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error en la búsqueda: {ex.Message}", "Error", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                CargarDatos();
-            }
+            OnBuscar();
         }
 
         private void BtnRefrescar_Click(object? sender, EventArgs e)
         {
-            CargarDatos();
-            txtBuscarPersonaId.Clear();
+            CargarDatosVentas();
+            if (txtBuscarPersonaId != null) txtBuscarPersonaId.Clear();
         }
 
         #endregion
 
         #region Eventos del DataGridView
 
-        private void DgvVentas_SelectionChanged(object? sender, EventArgs e)
+        private void DgvDatos_SelectionChanged(object? sender, EventArgs e)
         {
-            bool haySeleccion = dgvVentas?.CurrentRow != null;
-            if (btnEditar != null) btnEditar.Enabled = haySeleccion;
+            bool haySeleccion = dgvDatos?.CurrentRow != null;
+            // btnEditar se maneja desde BaseModulos
             if (btnEliminar != null) btnEliminar.Enabled = haySeleccion;
         }
 
-        private void DgvVentas_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        private void DgvDatos_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && dgvDatos?.Rows[e.RowIndex] != null)
             {
-                BtnEditar_Click(sender, e);
+                OnEditar(dgvDatos.Rows[e.RowIndex]);
             }
         }
 
@@ -298,82 +426,18 @@ namespace SistemVeterinario
 
         #region Métodos Auxiliares
 
-        private void CargarDatos()
-        {
-            try
-            {
-                if (dgvVentas == null)
-                {
-                    System.Diagnostics.Debug.WriteLine("dgvVentas es null en CargarDatos");
-                    return;
-                }
-
-                DataTable dt = NVentas.Mostrar();
-                
-                if (dt != null && dt.Rows.Count >= 0)
-                {
-                    dgvVentas.DataSource = dt;
-                    
-                    // Solo configurar columnas si hay datos o al menos estructura
-                    // y solo si no falla la configuración
-                    if (dt.Columns.Count > 0)
-                    {
-                        try
-                        {
-                            ConfigurarColumnasGrid();
-                        }
-                        catch (Exception ex)
-                        {
-                            System.Diagnostics.Debug.WriteLine($"Falló ConfigurarColumnasGrid, continuando sin configuración personalizada: {ex.Message}");
-                            // Si falla la configuración de columnas, simplemente continuar sin ella
-                            // El DataGridView funcionará con configuración por defecto
-                        }
-                    }
-                    
-                    if (lblTotalRegistros != null) 
-                        lblTotalRegistros.Text = $"Total registros: {dt.Rows.Count}";
-                }
-                else
-                {
-                    dgvVentas.DataSource = null;
-                    if (lblTotalRegistros != null) 
-                        lblTotalRegistros.Text = "Total registros: 0";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar datos: {ex.Message}\n\nDetalle: {ex.StackTrace}", "Error", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
-                if (dgvVentas != null) 
-                {
-                    try
-                    {
-                        dgvVentas.DataSource = null;
-                    }
-                    catch
-                    {
-                        // Si falla hasta limpiar el DataSource, solo loggear
-                        System.Diagnostics.Debug.WriteLine("Error limpiando DataSource");
-                    }
-                }
-                
-                if (lblTotalRegistros != null) 
-                    lblTotalRegistros.Text = "Total registros: 0 (Error)";
-            }
-        }
 
         private void ConfigurarColumnasGrid()
         {
             try
             {
-                if (dgvVentas?.DataSource == null || dgvVentas.Columns.Count == 0)
+                if (dgvDatos?.DataSource == null || dgvDatos.Columns.Count == 0)
                     return;
 
                 // SOLO configurar encabezados de texto - NADA más
-                foreach (DataGridViewColumn column in dgvVentas.Columns)
+                foreach (DataGridViewColumn column in dgvDatos.Columns)
                 {
-                    if (column == null || string.IsNullOrEmpty(column.Name)) 
+                    if (column == null || string.IsNullOrEmpty(column.Name))
                         continue;
 
                     try
@@ -426,40 +490,48 @@ namespace SistemVeterinario
             }
         }
 
-        private void CargarDatosParaEdicion()
+        private void CargarDatosParaEdicion(DataGridViewRow fila)
         {
-            if (dgvVentas.CurrentRow != null)
+            if (fila != null)
             {
-                CurrentFacturaId = Convert.ToInt32(dgvVentas.CurrentRow.Cells["id"].Value);
-                
+                CurrentFacturaId = Convert.ToInt32(fila.Cells["id"].Value);
+
                 // Cargar datos básicos desde el grid
-                txtNumeroFactura.Text = dgvVentas.CurrentRow.Cells["numero_factura"].Value?.ToString() ?? "";
-                dtpFechaEmision.Value = Convert.ToDateTime(dgvVentas.CurrentRow.Cells["fecha_emision"].Value);
-                
-                if (dgvVentas.CurrentRow.Cells["fecha_vencimiento"].Value != DBNull.Value)
+                if (txtNumeroFactura != null)
+                    txtNumeroFactura.Text = fila.Cells["numero_factura"].Value?.ToString() ?? "";
+
+                if (dtpFechaEmision != null)
+                    dtpFechaEmision.Value = Convert.ToDateTime(fila.Cells["fecha_emision"].Value);
+
+                if (fila.Cells["fecha_vencimiento"].Value != DBNull.Value)
                 {
-                    chkTieneFechaVencimiento.Checked = true;
-                    dtpFechaVencimiento.Value = Convert.ToDateTime(dgvVentas.CurrentRow.Cells["fecha_vencimiento"].Value);
+                    if (chkTieneFechaVencimiento != null) chkTieneFechaVencimiento.Checked = true;
+                    if (dtpFechaVencimiento != null)
+                        dtpFechaVencimiento.Value = Convert.ToDateTime(fila.Cells["fecha_vencimiento"].Value);
                 }
                 else
                 {
-                    chkTieneFechaVencimiento.Checked = false;
+                    if (chkTieneFechaVencimiento != null) chkTieneFechaVencimiento.Checked = false;
                 }
 
-                nudImpuestos.Value = Convert.ToDecimal(dgvVentas.CurrentRow.Cells["impuestos"].Value ?? 0);
-                nudDescuentos.Value = Convert.ToDecimal(dgvVentas.CurrentRow.Cells["descuentos"].Value ?? 0);
-                cmbEstado.Text = dgvVentas.CurrentRow.Cells["estado"].Value?.ToString() ?? "Pendiente";
-                txtNotas.Text = dgvVentas.CurrentRow.Cells["notas"].Value?.ToString() ?? "";
+                if (nudImpuestos != null)
+                    nudImpuestos.Value = Convert.ToDecimal(fila.Cells["impuestos"].Value ?? 0);
+                if (nudDescuentos != null)
+                    nudDescuentos.Value = Convert.ToDecimal(fila.Cells["descuentos"].Value ?? 0);
+                if (cmbEstado != null)
+                    cmbEstado.Text = fila.Cells["estado"].Value?.ToString() ?? "Pendiente";
+                if (txtNotas != null)
+                    txtNotas.Text = fila.Cells["notas"].Value?.ToString() ?? "";
 
                 // Para obtener más detalles, deberías hacer una consulta adicional
                 // Por ahora asignamos valores por defecto
-                txtPersonaId.Text = "1"; // Esto debería venir de la consulta detallada
-                txtProductosJson.Text = "";
-                txtServiciosJson.Text = "";
+                if (txtPersonaId != null) txtPersonaId.Text = "1"; // Esto debería venir de la consulta detallada
+                if (txtProductosJson != null) txtProductosJson.Text = "";
+                if (txtServiciosJson != null) txtServiciosJson.Text = "";
             }
         }
 
-        private void LimpiarFormulario()
+        private new void LimpiarFormulario()
         {
             try
             {
@@ -490,8 +562,8 @@ namespace SistemVeterinario
                 if (btnNuevo != null) btnNuevo.Enabled = !editando;
                 if (btnGuardar != null) btnGuardar.Enabled = editando;
                 if (btnCancelar != null) btnCancelar.Enabled = editando;
-                if (btnEditar != null) btnEditar.Enabled = !editando && dgvVentas?.CurrentRow != null;
-                if (btnEliminar != null) btnEliminar.Enabled = !editando && dgvVentas?.CurrentRow != null;
+                // btnEditar se maneja desde BaseModulos
+                if (btnEliminar != null) btnEliminar.Enabled = !editando && dgvDatos?.CurrentRow != null;
 
                 // Habilitar/deshabilitar controles de edición
                 if (txtNumeroFactura != null) txtNumeroFactura.Enabled = editando;
@@ -517,7 +589,7 @@ namespace SistemVeterinario
         {
             if (string.IsNullOrWhiteSpace(txtNumeroFactura.Text))
             {
-                MessageBox.Show("El número de factura es requerido", "Validación", 
+                MessageBox.Show("El número de factura es requerido", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNumeroFactura.Focus();
                 return false;
@@ -525,7 +597,7 @@ namespace SistemVeterinario
 
             if (!NVentas.ValidarFactura(txtNumeroFactura.Text))
             {
-                MessageBox.Show("El número de factura no tiene un formato válido", "Validación", 
+                MessageBox.Show("El número de factura no tiene un formato válido", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNumeroFactura.Focus();
                 return false;
@@ -533,7 +605,7 @@ namespace SistemVeterinario
 
             if (string.IsNullOrWhiteSpace(txtPersonaId.Text))
             {
-                MessageBox.Show("El ID de la persona es requerido", "Validación", 
+                MessageBox.Show("El ID de la persona es requerido", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPersonaId.Focus();
                 return false;
@@ -541,7 +613,7 @@ namespace SistemVeterinario
 
             if (!int.TryParse(txtPersonaId.Text, out _))
             {
-                MessageBox.Show("El ID de la persona debe ser un número válido", "Validación", 
+                MessageBox.Show("El ID de la persona debe ser un número válido", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPersonaId.Focus();
                 return false;
@@ -552,21 +624,6 @@ namespace SistemVeterinario
 
         #endregion
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            if (btnGuardar.Enabled)
-            {
-                var result = MessageBox.Show("Hay cambios sin guardar. ¿Está seguro de cerrar?", 
-                    "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
-                if (result == DialogResult.No)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-            }
-
-            base.OnFormClosing(e);
-        }
+        // UserControls no manejan FormClosing, se puede implementar en eventos del Dashboard si es necesario
     }
 }

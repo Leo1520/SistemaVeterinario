@@ -32,7 +32,7 @@ namespace SistemVeterinario
             BtnVentas.Click += BtnVentas_Click;
             BtnProductos.Click += BtnProductos_Click;
             BtnReportes.Click += BtnReportes_Click;
-            BtnPersonal.Click += BtnConfiguracion_Click;
+            BtnPersonal.Click += BtnPersonal_Click;
         }
 
         /// <summary>
@@ -186,12 +186,66 @@ namespace SistemVeterinario
         {
             CambiarIconoSuperior(IconChar.UserTie, "Personal");
 
+            try
+            {
+                // Ocultar elementos del diseñador
+                OcultarElementosDisenador();
+
+                // Remover cualquier UserControl existente
+                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+                foreach (var control in userControls)
+                {
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
+                }
+
+                // Crear e insertar el módulo de personal
+                Forms.PersonalModule personalModule = new Forms.PersonalModule
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                panelContent.Controls.Add(personalModule);
+                personalModule.BringToFront();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de personal: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnInventario_Click(object sender, EventArgs e)
         {
             CambiarIconoSuperior(IconChar.BoxesStacked, "Inventario");
 
+            try
+            {
+                // Ocultar elementos del diseñador
+                OcultarElementosDisenador();
+
+                // Remover cualquier UserControl existente
+                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+                foreach (var control in userControls)
+                {
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
+                }
+
+                // Crear e insertar el módulo de inventario
+                Forms.InventarioModule inventarioModule = new Forms.InventarioModule
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                panelContent.Controls.Add(inventarioModule);
+                inventarioModule.BringToFront();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de inventario: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -221,10 +275,25 @@ namespace SistemVeterinario
 
             try
             {
-                using (Venta frmVenta = new Venta())
+                // Ocultar elementos del diseñador
+                OcultarElementosDisenador();
+
+                // Remover cualquier UserControl existente
+                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+                foreach (var control in userControls)
                 {
-                    frmVenta.ShowDialog(this);
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
                 }
+
+                // Crear e insertar el módulo de ventas
+                Forms.VentasModule ventasModule = new Forms.VentasModule
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                panelContent.Controls.Add(ventasModule);
+                ventasModule.BringToFront();
             }
             catch (Exception ex)
             {
@@ -239,22 +308,25 @@ namespace SistemVeterinario
 
             try
             {
-                foreach (Control control in panelContent.Controls.Cast<Control>().ToList())
+                // Ocultar elementos del diseñador
+                OcultarElementosDisenador();
+
+                // Remover cualquier UserControl existente
+                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+                foreach (var control in userControls)
                 {
                     panelContent.Controls.Remove(control);
                     control.Dispose();
                 }
 
-                Forms.ProductosModule productosModule = new Forms.ProductosModule
+                // Crear e insertar el módulo de reportes
+                Forms.ReportesModule reportesModule = new Forms.ReportesModule
                 {
                     Dock = DockStyle.Fill
                 };
-                panelContent.Controls.Add(productosModule);
 
-                using (Reportes frmReportes = new Reportes())
-                {
-                    frmReportes.ShowDialog(this);
-                }
+                panelContent.Controls.Add(reportesModule);
+                reportesModule.BringToFront();
             }
             catch (Exception ex)
             {
@@ -289,10 +361,18 @@ namespace SistemVeterinario
 
             try
             {
-                using (Producto frmProducto = new Producto())
+                // Limpiar controles existentes del panel
+                foreach (Control control in panelContent.Controls.Cast<Control>().ToList())
                 {
-                    frmProducto.ShowDialog(this);
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
                 }
+                // Crear e insertar el módulo de productos
+                Forms.ProductosModule productosModule = new Forms.ProductosModule
+                {
+                    Dock = DockStyle.Fill
+                };
+                panelContent.Controls.Add(productosModule);
             }
             catch (Exception ex)
             {

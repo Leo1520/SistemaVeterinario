@@ -593,7 +593,7 @@ namespace SistemVeterinario
             lblSubtitulo.AutoSize = true;
             lblSubtitulo.Font = new Font("Century", 13.8F, FontStyle.Bold);
             lblSubtitulo.ForeColor = Color.DimGray;
-            lblSubtitulo.Location = new Point(408, 806);
+            lblSubtitulo.Location = new Point(406, 545);
             lblSubtitulo.Name = "lblSubtitulo";
             lblSubtitulo.Size = new Size(303, 28);
             lblSubtitulo.TabIndex = 2;

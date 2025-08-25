@@ -4,19 +4,70 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using CapaNegocio;
+using SistemVeterinario.Navigation;
 
-namespace SistemVeterinario
+namespace SistemVeterinario.Forms
 {
-    public partial class Reportes : Form
+    public partial class ReportesModule : BaseModulos
     {
-        public Reportes()
+        public ReportesModule()
         {
             InitializeComponent();
-            ConfigurarFormulario();
+            ConfigurarModulo();
+        }
+
+        protected override void OnLoad()
+        {
+            CargarDatosReportes();
             CargarEstadisticasGenerales();
         }
 
-        private void ConfigurarFormulario()
+        protected override void OnBuscar()
+        {
+            CargarDatosReportes();
+        }
+
+        protected override void OnNuevo()
+        {
+            MessageBox.Show("Para generar un nuevo reporte, seleccione una opción del panel de reportes", "Información",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        protected override void OnEditar(DataGridViewRow fila)
+        {
+            MessageBox.Show("Los reportes no se pueden editar, solo visualizar y exportar", "Información",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        protected override void OnEliminarFila(DataGridViewRow fila)
+        {
+            MessageBox.Show("Los reportes no se pueden eliminar desde esta vista", "Información",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void CargarDatosReportes()
+        {
+            try
+            {
+                // Cargar reporte por defecto (clientes)
+                DataTable clientes = NPersona.Mostrar();
+                if (clientes != null && dgvDatos != null)
+                {
+                    dgvDatos.DataSource = clientes;
+                    if (lblTituloReporte != null)
+                        lblTituloReporte.Text = "Reporte de Clientes";
+                    ConfigurarColumnasDGV("clientes");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error cargando datos: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void ConfigurarModulo()
         {
             try
             {
@@ -25,7 +76,7 @@ namespace SistemVeterinario
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error configurando formulario: {ex.Message}", "Error", 
+                MessageBox.Show($"Error configurando módulo: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -56,7 +107,7 @@ namespace SistemVeterinario
                 {
                     dtpFechaInicio.Value = DateTime.Now.AddMonths(-1);
                 }
-                
+
                 if (dtpFechaFin != null)
                 {
                     dtpFechaFin.Value = DateTime.Now;
@@ -89,7 +140,7 @@ namespace SistemVeterinario
 
                 if (lblTotalProductos != null)
                     lblTotalProductos.Text = $"Total Productos: {totalProductos}";
-                
+
                 if (lblProductosBajoStock != null)
                 {
                     lblProductosBajoStock.Text = $"Productos Stock Bajo: {productosBajoStock}";
@@ -105,7 +156,7 @@ namespace SistemVeterinario
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error cargando estadísticas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error cargando estadísticas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -120,7 +171,7 @@ namespace SistemVeterinario
                 if (estadisticas != null)
                 {
                     dgvGraficoMascotas.DataSource = estadisticas;
-                    
+
                     // Configurar columnas
                     foreach (DataGridViewColumn column in dgvGraficoMascotas.Columns)
                     {
@@ -166,7 +217,7 @@ namespace SistemVeterinario
                 if (estadisticas != null)
                 {
                     dgvGraficoProductos.DataSource = estadisticas;
-                    
+
                     // Configurar columnas
                     foreach (DataGridViewColumn column in dgvGraficoProductos.Columns)
                     {
@@ -209,26 +260,26 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable clientes = NPersona.Mostrar();
                 if (clientes != null)
                 {
-                    dgvReportes.DataSource = clientes;
+                    dgvDatos.DataSource = clientes;
                     ConfigurarColumnasDGV("clientes");
-                    
+
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = "Reporte de Clientes";
                 }
                 else
                 {
-                    MessageBox.Show("No se pudieron cargar los datos de clientes", "Error", 
+                    MessageBox.Show("No se pudieron cargar los datos de clientes", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando reporte de clientes: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando reporte de clientes: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -237,26 +288,26 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable mascotas = NMascotas.Mostrar();
                 if (mascotas != null)
                 {
-                    dgvReportes.DataSource = mascotas;
+                    dgvDatos.DataSource = mascotas;
                     ConfigurarColumnasDGV("mascotas");
-                    
+
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = "Reporte de Mascotas";
                 }
                 else
                 {
-                    MessageBox.Show("No se pudieron cargar los datos de mascotas", "Error", 
+                    MessageBox.Show("No se pudieron cargar los datos de mascotas", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando reporte de mascotas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando reporte de mascotas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -265,26 +316,26 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable productos = NProductos.Mostrar();
                 if (productos != null)
                 {
-                    dgvReportes.DataSource = productos;
+                    dgvDatos.DataSource = productos;
                     ConfigurarColumnasDGV("productos");
-                    
+
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = "Reporte de Productos";
                 }
                 else
                 {
-                    MessageBox.Show("No se pudieron cargar los datos de productos", "Error", 
+                    MessageBox.Show("No se pudieron cargar los datos de productos", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando reporte de productos: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando reporte de productos: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -293,37 +344,37 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable stockBajo = NProductos.ObtenerProductosBajoStock();
                 if (stockBajo != null)
                 {
-                    dgvReportes.DataSource = stockBajo;
+                    dgvDatos.DataSource = stockBajo;
                     ConfigurarColumnasDGV("stock_bajo");
-                    
+
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = "Reporte de Productos con Stock Bajo";
-                    
+
                     if (stockBajo.Rows.Count == 0)
                     {
-                        MessageBox.Show("¡Excelente! No hay productos con stock bajo", "Stock OK", 
+                        MessageBox.Show("¡Excelente! No hay productos con stock bajo", "Stock OK",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show($"Se encontraron {stockBajo.Rows.Count} productos con stock bajo", "Atención", 
+                        MessageBox.Show($"Se encontraron {stockBajo.Rows.Count} productos con stock bajo", "Atención",
                             MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("No se pudieron cargar los datos de stock", "Error", 
+                    MessageBox.Show("No se pudieron cargar los datos de stock", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando reporte de stock: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando reporte de stock: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -337,7 +388,7 @@ namespace SistemVeterinario
 
                 if (fechaInicio > fechaFin)
                 {
-                    MessageBox.Show("La fecha de inicio no puede ser mayor a la fecha de fin", "Error de Fechas", 
+                    MessageBox.Show("La fecha de inicio no puede ser mayor a la fecha de fin", "Error de Fechas",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -346,7 +397,7 @@ namespace SistemVeterinario
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando reporte de ventas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando reporte de ventas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -355,9 +406,9 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes?.DataSource == null)
+                if (dgvDatos?.DataSource == null)
                 {
-                    MessageBox.Show("No hay datos para exportar. Genere primero un reporte.", "Sin Datos", 
+                    MessageBox.Show("No hay datos para exportar. Genere primero un reporte.", "Sin Datos",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -366,7 +417,7 @@ namespace SistemVeterinario
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error exportando reporte: {ex.Message}", "Error", 
+                MessageBox.Show($"Error exportando reporte: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -376,12 +427,12 @@ namespace SistemVeterinario
             try
             {
                 CargarEstadisticasGenerales();
-                MessageBox.Show("Estadísticas actualizadas correctamente", "Actualizado", 
+                MessageBox.Show("Estadísticas actualizadas correctamente", "Actualizado",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error actualizando estadísticas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error actualizando estadísticas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -390,14 +441,20 @@ namespace SistemVeterinario
 
         private void ConfigurarColumnasDGV(string tipoReporte)
         {
-            if (dgvReportes?.DataSource == null) return;
+            if (dgvDatos?.DataSource == null) return;
 
             try
             {
+                // Ocultar columnas de acción para reportes
+                if (dgvDatos.Columns.Contains("btnEditar"))
+                    dgvDatos.Columns["btnEditar"].Visible = false;
+                if (dgvDatos.Columns.Contains("btnEliminar"))
+                    dgvDatos.Columns["btnEliminar"].Visible = false;
+
                 switch (tipoReporte.ToLower())
                 {
                     case "clientes":
-                        foreach (DataGridViewColumn column in dgvReportes.Columns)
+                        foreach (DataGridViewColumn column in dgvDatos.Columns)
                         {
                             switch (column.Name.ToLower())
                             {
@@ -433,7 +490,7 @@ namespace SistemVeterinario
                         break;
 
                     case "mascotas":
-                        foreach (DataGridViewColumn column in dgvReportes.Columns)
+                        foreach (DataGridViewColumn column in dgvDatos.Columns)
                         {
                             switch (column.Name.ToLower())
                             {
@@ -473,7 +530,7 @@ namespace SistemVeterinario
                         break;
 
                     case "productos":
-                        foreach (DataGridViewColumn column in dgvReportes.Columns)
+                        foreach (DataGridViewColumn column in dgvDatos.Columns)
                         {
                             switch (column.Name.ToLower())
                             {
@@ -514,7 +571,7 @@ namespace SistemVeterinario
                         break;
 
                     case "stock_bajo":
-                        foreach (DataGridViewColumn column in dgvReportes.Columns)
+                        foreach (DataGridViewColumn column in dgvDatos.Columns)
                         {
                             switch (column.Name.ToLower())
                             {
@@ -548,7 +605,7 @@ namespace SistemVeterinario
                             }
                         }
                         break;
-                        
+
                     // Nuevas configuraciones para reportes de ventas
                     case "ventas_rango":
                         ConfigurarColumnasVentasRango();
@@ -584,31 +641,31 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable ventas = NVentas.ReporteVentasPorRango(fechaInicio, fechaFin, estado);
                 if (ventas != null && ventas.Rows.Count > 0)
                 {
-                    dgvReportes.DataSource = ventas;
+                    dgvDatos.DataSource = ventas;
                     ConfigurarColumnasDGV("ventas_rango");
-                    
+
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = $"Reporte de Ventas ({fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy})";
-                    
+
                     MostrarResumenVentas(ventas);
                 }
                 else
                 {
-                    MessageBox.Show($"No se encontraron ventas en el período del {fechaInicio:dd/MM/yyyy} al {fechaFin:dd/MM/yyyy}", 
+                    MessageBox.Show($"No se encontraron ventas en el período del {fechaInicio:dd/MM/yyyy} al {fechaFin:dd/MM/yyyy}",
                         "Sin Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
-                    if (dgvReportes != null) dgvReportes.DataSource = null;
+
+                    if (dgvDatos != null) dgvDatos.DataSource = null;
                     if (lblTituloReporte != null) lblTituloReporte.Text = "Sin ventas en el período seleccionado";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando reporte de ventas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando reporte de ventas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -617,26 +674,26 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable resumen = NVentas.ReporteVentasResumen(fechaInicio, fechaFin, agrupacion);
                 if (resumen != null && resumen.Rows.Count > 0)
                 {
-                    dgvReportes.DataSource = resumen;
+                    dgvDatos.DataSource = resumen;
                     ConfigurarColumnasDGV("ventas_resumen");
-                    
+
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = $"Resumen de Ventas por {agrupacion} ({fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy})";
                 }
                 else
                 {
-                    MessageBox.Show("No se encontraron datos para el resumen de ventas", "Sin Datos", 
+                    MessageBox.Show("No se encontraron datos para el resumen de ventas", "Sin Datos",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando resumen de ventas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando resumen de ventas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -645,26 +702,26 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable detalle = NVentas.ReporteVentasDetalle(fechaInicio, fechaFin);
                 if (detalle != null && detalle.Rows.Count > 0)
                 {
-                    dgvReportes.DataSource = detalle;
+                    dgvDatos.DataSource = detalle;
                     ConfigurarColumnasDGV("ventas_detalle");
-                    
+
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = $"Detalle de Ventas ({fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy})";
                 }
                 else
                 {
-                    MessageBox.Show("No se encontraron detalles de ventas", "Sin Datos", 
+                    MessageBox.Show("No se encontraron detalles de ventas", "Sin Datos",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando detalle de ventas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando detalle de ventas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -673,30 +730,30 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable ventas = NVentas.ReporteVentasPeriodosPredefinidos(periodo);
                 if (ventas != null && ventas.Rows.Count > 0)
                 {
-                    dgvReportes.DataSource = ventas;
+                    dgvDatos.DataSource = ventas;
                     ConfigurarColumnasDGV("ventas_rango");
-                    
+
                     string nombrePeriodo = NVentas.ObtenerNombrePeriodo(periodo);
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = $"Reporte de {nombrePeriodo}";
-                    
+
                     MostrarResumenVentas(ventas);
                 }
                 else
                 {
                     string nombrePeriodo = NVentas.ObtenerNombrePeriodo(periodo);
-                    MessageBox.Show($"No se encontraron ventas para {nombrePeriodo}", "Sin Datos", 
+                    MessageBox.Show($"No se encontraron ventas para {nombrePeriodo}", "Sin Datos",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando reporte de período: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando reporte de período: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -705,26 +762,26 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable topClientes = NVentas.ReporteVentasTopClientes(fechaInicio, fechaFin, topCount);
                 if (topClientes != null && topClientes.Rows.Count > 0)
                 {
-                    dgvReportes.DataSource = topClientes;
+                    dgvDatos.DataSource = topClientes;
                     ConfigurarColumnasDGV("top_clientes");
-                    
+
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = $"Top {topCount} Clientes ({fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy})";
                 }
                 else
                 {
-                    MessageBox.Show("No se encontraron datos de clientes", "Sin Datos", 
+                    MessageBox.Show("No se encontraron datos de clientes", "Sin Datos",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando reporte de top clientes: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando reporte de top clientes: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -733,26 +790,26 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable topProductos = NVentas.ReporteVentasProductosTop(fechaInicio, fechaFin, topCount);
                 if (topProductos != null && topProductos.Rows.Count > 0)
                 {
-                    dgvReportes.DataSource = topProductos;
+                    dgvDatos.DataSource = topProductos;
                     ConfigurarColumnasDGV("top_productos");
-                    
+
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = $"Top {topCount} Productos Vendidos ({fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy})";
                 }
                 else
                 {
-                    MessageBox.Show("No se encontraron datos de productos vendidos", "Sin Datos", 
+                    MessageBox.Show("No se encontraron datos de productos vendidos", "Sin Datos",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando reporte de top productos: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando reporte de top productos: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -761,26 +818,26 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes == null) return;
+                if (dgvDatos == null) return;
 
                 DataTable topServicios = NVentas.ReporteVentasServiciosTop(fechaInicio, fechaFin, topCount);
                 if (topServicios != null && topServicios.Rows.Count > 0)
                 {
-                    dgvReportes.DataSource = topServicios;
+                    dgvDatos.DataSource = topServicios;
                     ConfigurarColumnasDGV("top_servicios");
-                    
+
                     if (lblTituloReporte != null)
                         lblTituloReporte.Text = $"Top {topCount} Servicios Prestados ({fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy})";
                 }
                 else
                 {
-                    MessageBox.Show("No se encontraron datos de servicios prestados", "Sin Datos", 
+                    MessageBox.Show("No se encontraron datos de servicios prestados", "Sin Datos",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error generando reporte de top servicios: {ex.Message}", "Error", 
+                MessageBox.Show($"Error generando reporte de top servicios: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -818,7 +875,7 @@ namespace SistemVeterinario
 
         private void ConfigurarColumnasReportesVentas(string tipoReporte)
         {
-            if (dgvReportes?.DataSource == null) return;
+            if (dgvDatos?.DataSource == null) return;
 
             try
             {
@@ -852,7 +909,7 @@ namespace SistemVeterinario
 
         private void ConfigurarColumnasVentasRango()
         {
-            foreach (DataGridViewColumn column in dgvReportes.Columns)
+            foreach (DataGridViewColumn column in dgvDatos.Columns)
             {
                 switch (column.Name.ToLower())
                 {
@@ -913,7 +970,7 @@ namespace SistemVeterinario
 
         private void ConfigurarColumnasVentasResumen()
         {
-            foreach (DataGridViewColumn column in dgvReportes.Columns)
+            foreach (DataGridViewColumn column in dgvDatos.Columns)
             {
                 switch (column.Name.ToLower())
                 {
@@ -973,7 +1030,7 @@ namespace SistemVeterinario
 
         private void ConfigurarColumnasVentasDetalle()
         {
-            foreach (DataGridViewColumn column in dgvReportes.Columns)
+            foreach (DataGridViewColumn column in dgvDatos.Columns)
             {
                 switch (column.Name.ToLower())
                 {
@@ -1028,7 +1085,7 @@ namespace SistemVeterinario
 
         private void ConfigurarColumnasTopClientes()
         {
-            foreach (DataGridViewColumn column in dgvReportes.Columns)
+            foreach (DataGridViewColumn column in dgvDatos.Columns)
             {
                 switch (column.Name.ToLower())
                 {
@@ -1067,7 +1124,7 @@ namespace SistemVeterinario
 
         private void ConfigurarColumnasTopProductos()
         {
-            foreach (DataGridViewColumn column in dgvReportes.Columns)
+            foreach (DataGridViewColumn column in dgvDatos.Columns)
             {
                 switch (column.Name.ToLower())
                 {
@@ -1114,7 +1171,7 @@ namespace SistemVeterinario
 
         private void ConfigurarColumnasTopServicios()
         {
-            foreach (DataGridViewColumn column in dgvReportes.Columns)
+            foreach (DataGridViewColumn column in dgvDatos.Columns)
             {
                 switch (column.Name.ToLower())
                 {
@@ -1168,9 +1225,9 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes?.DataSource == null)
+                if (dgvDatos?.DataSource == null)
                 {
-                    MessageBox.Show("No hay datos para exportar", "Sin Datos", 
+                    MessageBox.Show("No hay datos para exportar", "Sin Datos",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -1217,13 +1274,13 @@ namespace SistemVeterinario
                             break;
                     }
 
-                    MessageBox.Show($"Reporte exportado exitosamente a:\n{saveDialog.FileName}", "Exportación Exitosa", 
+                    MessageBox.Show($"Reporte exportado exitosamente a:\n{saveDialog.FileName}", "Exportación Exitosa",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error exportando reporte: {ex.Message}", "Error", 
+                MessageBox.Show($"Error exportando reporte: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -1232,12 +1289,12 @@ namespace SistemVeterinario
         {
             try
             {
-                DataTable data = (DataTable)dgvReportes.DataSource;
+                DataTable data = (DataTable)dgvDatos.DataSource;
                 using (var writer = new System.IO.StreamWriter(rutaArchivo, false, System.Text.Encoding.UTF8))
                 {
                     // Escribir encabezados
                     var encabezados = new List<string>();
-                    foreach (DataGridViewColumn column in dgvReportes.Columns)
+                    foreach (DataGridViewColumn column in dgvDatos.Columns)
                     {
                         if (column.Visible)
                         {
@@ -1250,7 +1307,7 @@ namespace SistemVeterinario
                     foreach (DataRow row in data.Rows)
                     {
                         var valores = new List<string>();
-                        foreach (DataGridViewColumn column in dgvReportes.Columns)
+                        foreach (DataGridViewColumn column in dgvDatos.Columns)
                         {
                             if (column.Visible)
                             {
@@ -1272,7 +1329,7 @@ namespace SistemVeterinario
         {
             try
             {
-                DataTable data = (DataTable)dgvReportes.DataSource;
+                DataTable data = (DataTable)dgvDatos.DataSource;
                 using (var writer = new System.IO.StreamWriter(rutaArchivo, false, System.Text.Encoding.UTF8))
                 {
                     writer.WriteLine("=".PadRight(100, '='));
@@ -1283,7 +1340,7 @@ namespace SistemVeterinario
 
                     // Escribir encabezados
                     var encabezados = new List<string>();
-                    foreach (DataGridViewColumn column in dgvReportes.Columns)
+                    foreach (DataGridViewColumn column in dgvDatos.Columns)
                     {
                         if (column.Visible)
                         {
@@ -1297,7 +1354,7 @@ namespace SistemVeterinario
                     foreach (DataRow row in data.Rows)
                     {
                         var valores = new List<string>();
-                        foreach (DataGridViewColumn column in dgvReportes.Columns)
+                        foreach (DataGridViewColumn column in dgvDatos.Columns)
                         {
                             if (column.Visible)
                             {
@@ -1324,7 +1381,7 @@ namespace SistemVeterinario
         {
             try
             {
-                DataTable data = (DataTable)dgvReportes.DataSource;
+                DataTable data = (DataTable)dgvDatos.DataSource;
                 using (var writer = new System.IO.StreamWriter(rutaArchivo, false, System.Text.Encoding.UTF8))
                 {
                     writer.WriteLine($"{lblTituloReporte?.Text ?? "REPORTE DE SISTEMA VETERINARIO"}");
@@ -1338,7 +1395,7 @@ namespace SistemVeterinario
                     foreach (DataRow row in data.Rows)
                     {
                         writer.WriteLine();
-                        foreach (DataGridViewColumn column in dgvReportes.Columns)
+                        foreach (DataGridViewColumn column in dgvDatos.Columns)
                         {
                             if (column.Visible)
                             {
@@ -1363,7 +1420,7 @@ namespace SistemVeterinario
         {
             try
             {
-                DataTable data = (DataTable)dgvReportes.DataSource;
+                DataTable data = (DataTable)dgvDatos.DataSource;
                 using (var writer = new System.IO.StreamWriter(rutaArchivo, false, System.Text.Encoding.UTF8))
                 {
                     writer.WriteLine($"REPORTE: {lblTituloReporte?.Text ?? "Sistema Veterinario"}");
@@ -1373,7 +1430,7 @@ namespace SistemVeterinario
 
                     foreach (DataRow row in data.Rows)
                     {
-                        foreach (DataGridViewColumn column in dgvReportes.Columns)
+                        foreach (DataGridViewColumn column in dgvDatos.Columns)
                         {
                             if (column.Visible)
                             {
@@ -1397,9 +1454,9 @@ namespace SistemVeterinario
         {
             try
             {
-                if (dgvReportes?.DataSource == null)
+                if (dgvDatos?.DataSource == null)
                 {
-                    MessageBox.Show("No hay datos para imprimir", "Sin Datos", 
+                    MessageBox.Show("No hay datos para imprimir", "Sin Datos",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -1407,19 +1464,16 @@ namespace SistemVeterinario
                 MessageBox.Show("Funcionalidad de impresión disponible:\n\n" +
                     "1. Puede exportar a PDF/Word y luego imprimir desde esas aplicaciones\n" +
                     "2. Use Ctrl+P para imprimir directamente el reporte visible\n" +
-                    "3. La función de impresión directa se puede implementar con PrintDocument", 
+                    "3. La función de impresión directa se puede implementar con PrintDocument",
                     "Opciones de Impresión", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error preparando impresión: {ex.Message}", "Error", 
+                MessageBox.Show($"Error preparando impresión: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-        }
+        // UserControls no manejan FormClosing
     }
 }
