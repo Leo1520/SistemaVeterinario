@@ -36,9 +36,9 @@ class Program
         Console.WriteLine($"Buscando migraciones en: {migrationsPath}");
         Console.WriteLine($"Buscando seeders en: {seedersPath}");
 
-        // Cadena de conexión - ajusta con tus credenciales
-        string connectionStringMaster = "Data Source=.;Initial Catalog=master;Integrated Security=True;TrustServerCertificate=True;Connection Timeout=30;";
-        string connectionStringSistemaVeterinario = "Data Source=.;Initial Catalog=Sistema_Veterinario;Integrated Security=True;TrustServerCertificate=True;Connection Timeout=30;";
+        // Cadena de conexión - ajusta con tus credenciales 
+        string connectionStringSistemaVeterinario = CapaDatos.DbConnection.GetConnectionString();
+        string connectionStringMaster = connectionStringSistemaVeterinario.Replace("Initial Catalog=Sistema_Veterinario;", "Initial Catalog=master;");
 
         try
         {
