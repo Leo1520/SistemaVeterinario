@@ -148,25 +148,49 @@ namespace SistemVeterinario.Navigation
             // 
             dgvDatos.AllowUserToAddRows = false;
             dgvDatos.AllowUserToDeleteRows = false;
-            dgvDatos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+            dgvDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvDatos.BackgroundColor = Color.White;
+            dgvDatos.BorderStyle = BorderStyle.FixedSingle;
+            dgvDatos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvDatos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dgvDatos.ColumnHeadersHeight = 29;
+            dgvDatos.ColumnHeadersHeight = 35;
+            dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvDatos.EnableHeadersVisualStyles = false;
-            dgvDatos.GridColor = Color.FromArgb(200, 200, 200);
-            // que no este encima de panelBusqueda
-            dgvDatos.Location = new Point(9, 575);
+            dgvDatos.GridColor = Color.FromArgb(240, 240, 240);
+            dgvDatos.Location = new Point(6, 149);
             dgvDatos.MultiSelect = false;
             dgvDatos.Name = "dgvDatos";
             dgvDatos.ReadOnly = true;
             dgvDatos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dgvDatos.RowHeadersWidth = 51;
-            dgvDatos.RowTemplate.Height = 30;
+            dgvDatos.RowHeadersWidth = 25;
+            dgvDatos.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dgvDatos.RowTemplate.Height = 28;
             dgvDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDatos.Size = new Size(1766, 460);
+            dgvDatos.Size = new Size(980, 417);
             dgvDatos.TabIndex = 1;
             dgvDatos.DataSourceChanged += DgvDatos_DataSourceChanged;
             dgvDatos.CellClick += DgvDatos_CellClick;
+
+            // Estilos para las celdas
+            dgvDatos.DefaultCellStyle.BackColor = Color.White;
+            dgvDatos.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            dgvDatos.DefaultCellStyle.ForeColor = Color.FromArgb(64, 64, 64);
+            dgvDatos.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 120, 215);
+            dgvDatos.DefaultCellStyle.SelectionForeColor = Color.White;
+            dgvDatos.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvDatos.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+
+            // Estilos para los encabezados de columna
+            dgvDatos.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 120, 215);
+            dgvDatos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvDatos.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvDatos.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            // Estilos para los encabezados de fila
+            dgvDatos.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240);
+            dgvDatos.RowHeadersDefaultCellStyle.Font = new Font("Segoe UI", 8F);
+            dgvDatos.RowHeadersDefaultCellStyle.ForeColor = Color.FromArgb(64, 64, 64);
+            dgvDatos.RowHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 220, 220);
             // 
             // tabConfiguraciones
             // 
@@ -331,7 +355,7 @@ namespace SistemVeterinario.Navigation
         protected System.Windows.Forms.Button btnBuscar;
         protected System.Windows.Forms.Button btnNuevo;
         protected System.Windows.Forms.CheckBox chkMostrarTodo;
-        protected System.Windows.Forms.DataGridView dgvDatos;
+        public System.Windows.Forms.DataGridView dgvDatos;
         protected System.Windows.Forms.Panel panelFormulario;
         protected System.Windows.Forms.Panel panelSuperior;
         protected System.Windows.Forms.Label lblModo;
