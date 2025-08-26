@@ -138,13 +138,13 @@ namespace SistemVeterinario
                     control.Dispose();
                 }
 
-                PersonasModule personasModule = new PersonasModule
+                ClientesModule clientesModule = new ClientesModule
                 {
                     Dock = DockStyle.Fill
                 };
 
-                panelContent.Controls.Add(personasModule);
-                personasModule.BringToFront();
+                panelContent.Controls.Add(clientesModule);
+                clientesModule.BringToFront();
             }
             catch (Exception ex)
             {
