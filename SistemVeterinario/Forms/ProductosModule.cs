@@ -855,7 +855,6 @@ namespace SistemVeterinario.Forms
             btnCancelar.Text = "Cancelar";
             btnCancelar.Location = new Point(340, 220);
             btnCancelar.Size = new Size(80, 30);
-            btnCancelar.Click += (s, e) => this.DialogResult = DialogResult.Cancel;
 
             this.Controls.AddRange(new Control[] {
                 lblSugerencias, cmbSugerencias, lblNombre, txtNombre, lblDescripcion, txtDescripcion, btnGuardar, btnCancelar
