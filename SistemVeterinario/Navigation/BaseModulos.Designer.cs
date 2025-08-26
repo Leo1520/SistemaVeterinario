@@ -28,9 +28,6 @@ namespace SistemVeterinario.Navigation
         /// </summary>
         protected void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             tabControlPrincipal = new TabControl();
             tabInicio = new TabPage();
             panelBusqueda = new Panel();
@@ -135,8 +132,10 @@ namespace SistemVeterinario.Navigation
             // chkMostrarTodo
             // 
             chkMostrarTodo.AutoSize = true;
+            chkMostrarTodo.BackColor = Color.FromArgb(240, 240, 240);
             chkMostrarTodo.Checked = true;
             chkMostrarTodo.CheckState = CheckState.Checked;
+            chkMostrarTodo.ForeColor = Color.Black;
             chkMostrarTodo.Location = new Point(420, 20);
             chkMostrarTodo.Name = "chkMostrarTodo";
             chkMostrarTodo.Size = new Size(171, 19);
@@ -150,40 +149,17 @@ namespace SistemVeterinario.Navigation
             dgvDatos.AllowUserToAddRows = false;
             dgvDatos.AllowUserToDeleteRows = false;
             dgvDatos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-            dgvDatos.BackgroundColor = Color.Gainsboro;
+            dgvDatos.BackgroundColor = Color.White;
             dgvDatos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(240, 240, 240);
-            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvDatos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvDatos.ColumnHeadersHeight = 29;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.White;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(0, 120, 215);
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvDatos.DefaultCellStyle = dataGridViewCellStyle2;
             dgvDatos.EnableHeadersVisualStyles = false;
-            dgvDatos.GridColor = Color.FromArgb(224, 224, 224);
+            dgvDatos.GridColor = Color.FromArgb(200, 200, 200);
+            // que no este encima de panelBusqueda
             dgvDatos.Location = new Point(9, 575);
             dgvDatos.MultiSelect = false;
             dgvDatos.Name = "dgvDatos";
             dgvDatos.ReadOnly = true;
             dgvDatos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(240, 240, 240);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(0, 120, 215);
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvDatos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvDatos.RowHeadersWidth = 51;
             dgvDatos.RowTemplate.Height = 30;
             dgvDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
