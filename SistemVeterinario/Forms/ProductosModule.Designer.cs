@@ -70,18 +70,6 @@ namespace SistemVeterinario.Forms
             lblDescripcion = new Label();
             txtDescripcion = new TextBox();
             btnStockBajo = new Button();
-            tabControlPrincipal.SuspendLayout();
-            tabInicio.SuspendLayout();
-            tabConfiguraciones.SuspendLayout();
-            panelBusqueda.SuspendLayout();
-            panelFormulario.SuspendLayout();
-            panelSuperior.SuspendLayout();
-            panelBotones.SuspendLayout();
-            grpDatosProducto.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudPrecio).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudStockMinimo).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudStockActual).BeginInit();
-            SuspendLayout();
             // 
             // tabInicio
             // 
@@ -336,7 +324,7 @@ namespace SistemVeterinario.Forms
             chkRequiereReceta.Size = new Size(164, 24);
             chkRequiereReceta.TabIndex = 10;
             chkRequiereReceta.Text = "💊 Requiere Receta";
-            chkRequiereReceta.UseVisualStyleBackColor = true;
+            chkRequiereReceta.UseVisualStyleBackColor = false;
             // 
             // lblDescripcion
             // 
@@ -374,21 +362,6 @@ namespace SistemVeterinario.Forms
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             Name = "ProductosModule";
-            tabControlPrincipal.ResumeLayout(false);
-            tabInicio.ResumeLayout(false);
-            tabConfiguraciones.ResumeLayout(false);
-            panelBusqueda.ResumeLayout(false);
-            panelBusqueda.PerformLayout();
-            panelFormulario.ResumeLayout(false);
-            panelSuperior.ResumeLayout(false);
-            panelSuperior.PerformLayout();
-            panelBotones.ResumeLayout(false);
-            grpDatosProducto.ResumeLayout(false);
-            grpDatosProducto.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudPrecio).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudStockMinimo).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudStockActual).EndInit();
-            ResumeLayout(false);
         }
 
         #endregion

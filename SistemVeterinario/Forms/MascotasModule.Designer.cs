@@ -51,15 +51,6 @@ namespace SistemVeterinario.Forms
             txtMicrochip = new TextBox();
             chkTieneFechaNacimiento = new CheckBox();
             dtpFechaNacimiento = new DateTimePicker();
-            tabInicio.SuspendLayout();
-            panelBusqueda.SuspendLayout();
-            tabConfiguraciones.SuspendLayout();
-            panelFormulario.SuspendLayout();
-            panelSuperior.SuspendLayout();
-            panelBotones.SuspendLayout();
-            grpDatosMascota.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudPeso).BeginInit();
-            SuspendLayout();
             // 
             // tabInicio
             // 
@@ -296,7 +287,7 @@ namespace SistemVeterinario.Forms
             chkEsterilizado.Size = new Size(85, 19);
             chkEsterilizado.TabIndex = 13;
             chkEsterilizado.Text = "Esterilizado";
-            chkEsterilizado.UseVisualStyleBackColor = true;
+            chkEsterilizado.UseVisualStyleBackColor = false;
             // 
             // lblPropietario
             // 
@@ -364,7 +355,7 @@ namespace SistemVeterinario.Forms
             chkTieneFechaNacimiento.Size = new Size(148, 19);
             chkTieneFechaNacimiento.TabIndex = 19;
             chkTieneFechaNacimiento.Text = "Fecha de Nacimiento:";
-            chkTieneFechaNacimiento.UseVisualStyleBackColor = true;
+            chkTieneFechaNacimiento.UseVisualStyleBackColor = false;
             // 
             // dtpFechaNacimiento
             // 
@@ -385,18 +376,7 @@ namespace SistemVeterinario.Forms
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Name = "MascotasModule";
-            tabInicio.ResumeLayout(false);
-            panelBusqueda.ResumeLayout(false);
-            panelBusqueda.PerformLayout();
-            tabConfiguraciones.ResumeLayout(false);
-            panelFormulario.ResumeLayout(false);
-            panelSuperior.ResumeLayout(false);
-            panelSuperior.PerformLayout();
-            panelBotones.ResumeLayout(false);
-            grpDatosMascota.ResumeLayout(false);
-            grpDatosMascota.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudPeso).EndInit();
-            ResumeLayout(false);
+
         }
 
         #endregion

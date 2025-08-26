@@ -28,7 +28,7 @@ namespace SistemVeterinario.Navigation
 
         #endregion
 
-        #region Inicialización
+            #region Inicialización
 
         private void InicializarControlBase()
         {
@@ -47,7 +47,6 @@ namespace SistemVeterinario.Navigation
         private void DgvDatos_DataSourceChanged(object sender, EventArgs e)
         {
             // Este evento se ejecuta cuando cambia el DataSource
-            PersonalizarColumnas();
             AgregarColumnasAccion();
             ConfigurarEventosColumnas();
         }
@@ -257,55 +256,6 @@ namespace SistemVeterinario.Navigation
             }
         }
 
-        private void PersonalizarColumnas()
-        {
-            // Diccionario para mapear nombres de columna a headers en español con formato correcto
-            var headerMapping = new Dictionary<string, (string header, int width)>
-            {
-                {"tipo", ("Tipo", 80)},
-                {"email", ("Email", 200)},
-                {"direccion", ("Dirección", 250)},
-                {"telefono", ("Teléfono", 120)},
-                {"activo", ("Activo", 60)},
-                {"ci", ("CI", 100)},
-                {"nombre", ("Nombre", 150)},
-                {"apellido", ("Apellido", 150)},
-                {"fecha_nacimiento", ("F. Nacimiento", 120)},
-                {"genero", ("Género", 80)},
-                {"razon_social", ("Razón Social", 120)},
-                {"nit", ("NIT", 120)},
-                {"nombre_completo", ("Nombre Completo", 250)},
-                {"representante_legal", ("Representante", 200)},
-                {"giro", ("Giro", 150)},
-                {"sector", ("Sector", 120)}
-            };
-
-            // Aplicar personalización a cada columna existente
-            foreach (DataGridViewColumn column in dgvDatos.Columns)
-            {
-                if (headerMapping.TryGetValue(column.Name.ToLower(), out var config))
-                {
-                    column.HeaderText = config.header;
-                    column.Width = config.width;
-                }
-
-                // Configurar para que no se ajuste automáticamente
-                column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-
-                // Inicializar el estado de visibilidad (todas visibles por defecto)
-                if (column.Name != "btnEditar" && column.Name != "btnEliminar" && column.Name != "id")
-                {
-                    if (!_columnasVisibles.ContainsKey(column.Name))
-                    {
-                        _columnasVisibles[column.Name] = true;
-                    }
-                    column.Visible = _columnasVisibles[column.Name];
-                }
-            }
-
-            // Actualizar el estado del checkbox
-            ActualizarEstadoCheckboxMostrarTodo();
-        }
 
         private void AgregarColumnasAccion()
         {

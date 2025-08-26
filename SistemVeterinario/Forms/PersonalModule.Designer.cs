@@ -68,16 +68,6 @@ namespace SistemVeterinario.Forms
             lblNivel = new Label();
             cmbNivel = new ComboBox();
 
-            tabControlPrincipal.SuspendLayout();
-            tabInicio.SuspendLayout();
-            tabConfiguraciones.SuspendLayout();
-            panelBusqueda.SuspendLayout();
-            panelFormulario.SuspendLayout();
-            panelSuperior.SuspendLayout();
-            panelBotones.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numExperiencia).BeginInit();
-            SuspendLayout();
-
             // 
             // panelBusqueda - Agregar controles de filtro
             // 
@@ -608,18 +598,6 @@ namespace SistemVeterinario.Forms
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             Name = "PersonalModule";
-            tabControlPrincipal.ResumeLayout(false);
-            tabInicio.ResumeLayout(false);
-            tabConfiguraciones.ResumeLayout(false);
-            panelBusqueda.ResumeLayout(false);
-            panelBusqueda.PerformLayout();
-            panelFormulario.ResumeLayout(false);
-            panelFormulario.PerformLayout();
-            panelSuperior.ResumeLayout(false);
-            panelSuperior.PerformLayout();
-            panelBotones.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)numExperiencia).EndInit();
-            ResumeLayout(false);
         }
 
         #endregion

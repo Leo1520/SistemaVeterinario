@@ -50,16 +50,6 @@ namespace SistemVeterinario
             label1 = new Label();
             pictureBox1 = new PictureBox();
             lblLogo = new Label();
-            panelMain.SuspendLayout();
-            panelLogin.SuspendLayout();
-            groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            panelLogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            SuspendLayout();
             // 
             // panelMain
             // 
@@ -304,20 +294,6 @@ namespace SistemVeterinario
             Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Inicio de Seccion";
-            panelMain.ResumeLayout(false);
-            panelLogin.ResumeLayout(false);
-            panelLogin.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            panelLogo.ResumeLayout(false);
-            panelLogo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ResumeLayout(false);
         }
 
         #endregion

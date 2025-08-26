@@ -28,6 +28,9 @@ namespace SistemVeterinario.Navigation
         /// </summary>
         protected void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             tabControlPrincipal = new TabControl();
             tabInicio = new TabPage();
             panelBusqueda = new Panel();
@@ -88,9 +91,9 @@ namespace SistemVeterinario.Navigation
             panelBusqueda.Controls.Add(btnBuscar);
             panelBusqueda.Controls.Add(btnNuevo);
             panelBusqueda.Controls.Add(chkMostrarTodo);
-            panelBusqueda.Location = new Point(10, 10);
+            panelBusqueda.Location = new Point(6, 10);
             panelBusqueda.Name = "panelBusqueda";
-            panelBusqueda.Size = new Size(960, 60);
+            panelBusqueda.Size = new Size(980, 133);
             panelBusqueda.TabIndex = 0;
             // 
             // txtBuscar
@@ -121,7 +124,7 @@ namespace SistemVeterinario.Navigation
             btnNuevo.BackColor = Color.FromArgb(16, 137, 62);
             btnNuevo.FlatStyle = FlatStyle.Flat;
             btnNuevo.ForeColor = Color.White;
-            btnNuevo.Location = new Point(860, 17);
+            btnNuevo.Location = new Point(1658, 17);
             btnNuevo.Name = "btnNuevo";
             btnNuevo.Size = new Size(80, 25);
             btnNuevo.TabIndex = 2;
@@ -139,57 +142,55 @@ namespace SistemVeterinario.Navigation
             chkMostrarTodo.Size = new Size(171, 19);
             chkMostrarTodo.TabIndex = 3;
             chkMostrarTodo.Text = "Mostrar todas las columnas";
-            chkMostrarTodo.UseVisualStyleBackColor = true;
+            chkMostrarTodo.UseVisualStyleBackColor = false;
             chkMostrarTodo.CheckedChanged += ChkMostrarTodo_CheckedChanged;
             // 
             // dgvDatos
             // 
             dgvDatos.AllowUserToAddRows = false;
             dgvDatos.AllowUserToDeleteRows = false;
-            dgvDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvDatos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             dgvDatos.BackgroundColor = Color.Gainsboro;
-            dgvDatos.BorderStyle = BorderStyle.FixedSingle;
             dgvDatos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dgvDatos.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dgvDatos.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240);
-            dgvDatos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            dgvDatos.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-            dgvDatos.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(240, 240, 240);
-            dgvDatos.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.Black;
-            dgvDatos.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 240);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(240, 240, 240);
+            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvDatos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvDatos.ColumnHeadersHeight = 29;
-            dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dgvDatos.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dgvDatos.DefaultCellStyle.BackColor = Color.White;
-            dgvDatos.DefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dgvDatos.DefaultCellStyle.ForeColor = Color.Black;
-            dgvDatos.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 120, 215);
-            dgvDatos.DefaultCellStyle.SelectionForeColor = Color.White;
-            dgvDatos.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.White;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(0, 120, 215);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvDatos.DefaultCellStyle = dataGridViewCellStyle2;
             dgvDatos.EnableHeadersVisualStyles = false;
             dgvDatos.GridColor = Color.FromArgb(224, 224, 224);
-            dgvDatos.Location = new Point(10, 80);
+            dgvDatos.Location = new Point(9, 575);
             dgvDatos.MultiSelect = false;
             dgvDatos.Name = "dgvDatos";
             dgvDatos.ReadOnly = true;
             dgvDatos.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dgvDatos.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dgvDatos.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240);
-            dgvDatos.RowHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dgvDatos.RowHeadersDefaultCellStyle.ForeColor = Color.Black;
-            dgvDatos.RowHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 120, 215);
-            dgvDatos.RowHeadersDefaultCellStyle.SelectionForeColor = Color.White;
-            dgvDatos.RowHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(240, 240, 240);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(0, 120, 215);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvDatos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvDatos.RowHeadersWidth = 51;
-            dgvDatos.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
             dgvDatos.RowTemplate.Height = 30;
-            dgvDatos.ScrollBars = ScrollBars.Both;
             dgvDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDatos.Size = new Size(960, 460);
+            dgvDatos.Size = new Size(1766, 460);
             dgvDatos.TabIndex = 1;
-            dgvDatos.CellClick += DgvDatos_CellClick;
             dgvDatos.DataSourceChanged += DgvDatos_DataSourceChanged;
+            dgvDatos.CellClick += DgvDatos_CellClick;
             // 
             // tabConfiguraciones
             // 
@@ -223,13 +224,13 @@ namespace SistemVeterinario.Navigation
             panelSuperior.Controls.Add(txtId);
             panelSuperior.Location = new Point(10, 10);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(960, 50);
+            panelSuperior.Size = new Size(1746, 50);
             panelSuperior.TabIndex = 0;
             // 
             // lblModo
             // 
             lblModo.AutoSize = true;
-            lblModo.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblModo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblModo.ForeColor = Color.Black;
             lblModo.Location = new Point(10, 15);
             lblModo.Name = "lblModo";
@@ -251,11 +252,11 @@ namespace SistemVeterinario.Navigation
             // lblId
             // 
             lblId.AutoSize = true;
-            lblId.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lblId.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblId.ForeColor = Color.Black;
             lblId.Location = new Point(210, 15);
             lblId.Name = "lblId";
-            lblId.Size = new Size(21, 15);
+            lblId.Size = new Size(23, 15);
             lblId.TabIndex = 2;
             lblId.Text = "ID:";
             // 
@@ -276,9 +277,9 @@ namespace SistemVeterinario.Navigation
             panelBotones.Controls.Add(btnGuardar);
             panelBotones.Controls.Add(btnCancelar);
             panelBotones.Controls.Add(btnEliminar);
-            panelBotones.Location = new Point(10, 500);
+            panelBotones.Location = new Point(10, 966);
             panelBotones.Name = "panelBotones";
-            panelBotones.Size = new Size(960, 50);
+            panelBotones.Size = new Size(1746, 50);
             panelBotones.TabIndex = 1;
             // 
             // btnGuardar
@@ -287,7 +288,7 @@ namespace SistemVeterinario.Navigation
             btnGuardar.BackColor = Color.FromArgb(40, 167, 69);
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(730, 10);
+            btnGuardar.Location = new Point(2274, 10);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(100, 30);
             btnGuardar.TabIndex = 0;
@@ -301,7 +302,7 @@ namespace SistemVeterinario.Navigation
             btnCancelar.BackColor = Color.FromArgb(108, 117, 125);
             btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.ForeColor = Color.White;
-            btnCancelar.Location = new Point(840, 10);
+            btnCancelar.Location = new Point(2384, 10);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(100, 30);
             btnCancelar.TabIndex = 1;
@@ -342,7 +343,6 @@ namespace SistemVeterinario.Navigation
             panelSuperior.PerformLayout();
             panelBotones.ResumeLayout(false);
             ResumeLayout(false);
-
         }
 
         #endregion

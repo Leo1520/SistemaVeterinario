@@ -60,17 +60,6 @@ namespace SistemVeterinario.Forms
             lblDireccion = new Label();
             txtEmail = new TextBox();
             lblEmail = new Label();
-            tabControlPrincipal.SuspendLayout();
-            tabInicio.SuspendLayout();
-            tabConfiguraciones.SuspendLayout();
-            panelBusqueda.SuspendLayout();
-            panelFormulario.SuspendLayout();
-            panelSuperior.SuspendLayout();
-            panelBotones.SuspendLayout();
-            grpPersonaFisica.SuspendLayout();
-            grpPersonaJuridica.SuspendLayout();
-            grpDatosComunes.SuspendLayout();
-            SuspendLayout();
             // 
             // tabControlPrincipal
             // 
@@ -607,23 +596,6 @@ namespace SistemVeterinario.Forms
             Margin = new Padding(3, 5, 3, 5);
             Name = "PersonasModule";
             Size = new Size(1306, 1067);
-            tabControlPrincipal.ResumeLayout(false);
-            tabInicio.ResumeLayout(false);
-            tabConfiguraciones.ResumeLayout(false);
-            panelBusqueda.ResumeLayout(false);
-            panelBusqueda.PerformLayout();
-            panelFormulario.ResumeLayout(false);
-            panelFormulario.PerformLayout();
-            panelSuperior.ResumeLayout(false);
-            panelSuperior.PerformLayout();
-            panelBotones.ResumeLayout(false);
-            grpPersonaFisica.ResumeLayout(false);
-            grpPersonaFisica.PerformLayout();
-            grpPersonaJuridica.ResumeLayout(false);
-            grpPersonaJuridica.PerformLayout();
-            grpDatosComunes.ResumeLayout(false);
-            grpDatosComunes.PerformLayout();
-            ResumeLayout(false);
         }
 
         #endregion

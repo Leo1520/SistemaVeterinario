@@ -33,8 +33,6 @@ namespace SistemVeterinario.Forms
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.btnSeleccionar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
-            this.SuspendLayout();
             // 
             // txtBuscar
             // 
@@ -51,7 +49,7 @@ namespace SistemVeterinario.Forms
             this.btnBuscar.Size = new System.Drawing.Size(75, 25);
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.BtnBuscar_Click);
             // 
             // dgvClientes
@@ -74,7 +72,7 @@ namespace SistemVeterinario.Forms
             this.btnSeleccionar.Size = new System.Drawing.Size(80, 30);
             this.btnSeleccionar.TabIndex = 3;
             this.btnSeleccionar.Text = "Seleccionar";
-            this.btnSeleccionar.UseVisualStyleBackColor = true;
+            this.btnSeleccionar.UseVisualStyleBackColor = false;
             this.btnSeleccionar.Click += new System.EventHandler(this.BtnSeleccionar_Click);
             // 
             // btnCancelar
@@ -84,7 +82,7 @@ namespace SistemVeterinario.Forms
             this.btnCancelar.Size = new System.Drawing.Size(80, 30);
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
             // 
             // BuscarClienteDialog
@@ -104,9 +102,6 @@ namespace SistemVeterinario.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Buscar Cliente";
             this.Load += new System.EventHandler(this.BuscarClienteDialog_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

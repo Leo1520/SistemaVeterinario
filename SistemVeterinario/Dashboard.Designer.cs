@@ -66,20 +66,6 @@ namespace SistemVeterinario
             pictureBox9 = new PictureBox();
             lblSubtitulo = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
-            panelSidebar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panelContent.SuspendLayout();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
-            SuspendLayout();
             // 
             // panelSidebar
             // 
@@ -133,7 +119,7 @@ namespace SistemVeterinario
             BtnConfiguracion.Text = "Configuracion";
             BtnConfiguracion.TextAlign = ContentAlignment.MiddleLeft;
             BtnConfiguracion.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnConfiguracion.UseVisualStyleBackColor = true;
+            BtnConfiguracion.UseVisualStyleBackColor = false;
             BtnConfiguracion.Click += BtnConfiguracion_Click;
             // 
             // BtnDashboard
@@ -155,7 +141,7 @@ namespace SistemVeterinario
             BtnDashboard.Text = "Dashboard";
             BtnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             BtnDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnDashboard.UseVisualStyleBackColor = true;
+            BtnDashboard.UseVisualStyleBackColor = false;
             BtnDashboard.Click += BtnDashboard_Click;
             // 
             // BtnReportes
@@ -177,7 +163,7 @@ namespace SistemVeterinario
             BtnReportes.Text = "Reportes";
             BtnReportes.TextAlign = ContentAlignment.MiddleLeft;
             BtnReportes.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnReportes.UseVisualStyleBackColor = true;
+            BtnReportes.UseVisualStyleBackColor = false;
             BtnReportes.Click += BtnReportes_Click;
             // 
             // BtnConsultas
@@ -199,7 +185,7 @@ namespace SistemVeterinario
             BtnConsultas.Text = "Consultas";
             BtnConsultas.TextAlign = ContentAlignment.MiddleLeft;
             BtnConsultas.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnConsultas.UseVisualStyleBackColor = true;
+            BtnConsultas.UseVisualStyleBackColor = false;
             BtnConsultas.Click += BtnConsultas_Click;
             // 
             // BtnHistorial
@@ -221,7 +207,7 @@ namespace SistemVeterinario
             BtnHistorial.Text = "Historial Medico";
             BtnHistorial.TextAlign = ContentAlignment.MiddleLeft;
             BtnHistorial.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnHistorial.UseVisualStyleBackColor = true;
+            BtnHistorial.UseVisualStyleBackColor = false;
             BtnHistorial.Click += BtnHistorial_Click;
             // 
             // BtnMascotas
@@ -243,7 +229,7 @@ namespace SistemVeterinario
             BtnMascotas.Text = "Mascotas";
             BtnMascotas.TextAlign = ContentAlignment.MiddleLeft;
             BtnMascotas.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnMascotas.UseVisualStyleBackColor = true;
+            BtnMascotas.UseVisualStyleBackColor = false;
             BtnMascotas.Click += BtnMascotas_Click;
             // 
             // BtnProductos
@@ -265,7 +251,7 @@ namespace SistemVeterinario
             BtnProductos.Text = "Productos";
             BtnProductos.TextAlign = ContentAlignment.MiddleLeft;
             BtnProductos.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnProductos.UseVisualStyleBackColor = true;
+            BtnProductos.UseVisualStyleBackColor = false;
             BtnProductos.Click += BtnProductos_Click;
             // 
             // BtnVentas
@@ -287,7 +273,7 @@ namespace SistemVeterinario
             BtnVentas.Text = "Ventas";
             BtnVentas.TextAlign = ContentAlignment.MiddleLeft;
             BtnVentas.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnVentas.UseVisualStyleBackColor = true;
+            BtnVentas.UseVisualStyleBackColor = false;
             BtnVentas.Click += BtnVentas_Click;
             // 
             // BtnInventario
@@ -309,7 +295,7 @@ namespace SistemVeterinario
             BtnInventario.Text = "Inventario";
             BtnInventario.TextAlign = ContentAlignment.MiddleLeft;
             BtnInventario.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnInventario.UseVisualStyleBackColor = true;
+            BtnInventario.UseVisualStyleBackColor = false;
             BtnInventario.Click += BtnInventario_Click;
             // 
             // BtnPersonal
@@ -331,7 +317,7 @@ namespace SistemVeterinario
             BtnPersonal.Text = "Personal";
             BtnPersonal.TextAlign = ContentAlignment.MiddleLeft;
             BtnPersonal.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnPersonal.UseVisualStyleBackColor = true;
+            BtnPersonal.UseVisualStyleBackColor = false;
             BtnPersonal.Click += BtnPersonal_Click;
             // 
             // BtnClientes
@@ -353,7 +339,7 @@ namespace SistemVeterinario
             BtnClientes.Text = "Clientes";
             BtnClientes.TextAlign = ContentAlignment.MiddleLeft;
             BtnClientes.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnClientes.UseVisualStyleBackColor = true;
+            BtnClientes.UseVisualStyleBackColor = false;
             BtnClientes.Click += BtnClientes_Click;
             // 
             // pictureBox1
@@ -617,22 +603,6 @@ namespace SistemVeterinario
             Text = "Veterinaria - Dashboard";
             WindowState = FormWindowState.Maximized;
             Load += Dashboard_Load;
-            panelSidebar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panelContent.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox12).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
-            ResumeLayout(false);
         }
 
         #endregion

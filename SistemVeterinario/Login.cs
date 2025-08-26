@@ -11,11 +11,16 @@ namespace SistemVeterinario
     public partial class Login : Form
     {
         private Dashboard? _dashboardInstance;
-
+        private bool ommitLogin = true;
         public Login()
         {
             InitializeComponent();
             ConfigurarLogin();
+            if(ommitLogin)
+            {
+                // Abrir dashboard directamente para desarrollo
+                AbrirDashboard();
+            }
         }
 
         private void ConfigurarLogin()

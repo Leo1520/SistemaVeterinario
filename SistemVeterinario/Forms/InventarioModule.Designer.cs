@@ -52,16 +52,6 @@ namespace SistemVeterinario.Forms
             this.groupAlertas = new System.Windows.Forms.GroupBox();
             this.btnStockBajo = new System.Windows.Forms.Button();
             this.dgvStockBajo = new System.Windows.Forms.DataGridView();
-            this.groupMovimientos.SuspendLayout();
-            this.tabMovimientos.SuspendLayout();
-            this.groupFiltroMovimientos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
-            this.tabAlertas.SuspendLayout();
-            this.groupAlertas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStockBajo)).BeginInit();
-            this.tabControlPrincipal.SuspendLayout();
-            this.tabConfiguraciones.SuspendLayout();
-            this.SuspendLayout();
             // 
             // tabControlPrincipal
             // 
@@ -350,7 +340,7 @@ namespace SistemVeterinario.Forms
             this.tabMovimientos.Size = new System.Drawing.Size(842, 474);
             this.tabMovimientos.TabIndex = 2;
             this.tabMovimientos.Text = "Movimientos";
-            this.tabMovimientos.UseVisualStyleBackColor = true;
+            this.tabMovimientos.UseVisualStyleBackColor = false;
             // 
             // groupFiltroMovimientos
             // 
@@ -448,7 +438,7 @@ namespace SistemVeterinario.Forms
             this.tabAlertas.Size = new System.Drawing.Size(842, 474);
             this.tabAlertas.TabIndex = 3;
             this.tabAlertas.Text = "Alertas de Stock";
-            this.tabAlertas.UseVisualStyleBackColor = true;
+            this.tabAlertas.UseVisualStyleBackColor = false;
             // 
             // groupAlertas
             // 
@@ -499,19 +489,6 @@ namespace SistemVeterinario.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "InventarioModule";
-            this.groupMovimientos.ResumeLayout(false);
-            this.groupMovimientos.PerformLayout();
-            this.tabMovimientos.ResumeLayout(false);
-            this.groupFiltroMovimientos.ResumeLayout(false);
-            this.groupFiltroMovimientos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).EndInit();
-            this.tabAlertas.ResumeLayout(false);
-            this.groupAlertas.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStockBajo)).EndInit();
-            this.tabControlPrincipal.ResumeLayout(false);
-            this.tabConfiguraciones.ResumeLayout(false);
-            this.tabConfiguraciones.PerformLayout();
-            this.ResumeLayout(false);
 
         }
 
