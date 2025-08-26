@@ -11,14 +11,14 @@ namespace SistemVeterinario.Forms
     /// Módulo para gestión de Personas (Físicas y Jurídicas)
     /// Hereda de BaseModulos para funcionalidad estándar de CRUD
     /// </summary>
-    public partial class PersonasModule : BaseModulos
+    public partial class ClientesModule : BaseModulos
     {
         #region Variables Privadas
         private string _tipoPersonaSeleccionado = "";
         #endregion
 
         #region Constructor
-        public PersonasModule()
+        public ClientesModule()
         {
             InitializeComponent();
             ConfigurarModulo();

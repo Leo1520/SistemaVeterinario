@@ -1,6 +1,6 @@
 namespace SistemVeterinario.Forms
 {
-    partial class PersonasModule
+    partial class ClientesModule
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
