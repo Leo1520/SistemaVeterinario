@@ -1,9 +1,11 @@
 -- =============================================
--- Script: 2025_08_21_Persona_Seeder.sql
+-- Script: 2025_08_21_Persona_Seeder.sql  
 -- Descripción: Seeder para personas físicas y jurídicas con datos bolivianos
 -- Fecha: 21 de agosto de 2025
 -- Autor: Sistema Veterinario
--- Actualizado: Genera 100 personas físicas y 100 jurídicas
+-- Versión: 1.0
+-- Genera: 100 personas físicas y 100 jurídicas
+-- Usa: SP01_CreateOrUpdatePFisica, SP02_CreateOrUpdatePJuridica
 -- =============================================
 
 -- =============================================
