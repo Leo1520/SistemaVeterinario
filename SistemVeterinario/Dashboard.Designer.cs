@@ -42,7 +42,6 @@ namespace SistemVeterinario
             BtnMascotas = new FontAwesome.Sharp.IconButton();
             BtnProductos = new FontAwesome.Sharp.IconButton();
             BtnVentas = new FontAwesome.Sharp.IconButton();
-            BtnInventario = new FontAwesome.Sharp.IconButton();
             BtnPersonal = new FontAwesome.Sharp.IconButton();
             BtnClientes = new FontAwesome.Sharp.IconButton();
             pictureBox1 = new PictureBox();
@@ -93,23 +92,22 @@ namespace SistemVeterinario
             panelSidebar.Controls.Add(BtnMascotas);
             panelSidebar.Controls.Add(BtnProductos);
             panelSidebar.Controls.Add(BtnVentas);
-            panelSidebar.Controls.Add(BtnInventario);
             panelSidebar.Controls.Add(BtnPersonal);
             panelSidebar.Controls.Add(BtnClientes);
             panelSidebar.Controls.Add(pictureBox1);
             panelSidebar.Dock = DockStyle.Left;
             panelSidebar.Location = new Point(0, 0);
-            panelSidebar.Margin = new Padding(3, 4, 3, 4);
             panelSidebar.Name = "panelSidebar";
-            panelSidebar.Size = new Size(238, 933);
+            panelSidebar.Size = new Size(208, 700);
             panelSidebar.TabIndex = 1;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.UPDS;
-            pictureBox2.Location = new Point(12, 860);
+            pictureBox2.Location = new Point(10, 645);
+            pictureBox2.Margin = new Padding(3, 2, 3, 2);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(220, 61);
+            pictureBox2.Size = new Size(192, 46);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 12;
             pictureBox2.TabStop = false;
@@ -126,9 +124,10 @@ namespace SistemVeterinario
             BtnConfiguracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnConfiguracion.IconSize = 50;
             BtnConfiguracion.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnConfiguracion.Location = new Point(0, 781);
+            BtnConfiguracion.Location = new Point(0, 537);
+            BtnConfiguracion.Margin = new Padding(3, 2, 3, 2);
             BtnConfiguracion.Name = "BtnConfiguracion";
-            BtnConfiguracion.Size = new Size(238, 63);
+            BtnConfiguracion.Size = new Size(208, 47);
             BtnConfiguracion.TabIndex = 11;
             BtnConfiguracion.Text = "Configuracion";
             BtnConfiguracion.TextAlign = ContentAlignment.MiddleLeft;
@@ -148,9 +147,10 @@ namespace SistemVeterinario
             BtnDashboard.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnDashboard.IconSize = 50;
             BtnDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnDashboard.Location = new Point(0, 718);
+            BtnDashboard.Location = new Point(0, 490);
+            BtnDashboard.Margin = new Padding(3, 2, 3, 2);
             BtnDashboard.Name = "BtnDashboard";
-            BtnDashboard.Size = new Size(238, 63);
+            BtnDashboard.Size = new Size(208, 47);
             BtnDashboard.TabIndex = 10;
             BtnDashboard.Text = "Dashboard";
             BtnDashboard.TextAlign = ContentAlignment.MiddleLeft;
@@ -170,9 +170,10 @@ namespace SistemVeterinario
             BtnReportes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnReportes.IconSize = 50;
             BtnReportes.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnReportes.Location = new Point(0, 655);
+            BtnReportes.Location = new Point(0, 443);
+            BtnReportes.Margin = new Padding(3, 2, 3, 2);
             BtnReportes.Name = "BtnReportes";
-            BtnReportes.Size = new Size(238, 63);
+            BtnReportes.Size = new Size(208, 47);
             BtnReportes.TabIndex = 9;
             BtnReportes.Text = "Reportes";
             BtnReportes.TextAlign = ContentAlignment.MiddleLeft;
@@ -192,9 +193,10 @@ namespace SistemVeterinario
             BtnConsultas.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnConsultas.IconSize = 50;
             BtnConsultas.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnConsultas.Location = new Point(0, 592);
+            BtnConsultas.Location = new Point(0, 396);
+            BtnConsultas.Margin = new Padding(3, 2, 3, 2);
             BtnConsultas.Name = "BtnConsultas";
-            BtnConsultas.Size = new Size(238, 63);
+            BtnConsultas.Size = new Size(208, 47);
             BtnConsultas.TabIndex = 8;
             BtnConsultas.Text = "Consultas";
             BtnConsultas.TextAlign = ContentAlignment.MiddleLeft;
@@ -214,9 +216,10 @@ namespace SistemVeterinario
             BtnHistorial.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnHistorial.IconSize = 50;
             BtnHistorial.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnHistorial.Location = new Point(0, 529);
+            BtnHistorial.Location = new Point(0, 349);
+            BtnHistorial.Margin = new Padding(3, 2, 3, 2);
             BtnHistorial.Name = "BtnHistorial";
-            BtnHistorial.Size = new Size(238, 63);
+            BtnHistorial.Size = new Size(208, 47);
             BtnHistorial.TabIndex = 7;
             BtnHistorial.Text = "Historial Medico";
             BtnHistorial.TextAlign = ContentAlignment.MiddleLeft;
@@ -236,9 +239,10 @@ namespace SistemVeterinario
             BtnMascotas.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnMascotas.IconSize = 50;
             BtnMascotas.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnMascotas.Location = new Point(0, 466);
+            BtnMascotas.Location = new Point(0, 302);
+            BtnMascotas.Margin = new Padding(3, 2, 3, 2);
             BtnMascotas.Name = "BtnMascotas";
-            BtnMascotas.Size = new Size(238, 63);
+            BtnMascotas.Size = new Size(208, 47);
             BtnMascotas.TabIndex = 6;
             BtnMascotas.Text = "Mascotas";
             BtnMascotas.TextAlign = ContentAlignment.MiddleLeft;
@@ -258,9 +262,10 @@ namespace SistemVeterinario
             BtnProductos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnProductos.IconSize = 50;
             BtnProductos.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnProductos.Location = new Point(0, 403);
+            BtnProductos.Location = new Point(0, 255);
+            BtnProductos.Margin = new Padding(3, 2, 3, 2);
             BtnProductos.Name = "BtnProductos";
-            BtnProductos.Size = new Size(238, 63);
+            BtnProductos.Size = new Size(208, 47);
             BtnProductos.TabIndex = 5;
             BtnProductos.Text = "Productos";
             BtnProductos.TextAlign = ContentAlignment.MiddleLeft;
@@ -280,37 +285,16 @@ namespace SistemVeterinario
             BtnVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnVentas.IconSize = 50;
             BtnVentas.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnVentas.Location = new Point(0, 340);
+            BtnVentas.Location = new Point(0, 208);
+            BtnVentas.Margin = new Padding(3, 2, 3, 2);
             BtnVentas.Name = "BtnVentas";
-            BtnVentas.Size = new Size(238, 63);
+            BtnVentas.Size = new Size(208, 47);
             BtnVentas.TabIndex = 4;
             BtnVentas.Text = "Ventas";
             BtnVentas.TextAlign = ContentAlignment.MiddleLeft;
             BtnVentas.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnVentas.UseVisualStyleBackColor = false;
             BtnVentas.Click += BtnVentas_Click;
-            // 
-            // BtnInventario
-            // 
-            BtnInventario.Dock = DockStyle.Top;
-            BtnInventario.FlatAppearance.BorderSize = 0;
-            BtnInventario.FlatStyle = FlatStyle.Flat;
-            BtnInventario.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnInventario.ForeColor = SystemColors.ControlLightLight;
-            BtnInventario.IconChar = FontAwesome.Sharp.IconChar.BoxesStacked;
-            BtnInventario.IconColor = Color.White;
-            BtnInventario.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnInventario.IconSize = 50;
-            BtnInventario.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnInventario.Location = new Point(0, 277);
-            BtnInventario.Name = "BtnInventario";
-            BtnInventario.Size = new Size(238, 63);
-            BtnInventario.TabIndex = 3;
-            BtnInventario.Text = "Inventario";
-            BtnInventario.TextAlign = ContentAlignment.MiddleLeft;
-            BtnInventario.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnInventario.UseVisualStyleBackColor = false;
-            BtnInventario.Click += BtnInventario_Click;
             // 
             // BtnPersonal
             // 
@@ -324,9 +308,10 @@ namespace SistemVeterinario
             BtnPersonal.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnPersonal.IconSize = 50;
             BtnPersonal.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnPersonal.Location = new Point(0, 214);
+            BtnPersonal.Location = new Point(0, 161);
+            BtnPersonal.Margin = new Padding(3, 2, 3, 2);
             BtnPersonal.Name = "BtnPersonal";
-            BtnPersonal.Size = new Size(238, 63);
+            BtnPersonal.Size = new Size(208, 47);
             BtnPersonal.TabIndex = 2;
             BtnPersonal.Text = "Personal";
             BtnPersonal.TextAlign = ContentAlignment.MiddleLeft;
@@ -346,9 +331,10 @@ namespace SistemVeterinario
             BtnClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnClientes.IconSize = 50;
             BtnClientes.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnClientes.Location = new Point(0, 141);
+            BtnClientes.Location = new Point(0, 106);
+            BtnClientes.Margin = new Padding(3, 2, 3, 2);
             BtnClientes.Name = "BtnClientes";
-            BtnClientes.Size = new Size(238, 73);
+            BtnClientes.Size = new Size(208, 55);
             BtnClientes.TabIndex = 1;
             BtnClientes.Text = "Clientes";
             BtnClientes.TextAlign = ContentAlignment.MiddleLeft;
@@ -361,8 +347,9 @@ namespace SistemVeterinario
             pictureBox1.Dock = DockStyle.Top;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(238, 141);
+            pictureBox1.Size = new Size(208, 106);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -374,15 +361,14 @@ namespace SistemVeterinario
             panelContent.Controls.Add(panel2);
             panelContent.Dock = DockStyle.Fill;
             panelContent.ForeColor = Color.Cornsilk;
-            panelContent.Location = new Point(238, 0);
-            panelContent.Margin = new Padding(3, 4, 3, 4);
+            panelContent.Location = new Point(208, 0);
             panelContent.Name = "panelContent";
-            panelContent.Size = new Size(1133, 933);
+            panelContent.Size = new Size(992, 700);
             panelContent.TabIndex = 2;
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.MediumOrchid;
             panel1.Controls.Add(lblHora);
             panel1.Controls.Add(lblEmail);
@@ -392,18 +378,19 @@ namespace SistemVeterinario
             panel1.Controls.Add(tituloSuperior);
             panel1.Controls.Add(iconoSuperior);
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(2066, 933);
-            panel1.TabIndex = 12;
+            panel1.Size = new Size(992, 106);
+            panel1.TabIndex = 2;
             // 
             // lblHora
             // 
             lblHora.Anchor = AnchorStyles.Left;
             lblHora.AutoSize = true;
             lblHora.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblHora.Location = new Point(217, 455);
+            lblHora.Location = new Point(190, 44);
             lblHora.Name = "lblHora";
-            lblHora.Size = new Size(58, 27);
+            lblHora.Size = new Size(51, 23);
             lblHora.TabIndex = 8;
             lblHora.Text = "00:00";
             // 
@@ -412,9 +399,9 @@ namespace SistemVeterinario
             lblEmail.Anchor = AnchorStyles.Right;
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblEmail.Location = new Point(2592, 465);
+            lblEmail.Location = new Point(1452, 52);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(160, 24);
+            lblEmail.Size = new Size(130, 20);
             lblEmail.TabIndex = 7;
             lblEmail.Text = "Correo Electronico:";
             // 
@@ -425,9 +412,10 @@ namespace SistemVeterinario
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.Bell;
             iconButton2.IconColor = Color.White;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.Location = new Point(2826, 428);
+            iconButton2.Location = new Point(1657, 24);
+            iconButton2.Margin = new Padding(3, 2, 3, 2);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(73, 73);
+            iconButton2.Size = new Size(64, 55);
             iconButton2.TabIndex = 6;
             iconButton2.UseVisualStyleBackColor = false;
             // 
@@ -438,9 +426,10 @@ namespace SistemVeterinario
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.UserDoctor;
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.Location = new Point(2914, 428);
+            iconButton1.Location = new Point(1734, 24);
+            iconButton1.Margin = new Padding(3, 2, 3, 2);
             iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(73, 73);
+            iconButton1.Size = new Size(64, 55);
             iconButton1.TabIndex = 5;
             iconButton1.UseVisualStyleBackColor = false;
             // 
@@ -449,9 +438,9 @@ namespace SistemVeterinario
             lblUsuario.Anchor = AnchorStyles.Right;
             lblUsuario.AutoSize = true;
             lblUsuario.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblUsuario.Location = new Point(2664, 438);
+            lblUsuario.Location = new Point(1515, 31);
             lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(88, 27);
+            lblUsuario.Size = new Size(74, 23);
             lblUsuario.TabIndex = 4;
             lblUsuario.Text = "Usuario:";
             // 
@@ -460,9 +449,9 @@ namespace SistemVeterinario
             tituloSuperior.Anchor = AnchorStyles.Left;
             tituloSuperior.AutoSize = true;
             tituloSuperior.Font = new Font("Arial Narrow", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            tituloSuperior.Location = new Point(95, 451);
+            tituloSuperior.Location = new Point(83, 41);
             tituloSuperior.Name = "tituloSuperior";
-            tituloSuperior.Size = new Size(79, 33);
+            tituloSuperior.Size = new Size(62, 26);
             tituloSuperior.TabIndex = 1;
             tituloSuperior.Text = "Home";
             // 
@@ -473,9 +462,10 @@ namespace SistemVeterinario
             iconoSuperior.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
             iconoSuperior.IconColor = Color.White;
             iconoSuperior.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconoSuperior.Location = new Point(16, 428);
+            iconoSuperior.Location = new Point(14, 24);
+            iconoSuperior.Margin = new Padding(3, 2, 3, 2);
             iconoSuperior.Name = "iconoSuperior";
-            iconoSuperior.Size = new Size(73, 73);
+            iconoSuperior.Size = new Size(64, 55);
             iconoSuperior.TabIndex = 0;
             iconoSuperior.UseVisualStyleBackColor = false;
             // 
@@ -493,17 +483,19 @@ namespace SistemVeterinario
             panel2.Controls.Add(lblSubtitulo);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
+            panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1133, 933);
+            panel2.Size = new Size(992, 700);
             panel2.TabIndex = 13;
             // 
             // pictureBox12
             // 
             pictureBox12.Anchor = AnchorStyles.None;
             pictureBox12.Image = (Image)resources.GetObject("pictureBox12.Image");
-            pictureBox12.Location = new Point(1401, 1023);
+            pictureBox12.Location = new Point(1227, 767);
+            pictureBox12.Margin = new Padding(3, 2, 3, 2);
             pictureBox12.Name = "pictureBox12";
-            pictureBox12.Size = new Size(164, 160);
+            pictureBox12.Size = new Size(144, 120);
             pictureBox12.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox12.TabIndex = 11;
             pictureBox12.TabStop = false;
@@ -512,9 +504,10 @@ namespace SistemVeterinario
             // 
             pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(418, 195);
+            pictureBox3.Location = new Point(190, 277);
+            pictureBox3.Margin = new Padding(3, 2, 3, 2);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(1201, 1074);
+            pictureBox3.Size = new Size(640, 128);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
@@ -523,9 +516,10 @@ namespace SistemVeterinario
             // 
             pictureBox11.Anchor = AnchorStyles.None;
             pictureBox11.Image = (Image)resources.GetObject("pictureBox11.Image");
-            pictureBox11.Location = new Point(1218, 1023);
+            pictureBox11.Location = new Point(1067, 767);
+            pictureBox11.Margin = new Padding(3, 2, 3, 2);
             pictureBox11.Name = "pictureBox11";
-            pictureBox11.Size = new Size(164, 160);
+            pictureBox11.Size = new Size(144, 120);
             pictureBox11.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox11.TabIndex = 10;
             pictureBox11.TabStop = false;
@@ -534,9 +528,10 @@ namespace SistemVeterinario
             // 
             pictureBox8.Anchor = AnchorStyles.None;
             pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(676, 1023);
+            pictureBox8.Location = new Point(593, 767);
+            pictureBox8.Margin = new Padding(3, 2, 3, 2);
             pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(164, 160);
+            pictureBox8.Size = new Size(144, 120);
             pictureBox8.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox8.TabIndex = 7;
             pictureBox8.TabStop = false;
@@ -547,9 +542,9 @@ namespace SistemVeterinario
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Britannic Bold", 22.2F);
             lblTitulo.ForeColor = Color.DarkSlateBlue;
-            lblTitulo.Location = new Point(804, 898);
+            lblTitulo.Location = new Point(705, 674);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(454, 41);
+            lblTitulo.Size = new Size(370, 33);
             lblTitulo.TabIndex = 1;
             lblTitulo.Text = "VETERINARIA -ZOOFIPETSS-";
             lblTitulo.Click += lblTitulo_Click;
@@ -558,9 +553,10 @@ namespace SistemVeterinario
             // 
             pictureBox6.Anchor = AnchorStyles.None;
             pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(490, 1023);
+            pictureBox6.Location = new Point(430, 767);
+            pictureBox6.Margin = new Padding(3, 2, 3, 2);
             pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(164, 160);
+            pictureBox6.Size = new Size(144, 120);
             pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox6.TabIndex = 6;
             pictureBox6.TabStop = false;
@@ -569,9 +565,10 @@ namespace SistemVeterinario
             // 
             pictureBox10.Anchor = AnchorStyles.None;
             pictureBox10.Image = (Image)resources.GetObject("pictureBox10.Image");
-            pictureBox10.Location = new Point(1038, 1023);
+            pictureBox10.Location = new Point(909, 767);
+            pictureBox10.Margin = new Padding(3, 2, 3, 2);
             pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(164, 160);
+            pictureBox10.Size = new Size(144, 120);
             pictureBox10.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox10.TabIndex = 9;
             pictureBox10.TabStop = false;
@@ -580,9 +577,10 @@ namespace SistemVeterinario
             // 
             pictureBox9.Anchor = AnchorStyles.None;
             pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(859, 1023);
+            pictureBox9.Location = new Point(753, 767);
+            pictureBox9.Margin = new Padding(3, 2, 3, 2);
             pictureBox9.Name = "pictureBox9";
-            pictureBox9.Size = new Size(164, 160);
+            pictureBox9.Size = new Size(144, 120);
             pictureBox9.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox9.TabIndex = 8;
             pictureBox9.TabStop = false;
@@ -593,9 +591,9 @@ namespace SistemVeterinario
             lblSubtitulo.AutoSize = true;
             lblSubtitulo.Font = new Font("Century", 13.8F, FontStyle.Bold);
             lblSubtitulo.ForeColor = Color.DimGray;
-            lblSubtitulo.Location = new Point(872, 961);
+            lblSubtitulo.Location = new Point(764, 721);
             lblSubtitulo.Name = "lblSubtitulo";
-            lblSubtitulo.Size = new Size(303, 28);
+            lblSubtitulo.Size = new Size(257, 23);
             lblSubtitulo.TabIndex = 2;
             lblSubtitulo.Text = "Desarrollado en la UPDS";
             // 
@@ -606,12 +604,11 @@ namespace SistemVeterinario
             // 
             // Dashboard
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1371, 933);
+            ClientSize = new Size(1200, 700);
             Controls.Add(panelContent);
             Controls.Add(panelSidebar);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Dashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Veterinaria - Dashboard";
@@ -647,7 +644,6 @@ namespace SistemVeterinario
         private FontAwesome.Sharp.IconButton BtnMascotas;
         private FontAwesome.Sharp.IconButton BtnProductos;
         private FontAwesome.Sharp.IconButton BtnVentas;
-        private FontAwesome.Sharp.IconButton BtnInventario;
         private FontAwesome.Sharp.IconButton BtnPersonal;
         private FontAwesome.Sharp.IconButton BtnConfiguracion;
         private FontAwesome.Sharp.IconButton BtnDashboard;
