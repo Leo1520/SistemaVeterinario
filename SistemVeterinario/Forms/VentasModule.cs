@@ -622,6 +622,11 @@ namespace SistemVeterinario.Forms
             return true;
         }
 
+        private void btnRefrescar_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
 
         // UserControls no manejan FormClosing, se puede implementar en eventos del Dashboard si es necesario

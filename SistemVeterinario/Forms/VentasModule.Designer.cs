@@ -5,18 +5,13 @@ namespace SistemVeterinario.Forms
 {
     partial class VentasModule
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        // Controles específicos de ventas (los controles base como tabInicio, tabConfiguraciones, etc. se heredan de BaseModulos)
+        // Controles específicos de ventas
         private Label lblBuscarPersona;
         private TextBox txtBuscarPersonaId;
         private Button btnRefrescar;
         private Label lblTotalRegistros;
-
-        // Controles específicos para el formulario de ventas
         private GroupBox grpDatosFactura;
         private Label lblNumeroFactura;
         private TextBox txtNumeroFactura;
@@ -29,14 +24,12 @@ namespace SistemVeterinario.Forms
         private CheckBox chkTieneFechaVencimiento;
         private Label lblEstado;
         private ComboBox cmbEstado;
-
         private GroupBox grpMontos;
         private Label lblImpuestos;
         private NumericUpDown nudImpuestos;
         private Label lblDescuentos;
         private NumericUpDown nudDescuentos;
         private CheckBox chkFinalizar;
-
         private GroupBox grpDetalles;
         private Label lblNotas;
         private TextBox txtNotas;
@@ -45,10 +38,6 @@ namespace SistemVeterinario.Forms
         private Label lblServicios;
         private TextBox txtServiciosJson;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -58,51 +47,12 @@ namespace SistemVeterinario.Forms
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private new void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-
-            // Inicializar controles específicos de ventas
-            InitializarControlesVentas();
-
-            // Configurar las pestañas heredadas de BaseModulos
-            ConfigurarPestanas();
-
-            // Configurar panel de búsqueda
-            ConfigurarPanelBusqueda();
-
-            // Configurar formulario de ventas
-            ConfigurarFormularioVentas();
-        }
-
-        private void ConfigurarPestanas()
-        {
-            // Configurar textos de las pestañas heredadas del BaseModulos
-            tabInicio.Text = "Gestión de Ventas";
-            tabConfiguraciones.Text = "Configuración de Ventas";
-        }
-
-        private void InitializarControlesVentas()
-        {
-            // Controles específicos de ventas para el panel de búsqueda
             lblBuscarPersona = new Label();
             txtBuscarPersonaId = new TextBox();
             btnRefrescar = new Button();
             lblTotalRegistros = new Label();
-
-            // Inicializar controles del formulario de ventas
-            InitializarControlesFormulario();
-        }
-
-        private void InitializarControlesFormulario()
-        {
-            // GroupBox - Datos de la Factura
             grpDatosFactura = new GroupBox();
             lblNumeroFactura = new Label();
             txtNumeroFactura = new TextBox();
@@ -110,21 +60,17 @@ namespace SistemVeterinario.Forms
             txtPersonaId = new TextBox();
             lblFechaEmision = new Label();
             dtpFechaEmision = new DateTimePicker();
-            lblFechaVencimiento = new Label();
-            dtpFechaVencimiento = new DateTimePicker();
             chkTieneFechaVencimiento = new CheckBox();
+            dtpFechaVencimiento = new DateTimePicker();
             lblEstado = new Label();
             cmbEstado = new ComboBox();
-
-            // GroupBox - Montos
+            lblFechaVencimiento = new Label();
             grpMontos = new GroupBox();
             lblImpuestos = new Label();
             nudImpuestos = new NumericUpDown();
             lblDescuentos = new Label();
             nudDescuentos = new NumericUpDown();
             chkFinalizar = new CheckBox();
-
-            // GroupBox - Detalles
             grpDetalles = new GroupBox();
             lblNotas = new Label();
             txtNotas = new TextBox();
@@ -132,187 +78,355 @@ namespace SistemVeterinario.Forms
             txtProductosJson = new TextBox();
             lblServicios = new Label();
             txtServiciosJson = new TextBox();
-        }
-
-        private void ConfigurarPanelBusqueda()
-        {
-            // Configurar controles adicionales en el panel de búsqueda heredado
-            // El panelBusqueda ya existe en BaseModulos
-
-            lblBuscarPersona.Text = "ID Persona:";
-            lblBuscarPersona.Location = new Point(180, 25);
-            lblBuscarPersona.Size = new Size(80, 20);
-            lblBuscarPersona.AutoSize = true;
-
-            txtBuscarPersonaId.Location = new Point(270, 22);
-            txtBuscarPersonaId.Size = new Size(100, 23);
-            txtBuscarPersonaId.PlaceholderText = "ID de persona";
-
+            tabControlPrincipal.SuspendLayout();
+            tabInicio.SuspendLayout();
+            tabConfiguraciones.SuspendLayout();
+            panelBusqueda.SuspendLayout();
+            panelFormulario.SuspendLayout();
+            panelSuperior.SuspendLayout();
+            panelBotones.SuspendLayout();
+            grpDatosFactura.SuspendLayout();
+            grpMontos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudImpuestos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudDescuentos).BeginInit();
+            grpDetalles.SuspendLayout();
+            SuspendLayout();
+            // 
+            // tabInicio
+            // 
+            tabInicio.Text = "Gestión de Ventas";
+            // 
+            // tabConfiguraciones
+            // 
+            tabConfiguraciones.Text = "Configuración de Ventas";
+            // 
+            // panelBusqueda
+            // 
+            panelBusqueda.Controls.Add(lblBuscarPersona);
+            panelBusqueda.Controls.Add(txtBuscarPersonaId);
+            panelBusqueda.Controls.Add(btnRefrescar);
+            panelBusqueda.Controls.Add(lblTotalRegistros);
+            panelBusqueda.Controls.SetChildIndex(lblTotalRegistros, 0);
+            panelBusqueda.Controls.SetChildIndex(btnRefrescar, 0);
+            panelBusqueda.Controls.SetChildIndex(txtBuscarPersonaId, 0);
+            panelBusqueda.Controls.SetChildIndex(lblBuscarPersona, 0);
+            panelBusqueda.Controls.SetChildIndex(chkMostrarTodo, 0);
+            panelBusqueda.Controls.SetChildIndex(btnNuevo, 0);
+            panelBusqueda.Controls.SetChildIndex(btnBuscar, 0);
+            panelBusqueda.Controls.SetChildIndex(txtBuscar, 0);
+            // 
+            // panelFormulario
+            // 
+            panelFormulario.Controls.Add(grpDatosFactura);
+            panelFormulario.Controls.Add(grpMontos);
+            panelFormulario.Controls.Add(grpDetalles);
+            panelFormulario.Controls.SetChildIndex(grpDetalles, 0);
+            panelFormulario.Controls.SetChildIndex(grpMontos, 0);
+            panelFormulario.Controls.SetChildIndex(grpDatosFactura, 0);
+            panelFormulario.Controls.SetChildIndex(panelBotones, 0);
+            panelFormulario.Controls.SetChildIndex(panelSuperior, 0);
+            // 
+            // lblBuscarPersona
+            // 
+            lblBuscarPersona.Location = new Point(10, 15);
+            lblBuscarPersona.Name = "lblBuscarPersona";
+            lblBuscarPersona.Size = new Size(100, 20);
+            lblBuscarPersona.TabIndex = 4;
+            lblBuscarPersona.Text = "Buscar Persona ID:";
+            // 
+            // txtBuscarPersonaId
+            // 
+            txtBuscarPersonaId.Location = new Point(160, 85);
+            txtBuscarPersonaId.Name = "txtBuscarPersonaId";
+            txtBuscarPersonaId.Size = new Size(150, 23);
+            txtBuscarPersonaId.TabIndex = 5;
+            // 
+            // btnRefrescar
+            // 
+            btnRefrescar.Location = new Point(320, 85);
+            btnRefrescar.Name = "btnRefrescar";
+            btnRefrescar.Size = new Size(80, 25);
+            btnRefrescar.TabIndex = 6;
             btnRefrescar.Text = "Refrescar";
-            btnRefrescar.Location = new Point(380, 21);
-            btnRefrescar.Size = new Size(75, 25);
-            btnRefrescar.BackColor = Color.LightGreen;
-
-            lblTotalRegistros.Text = "Total registros: 0";
-            lblTotalRegistros.Location = new Point(470, 25);
-            lblTotalRegistros.Size = new Size(150, 20);
-            lblTotalRegistros.ForeColor = Color.DarkBlue;
-            lblTotalRegistros.AutoSize = true;
-
-            // Agregar controles al panel de búsqueda heredado
-            panelBusqueda.Controls.AddRange(new Control[] {
-                lblBuscarPersona, txtBuscarPersonaId, btnRefrescar, lblTotalRegistros
-            });
-
-            // Configurar el txtBuscar heredado
-            txtBuscar.PlaceholderText = "Buscar por número de factura, cliente, estado...";
-        }
-
-        private void ConfigurarFormularioVentas()
-        {
-            // Configurar GroupBox - Datos de la Factura
-            grpDatosFactura.Text = "Datos de la Factura";
-            grpDatosFactura.Location = new Point(15, 100);
-            grpDatosFactura.Size = new Size(560, 180);
-            grpDatosFactura.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            // 
+            // lblTotalRegistros
+            // 
+            lblTotalRegistros.Location = new Point(420, 60);
+            lblTotalRegistros.Name = "lblTotalRegistros";
+            lblTotalRegistros.Size = new Size(100, 20);
+            lblTotalRegistros.TabIndex = 7;
+            lblTotalRegistros.Text = "Total: 0";
+            // 
+            // grpDatosFactura
+            // 
+            grpDatosFactura.Controls.Add(lblNumeroFactura);
+            grpDatosFactura.Controls.Add(txtNumeroFactura);
+            grpDatosFactura.Controls.Add(lblPersonaId);
+            grpDatosFactura.Controls.Add(txtPersonaId);
+            grpDatosFactura.Controls.Add(lblFechaEmision);
+            grpDatosFactura.Controls.Add(dtpFechaEmision);
+            grpDatosFactura.Controls.Add(chkTieneFechaVencimiento);
+            grpDatosFactura.Controls.Add(dtpFechaVencimiento);
+            grpDatosFactura.Controls.Add(lblEstado);
+            grpDatosFactura.Controls.Add(cmbEstado);
+            grpDatosFactura.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             grpDatosFactura.ForeColor = Color.DarkBlue;
-
-            lblNumeroFactura.Text = "Número de Factura *:";
-            lblNumeroFactura.Location = new Point(15, 30);
-            lblNumeroFactura.Size = new Size(130, 20);
-            lblNumeroFactura.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            grpDatosFactura.Location = new Point(15, 100);
+            grpDatosFactura.Name = "grpDatosFactura";
+            grpDatosFactura.Size = new Size(560, 180);
+            grpDatosFactura.TabIndex = 2;
+            grpDatosFactura.TabStop = false;
+            grpDatosFactura.Text = "Datos de la Factura";
+            // 
+            // lblNumeroFactura
+            // 
+            lblNumeroFactura.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblNumeroFactura.ForeColor = Color.DarkRed;
-
+            lblNumeroFactura.Location = new Point(15, 30);
+            lblNumeroFactura.Name = "lblNumeroFactura";
+            lblNumeroFactura.Size = new Size(130, 20);
+            lblNumeroFactura.TabIndex = 0;
+            lblNumeroFactura.Text = "Número de Factura *:";
+            // 
+            // txtNumeroFactura
+            // 
             txtNumeroFactura.Location = new Point(150, 28);
-            txtNumeroFactura.Size = new Size(150, 23);
             txtNumeroFactura.MaxLength = 50;
-
-            lblPersonaId.Text = "ID Persona *:";
-            lblPersonaId.Location = new Point(315, 30);
-            lblPersonaId.Size = new Size(80, 20);
-            lblPersonaId.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            txtNumeroFactura.Name = "txtNumeroFactura";
+            txtNumeroFactura.Size = new Size(150, 23);
+            txtNumeroFactura.TabIndex = 1;
+            // 
+            // lblPersonaId
+            // 
+            lblPersonaId.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblPersonaId.ForeColor = Color.DarkRed;
-
+            lblPersonaId.Location = new Point(315, 30);
+            lblPersonaId.Name = "lblPersonaId";
+            lblPersonaId.Size = new Size(80, 20);
+            lblPersonaId.TabIndex = 2;
+            lblPersonaId.Text = "ID Persona *:";
+            // 
+            // txtPersonaId
+            // 
             txtPersonaId.Location = new Point(405, 28);
+            txtPersonaId.Name = "txtPersonaId";
             txtPersonaId.Size = new Size(100, 23);
-
-            lblFechaEmision.Text = "Fecha Emisión:";
-            lblFechaEmision.Location = new Point(15, 65);
-            lblFechaEmision.Size = new Size(100, 20);
+            txtPersonaId.TabIndex = 3;
+            // 
+            // lblFechaEmision
+            // 
             lblFechaEmision.AutoSize = true;
-
-            dtpFechaEmision.Location = new Point(150, 63);
-            dtpFechaEmision.Size = new Size(150, 23);
+            lblFechaEmision.Location = new Point(15, 65);
+            lblFechaEmision.Name = "lblFechaEmision";
+            lblFechaEmision.Size = new Size(87, 15);
+            lblFechaEmision.TabIndex = 4;
+            lblFechaEmision.Text = "Fecha Emisión:";
+            // 
+            // dtpFechaEmision
+            // 
             dtpFechaEmision.Format = DateTimePickerFormat.Short;
-
-            chkTieneFechaVencimiento.Text = "Fecha Vencimiento:";
-            chkTieneFechaVencimiento.Location = new Point(315, 65);
-            chkTieneFechaVencimiento.Size = new Size(130, 20);
+            dtpFechaEmision.Location = new Point(150, 63);
+            dtpFechaEmision.Name = "dtpFechaEmision";
+            dtpFechaEmision.Size = new Size(150, 23);
+            dtpFechaEmision.TabIndex = 5;
+            // 
+            // chkTieneFechaVencimiento
+            // 
             chkTieneFechaVencimiento.Checked = true;
-
-            dtpFechaVencimiento.Location = new Point(315, 88);
-            dtpFechaVencimiento.Size = new Size(150, 23);
+            chkTieneFechaVencimiento.CheckState = CheckState.Checked;
+            chkTieneFechaVencimiento.Location = new Point(315, 65);
+            chkTieneFechaVencimiento.Name = "chkTieneFechaVencimiento";
+            chkTieneFechaVencimiento.Size = new Size(130, 20);
+            chkTieneFechaVencimiento.TabIndex = 6;
+            chkTieneFechaVencimiento.Text = "Fecha Vencimiento:";
+            // 
+            // dtpFechaVencimiento
+            // 
             dtpFechaVencimiento.Format = DateTimePickerFormat.Short;
-
-            lblEstado.Text = "Estado:";
-            lblEstado.Location = new Point(15, 100);
-            lblEstado.Size = new Size(50, 20);
+            dtpFechaVencimiento.Location = new Point(315, 88);
+            dtpFechaVencimiento.Name = "dtpFechaVencimiento";
+            dtpFechaVencimiento.Size = new Size(150, 23);
+            dtpFechaVencimiento.TabIndex = 7;
+            // 
+            // lblEstado
+            // 
             lblEstado.AutoSize = true;
-
-            cmbEstado.Location = new Point(150, 98);
-            cmbEstado.Size = new Size(150, 23);
+            lblEstado.Location = new Point(15, 100);
+            lblEstado.Name = "lblEstado";
+            lblEstado.Size = new Size(46, 15);
+            lblEstado.TabIndex = 8;
+            lblEstado.Text = "Estado:";
+            // 
+            // cmbEstado
+            // 
             cmbEstado.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            grpDatosFactura.Controls.AddRange(new Control[] {
-                lblNumeroFactura, txtNumeroFactura, lblPersonaId, txtPersonaId,
-                lblFechaEmision, dtpFechaEmision, chkTieneFechaVencimiento, dtpFechaVencimiento,
-                lblEstado, cmbEstado
-            });
-
-            // Configurar GroupBox - Montos
-            grpMontos.Text = "Montos";
-            grpMontos.Location = new Point(580, 100);
-            grpMontos.Size = new Size(280, 120);
-            grpMontos.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            cmbEstado.Location = new Point(150, 98);
+            cmbEstado.Name = "cmbEstado";
+            cmbEstado.Size = new Size(150, 23);
+            cmbEstado.TabIndex = 9;
+            // 
+            // lblFechaVencimiento
+            // 
+            lblFechaVencimiento.Location = new Point(0, 0);
+            lblFechaVencimiento.Name = "lblFechaVencimiento";
+            lblFechaVencimiento.Size = new Size(100, 23);
+            lblFechaVencimiento.TabIndex = 0;
+            // 
+            // grpMontos
+            // 
+            grpMontos.Controls.Add(lblImpuestos);
+            grpMontos.Controls.Add(nudImpuestos);
+            grpMontos.Controls.Add(lblDescuentos);
+            grpMontos.Controls.Add(nudDescuentos);
+            grpMontos.Controls.Add(chkFinalizar);
+            grpMontos.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             grpMontos.ForeColor = Color.DarkGreen;
-
-            lblImpuestos.Text = "Impuestos:";
-            lblImpuestos.Location = new Point(15, 30);
-            lblImpuestos.Size = new Size(70, 20);
+            grpMontos.Location = new Point(580, 100);
+            grpMontos.Name = "grpMontos";
+            grpMontos.Size = new Size(280, 120);
+            grpMontos.TabIndex = 3;
+            grpMontos.TabStop = false;
+            grpMontos.Text = "Montos";
+            // 
+            // lblImpuestos
+            // 
             lblImpuestos.AutoSize = true;
-
-            nudImpuestos.Location = new Point(95, 28);
-            nudImpuestos.Size = new Size(120, 23);
+            lblImpuestos.Location = new Point(15, 30);
+            lblImpuestos.Name = "lblImpuestos";
+            lblImpuestos.Size = new Size(68, 15);
+            lblImpuestos.TabIndex = 0;
+            lblImpuestos.Text = "Impuestos:";
+            // 
+            // nudImpuestos
+            // 
             nudImpuestos.DecimalPlaces = 2;
-            nudImpuestos.Maximum = 999999;
-
-            lblDescuentos.Text = "Descuentos:";
-            lblDescuentos.Location = new Point(15, 65);
-            lblDescuentos.Size = new Size(70, 20);
+            nudImpuestos.Location = new Point(95, 28);
+            nudImpuestos.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            nudImpuestos.Name = "nudImpuestos";
+            nudImpuestos.Size = new Size(120, 23);
+            nudImpuestos.TabIndex = 1;
+            // 
+            // lblDescuentos
+            // 
             lblDescuentos.AutoSize = true;
-
-            nudDescuentos.Location = new Point(95, 63);
-            nudDescuentos.Size = new Size(120, 23);
+            lblDescuentos.Location = new Point(15, 65);
+            lblDescuentos.Name = "lblDescuentos";
+            lblDescuentos.Size = new Size(75, 15);
+            lblDescuentos.TabIndex = 2;
+            lblDescuentos.Text = "Descuentos:";
+            // 
+            // nudDescuentos
+            // 
             nudDescuentos.DecimalPlaces = 2;
-            nudDescuentos.Maximum = 999999;
-
-            chkFinalizar.Text = "Finalizar Factura";
+            nudDescuentos.Location = new Point(95, 63);
+            nudDescuentos.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            nudDescuentos.Name = "nudDescuentos";
+            nudDescuentos.Size = new Size(120, 23);
+            nudDescuentos.TabIndex = 3;
+            // 
+            // chkFinalizar
+            // 
             chkFinalizar.Location = new Point(15, 90);
+            chkFinalizar.Name = "chkFinalizar";
             chkFinalizar.Size = new Size(120, 20);
-
-            grpMontos.Controls.AddRange(new Control[] {
-                lblImpuestos, nudImpuestos, lblDescuentos, nudDescuentos, chkFinalizar
-            });
-
-            // Configurar GroupBox - Detalles
-            grpDetalles.Text = "Detalles";
-            grpDetalles.Location = new Point(15, 290);
-            grpDetalles.Size = new Size(845, 180);
-            grpDetalles.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            chkFinalizar.TabIndex = 4;
+            chkFinalizar.Text = "Finalizar Factura";
+            // 
+            // grpDetalles
+            // 
+            grpDetalles.Controls.Add(lblNotas);
+            grpDetalles.Controls.Add(txtNotas);
+            grpDetalles.Controls.Add(lblProductos);
+            grpDetalles.Controls.Add(txtProductosJson);
+            grpDetalles.Controls.Add(lblServicios);
+            grpDetalles.Controls.Add(txtServiciosJson);
+            grpDetalles.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             grpDetalles.ForeColor = Color.DarkSlateGray;
-
-            lblNotas.Text = "Notas:";
-            lblNotas.Location = new Point(15, 30);
-            lblNotas.Size = new Size(50, 20);
+            grpDetalles.Location = new Point(15, 290);
+            grpDetalles.Name = "grpDetalles";
+            grpDetalles.Size = new Size(845, 180);
+            grpDetalles.TabIndex = 4;
+            grpDetalles.TabStop = false;
+            grpDetalles.Text = "Detalles";
+            // 
+            // lblNotas
+            // 
             lblNotas.AutoSize = true;
-
+            lblNotas.Location = new Point(15, 30);
+            lblNotas.Name = "lblNotas";
+            lblNotas.Size = new Size(42, 15);
+            lblNotas.TabIndex = 0;
+            lblNotas.Text = "Notas:";
+            // 
+            // txtNotas
+            // 
             txtNotas.Location = new Point(15, 53);
-            txtNotas.Size = new Size(820, 40);
             txtNotas.Multiline = true;
+            txtNotas.Name = "txtNotas";
             txtNotas.ScrollBars = ScrollBars.Vertical;
-
-            lblProductos.Text = "Productos (JSON):";
-            lblProductos.Location = new Point(15, 105);
-            lblProductos.Size = new Size(120, 20);
+            txtNotas.Size = new Size(820, 40);
+            txtNotas.TabIndex = 1;
+            // 
+            // lblProductos
+            // 
             lblProductos.AutoSize = true;
-
+            lblProductos.Location = new Point(15, 105);
+            lblProductos.Name = "lblProductos";
+            lblProductos.Size = new Size(107, 15);
+            lblProductos.TabIndex = 2;
+            lblProductos.Text = "Productos (JSON):";
+            // 
+            // txtProductosJson
+            // 
+            txtProductosJson.Font = new Font("Consolas", 9F);
             txtProductosJson.Location = new Point(15, 128);
-            txtProductosJson.Size = new Size(400, 40);
             txtProductosJson.Multiline = true;
+            txtProductosJson.Name = "txtProductosJson";
             txtProductosJson.ScrollBars = ScrollBars.Vertical;
-            txtProductosJson.Font = new Font("Consolas", 9);
-
-            lblServicios.Text = "Servicios (JSON):";
-            lblServicios.Location = new Point(435, 105);
-            lblServicios.Size = new Size(120, 20);
+            txtProductosJson.Size = new Size(400, 40);
+            txtProductosJson.TabIndex = 3;
+            // 
+            // lblServicios
+            // 
             lblServicios.AutoSize = true;
-
+            lblServicios.Location = new Point(435, 105);
+            lblServicios.Name = "lblServicios";
+            lblServicios.Size = new Size(101, 15);
+            lblServicios.TabIndex = 4;
+            lblServicios.Text = "Servicios (JSON):";
+            // 
+            // txtServiciosJson
+            // 
+            txtServiciosJson.Font = new Font("Consolas", 9F);
             txtServiciosJson.Location = new Point(435, 128);
-            txtServiciosJson.Size = new Size(400, 40);
             txtServiciosJson.Multiline = true;
+            txtServiciosJson.Name = "txtServiciosJson";
             txtServiciosJson.ScrollBars = ScrollBars.Vertical;
-            txtServiciosJson.Font = new Font("Consolas", 9);
-
-            grpDetalles.Controls.AddRange(new Control[] {
-                lblNotas, txtNotas, lblProductos, txtProductosJson, lblServicios, txtServiciosJson
-            });
-
-            // Agregar los grupos al panel de formulario heredado de BaseModulos
-            panelFormulario.Controls.AddRange(new Control[] {
-                grpDatosFactura, grpMontos, grpDetalles
-            });
+            txtServiciosJson.Size = new Size(400, 40);
+            txtServiciosJson.TabIndex = 5;
+            // 
+            // VentasModule
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            Name = "VentasModule";
+            tabControlPrincipal.ResumeLayout(false);
+            tabInicio.ResumeLayout(false);
+            tabConfiguraciones.ResumeLayout(false);
+            panelBusqueda.ResumeLayout(false);
+            panelBusqueda.PerformLayout();
+            panelFormulario.ResumeLayout(false);
+            panelSuperior.ResumeLayout(false);
+            panelSuperior.PerformLayout();
+            panelBotones.ResumeLayout(false);
+            grpDatosFactura.ResumeLayout(false);
+            grpDatosFactura.PerformLayout();
+            grpMontos.ResumeLayout(false);
+            grpMontos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudImpuestos).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudDescuentos).EndInit();
+            grpDetalles.ResumeLayout(false);
+            grpDetalles.PerformLayout();
+            ResumeLayout(false);
         }
-
-        #endregion
     }
 }
