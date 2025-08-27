@@ -338,7 +338,7 @@ namespace CapaDatos
             }
             catch
             {
-                dtResultado = null;
+                dtResultado = new DataTable("ReporteVentasPeriodosPredefinidos");
             }
             return dtResultado;
         }
@@ -362,9 +362,10 @@ namespace CapaDatos
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                dtResultado = null;
+                dtResultado = new DataTable("ReporteVentasTopClientes");
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
             }
             return dtResultado;
         }
@@ -388,9 +389,10 @@ namespace CapaDatos
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                dtResultado = null;
+                dtResultado = new DataTable("ReporteVentasProductosTop");
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
             }
             return dtResultado;
         }
@@ -414,9 +416,10 @@ namespace CapaDatos
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                dtResultado = null;
+                dtResultado = new DataTable("ReporteVentasServiciosTop");
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
             }
             return dtResultado;
         }
@@ -437,9 +440,10 @@ namespace CapaDatos
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                dtResultado = null;
+                dtResultado = new DataTable("ReporteVentasEstadisticasGenerales");
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
             }
             return dtResultado;
         }
