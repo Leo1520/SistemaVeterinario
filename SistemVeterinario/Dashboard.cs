@@ -215,41 +215,6 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnInventario_Click(object sender, EventArgs e)
-        {
-            CambiarIconoSuperior(IconChar.BoxesStacked, "Inventario");
-
-            try
-            {
-                // Ocultar elementos del diseñador
-                OcultarElementosDisenador();
-
-                // Remover cualquier UserControl existente
-                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
-                foreach (var control in userControls)
-                {
-                    panelContent.Controls.Remove(control);
-                    control.Dispose();
-                }
-
-                // Crear e insertar el módulo de inventario
-                Forms.InventarioModule inventarioModule = new Forms.InventarioModule
-                {
-                    Dock = DockStyle.Fill
-                };
-
-                panelContent.Controls.Add(inventarioModule);
-                inventarioModule.BringToFront();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al abrir el módulo de inventario: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
-
         private void BtnHistorial_Click(object sender, EventArgs e)
         {
             CambiarIconoSuperior(IconChar.FileMedical, "Historial Médico");
