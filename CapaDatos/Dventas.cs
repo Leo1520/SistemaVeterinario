@@ -11,7 +11,7 @@ namespace CapaDatos
     public class DVentas
     {
         private int _idFactura;
-        private string _numeroFactura;
+        private string _numeroFactura = string.Empty;
         private DateTime _fechaEmision;
         private DateTime? _fechaVencimiento;
         private int _personaId;
@@ -19,10 +19,10 @@ namespace CapaDatos
         private decimal _impuestos;
         private decimal _descuentos;
         private decimal _total;
-        private string _estado;
-        private string _notas;
-        private string _productosJson;
-        private string _serviciosJson;
+        private string _estado = string.Empty;
+        private string _notas = string.Empty;
+        private string _productosJson = string.Empty;
+        private string _serviciosJson = string.Empty;
         private bool _finalizar;
 
         public int IdFactura { get => _idFactura; set => _idFactura = value; }
@@ -42,7 +42,7 @@ namespace CapaDatos
 
         public DVentas() { }
 
-        public DVentas(int idFactura, string numeroFactura, int personaId, 
+        public DVentas(int idFactura, string numeroFactura, int personaId,
             string estado = "Pendiente", decimal impuestos = 0, decimal descuentos = 0)
         {
             IdFactura = idFactura;
@@ -58,46 +58,46 @@ namespace CapaDatos
         {
             string rpta = string.Empty;
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_SaveFactura", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_SaveFactura", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        
-                        command.Parameters.AddWithValue("@factura_id", DBNull.Value);
-                        command.Parameters.AddWithValue("@persona_id", venta.PersonaId);
-                        command.Parameters.AddWithValue("@numero_factura", venta.NumeroFactura ?? "");
-                        command.Parameters.AddWithValue("@fecha_vencimiento", venta.FechaVencimiento ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@notas", venta.Notas ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@productos", venta.ProductosJson ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@servicios", venta.ServiciosJson ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@impuestos", venta.Impuestos);
-                        command.Parameters.AddWithValue("@descuentos", venta.Descuentos);
-                        command.Parameters.AddWithValue("@estado", venta.Estado ?? "Pendiente");
-                        command.Parameters.AddWithValue("@finalizar", venta.Finalizar);
+                    command.CommandType = CommandType.StoredProcedure;
 
-                        using (SqlDataReader reader = command.ExecuteReader())
+                    command.Parameters.AddWithValue("@factura_id", DBNull.Value);
+                    command.Parameters.AddWithValue("@persona_id", venta.PersonaId);
+                    command.Parameters.AddWithValue("@numero_factura", venta.NumeroFactura ?? "");
+                    command.Parameters.AddWithValue("@fecha_vencimiento", venta.FechaVencimiento ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@notas", venta.Notas ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@productos", venta.ProductosJson ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@servicios", venta.ServiciosJson ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@impuestos", venta.Impuestos);
+                    command.Parameters.AddWithValue("@descuentos", venta.Descuentos);
+                    command.Parameters.AddWithValue("@estado", venta.Estado ?? "Pendiente");
+                    command.Parameters.AddWithValue("@finalizar", venta.Finalizar);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            int facturaId = Convert.ToInt32(reader["factura_id"]);
+                            if (facturaId > 0)
                             {
-                                int facturaId = Convert.ToInt32(reader["factura_id"]);
-                                if (facturaId > 0)
-                                {
-                                    venta.IdFactura = facturaId;
-                                    rpta = "OK";
-                                }
-                                else
-                                {
-                                    rpta = reader["mensaje"].ToString();
-                                }
+                                venta.IdFactura = facturaId;
+                                rpta = "OK";
+                            }
+                            else
+                            {
+                                rpta = reader["mensaje"]?.ToString() ?? "No se recibió mensaje del procedimiento";
                             }
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
             return rpta;
         }
 
@@ -105,38 +105,38 @@ namespace CapaDatos
         {
             string rpta = string.Empty;
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_SaveFactura", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_SaveFactura", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        
-                        command.Parameters.AddWithValue("@factura_id", venta.IdFactura);
-                        command.Parameters.AddWithValue("@persona_id", venta.PersonaId);
-                        command.Parameters.AddWithValue("@numero_factura", venta.NumeroFactura ?? "");
-                        command.Parameters.AddWithValue("@fecha_vencimiento", venta.FechaVencimiento ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@notas", venta.Notas ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@productos", venta.ProductosJson ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@servicios", venta.ServiciosJson ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@impuestos", venta.Impuestos);
-                        command.Parameters.AddWithValue("@descuentos", venta.Descuentos);
-                        command.Parameters.AddWithValue("@estado", venta.Estado ?? "Pendiente");
-                        command.Parameters.AddWithValue("@finalizar", venta.Finalizar);
+                    command.CommandType = CommandType.StoredProcedure;
 
-                        using (SqlDataReader reader = command.ExecuteReader())
+                    command.Parameters.AddWithValue("@factura_id", venta.IdFactura);
+                    command.Parameters.AddWithValue("@persona_id", venta.PersonaId);
+                    command.Parameters.AddWithValue("@numero_factura", venta.NumeroFactura ?? "");
+                    command.Parameters.AddWithValue("@fecha_vencimiento", venta.FechaVencimiento ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@notas", venta.Notas ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@productos", venta.ProductosJson ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@servicios", venta.ServiciosJson ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@impuestos", venta.Impuestos);
+                    command.Parameters.AddWithValue("@descuentos", venta.Descuentos);
+                    command.Parameters.AddWithValue("@estado", venta.Estado ?? "Pendiente");
+                    command.Parameters.AddWithValue("@finalizar", venta.Finalizar);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                string mensaje = reader["mensaje"].ToString();
-                                rpta = mensaje.Contains("OK") ? "OK" : mensaje;
-                            }
+                            string mensaje = reader["mensaje"]?.ToString() ?? "No se recibió mensaje del procedimiento";
+                            rpta = mensaje.Contains("OK") ? "OK" : mensaje;
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
             return rpta;
         }
 
@@ -144,25 +144,25 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("Facturas");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
-                {
-                    string query = @"SELECT f.id, f.numero_factura, f.fecha_emision, f.fecha_vencimiento,
+            try
+            {
+                string query = @"SELECT f.id, f.numero_factura, f.fecha_emision, f.fecha_vencimiento,
                                             f.subtotal, f.impuestos, f.descuentos, f.total, f.estado, f.notas,
                                             p.nombre_mostrar as cliente
                                      FROM factura f
                                      LEFT JOIN VW_PersonasCompletas p ON f.persona_id = p.id
                                      ORDER BY f.fecha_emision DESC";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        adapter.Fill(dtResultado);
-                    }
-                }
-                catch
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
-                    dtResultado = null;
+                    adapter.Fill(dtResultado);
                 }
+            }
+            catch
+            {
+                dtResultado = new DataTable("Facturas");
+            }
             return dtResultado;
         }
 
@@ -170,29 +170,29 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("FacturasPorPersona");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
-                {
-                    string query = @"SELECT f.id, f.numero_factura, f.fecha_emision, f.fecha_vencimiento,
+            try
+            {
+                string query = @"SELECT f.id, f.numero_factura, f.fecha_emision, f.fecha_vencimiento,
                                             f.subtotal, f.impuestos, f.descuentos, f.total, f.estado, f.notas,
                                             p.nombre_mostrar as cliente
                                      FROM factura f
                                      LEFT JOIN VW_PersonasCompletas p ON f.persona_id = p.id
                                      WHERE f.persona_id = @PersonaId
                                      ORDER BY f.fecha_emision DESC";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PersonaId", venta.PersonaId);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        command.Parameters.AddWithValue("@PersonaId", venta.PersonaId);
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable("FacturasPorPersona");
+            }
             return dtResultado;
         }
 
@@ -200,9 +200,9 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("DetalleFactura");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
-                {
-                    string query = @"SELECT 
+            try
+            {
+                string query = @"SELECT 
                                         f.*,
                                         p.nombre_mostrar as cliente,
                                         dp.producto_id,
@@ -220,20 +220,20 @@ namespace CapaDatos
                                     LEFT JOIN detalle_servicios ds ON f.id = ds.factura_id
                                     LEFT JOIN diagnostico d ON ds.diagnostico_id = d.id
                                     WHERE f.id = @IdFactura";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@IdFactura", venta.IdFactura);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        command.Parameters.AddWithValue("@IdFactura", venta.IdFactura);
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable("DetalleFactura");
+            }
             return dtResultado;
         }
 
@@ -241,29 +241,29 @@ namespace CapaDatos
         // MÉTODOS PARA REPORTES DE VENTAS
         // ============================================
 
-        public DataTable ReporteVentasPorRango(DateTime fechaInicio, DateTime fechaFin, string estado = null)
+        public DataTable ReporteVentasPorRango(DateTime fechaInicio, DateTime fechaFin, string? estado = null)
         {
             DataTable dtResultado = new DataTable("ReporteVentasPorRango");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_ReporteVentasPorRango", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_ReporteVentasPorRango", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
-                        command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
-                        command.Parameters.AddWithValue("@estado", estado ?? (object)DBNull.Value);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
+                    command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
+                    command.Parameters.AddWithValue("@estado", estado ?? (object)DBNull.Value);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable("ReporteVentasPorRango");
+            }
             return dtResultado;
         }
 
@@ -271,25 +271,25 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("ReporteVentasResumen");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_ReporteVentasResumen", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_ReporteVentasResumen", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
-                        command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
-                        command.Parameters.AddWithValue("@agrupacion", agrupacion);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
+                    command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
+                    command.Parameters.AddWithValue("@agrupacion", agrupacion);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable("ReporteVentasResumen");
+            }
             return dtResultado;
         }
 
@@ -297,25 +297,25 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("ReporteVentasDetalle");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_ReporteVentasDetalle", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_ReporteVentasDetalle", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
-                        command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
-                        command.Parameters.AddWithValue("@factura_id", facturaId ?? (object)DBNull.Value);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
+                    command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
+                    command.Parameters.AddWithValue("@factura_id", facturaId ?? (object)DBNull.Value);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable("ReporteVentasDetalle");
+            }
             return dtResultado;
         }
 
@@ -323,23 +323,23 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("ReporteVentasPeriodosPredefinidos");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_ReporteVentasPeriodosPredefinidos", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_ReporteVentasPeriodosPredefinidos", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@periodo", periodo);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@periodo", periodo);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = null;
+            }
             return dtResultado;
         }
 
@@ -347,25 +347,25 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("ReporteVentasTopClientes");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_ReporteVentasTopClientes", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_ReporteVentasTopClientes", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
-                        command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
-                        command.Parameters.AddWithValue("@top_count", topCount);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
+                    command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
+                    command.Parameters.AddWithValue("@top_count", topCount);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = null;
+            }
             return dtResultado;
         }
 
@@ -373,25 +373,25 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("ReporteVentasProductosTop");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_ReporteVentasProductosTop", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_ReporteVentasProductosTop", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
-                        command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
-                        command.Parameters.AddWithValue("@top_count", topCount);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
+                    command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
+                    command.Parameters.AddWithValue("@top_count", topCount);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = null;
+            }
             return dtResultado;
         }
 
@@ -399,25 +399,25 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("ReporteVentasServiciosTop");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_ReporteVentasServiciosTop", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_ReporteVentasServiciosTop", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
-                        command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
-                        command.Parameters.AddWithValue("@top_count", topCount);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@fecha_inicio", fechaInicio.Date);
+                    command.Parameters.AddWithValue("@fecha_fin", fechaFin.Date);
+                    command.Parameters.AddWithValue("@top_count", topCount);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = null;
+            }
             return dtResultado;
         }
 
@@ -425,22 +425,22 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("ReporteVentasEstadisticasGenerales");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_ReporteVentasEstadisticasGenerales", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP_ReporteVentasEstadisticasGenerales", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = null;
+            }
             return dtResultado;
         }
     }
