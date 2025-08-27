@@ -67,31 +67,71 @@ namespace SistemVeterinario.Forms
             cmbTurno = new ComboBox();
             lblNivel = new Label();
             cmbNivel = new ComboBox();
-
+            tabControlPrincipal.SuspendLayout();
+            tabInicio.SuspendLayout();
+            tabConfiguraciones.SuspendLayout();
+            panelBusqueda.SuspendLayout();
+            panelFormulario.SuspendLayout();
+            panelSuperior.SuspendLayout();
+            panelBotones.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numExperiencia).BeginInit();
+            SuspendLayout();
             // 
-            // panelBusqueda - Agregar controles de filtro
+            // tabControlPrincipal
             // 
-            panelBusqueda.Controls.Add(lblTipoPersonal);
+            tabControlPrincipal.Margin = new Padding(3, 2, 3, 2);
+            tabControlPrincipal.Size = new Size(875, 450);
+            // 
+            // tabInicio
+            // 
+            tabInicio.Margin = new Padding(3, 2, 3, 2);
+            tabInicio.Padding = new Padding(3, 2, 3, 2);
+            tabInicio.Size = new Size(867, 422);
+            // 
+            // tabConfiguraciones
+            // 
+            tabConfiguraciones.Margin = new Padding(3, 2, 3, 2);
+            tabConfiguraciones.Padding = new Padding(3, 2, 3, 2);
+            tabConfiguraciones.Size = new Size(867, 422);
+            // 
+            // panelBusqueda
+            // 
             panelBusqueda.Controls.Add(cmbTipoPersonal);
+            panelBusqueda.Controls.Add(lblTipoPersonal);
+            panelBusqueda.Location = new Point(5, 8);
+            panelBusqueda.Margin = new Padding(3, 2, 3, 2);
+            panelBusqueda.Size = new Size(858, 100);
             panelBusqueda.Controls.SetChildIndex(lblTipoPersonal, 0);
             panelBusqueda.Controls.SetChildIndex(cmbTipoPersonal, 0);
             panelBusqueda.Controls.SetChildIndex(chkMostrarTodo, 0);
             panelBusqueda.Controls.SetChildIndex(btnNuevo, 0);
             panelBusqueda.Controls.SetChildIndex(btnBuscar, 0);
             panelBusqueda.Controls.SetChildIndex(txtBuscar, 0);
-
+            // 
+            // txtBuscar
+            // 
+            txtBuscar.Location = new Point(3, 2);
+            txtBuscar.Margin = new Padding(3, 2, 3, 2);
+            txtBuscar.Size = new Size(263, 23);
+            // 
+            // btnBuscar
+            // 
+            btnBuscar.Location = new Point(196, 29);
+            btnBuscar.Margin = new Padding(3, 2, 3, 2);
+            btnBuscar.Size = new Size(70, 25);
             // 
             // btnNuevo
             // 
-            btnNuevo.Location = new Point(970, 25);
-
+            btnNuevo.Location = new Point(634, 35);
+            btnNuevo.Margin = new Padding(3, 2, 3, 2);
+            btnNuevo.Size = new Size(70, 25);
             // 
             // chkMostrarTodo
             // 
-            chkMostrarTodo.Location = new Point(480, 30);
-
+            chkMostrarTodo.Location = new Point(19, 35);
+            chkMostrarTodo.Margin = new Padding(3, 2, 3, 2);
             // 
-            // panelFormulario - Reorganizar todos los controles
+            // panelFormulario
             // 
             panelFormulario.Controls.Add(lblNombre);
             panelFormulario.Controls.Add(txtNombre);
@@ -129,475 +169,524 @@ namespace SistemVeterinario.Forms
             panelFormulario.Controls.Add(cmbTurno);
             panelFormulario.Controls.Add(lblNivel);
             panelFormulario.Controls.Add(cmbNivel);
-
+            panelFormulario.Location = new Point(3, 2);
+            panelFormulario.Margin = new Padding(3, 2, 3, 2);
+            panelFormulario.Size = new Size(861, 418);
+            panelFormulario.Controls.SetChildIndex(cmbNivel, 0);
+            panelFormulario.Controls.SetChildIndex(lblNivel, 0);
+            panelFormulario.Controls.SetChildIndex(cmbTurno, 0);
+            panelFormulario.Controls.SetChildIndex(lblTurno, 0);
+            panelFormulario.Controls.SetChildIndex(txtArea, 0);
+            panelFormulario.Controls.SetChildIndex(lblArea, 0);
+            panelFormulario.Controls.SetChildIndex(numExperiencia, 0);
+            panelFormulario.Controls.SetChildIndex(lblExperiencia, 0);
+            panelFormulario.Controls.SetChildIndex(txtUniversidad, 0);
+            panelFormulario.Controls.SetChildIndex(lblUniversidad, 0);
+            panelFormulario.Controls.SetChildIndex(txtEspecialidad, 0);
+            panelFormulario.Controls.SetChildIndex(lblEspecialidad, 0);
+            panelFormulario.Controls.SetChildIndex(txtLicencia, 0);
+            panelFormulario.Controls.SetChildIndex(lblLicencia, 0);
+            panelFormulario.Controls.SetChildIndex(cmbTipoPersonalForm, 0);
+            panelFormulario.Controls.SetChildIndex(lblTipoPersonalForm, 0);
+            panelFormulario.Controls.SetChildIndex(dtpFechaContratacion, 0);
+            panelFormulario.Controls.SetChildIndex(lblFechaContratacion, 0);
+            panelFormulario.Controls.SetChildIndex(cmbRolForm, 0);
+            panelFormulario.Controls.SetChildIndex(lblRol, 0);
+            panelFormulario.Controls.SetChildIndex(txtSalario, 0);
+            panelFormulario.Controls.SetChildIndex(lblSalario, 0);
+            panelFormulario.Controls.SetChildIndex(txtDireccion, 0);
+            panelFormulario.Controls.SetChildIndex(lblDireccion, 0);
+            panelFormulario.Controls.SetChildIndex(txtTelefono, 0);
+            panelFormulario.Controls.SetChildIndex(lblTelefono, 0);
+            panelFormulario.Controls.SetChildIndex(txtContrasena, 0);
+            panelFormulario.Controls.SetChildIndex(lblContrasena, 0);
+            panelFormulario.Controls.SetChildIndex(txtUsuario, 0);
+            panelFormulario.Controls.SetChildIndex(lblUsuario, 0);
+            panelFormulario.Controls.SetChildIndex(txtEmail, 0);
+            panelFormulario.Controls.SetChildIndex(lblEmail, 0);
+            panelFormulario.Controls.SetChildIndex(txtApellido, 0);
+            panelFormulario.Controls.SetChildIndex(lblApellido, 0);
+            panelFormulario.Controls.SetChildIndex(txtNombre, 0);
+            panelFormulario.Controls.SetChildIndex(lblNombre, 0);
+            panelFormulario.Controls.SetChildIndex(panelBotones, 0);
+            panelFormulario.Controls.SetChildIndex(panelSuperior, 0);
             // 
             // panelSuperior
             // 
-            panelSuperior.Size = new Size(1100, 55);
-
+            panelSuperior.Location = new Point(9, 8);
+            panelSuperior.Margin = new Padding(3, 2, 3, 2);
+            panelSuperior.Size = new Size(961, 42);
+            // 
+            // lblModo
+            // 
+            lblModo.Location = new Point(9, 11);
             // 
             // cmbModo
             // 
-            cmbModo.Location = new Point(85, 15);
-
+            cmbModo.Location = new Point(74, 11);
+            cmbModo.Margin = new Padding(3, 2, 3, 2);
+            cmbModo.Size = new Size(106, 23);
             // 
             // lblId
             // 
-            lblId.Location = new Point(310, 18);
-
+            lblId.Location = new Point(271, 14);
             // 
             // txtId
             // 
-            txtId.Location = new Point(345, 15);
-
-            // ===== CONTROLES DE BÚSQUEDA =====
-
+            txtId.Location = new Point(302, 11);
+            txtId.Margin = new Padding(3, 2, 3, 2);
+            txtId.Size = new Size(70, 23);
             // 
-            // lblTipoPersonal
+            // panelBotones
             // 
-            lblTipoPersonal.AutoSize = true;
-            lblTipoPersonal.Font = new Font("Segoe UI", 9F);
-            lblTipoPersonal.Location = new Point(620, 30);
-            lblTipoPersonal.Name = "lblTipoPersonal";
-            lblTipoPersonal.Size = new Size(85, 20);
-            lblTipoPersonal.TabIndex = 20;
-            lblTipoPersonal.Text = "Tipo Personal:";
-
+            panelBotones.Location = new Point(9, 718);
+            panelBotones.Margin = new Padding(3, 2, 3, 2);
+            panelBotones.Size = new Size(1526, 38);
+            // 
+            // btnGuardar
+            // 
+            btnGuardar.Location = new Point(1988, 8);
+            btnGuardar.Margin = new Padding(3, 2, 3, 2);
+            btnGuardar.Size = new Size(88, 22);
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.Location = new Point(2084, 8);
+            btnCancelar.Margin = new Padding(3, 2, 3, 2);
+            btnCancelar.Size = new Size(88, 22);
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Location = new Point(18, 8);
+            btnEliminar.Margin = new Padding(3, 2, 3, 2);
+            btnEliminar.Size = new Size(88, 22);
             // 
             // cmbTipoPersonal
             // 
             cmbTipoPersonal.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTipoPersonal.Font = new Font("Segoe UI", 9F);
-            cmbTipoPersonal.Location = new Point(720, 27);
+            cmbTipoPersonal.Location = new Point(590, 2);
+            cmbTipoPersonal.Margin = new Padding(3, 2, 3, 2);
             cmbTipoPersonal.Name = "cmbTipoPersonal";
-            cmbTipoPersonal.Size = new Size(130, 28);
+            cmbTipoPersonal.Size = new Size(114, 23);
             cmbTipoPersonal.TabIndex = 21;
-
-            // ===== CONTROLES DEL FORMULARIO =====
-            // Reorganización sistemática con espaciado consistente
-
-            // FILA 1 - Información Personal Básica
+            // 
+            // lblTipoPersonal
+            // 
+            lblTipoPersonal.AutoSize = true;
+            lblTipoPersonal.Font = new Font("Segoe UI", 9F);
+            lblTipoPersonal.Location = new Point(502, 4);
+            lblTipoPersonal.Name = "lblTipoPersonal";
+            lblTipoPersonal.Size = new Size(82, 15);
+            lblTipoPersonal.TabIndex = 20;
+            lblTipoPersonal.Text = "Tipo Personal:";
             // 
             // lblNombre
             // 
             lblNombre.AutoSize = true;
             lblNombre.BackColor = Color.White;
-            lblNombre.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNombre.Font = new Font("Segoe UI", 9F);
             lblNombre.ForeColor = Color.Black;
-            lblNombre.Location = new Point(30, 80);
+            lblNombre.Location = new Point(26, 60);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(67, 20);
+            lblNombre.Size = new Size(54, 15);
             lblNombre.TabIndex = 0;
             lblNombre.Text = "Nombre:";
-
             // 
             // txtNombre
             // 
             txtNombre.Font = new Font("Segoe UI", 9F);
-            txtNombre.Location = new Point(120, 77);
+            txtNombre.Location = new Point(105, 58);
+            txtNombre.Margin = new Padding(3, 2, 3, 2);
             txtNombre.MaxLength = 100;
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(200, 27);
+            txtNombre.Size = new Size(176, 23);
             txtNombre.TabIndex = 1;
-
             // 
             // lblApellido
             // 
             lblApellido.AutoSize = true;
             lblApellido.Font = new Font("Segoe UI", 9F);
             lblApellido.ForeColor = Color.Black;
-            lblApellido.Location = new Point(370, 80);
+            lblApellido.Location = new Point(324, 60);
             lblApellido.Name = "lblApellido";
-            lblApellido.Size = new Size(69, 20);
+            lblApellido.Size = new Size(54, 15);
             lblApellido.TabIndex = 2;
             lblApellido.Text = "Apellido:";
-
             // 
             // txtApellido
             // 
             txtApellido.Font = new Font("Segoe UI", 9F);
-            txtApellido.Location = new Point(460, 77);
+            txtApellido.Location = new Point(402, 58);
+            txtApellido.Margin = new Padding(3, 2, 3, 2);
             txtApellido.MaxLength = 100;
             txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(200, 27);
+            txtApellido.Size = new Size(176, 23);
             txtApellido.TabIndex = 3;
-
-            // FILA 2 - Email y Usuario
             // 
             // lblEmail
             // 
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Segoe UI", 9F);
             lblEmail.ForeColor = Color.Black;
-            lblEmail.Location = new Point(30, 120);
+            lblEmail.Location = new Point(26, 90);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(49, 20);
+            lblEmail.Size = new Size(39, 15);
             lblEmail.TabIndex = 4;
             lblEmail.Text = "Email:";
-
             // 
             // txtEmail
             // 
             txtEmail.Font = new Font("Segoe UI", 9F);
-            txtEmail.Location = new Point(120, 117);
+            txtEmail.Location = new Point(105, 88);
+            txtEmail.Margin = new Padding(3, 2, 3, 2);
             txtEmail.MaxLength = 100;
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(200, 27);
+            txtEmail.Size = new Size(176, 23);
             txtEmail.TabIndex = 5;
-
             // 
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
             lblUsuario.Font = new Font("Segoe UI", 9F);
             lblUsuario.ForeColor = Color.Black;
-            lblUsuario.Location = new Point(370, 120);
+            lblUsuario.Location = new Point(324, 90);
             lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(62, 20);
+            lblUsuario.Size = new Size(50, 15);
             lblUsuario.TabIndex = 6;
             lblUsuario.Text = "Usuario:";
-
             // 
             // txtUsuario
             // 
             txtUsuario.Font = new Font("Segoe UI", 9F);
-            txtUsuario.Location = new Point(460, 117);
+            txtUsuario.Location = new Point(402, 88);
+            txtUsuario.Margin = new Padding(3, 2, 3, 2);
             txtUsuario.MaxLength = 50;
             txtUsuario.Name = "txtUsuario";
-            txtUsuario.Size = new Size(200, 27);
+            txtUsuario.Size = new Size(176, 23);
             txtUsuario.TabIndex = 7;
-
-            // FILA 3 - Contraseña y Teléfono
             // 
             // lblContrasena
             // 
             lblContrasena.AutoSize = true;
             lblContrasena.Font = new Font("Segoe UI", 9F);
             lblContrasena.ForeColor = Color.Black;
-            lblContrasena.Location = new Point(30, 160);
+            lblContrasena.Location = new Point(26, 120);
             lblContrasena.Name = "lblContrasena";
-            lblContrasena.Size = new Size(86, 20);
+            lblContrasena.Size = new Size(70, 15);
             lblContrasena.TabIndex = 8;
             lblContrasena.Text = "Contraseña:";
-
             // 
             // txtContrasena
             // 
             txtContrasena.Font = new Font("Segoe UI", 9F);
-            txtContrasena.Location = new Point(120, 157);
+            txtContrasena.Location = new Point(105, 118);
+            txtContrasena.Margin = new Padding(3, 2, 3, 2);
             txtContrasena.MaxLength = 255;
             txtContrasena.Name = "txtContrasena";
             txtContrasena.PasswordChar = '*';
-            txtContrasena.Size = new Size(200, 27);
+            txtContrasena.Size = new Size(176, 23);
             txtContrasena.TabIndex = 9;
-
             // 
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
             lblTelefono.Font = new Font("Segoe UI", 9F);
             lblTelefono.ForeColor = Color.Black;
-            lblTelefono.Location = new Point(370, 160);
+            lblTelefono.Location = new Point(324, 120);
             lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(70, 20);
+            lblTelefono.Size = new Size(56, 15);
             lblTelefono.TabIndex = 10;
             lblTelefono.Text = "Teléfono:";
-
             // 
             // txtTelefono
             // 
             txtTelefono.Font = new Font("Segoe UI", 9F);
-            txtTelefono.Location = new Point(460, 157);
+            txtTelefono.Location = new Point(402, 118);
+            txtTelefono.Margin = new Padding(3, 2, 3, 2);
             txtTelefono.MaxLength = 20;
             txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(200, 27);
+            txtTelefono.Size = new Size(176, 23);
             txtTelefono.TabIndex = 11;
-
-            // FILA 4 - Dirección (campo largo)
             // 
             // lblDireccion
             // 
             lblDireccion.AutoSize = true;
             lblDireccion.Font = new Font("Segoe UI", 9F);
             lblDireccion.ForeColor = Color.Black;
-            lblDireccion.Location = new Point(30, 200);
+            lblDireccion.Location = new Point(26, 150);
             lblDireccion.Name = "lblDireccion";
-            lblDireccion.Size = new Size(75, 20);
+            lblDireccion.Size = new Size(60, 15);
             lblDireccion.TabIndex = 12;
             lblDireccion.Text = "Dirección:";
-
             // 
             // txtDireccion
             // 
             txtDireccion.Font = new Font("Segoe UI", 9F);
-            txtDireccion.Location = new Point(120, 197);
+            txtDireccion.Location = new Point(105, 148);
+            txtDireccion.Margin = new Padding(3, 2, 3, 2);
             txtDireccion.MaxLength = 255;
             txtDireccion.Name = "txtDireccion";
-            txtDireccion.Size = new Size(540, 27);
+            txtDireccion.Size = new Size(473, 23);
             txtDireccion.TabIndex = 13;
-
-            // FILA 5 - Salario, Rol y Fecha
             // 
             // lblSalario
             // 
             lblSalario.AutoSize = true;
             lblSalario.Font = new Font("Segoe UI", 9F);
             lblSalario.ForeColor = Color.Black;
-            lblSalario.Location = new Point(30, 240);
+            lblSalario.Location = new Point(26, 180);
             lblSalario.Name = "lblSalario";
-            lblSalario.Size = new Size(58, 20);
+            lblSalario.Size = new Size(45, 15);
             lblSalario.TabIndex = 14;
             lblSalario.Text = "Salario:";
-
             // 
             // txtSalario
             // 
             txtSalario.Font = new Font("Segoe UI", 9F);
-            txtSalario.Location = new Point(120, 237);
+            txtSalario.Location = new Point(105, 178);
+            txtSalario.Margin = new Padding(3, 2, 3, 2);
             txtSalario.MaxLength = 10;
             txtSalario.Name = "txtSalario";
-            txtSalario.Size = new Size(120, 27);
+            txtSalario.Size = new Size(106, 23);
             txtSalario.TabIndex = 15;
-
             // 
             // lblRol
             // 
             lblRol.AutoSize = true;
             lblRol.Font = new Font("Segoe UI", 9F);
             lblRol.ForeColor = Color.Black;
-            lblRol.Location = new Point(270, 240);
+            lblRol.Location = new Point(236, 180);
             lblRol.Name = "lblRol";
-            lblRol.Size = new Size(34, 20);
+            lblRol.Size = new Size(27, 15);
             lblRol.TabIndex = 16;
             lblRol.Text = "Rol:";
-
             // 
-            // cmbRolForm
+            // cmbRol
             // 
-            cmbRolForm.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbRolForm.Font = new Font("Segoe UI", 9F);
-            cmbRolForm.Location = new Point(320, 237);
-            cmbRolForm.Name = "cmbRolForm";
-            cmbRolForm.Size = new Size(120, 28);
-            cmbRolForm.TabIndex = 17;
-
+            cmbRol.Location = new Point(-200, -200);
+            cmbRol.Name = "cmbRol";
+            cmbRol.Size = new Size(121, 23);
+            cmbRol.TabIndex = 999;
+            cmbRol.Visible = false;
             // 
             // lblFechaContratacion
             // 
             lblFechaContratacion.AutoSize = true;
             lblFechaContratacion.Font = new Font("Segoe UI", 9F);
             lblFechaContratacion.ForeColor = Color.Black;
-            lblFechaContratacion.Location = new Point(470, 240);
+            lblFechaContratacion.Location = new Point(411, 180);
             lblFechaContratacion.Name = "lblFechaContratacion";
-            lblFechaContratacion.Size = new Size(111, 20);
+            lblFechaContratacion.Size = new Size(91, 15);
             lblFechaContratacion.TabIndex = 18;
             lblFechaContratacion.Text = "F. Contratación:";
-
             // 
             // dtpFechaContratacion
             // 
             dtpFechaContratacion.Font = new Font("Segoe UI", 9F);
             dtpFechaContratacion.Format = DateTimePickerFormat.Short;
-            dtpFechaContratacion.Location = new Point(590, 237);
+            dtpFechaContratacion.Location = new Point(516, 178);
+            dtpFechaContratacion.Margin = new Padding(3, 2, 3, 2);
             dtpFechaContratacion.Name = "dtpFechaContratacion";
-            dtpFechaContratacion.Size = new Size(120, 27);
+            dtpFechaContratacion.Size = new Size(106, 23);
             dtpFechaContratacion.TabIndex = 19;
-
-            // FILA 6 - Tipo de Personal
             // 
             // lblTipoPersonalForm
             // 
             lblTipoPersonalForm.AutoSize = true;
             lblTipoPersonalForm.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblTipoPersonalForm.ForeColor = Color.Black;
-            lblTipoPersonalForm.Location = new Point(30, 290);
+            lblTipoPersonalForm.Location = new Point(26, 218);
             lblTipoPersonalForm.Name = "lblTipoPersonalForm";
-            lblTipoPersonalForm.Size = new Size(129, 20);
+            lblTipoPersonalForm.Size = new Size(101, 15);
             lblTipoPersonalForm.TabIndex = 20;
             lblTipoPersonalForm.Text = "Tipo de Personal:";
-
             // 
             // cmbTipoPersonalForm
             // 
             cmbTipoPersonalForm.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTipoPersonalForm.Font = new Font("Segoe UI", 9F);
-            cmbTipoPersonalForm.Location = new Point(170, 287);
+            cmbTipoPersonalForm.Location = new Point(149, 215);
+            cmbTipoPersonalForm.Margin = new Padding(3, 2, 3, 2);
             cmbTipoPersonalForm.Name = "cmbTipoPersonalForm";
-            cmbTipoPersonalForm.Size = new Size(150, 28);
+            cmbTipoPersonalForm.Size = new Size(132, 23);
             cmbTipoPersonalForm.TabIndex = 21;
-
-            // ===== CAMPOS ESPECÍFICOS DE VETERINARIO =====
-
             // 
-            // lblEspecialidad
+            // cmbRolForm
             // 
-            lblEspecialidad.AutoSize = true;
-            lblEspecialidad.Font = new Font("Segoe UI", 9F);
-            lblEspecialidad.ForeColor = Color.Black;
-            lblEspecialidad.Location = new Point(370, 290);
-            lblEspecialidad.Name = "lblEspecialidad";
-            lblEspecialidad.Size = new Size(96, 20);
-            lblEspecialidad.TabIndex = 24;
-            lblEspecialidad.Text = "Especialidad:";
-
-            // 
-            // txtEspecialidad
-            // 
-            txtEspecialidad.Font = new Font("Segoe UI", 9F);
-            txtEspecialidad.Location = new Point(480, 287);
-            txtEspecialidad.MaxLength = 100;
-            txtEspecialidad.Name = "txtEspecialidad";
-            txtEspecialidad.Size = new Size(200, 27);
-            txtEspecialidad.TabIndex = 25;
-
+            cmbRolForm.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbRolForm.Font = new Font("Segoe UI", 9F);
+            cmbRolForm.Location = new Point(280, 178);
+            cmbRolForm.Margin = new Padding(3, 2, 3, 2);
+            cmbRolForm.Name = "cmbRolForm";
+            cmbRolForm.Size = new Size(106, 23);
+            cmbRolForm.TabIndex = 17;
             // 
             // lblLicencia
             // 
             lblLicencia.AutoSize = true;
             lblLicencia.Font = new Font("Segoe UI", 9F);
             lblLicencia.ForeColor = Color.Black;
-            lblLicencia.Location = new Point(30, 330);
+            lblLicencia.Location = new Point(26, 248);
             lblLicencia.Name = "lblLicencia";
-            lblLicencia.Size = new Size(104, 20);
+            lblLicencia.Size = new Size(86, 15);
             lblLicencia.TabIndex = 22;
             lblLicencia.Text = "Núm. Licencia:";
-
             // 
             // txtLicencia
             // 
             txtLicencia.Font = new Font("Segoe UI", 9F);
-            txtLicencia.Location = new Point(140, 327);
+            txtLicencia.Location = new Point(122, 245);
+            txtLicencia.Margin = new Padding(3, 2, 3, 2);
             txtLicencia.MaxLength = 50;
             txtLicencia.Name = "txtLicencia";
-            txtLicencia.Size = new Size(180, 27);
+            txtLicencia.Size = new Size(158, 23);
             txtLicencia.TabIndex = 23;
-
+            // 
+            // lblEspecialidad
+            // 
+            lblEspecialidad.AutoSize = true;
+            lblEspecialidad.Font = new Font("Segoe UI", 9F);
+            lblEspecialidad.ForeColor = Color.Black;
+            lblEspecialidad.Location = new Point(324, 218);
+            lblEspecialidad.Name = "lblEspecialidad";
+            lblEspecialidad.Size = new Size(75, 15);
+            lblEspecialidad.TabIndex = 24;
+            lblEspecialidad.Text = "Especialidad:";
+            // 
+            // txtEspecialidad
+            // 
+            txtEspecialidad.Font = new Font("Segoe UI", 9F);
+            txtEspecialidad.Location = new Point(420, 215);
+            txtEspecialidad.Margin = new Padding(3, 2, 3, 2);
+            txtEspecialidad.MaxLength = 100;
+            txtEspecialidad.Name = "txtEspecialidad";
+            txtEspecialidad.Size = new Size(176, 23);
+            txtEspecialidad.TabIndex = 25;
             // 
             // lblUniversidad
             // 
             lblUniversidad.AutoSize = true;
             lblUniversidad.Font = new Font("Segoe UI", 9F);
             lblUniversidad.ForeColor = Color.Black;
-            lblUniversidad.Location = new Point(30, 370);
+            lblUniversidad.Location = new Point(26, 278);
             lblUniversidad.Name = "lblUniversidad";
-            lblUniversidad.Size = new Size(90, 20);
+            lblUniversidad.Size = new Size(72, 15);
             lblUniversidad.TabIndex = 26;
             lblUniversidad.Text = "Universidad:";
-
             // 
             // txtUniversidad
             // 
             txtUniversidad.Font = new Font("Segoe UI", 9F);
-            txtUniversidad.Location = new Point(140, 367);
+            txtUniversidad.Location = new Point(122, 275);
+            txtUniversidad.Margin = new Padding(3, 2, 3, 2);
             txtUniversidad.MaxLength = 200;
             txtUniversidad.Name = "txtUniversidad";
-            txtUniversidad.Size = new Size(300, 27);
+            txtUniversidad.Size = new Size(263, 23);
             txtUniversidad.TabIndex = 27;
-
             // 
             // lblExperiencia
             // 
             lblExperiencia.AutoSize = true;
             lblExperiencia.Font = new Font("Segoe UI", 9F);
             lblExperiencia.ForeColor = Color.Black;
-            lblExperiencia.Location = new Point(470, 370);
+            lblExperiencia.Location = new Point(411, 278);
             lblExperiencia.Name = "lblExperiencia";
-            lblExperiencia.Size = new Size(125, 20);
+            lblExperiencia.Size = new Size(99, 15);
             lblExperiencia.TabIndex = 28;
             lblExperiencia.Text = "Años Experiencia:";
-
             // 
             // numExperiencia
             // 
             numExperiencia.Font = new Font("Segoe UI", 9F);
-            numExperiencia.Location = new Point(610, 367);
+            numExperiencia.Location = new Point(534, 275);
+            numExperiencia.Margin = new Padding(3, 2, 3, 2);
             numExperiencia.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
             numExperiencia.Name = "numExperiencia";
-            numExperiencia.Size = new Size(80, 27);
+            numExperiencia.Size = new Size(70, 23);
             numExperiencia.TabIndex = 29;
-
-            // ===== CAMPOS ESPECÍFICOS DE AUXILIAR =====
-
             // 
             // lblArea
             // 
             lblArea.AutoSize = true;
             lblArea.Font = new Font("Segoe UI", 9F);
             lblArea.ForeColor = Color.Black;
-            lblArea.Location = new Point(30, 330);
+            lblArea.Location = new Point(26, 248);
             lblArea.Name = "lblArea";
-            lblArea.Size = new Size(43, 20);
+            lblArea.Size = new Size(34, 15);
             lblArea.TabIndex = 30;
             lblArea.Text = "Área:";
-
             // 
             // txtArea
             // 
             txtArea.Font = new Font("Segoe UI", 9F);
-            txtArea.Location = new Point(140, 327);
+            txtArea.Location = new Point(122, 245);
+            txtArea.Margin = new Padding(3, 2, 3, 2);
             txtArea.MaxLength = 100;
             txtArea.Name = "txtArea";
-            txtArea.Size = new Size(200, 27);
+            txtArea.Size = new Size(176, 23);
             txtArea.TabIndex = 31;
-
             // 
             // lblTurno
             // 
             lblTurno.AutoSize = true;
             lblTurno.Font = new Font("Segoe UI", 9F);
             lblTurno.ForeColor = Color.Black;
-            lblTurno.Location = new Point(370, 330);
+            lblTurno.Location = new Point(324, 248);
             lblTurno.Name = "lblTurno";
-            lblTurno.Size = new Size(50, 20);
+            lblTurno.Size = new Size(42, 15);
             lblTurno.TabIndex = 32;
             lblTurno.Text = "Turno:";
-
             // 
             // cmbTurno
             // 
             cmbTurno.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTurno.Font = new Font("Segoe UI", 9F);
-            cmbTurno.Location = new Point(430, 327);
+            cmbTurno.Location = new Point(376, 245);
+            cmbTurno.Margin = new Padding(3, 2, 3, 2);
             cmbTurno.Name = "cmbTurno";
-            cmbTurno.Size = new Size(100, 28);
+            cmbTurno.Size = new Size(88, 23);
             cmbTurno.TabIndex = 33;
-
             // 
             // lblNivel
             // 
             lblNivel.AutoSize = true;
             lblNivel.Font = new Font("Segoe UI", 9F);
             lblNivel.ForeColor = Color.Black;
-            lblNivel.Location = new Point(560, 330);
+            lblNivel.Location = new Point(490, 248);
             lblNivel.Name = "lblNivel";
-            lblNivel.Size = new Size(46, 20);
+            lblNivel.Size = new Size(37, 15);
             lblNivel.TabIndex = 34;
             lblNivel.Text = "Nivel:";
-
             // 
             // cmbNivel
             // 
             cmbNivel.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbNivel.Font = new Font("Segoe UI", 9F);
-            cmbNivel.Location = new Point(620, 327);
+            cmbNivel.Location = new Point(542, 245);
+            cmbNivel.Margin = new Padding(3, 2, 3, 2);
             cmbNivel.Name = "cmbNivel";
-            cmbNivel.Size = new Size(90, 28);
+            cmbNivel.Size = new Size(79, 23);
             cmbNivel.TabIndex = 35;
-
-            // 
-            // cmbRol (control no utilizado - mantener para compatibilidad)
-            // 
-            cmbRol.Location = new Point(-200, -200); // Oculto fuera de vista
-            cmbRol.Name = "cmbRol";
-            cmbRol.Size = new Size(121, 28);
-            cmbRol.TabIndex = 999;
-            cmbRol.Visible = false;
-
             // 
             // PersonalModule
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "PersonalModule";
+            Size = new Size(875, 450);
+            tabControlPrincipal.ResumeLayout(false);
+            tabInicio.ResumeLayout(false);
+            tabConfiguraciones.ResumeLayout(false);
+            panelBusqueda.ResumeLayout(false);
+            panelBusqueda.PerformLayout();
+            panelFormulario.ResumeLayout(false);
+            panelFormulario.PerformLayout();
+            panelSuperior.ResumeLayout(false);
+            panelSuperior.PerformLayout();
+            panelBotones.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)numExperiencia).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
