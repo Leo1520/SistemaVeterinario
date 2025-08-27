@@ -43,6 +43,8 @@ namespace SistemVeterinario.Reportes
             this.label5 = new System.Windows.Forms.Label();
             this.cmbPeriodo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.cmbDatosEstadisticos = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -56,7 +58,6 @@ namespace SistemVeterinario.Reportes
             this.btnExportarExcel = new System.Windows.Forms.Button();
             this.btnExportarPDF = new System.Windows.Forms.Button();
             this.panelReporte = new System.Windows.Forms.Panel();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.panelStatus = new System.Windows.Forms.Panel();
             this.lblResultados = new System.Windows.Forms.Label();
             this.panelTop.SuspendLayout();
@@ -102,7 +103,7 @@ namespace SistemVeterinario.Reportes
             this.panelControles.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControles.Location = new System.Drawing.Point(0, 60);
             this.panelControles.Name = "panelControles";
-            this.panelControles.Size = new System.Drawing.Size(1200, 120);
+            this.panelControles.Size = new System.Drawing.Size(1200, 152);
             this.panelControles.TabIndex = 1;
             // 
             // groupBox1
@@ -186,10 +187,12 @@ namespace SistemVeterinario.Reportes
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.cmbPeriodo);
             this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.cmbDatosEstadisticos);
+            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(375, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(350, 108);
+            this.groupBox2.Size = new System.Drawing.Size(350, 140);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Configuración del Reporte";
@@ -233,6 +236,26 @@ namespace SistemVeterinario.Reportes
             this.label4.Size = new System.Drawing.Size(88, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Agrupar Por:";
+            // 
+            // cmbDatosEstadisticos
+            // 
+            this.cmbDatosEstadisticos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDatosEstadisticos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbDatosEstadisticos.FormattingEnabled = true;
+            this.cmbDatosEstadisticos.Location = new System.Drawing.Point(100, 105);
+            this.cmbDatosEstadisticos.Name = "cmbDatosEstadisticos";
+            this.cmbDatosEstadisticos.Size = new System.Drawing.Size(235, 21);
+            this.cmbDatosEstadisticos.TabIndex = 5;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 108);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(92, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Datos Estadísticos:";
             // 
             // groupBox3
             // 
@@ -318,7 +341,7 @@ namespace SistemVeterinario.Reportes
             this.panelBotones.Controls.Add(this.btnExportarExcel);
             this.panelBotones.Controls.Add(this.btnExportarPDF);
             this.panelBotones.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelBotones.Location = new System.Drawing.Point(0, 180);
+            this.panelBotones.Location = new System.Drawing.Point(0, 212);
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(1200, 50);
             this.panelBotones.TabIndex = 2;
@@ -399,21 +422,11 @@ namespace SistemVeterinario.Reportes
             // 
             // panelReporte
             // 
-            this.panelReporte.Controls.Add(this.reportViewer1);
             this.panelReporte.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelReporte.Location = new System.Drawing.Point(0, 230);
+            this.panelReporte.Location = new System.Drawing.Point(0, 262);
             this.panelReporte.Name = "panelReporte";
-            this.panelReporte.Size = new System.Drawing.Size(1200, 420);
+            this.panelReporte.Size = new System.Drawing.Size(1200, 388);
             this.panelReporte.TabIndex = 3;
-            // 
-            // reportViewer1
-            // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(1200, 420);
-            this.reportViewer1.TabIndex = 0;
             // 
             // panelStatus
             // 
@@ -461,7 +474,6 @@ namespace SistemVeterinario.Reportes
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.panelBotones.ResumeLayout(false);
-            this.panelReporte.ResumeLayout(false);
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
             this.ResumeLayout(false);
@@ -485,6 +497,8 @@ namespace SistemVeterinario.Reportes
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbPeriodo;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cmbDatosEstadisticos;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnBuscar;
@@ -498,7 +512,6 @@ namespace SistemVeterinario.Reportes
         private System.Windows.Forms.Button btnExportarExcel;
         private System.Windows.Forms.Button btnExportarPDF;
         private System.Windows.Forms.Panel panelReporte;
-        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
         private System.Windows.Forms.Panel panelStatus;
         private System.Windows.Forms.Label lblResultados;
     }

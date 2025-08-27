@@ -66,6 +66,20 @@ namespace SistemVeterinario
             pictureBox9 = new PictureBox();
             lblSubtitulo = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
+            panelSidebar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panelContent.SuspendLayout();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
+            SuspendLayout();
             // 
             // panelSidebar
             // 
@@ -379,7 +393,7 @@ namespace SistemVeterinario
             panel1.Controls.Add(iconoSuperior);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1133, 100);
+            panel1.Size = new Size(2066, 933);
             panel1.TabIndex = 12;
             // 
             // lblHora
@@ -387,7 +401,7 @@ namespace SistemVeterinario
             lblHora.Anchor = AnchorStyles.Left;
             lblHora.AutoSize = true;
             lblHora.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblHora.Location = new Point(217, 39);
+            lblHora.Location = new Point(217, 455);
             lblHora.Name = "lblHora";
             lblHora.Size = new Size(58, 27);
             lblHora.TabIndex = 8;
@@ -398,7 +412,7 @@ namespace SistemVeterinario
             lblEmail.Anchor = AnchorStyles.Right;
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblEmail.Location = new Point(726, 49);
+            lblEmail.Location = new Point(2592, 465);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(160, 24);
             lblEmail.TabIndex = 7;
@@ -411,7 +425,7 @@ namespace SistemVeterinario
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.Bell;
             iconButton2.IconColor = Color.White;
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.Location = new Point(960, 12);
+            iconButton2.Location = new Point(2826, 428);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(73, 73);
             iconButton2.TabIndex = 6;
@@ -424,7 +438,7 @@ namespace SistemVeterinario
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.UserDoctor;
             iconButton1.IconColor = Color.White;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.Location = new Point(1048, 12);
+            iconButton1.Location = new Point(2914, 428);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(73, 73);
             iconButton1.TabIndex = 5;
@@ -435,7 +449,7 @@ namespace SistemVeterinario
             lblUsuario.Anchor = AnchorStyles.Right;
             lblUsuario.AutoSize = true;
             lblUsuario.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblUsuario.Location = new Point(798, 22);
+            lblUsuario.Location = new Point(2664, 438);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(88, 27);
             lblUsuario.TabIndex = 4;
@@ -446,7 +460,7 @@ namespace SistemVeterinario
             tituloSuperior.Anchor = AnchorStyles.Left;
             tituloSuperior.AutoSize = true;
             tituloSuperior.Font = new Font("Arial Narrow", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            tituloSuperior.Location = new Point(95, 35);
+            tituloSuperior.Location = new Point(95, 451);
             tituloSuperior.Name = "tituloSuperior";
             tituloSuperior.Size = new Size(79, 33);
             tituloSuperior.TabIndex = 1;
@@ -459,7 +473,7 @@ namespace SistemVeterinario
             iconoSuperior.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
             iconoSuperior.IconColor = Color.White;
             iconoSuperior.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconoSuperior.Location = new Point(16, 12);
+            iconoSuperior.Location = new Point(16, 428);
             iconoSuperior.Name = "iconoSuperior";
             iconoSuperior.Size = new Size(73, 73);
             iconoSuperior.TabIndex = 0;
@@ -487,7 +501,7 @@ namespace SistemVeterinario
             // 
             pictureBox12.Anchor = AnchorStyles.None;
             pictureBox12.Image = (Image)resources.GetObject("pictureBox12.Image");
-            pictureBox12.Location = new Point(935, 607);
+            pictureBox12.Location = new Point(1401, 1023);
             pictureBox12.Name = "pictureBox12";
             pictureBox12.Size = new Size(164, 160);
             pictureBox12.SizeMode = PictureBoxSizeMode.Zoom;
@@ -500,7 +514,7 @@ namespace SistemVeterinario
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
             pictureBox3.Location = new Point(418, 195);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(268, 241);
+            pictureBox3.Size = new Size(1201, 1074);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
@@ -509,7 +523,7 @@ namespace SistemVeterinario
             // 
             pictureBox11.Anchor = AnchorStyles.None;
             pictureBox11.Image = (Image)resources.GetObject("pictureBox11.Image");
-            pictureBox11.Location = new Point(752, 607);
+            pictureBox11.Location = new Point(1218, 1023);
             pictureBox11.Name = "pictureBox11";
             pictureBox11.Size = new Size(164, 160);
             pictureBox11.SizeMode = PictureBoxSizeMode.Zoom;
@@ -520,7 +534,7 @@ namespace SistemVeterinario
             // 
             pictureBox8.Anchor = AnchorStyles.None;
             pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(210, 607);
+            pictureBox8.Location = new Point(676, 1023);
             pictureBox8.Name = "pictureBox8";
             pictureBox8.Size = new Size(164, 160);
             pictureBox8.SizeMode = PictureBoxSizeMode.Zoom;
@@ -533,7 +547,7 @@ namespace SistemVeterinario
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Britannic Bold", 22.2F);
             lblTitulo.ForeColor = Color.DarkSlateBlue;
-            lblTitulo.Location = new Point(338, 482);
+            lblTitulo.Location = new Point(804, 898);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(454, 41);
             lblTitulo.TabIndex = 1;
@@ -544,7 +558,7 @@ namespace SistemVeterinario
             // 
             pictureBox6.Anchor = AnchorStyles.None;
             pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(24, 607);
+            pictureBox6.Location = new Point(490, 1023);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(164, 160);
             pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
@@ -555,7 +569,7 @@ namespace SistemVeterinario
             // 
             pictureBox10.Anchor = AnchorStyles.None;
             pictureBox10.Image = (Image)resources.GetObject("pictureBox10.Image");
-            pictureBox10.Location = new Point(572, 607);
+            pictureBox10.Location = new Point(1038, 1023);
             pictureBox10.Name = "pictureBox10";
             pictureBox10.Size = new Size(164, 160);
             pictureBox10.SizeMode = PictureBoxSizeMode.Zoom;
@@ -566,7 +580,7 @@ namespace SistemVeterinario
             // 
             pictureBox9.Anchor = AnchorStyles.None;
             pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(393, 607);
+            pictureBox9.Location = new Point(859, 1023);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(164, 160);
             pictureBox9.SizeMode = PictureBoxSizeMode.Zoom;
@@ -579,7 +593,7 @@ namespace SistemVeterinario
             lblSubtitulo.AutoSize = true;
             lblSubtitulo.Font = new Font("Century", 13.8F, FontStyle.Bold);
             lblSubtitulo.ForeColor = Color.DimGray;
-            lblSubtitulo.Location = new Point(406, 545);
+            lblSubtitulo.Location = new Point(872, 961);
             lblSubtitulo.Name = "lblSubtitulo";
             lblSubtitulo.Size = new Size(303, 28);
             lblSubtitulo.TabIndex = 2;
@@ -603,6 +617,22 @@ namespace SistemVeterinario
             Text = "Veterinaria - Dashboard";
             WindowState = FormWindowState.Maximized;
             Load += Dashboard_Load;
+            panelSidebar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panelContent.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox12).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
