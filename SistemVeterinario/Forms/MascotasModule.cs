@@ -32,7 +32,8 @@ namespace SistemVeterinario.Forms
             try
             {
                 // Configurar controles solo después de que estén inicializados
-                this.Load += (s, e) => {
+                this.Load += (s, e) =>
+                {
                     ConfigurarComboBoxes();
                     ConfigurarEventos();
                     ConfigurarControlesIniciales();
@@ -276,9 +277,9 @@ namespace SistemVeterinario.Forms
             {
                 // Debug: Mostrar información sobre el ID que se está buscando
                 System.Diagnostics.Debug.WriteLine($"CargarDatosParaEdicion - ID recibido: {id}");
-                
+
                 DataTable datos = NMascotas.ObtenerPorId(id);
-                
+
                 // Debug: Verificar qué devuelve la consulta
                 if (datos == null)
                 {
@@ -286,9 +287,9 @@ namespace SistemVeterinario.Forms
                     MostrarMensaje($"Error: La consulta no devolvió ningún resultado para el ID: {id}", "Error de datos", MessageBoxIcon.Error);
                     return;
                 }
-                
+
                 System.Diagnostics.Debug.WriteLine($"CargarDatosParaEdicion - Filas devueltas: {datos.Rows.Count}");
-                
+
                 if (datos.Rows.Count == 0)
                 {
                     System.Diagnostics.Debug.WriteLine($"CargarDatosParaEdicion - No se encontraron filas para ID: {id}");
@@ -299,11 +300,11 @@ namespace SistemVeterinario.Forms
                 DataRow row = datos.Rows[0];
 
                 // Cargar datos básicos con verificación segura
-                if (txtNombre != null) 
+                if (txtNombre != null)
                     txtNombre.Text = ObtenerValorSeguro(row, "nombre");
-                if (txtColor != null) 
+                if (txtColor != null)
                     txtColor.Text = ObtenerValorSeguro(row, "color");
-                if (txtMicrochip != null) 
+                if (txtMicrochip != null)
                     txtMicrochip.Text = ObtenerValorSeguro(row, "microchip");
 
                 // Configurar especie y raza
@@ -313,7 +314,7 @@ namespace SistemVeterinario.Forms
                     // Buscar la especie en el combo
                     for (int i = 0; i < cmbEspecie.Items.Count; i++)
                     {
-                        if (cmbEspecie.Items[i].ToString().Equals(especie, StringComparison.OrdinalIgnoreCase))
+                        if ((cmbEspecie.Items[i]?.ToString() ?? "").Equals(especie, StringComparison.OrdinalIgnoreCase))
                         {
                             cmbEspecie.SelectedIndex = i;
                             break;
@@ -321,8 +322,8 @@ namespace SistemVeterinario.Forms
                     }
                     CargarRazasPorEspecie(especie);
                 }
-                
-                if (txtRaza != null) 
+
+                if (txtRaza != null)
                     txtRaza.Text = ObtenerValorSeguro(row, "raza");
 
                 // Configurar género
@@ -331,7 +332,7 @@ namespace SistemVeterinario.Forms
                 {
                     for (int i = 0; i < cmbGenero.Items.Count; i++)
                     {
-                        if (cmbGenero.Items[i].ToString().Equals(genero, StringComparison.OrdinalIgnoreCase))
+                        if ((cmbGenero.Items[i]?.ToString() ?? "").Equals(genero, StringComparison.OrdinalIgnoreCase))
                         {
                             cmbGenero.SelectedIndex = i;
                             break;
@@ -363,7 +364,7 @@ namespace SistemVeterinario.Forms
                 DateTime? fechaNacimiento = ObtenerFechaSegura(row, "fecha_nacimiento");
                 if (fechaNacimiento.HasValue)
                 {
-                    if (chkTieneFechaNacimiento != null) 
+                    if (chkTieneFechaNacimiento != null)
                         chkTieneFechaNacimiento.Checked = true;
                     if (dtpFechaNacimiento != null)
                     {
@@ -373,16 +374,16 @@ namespace SistemVeterinario.Forms
                 }
                 else
                 {
-                    if (chkTieneFechaNacimiento != null) 
+                    if (chkTieneFechaNacimiento != null)
                         chkTieneFechaNacimiento.Checked = false;
-                    if (dtpFechaNacimiento != null) 
+                    if (dtpFechaNacimiento != null)
                         dtpFechaNacimiento.Enabled = false;
                 }
 
                 // Cargar propietario usando datos del query actual
                 string propietario = ObtenerValorSeguro(row, "propietario");
                 int propietarioId = ObtenerIntSeguro(row, "persona_id");
-                
+
                 if (propietarioId > 0 && !string.IsNullOrEmpty(propietario))
                 {
                     _propietarioSeleccionadoId = propietarioId;
@@ -436,29 +437,29 @@ namespace SistemVeterinario.Forms
                 // Debug: Verificar los datos de la fila
                 System.Diagnostics.Debug.WriteLine("=== OnEditar Debug Info ===");
                 System.Diagnostics.Debug.WriteLine($"Fila seleccionada - Index: {row.Index}");
-                
+
                 if (row.DataBoundItem is DataRowView dataRow)
                 {
                     System.Diagnostics.Debug.WriteLine($"DataBoundItem encontrado");
-                    
+
                     // Mostrar todas las columnas disponibles
                     foreach (DataColumn column in dataRow.Row.Table.Columns)
                     {
                         var value = dataRow.Row[column.ColumnName];
                         System.Diagnostics.Debug.WriteLine($"Columna: {column.ColumnName}, Valor: {value ?? "NULL"}");
                     }
-                    
+
                     // Verificar específicamente el ID
                     if (dataRow.Row.Table.Columns.Contains("id"))
                     {
                         var idValue = dataRow["id"];
                         System.Diagnostics.Debug.WriteLine($"ID Value: {idValue}, Type: {idValue?.GetType()}");
-                        
+
                         if (idValue != null && idValue != DBNull.Value)
                         {
                             int id = Convert.ToInt32(idValue);
                             System.Diagnostics.Debug.WriteLine($"ID convertido: {id}");
-                            
+
                             // Llamar al método base
                             base.OnEditar(row);
                             return;
@@ -602,7 +603,7 @@ namespace SistemVeterinario.Forms
                 {
                     DataRow row = datos.Rows[0];
                     _propietarioSeleccionadoId = propietarioId;
-                    
+
                     // Intentar obtener el nombre completo, si no existe, construirlo
                     string nombreCompleto = ObtenerValorSeguro(row, "nombre_completo");
                     if (string.IsNullOrEmpty(nombreCompleto))
@@ -611,7 +612,7 @@ namespace SistemVeterinario.Forms
                         string nombre = ObtenerValorSeguro(row, "nombre");
                         string apellido = ObtenerValorSeguro(row, "apellido");
                         string razonSocial = ObtenerValorSeguro(row, "razon_social");
-                        
+
                         if (!string.IsNullOrEmpty(razonSocial))
                         {
                             nombreCompleto = razonSocial;
@@ -621,7 +622,7 @@ namespace SistemVeterinario.Forms
                             nombreCompleto = $"{nombre} {apellido}".Trim();
                         }
                     }
-                    
+
                     _propietarioSeleccionadoNombre = nombreCompleto;
                     if (txtPropietario != null)
                     {
