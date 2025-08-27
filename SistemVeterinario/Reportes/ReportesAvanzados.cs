@@ -13,7 +13,7 @@ using System.IO;
 
 namespace SistemVeterinario.Reportes
 {
-    public partial class FrmReportesAvanzados : UserControl
+    public partial class ReportesAvanzados : UserControl
     {
         private DateTime fechaInicio;
         private DateTime fechaFin;
@@ -22,7 +22,7 @@ namespace SistemVeterinario.Reportes
         private string datosEstadisticos = "Ninguno";
         private DataGridView? dgvReporte;
 
-        public FrmReportesAvanzados()
+        public ReportesAvanzados()
         {
             try
             {

@@ -285,7 +285,7 @@ namespace SistemVeterinario
                 }
 
                 // Crear e insertar el módulo de reportes
-                Reportes.FrmReportesAvanzados reportesModule = new Reportes.FrmReportesAvanzados
+                Reportes.ReportesAvanzados reportesModule = new Reportes.ReportesAvanzados
                 {
                     Dock = DockStyle.Fill
                 };

@@ -1,6 +1,6 @@
 namespace SistemVeterinario.Reportes
 {
-    partial class FrmReportesAvanzados
+    partial class ReportesAvanzados
     {
         /// <summary>
         /// Required designer variable.
