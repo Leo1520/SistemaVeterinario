@@ -117,11 +117,10 @@ namespace SistemVeterinario.Navigation
             // 
             // btnNuevo
             // 
-            btnNuevo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnNuevo.BackColor = Color.FromArgb(16, 137, 62);
             btnNuevo.FlatStyle = FlatStyle.Flat;
             btnNuevo.ForeColor = Color.White;
-            btnNuevo.Location = new Point(1658, 17);
+            btnNuevo.Location = new Point(640, 32);
             btnNuevo.Name = "btnNuevo";
             btnNuevo.Size = new Size(80, 25);
             btnNuevo.TabIndex = 2;
