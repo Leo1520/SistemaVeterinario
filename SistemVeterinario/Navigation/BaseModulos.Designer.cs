@@ -223,7 +223,7 @@ namespace SistemVeterinario.Navigation
             panelSuperior.Controls.Add(txtId);
             panelSuperior.Location = new Point(10, 10);
             panelSuperior.Name = "panelSuperior";
-            panelSuperior.Size = new Size(1746, 50);
+            panelSuperior.Size = new Size(900, 50);
             panelSuperior.TabIndex = 0;
             // 
             // lblModo
