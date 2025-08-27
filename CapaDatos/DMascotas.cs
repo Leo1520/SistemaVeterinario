@@ -11,18 +11,18 @@ namespace CapaDatos
     public class DMascotas
     {
         private int _id;
-        private string _nombre;
-        private string _especie;
-        private string _raza;
+        private string _nombre = string.Empty;
+        private string _especie = string.Empty;
+        private string _raza = string.Empty;
         private DateTime? _fechaNacimiento;
         private decimal? _peso;
-        private string _color;
-        private string _genero;
+        private string _color = string.Empty;
+        private string _genero = string.Empty;
         private bool _esterilizado;
-        private string _microchip;
+        private string _microchip = string.Empty;
         private int _personaId;
         private bool _activo;
-        private string _textoBuscar;
+        private string _textoBuscar = string.Empty;
 
         #region Propiedades
         public int Id { get => _id; set => _id = value; }
@@ -56,8 +56,8 @@ namespace CapaDatos
             Esterilizado = false;
         }
 
-        public DMascotas(string nombre, string especie, int personaId, string raza = "", 
-            DateTime? fechaNacimiento = null, decimal? peso = null, string color = "", 
+        public DMascotas(string nombre, string especie, int personaId, string raza = "",
+            DateTime? fechaNacimiento = null, decimal? peso = null, string color = "",
             string genero = "", bool esterilizado = false, string microchip = "")
         {
             Nombre = nombre;
@@ -174,73 +174,73 @@ namespace CapaDatos
         {
             string rpta = string.Empty;
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                // Verificar si el procedimiento almacenado existe, si no, crearlo
+                if (!VerificarProcedimientoExiste())
                 {
-                    // Verificar si el procedimiento almacenado existe, si no, crearlo
-                    if (!VerificarProcedimientoExiste())
+                    if (!CrearProcedimientoAlmacenado())
                     {
-                        if (!CrearProcedimientoAlmacenado())
-                        {
-                            return "Error: No se pudo crear el procedimiento almacenado SP05_CreateOrUpdateAnimal";
-                        }
+                        return "Error: No se pudo crear el procedimiento almacenado SP05_CreateOrUpdateAnimal";
                     }
+                }
 
-                    using (SqlCommand command = new SqlCommand("SP05_CreateOrUpdateAnimal", connection))
+                using (SqlCommand command = new SqlCommand("SP05_CreateOrUpdateAnimal", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id", DBNull.Value);
+                    command.Parameters.AddWithValue("@nombre", mascota.Nombre ?? "");
+                    command.Parameters.AddWithValue("@especie", mascota.Especie ?? "");
+                    command.Parameters.AddWithValue("@persona_id", mascota.PersonaId);
+                    command.Parameters.AddWithValue("@raza", mascota.Raza ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@fecha_nacimiento", mascota.FechaNacimiento ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@peso", mascota.Peso ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@color", mascota.Color ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@genero", mascota.Genero ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@esterilizado", mascota.Esterilizado);
+                    command.Parameters.AddWithValue("@microchip", mascota.Microchip ?? (object)DBNull.Value);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        command.Parameters.AddWithValue("@id", DBNull.Value);
-                        command.Parameters.AddWithValue("@nombre", mascota.Nombre ?? "");
-                        command.Parameters.AddWithValue("@especie", mascota.Especie ?? "");
-                        command.Parameters.AddWithValue("@persona_id", mascota.PersonaId);
-                        command.Parameters.AddWithValue("@raza", mascota.Raza ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@fecha_nacimiento", mascota.FechaNacimiento ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@peso", mascota.Peso ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@color", mascota.Color ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@genero", mascota.Genero ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@esterilizado", mascota.Esterilizado);
-                        command.Parameters.AddWithValue("@microchip", mascota.Microchip ?? (object)DBNull.Value);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            // Debug: Verificar qué columnas devuelve el procedimiento
+                            System.Diagnostics.Debug.WriteLine($"Columnas devueltas por SP05_CreateOrUpdateAnimal:");
+                            for (int i = 0; i < reader.FieldCount; i++)
                             {
-                                // Debug: Verificar qué columnas devuelve el procedimiento
-                                System.Diagnostics.Debug.WriteLine($"Columnas devueltas por SP05_CreateOrUpdateAnimal:");
-                                for (int i = 0; i < reader.FieldCount; i++)
-                                {
-                                    System.Diagnostics.Debug.WriteLine($"  {reader.GetName(i)}: {reader.GetValue(i)}");
-                                }
+                                System.Diagnostics.Debug.WriteLine($"  {reader.GetName(i)}: {reader.GetValue(i)}");
+                            }
 
-                                int id = Convert.ToInt32(reader["id"]);
-                                string mensaje = reader["mensaje"]?.ToString() ?? "";
-                                
-                                System.Diagnostics.Debug.WriteLine($"SP05 devolvió - ID: {id}, Mensaje: {mensaje}");
-                                
-                                if (id > 0)
-                                {
-                                    mascota.Id = id;
-                                    rpta = "OK";
-                                    System.Diagnostics.Debug.WriteLine($"Mascota insertada exitosamente con ID: {id}");
-                                }
-                                else
-                                {
-                                    rpta = mensaje;
-                                    System.Diagnostics.Debug.WriteLine($"Error del procedimiento: {mensaje}");
-                                }
+                            int id = Convert.ToInt32(reader["id"]);
+                            string mensaje = reader["mensaje"]?.ToString() ?? "";
+
+                            System.Diagnostics.Debug.WriteLine($"SP05 devolvió - ID: {id}, Mensaje: {mensaje}");
+
+                            if (id > 0)
+                            {
+                                mascota.Id = id;
+                                rpta = "OK";
+                                System.Diagnostics.Debug.WriteLine($"Mascota insertada exitosamente with ID: {id}");
                             }
                             else
                             {
-                                rpta = "El procedimiento no devolvió ningún resultado";
-                                System.Diagnostics.Debug.WriteLine("SP05_CreateOrUpdateAnimal no devolvió ningún resultado");
+                                rpta = mensaje;
+                                System.Diagnostics.Debug.WriteLine($"Error del procedimiento: {mensaje}");
                             }
+                        }
+                        else
+                        {
+                            rpta = "El procedimiento no devolvió ningún resultado";
+                            System.Diagnostics.Debug.WriteLine("SP05_CreateOrUpdateAnimal no devolvió ningún resultado");
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = $"Error al insertar mascota: {ex.Message}";
-                }
+            }
+            catch (Exception ex)
+            {
+                rpta = $"Error al insertar mascota: {ex.Message}";
+            }
             return rpta;
         }
 
@@ -248,46 +248,46 @@ namespace CapaDatos
         {
             string rpta = string.Empty;
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                // Verificar si el procedimiento almacenado existe, si no, crearlo
+                if (!VerificarProcedimientoExiste())
                 {
-                    // Verificar si el procedimiento almacenado existe, si no, crearlo
-                    if (!VerificarProcedimientoExiste())
+                    if (!CrearProcedimientoAlmacenado())
                     {
-                        if (!CrearProcedimientoAlmacenado())
-                        {
-                            return "Error: No se pudo crear el procedimiento almacenado SP05_CreateOrUpdateAnimal";
-                        }
+                        return "Error: No se pudo crear el procedimiento almacenado SP05_CreateOrUpdateAnimal";
                     }
+                }
 
-                    using (SqlCommand command = new SqlCommand("SP05_CreateOrUpdateAnimal", connection))
+                using (SqlCommand command = new SqlCommand("SP05_CreateOrUpdateAnimal", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id", mascota.Id);
+                    command.Parameters.AddWithValue("@nombre", mascota.Nombre ?? "");
+                    command.Parameters.AddWithValue("@especie", mascota.Especie ?? "");
+                    command.Parameters.AddWithValue("@persona_id", mascota.PersonaId);
+                    command.Parameters.AddWithValue("@raza", mascota.Raza ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@fecha_nacimiento", mascota.FechaNacimiento ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@peso", mascota.Peso ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@color", mascota.Color ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@genero", mascota.Genero ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@esterilizado", mascota.Esterilizado);
+                    command.Parameters.AddWithValue("@microchip", mascota.Microchip ?? (object)DBNull.Value);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        command.Parameters.AddWithValue("@id", mascota.Id);
-                        command.Parameters.AddWithValue("@nombre", mascota.Nombre ?? "");
-                        command.Parameters.AddWithValue("@especie", mascota.Especie ?? "");
-                        command.Parameters.AddWithValue("@persona_id", mascota.PersonaId);
-                        command.Parameters.AddWithValue("@raza", mascota.Raza ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@fecha_nacimiento", mascota.FechaNacimiento ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@peso", mascota.Peso ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@color", mascota.Color ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@genero", mascota.Genero ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@esterilizado", mascota.Esterilizado);
-                        command.Parameters.AddWithValue("@microchip", mascota.Microchip ?? (object)DBNull.Value);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                rpta = reader["mensaje"].ToString();
-                            }
+                            rpta = reader["mensaje"]?.ToString() ?? "No se recibió mensaje del procedimiento";
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
             return rpta;
         }
 
@@ -295,22 +295,22 @@ namespace CapaDatos
         {
             string rpta = string.Empty;
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
+            try
+            {
+                string query = "UPDATE animal SET activo = 0 WHERE id = @id";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    string query = "UPDATE animal SET activo = 0 WHERE id = @id";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@id", mascota.Id);
-                        
-                        int filasAfectadas = command.ExecuteNonQuery();
-                        rpta = filasAfectadas > 0 ? "OK" : "No se encontró la mascota";
-                    }
+                    command.Parameters.AddWithValue("@id", mascota.Id);
+
+                    int filasAfectadas = command.ExecuteNonQuery();
+                    rpta = filasAfectadas > 0 ? "OK" : "No se encontró la mascota";
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
+            }
             return rpta;
         }
 
@@ -318,10 +318,10 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("Mascotas");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
-                {
-                    // Query para obtener mascotas con información del propietario
-                    string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
+            try
+            {
+                // Query para obtener mascotas con información del propietario
+                string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
                                           a.peso, a.color, a.genero, a.esterilizado, a.microchip, a.activo,
                                           CASE 
                                             WHEN pf.nombre IS NOT NULL THEN CONCAT(pf.nombre, ' ', ISNULL(pf.apellido, ''))
@@ -335,17 +335,18 @@ namespace CapaDatos
                                    LEFT JOIN persona_juridica pj ON p.id = pj.id AND p.tipo = 'Jurídica'
                                    WHERE a.activo = 1
                                    ORDER BY a.nombre";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        adapter.Fill(dtResultado);
-                    }
-                }
-                catch (Exception ex)
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
-                    dtResultado = null;
+                    adapter.Fill(dtResultado);
                 }
+            }
+            catch (Exception ex)
+            {
+                dtResultado = new DataTable();
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+            }
             return dtResultado;
         }
 
@@ -353,9 +354,9 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("MascotasBusqueda");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
-                {
-                    string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
+            try
+            {
+                string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
                                           a.peso, a.color, a.genero, a.esterilizado, a.microchip, a.activo,
                                           CASE 
                                             WHEN p.nombre IS NOT NULL THEN CONCAT(p.nombre, ' ', ISNULL(p.apellido, ''))
@@ -372,20 +373,20 @@ namespace CapaDatos
                                           OR p.razon_social LIKE @textoBuscar
                                           OR a.microchip LIKE @textoBuscar)
                                    ORDER BY a.nombre";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@textoBuscar", "%" + (mascota.TextoBuscar ?? "") + "%");
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        command.Parameters.AddWithValue("@textoBuscar", "%" + (mascota.TextoBuscar ?? "") + "%");
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable();
+            }
             return dtResultado;
         }
 
@@ -393,28 +394,28 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("MascotasPorPropietario");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
-                {
-                    string query = @"SELECT a.id, a.nombre as animal_nombre, a.especie, a.raza, 
+            try
+            {
+                string query = @"SELECT a.id, a.nombre as animal_nombre, a.especie, a.raza, 
                                           a.fecha_nacimiento, a.peso, a.color, a.genero, 
                                           a.esterilizado, a.microchip, a.activo
                                    FROM animal a 
                                    WHERE a.persona_id = @propietarioId AND a.activo = 1
                                    ORDER BY a.nombre";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@propietarioId", propietarioId);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        command.Parameters.AddWithValue("@propietarioId", propietarioId);
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable();
+            }
             return dtResultado;
         }
 
@@ -430,7 +431,7 @@ namespace CapaDatos
                     if (!CrearProcedimientoObtenerPorId())
                     {
                         System.Diagnostics.Debug.WriteLine("No se pudo crear el procedimiento SP_ObtenerAnimalPorId");
-                        return null;
+                        return new DataTable();
                     }
                 }
 
@@ -439,7 +440,7 @@ namespace CapaDatos
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@id", mascota.Id);
-                    
+
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
                         adapter.Fill(dtResultado);
@@ -449,7 +450,7 @@ namespace CapaDatos
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error en DMascotas.ObtenerPorId - ID: {mascota.Id}, Error: {ex.Message}");
-                dtResultado = null;
+                dtResultado = new DataTable();
             }
             return dtResultado;
         }
@@ -527,21 +528,21 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("Especies");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
-                {
-                    string query = @"SELECT DISTINCT especie FROM animal WHERE activo = 1 AND especie IS NOT NULL 
+            try
+            {
+                string query = @"SELECT DISTINCT especie FROM animal WHERE activo = 1 AND especie IS NOT NULL 
                                    ORDER BY especie";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        adapter.Fill(dtResultado);
-                    }
-                }
-                catch
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
-                    dtResultado = null;
+                    adapter.Fill(dtResultado);
                 }
+            }
+            catch
+            {
+                dtResultado = new DataTable();
+            }
             return dtResultado;
         }
 
@@ -549,25 +550,25 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("Razas");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
-                {
-                    string query = @"SELECT DISTINCT raza FROM animal 
+            try
+            {
+                string query = @"SELECT DISTINCT raza FROM animal 
                                    WHERE activo = 1 AND especie = @especie AND raza IS NOT NULL 
                                    ORDER BY raza";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@especie", especie);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        command.Parameters.AddWithValue("@especie", especie);
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable();
+            }
             return dtResultado;
         }
 
@@ -575,9 +576,9 @@ namespace CapaDatos
         {
             DataTable dtResultado = new DataTable("HistorialClinico");
             SqlConnection connection = DbConnection.Instance.GetConnection();
-                try
-                {
-                    string query = @"SELECT dh.id, dh.tipo_evento, dh.fecha_evento, 
+            try
+            {
+                string query = @"SELECT dh.id, dh.tipo_evento, dh.fecha_evento, 
                                           dh.observaciones, dh.tratamiento, dh.medicamentos, 
                                           dh.dosis, dh.peso_animal, dh.temperatura, dh.costo,
                                           CONCAT(p.nombre, ' ', p.apellido) as veterinario
@@ -587,20 +588,20 @@ namespace CapaDatos
                                    LEFT JOIN personal p ON pv.id = p.id
                                    WHERE h.animal_id = @animalId
                                    ORDER BY dh.fecha_evento DESC";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@animalId", animalId);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        command.Parameters.AddWithValue("@animalId", animalId);
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable();
+            }
             return dtResultado;
         }
 
