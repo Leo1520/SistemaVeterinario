@@ -577,7 +577,7 @@ namespace SistemVeterinario.Forms
                     {
                         foreach (DataRow row in razasBD.Rows)
                         {
-                            string raza = row["raza"].ToString();
+                            string raza = row["raza"]?.ToString() ?? string.Empty;
                             if (!cmbRaza.Items.Contains(raza))
                             {
                                 cmbRaza.Items.Add(raza);
@@ -705,7 +705,7 @@ namespace SistemVeterinario.Forms
                     return "";
 
                 var value = row[columnName];
-                return (value == null || value == DBNull.Value) ? "" : value.ToString();
+                return (value == null || value == DBNull.Value) ? string.Empty : value.ToString() ?? string.Empty;
             }
             catch (Exception)
             {
