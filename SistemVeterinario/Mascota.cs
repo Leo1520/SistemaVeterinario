@@ -514,7 +514,7 @@ namespace SistemVeterinario
                 {
                     foreach (DataRow row in razasBD.Rows)
                     {
-                        string raza = row["raza"].ToString();
+                        string raza = row["raza"]?.ToString()??"";
                         if (!cmbRaza.Items.Contains(raza))
                         {
                             cmbRaza.Items.Add(raza);
@@ -946,7 +946,12 @@ namespace SistemVeterinario
         public BuscarClienteDialog()
         {
             InitializeComponent();
-            CargarClientes();
+
+            dgvClientes = new DataGridView();
+            txtBuscar = new TextBox();
+            btnBuscar = new Button();
+            btnSeleccionar = new Button();
+            btnCancelar = new Button();
         }
 
         private void InitializeComponent()
