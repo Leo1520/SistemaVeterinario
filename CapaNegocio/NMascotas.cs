@@ -338,9 +338,10 @@ namespace CapaNegocio
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                dtResultado = null;
+                dtResultado = new DataTable("ObtenerEstadisticasPorEspecie");
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
             }
             return dtResultado;
         }
