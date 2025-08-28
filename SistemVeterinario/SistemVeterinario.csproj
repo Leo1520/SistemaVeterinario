@@ -8,11 +8,14 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<!-- Configuración para compatibilidad con ReportViewer en .NET 8 -->
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<SelfContained>false</SelfContained>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
-		<PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.WinForms" Version="150.1600.0" />
+		<PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.WinForms" Version="150.1652.0" />
+		<PackageReference Include="Microsoft.SqlServer.Types" Version="160.1000.6" />
 	</ItemGroup>
 
 	<ItemGroup>

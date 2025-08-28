@@ -29,18 +29,46 @@ namespace SistemVeterinario.Reportes
         {
             if (reportViewer1 == null)
             {
-                // Limpiar cualquier control existente en el panel
-                panelReporte.Controls.Clear();
-                
-                reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-                reportViewer1.Dock = DockStyle.Fill;
-                reportViewer1.Location = new Point(0, 0);
-                reportViewer1.Name = "reportViewer1";
-                reportViewer1.Size = new Size(1400, 569);
-                reportViewer1.TabIndex = 0;
-                
-                panelReporte.Controls.Add(reportViewer1);
+                try
+                {
+                    // Limpiar cualquier control existente en el panel
+                    panelReporte.Controls.Clear();
+                    
+                    // Configuración específica para .NET 8
+                    System.AppDomain.CurrentDomain.SetData("APP_CONTEXT_DEPS", "");
+                    
+                    reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+                    reportViewer1.Dock = DockStyle.Fill;
+                    reportViewer1.Location = new Point(0, 0);
+                    reportViewer1.Name = "reportViewer1";
+                    reportViewer1.Size = new Size(1400, 569);
+                    reportViewer1.TabIndex = 0;
+                    
+                    // Configuración adicional para compatibilidad
+                    reportViewer1.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Local;
+                    
+                    panelReporte.Controls.Add(reportViewer1);
+                }
+                catch (Exception ex)
+                {
+                    // Si falla la inicialización, mostrar error específico
+                    MostrarErrorCompatibilidad(ex);
+                }
             }
+        }
+
+        private void MostrarErrorCompatibilidad(Exception ex)
+        {
+            panelReporte.Controls.Clear();
+            
+            Label lblError = new Label();
+            lblError.Text = $"Error de compatibilidad con ReportViewer en .NET 8:\n\n{ex.Message}\n\nPor favor, ejecute los comandos de actualización.";
+            lblError.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular);
+            lblError.ForeColor = Color.Red;
+            lblError.TextAlign = ContentAlignment.MiddleCenter;
+            lblError.Dock = DockStyle.Fill;
+            
+            panelReporte.Controls.Add(lblError);
         }
 
         private void MostrarMensajeInicial()
