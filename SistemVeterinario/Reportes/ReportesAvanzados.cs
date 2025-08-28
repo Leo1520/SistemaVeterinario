@@ -51,30 +51,21 @@ namespace SistemVeterinario.Reportes
                 // Limpiar el panel principal
                 panelReporte.Controls.Clear();
 
-                // Crear panel contenedor principal con layout personalizado
-                Panel panelContenedor = new Panel();
-                panelContenedor.Dock = DockStyle.Fill;
-                panelContenedor.BackColor = Color.WhiteSmoke;
+                // === LAYOUT FIJO SIN SPLITCONTAINER ===
+                // Panel Superior: Gráfico con altura fija de 400px
+                Panel panelGraficoContenedor = new Panel();
+                panelGraficoContenedor.Dock = DockStyle.Top;
+                panelGraficoContenedor.Height = 400; // ALTURA FIJA - NO DINÁMICA
+                panelGraficoContenedor.BackColor = Color.WhiteSmoke;
+                panelGraficoContenedor.Padding = new Padding(10);
 
-                // Calcular dimensiones disponibles
-                int alturaDisponible = panelReporte.Height;
-                int anchoDisponible = panelReporte.Width;
-
-                // 1. Panel superior para gráfico centrado
-                // Ajustar tamaño del gráfico si es necesario para que quepa
-                int tamanoGrafico = Math.Min(650, Math.Min(anchoDisponible - 20, (alturaDisponible / 2) - 50));
-                tamanoGrafico = Math.Max(300, tamanoGrafico); // Mínimo 300x300
-
+                // Panel del gráfico
                 panelGrafico = new Panel();
-                panelGrafico.Size = new Size(tamanoGrafico, tamanoGrafico);
+                panelGrafico.Dock = DockStyle.Fill;
                 panelGrafico.BackColor = Color.White;
                 panelGrafico.BorderStyle = BorderStyle.FixedSingle;
-                panelGrafico.Anchor = AnchorStyles.Top;
-                
-                // Centrar el gráfico horizontalmente
-                panelGrafico.Location = new Point((anchoDisponible - tamanoGrafico) / 2, 10);
 
-                // Agregar título al panel de gráfico
+                // Título del gráfico
                 Label lblTituloGrafico = new Label();
                 lblTituloGrafico.Text = "GRÁFICO DE PROMEDIO DE VENTAS";
                 lblTituloGrafico.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
@@ -84,21 +75,27 @@ namespace SistemVeterinario.Reportes
                 lblTituloGrafico.TextAlign = ContentAlignment.MiddleCenter;
                 panelGrafico.Controls.Add(lblTituloGrafico);
 
-                // 2. Panel para la tabla del reporte (resto del espacio disponible)
-                Panel panelTabla = new Panel();
-                int yTabla = tamanoGrafico + 20; // Debajo del gráfico con margen
-                int alturaTabla = alturaDisponible - yTabla - 10;
-                
-                panelTabla.Location = new Point(10, yTabla);
-                panelTabla.Size = new Size(anchoDisponible - 20, alturaTabla);
-                panelTabla.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-                panelTabla.BackColor = Color.White;
-                panelTabla.BorderStyle = BorderStyle.FixedSingle;
+                panelGraficoContenedor.Controls.Add(panelGrafico);
+                panelReporte.Controls.Add(panelGraficoContenedor);
 
-                // Crear el DataGridView dinámicamente
+                // === PANEL INFERIOR: TABLA - USA EL RESTO DEL ESPACIO ===
+                Panel panelTablaContenedor = new Panel();
+                panelTablaContenedor.Dock = DockStyle.Fill;
+                panelTablaContenedor.BackColor = Color.White;
+                panelTablaContenedor.Padding = new Padding(10);
+
+                // Título de la tabla
+                Label lblTituloTabla = new Label();
+                lblTituloTabla.Text = "DATOS DEL REPORTE";
+                lblTituloTabla.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
+                lblTituloTabla.ForeColor = Color.FromArgb(31, 30, 68);
+                lblTituloTabla.Dock = DockStyle.Top;
+                lblTituloTabla.Height = 30;
+                lblTituloTabla.TextAlign = ContentAlignment.MiddleLeft;
+                panelTablaContenedor.Controls.Add(lblTituloTabla);
+
+                // Crear el DataGridView
                 dgvReporte = new DataGridView();
-                
-                // Configurar propiedades básicas
                 dgvReporte.Dock = DockStyle.Fill;
                 dgvReporte.Name = "dgvReporte";
                 dgvReporte.TabIndex = 0;
@@ -112,68 +109,38 @@ namespace SistemVeterinario.Reportes
                 dgvReporte.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
                 dgvReporte.RowHeadersVisible = false;
                 
-                // Estilos mejorados para mejor visibilidad
+                // Estilos mejorados
                 dgvReporte.BackgroundColor = Color.White;
                 dgvReporte.BorderStyle = BorderStyle.None;
                 dgvReporte.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
                 
-                // Configurar colores para filas normales
+                // Colores para filas normales
                 dgvReporte.DefaultCellStyle.BackColor = Color.White;
                 dgvReporte.DefaultCellStyle.ForeColor = Color.Black;
                 dgvReporte.DefaultCellStyle.SelectionBackColor = Color.FromArgb(31, 30, 68);
                 dgvReporte.DefaultCellStyle.SelectionForeColor = Color.White;
+                dgvReporte.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 9F);
                 
-                // Configurar filas alternas con color gris claro
-                dgvReporte.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+                // Filas alternas
+                dgvReporte.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 248, 248);
                 dgvReporte.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
                 
-                // Configurar encabezados de columnas
+                // Encabezados
                 dgvReporte.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(31, 30, 68);
                 dgvReporte.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                dgvReporte.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
+                dgvReporte.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
+                dgvReporte.ColumnHeadersDefaultCellStyle.Padding = new Padding(5);
                 dgvReporte.EnableHeadersVisualStyles = false;
 
-                // Agregar el DataGridView al panel de tabla
-                panelTabla.Controls.Add(dgvReporte);
-
-                // Agregar ambos paneles al contenedor
-                panelContenedor.Controls.Add(panelGrafico);
-                panelContenedor.Controls.Add(panelTabla);
-
-                // Manejar el redimensionamiento para mantener el layout
-                panelContenedor.Resize += (sender, e) =>
-                {
-                    if (panelGrafico != null && panelTabla != null)
-                    {
-                        int nuevoAnchoDisponible = panelContenedor.Width;
-                        int nuevaAlturaDisponible = panelContenedor.Height;
-                        
-                        // Recalcular tamaño del gráfico
-                        int nuevoTamanoGrafico = Math.Min(650, Math.Min(nuevoAnchoDisponible - 20, (nuevaAlturaDisponible / 2) - 50));
-                        nuevoTamanoGrafico = Math.Max(300, nuevoTamanoGrafico);
-                        
-                        panelGrafico.Size = new Size(nuevoTamanoGrafico, nuevoTamanoGrafico);
-                        panelGrafico.Location = new Point((nuevoAnchoDisponible - nuevoTamanoGrafico) / 2, 10);
-                        
-                        // Reposicionar tabla
-                        int nuevoYTabla = nuevoTamanoGrafico + 20;
-                        int nuevaAlturaTabla = nuevaAlturaDisponible - nuevoYTabla - 10;
-                        
-                        panelTabla.Location = new Point(10, nuevoYTabla);
-                        panelTabla.Size = new Size(nuevoAnchoDisponible - 20, nuevaAlturaTabla);
-                    }
-                };
-
-                // Agregar el contenedor al panel principal
-                panelReporte.Controls.Add(panelContenedor);
+                panelTablaContenedor.Controls.Add(dgvReporte);
+                panelReporte.Controls.Add(panelTablaContenedor);
                 
-                System.Diagnostics.Debug.WriteLine($"Layout reorganizado: Gráfico {tamanoGrafico}x{tamanoGrafico} centrado, tabla usando espacio restante");
+                System.Diagnostics.Debug.WriteLine("Layout fijo creado: Gráfico 400px altura fija, tabla usa resto del espacio");
                 
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error creando layout dinámicamente: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"StackTrace: {ex.StackTrace}");
+                System.Diagnostics.Debug.WriteLine($"Error creando layout fijo: {ex.Message}");
                 dgvReporte = null;
             }
         }
@@ -1192,27 +1159,24 @@ namespace SistemVeterinario.Reportes
                 if (panelGrafico == null || datos == null || datos.Rows.Count == 0)
                     return;
 
-                // Limpiar el panel del gráfico (excepto el título)
-                var controles = panelGrafico.Controls.Cast<Control>().Where(c => c.GetType() != typeof(Label)).ToList();
-                foreach (var control in controles)
-                {
-                    panelGrafico.Controls.Remove(control);
-                }
+                // Limpiar el panel del gráfico COMPLETAMENTE
+                panelGrafico.Controls.Clear();
 
-                // Crear un gráfico de barras simple usando Panel y PictureBox
+                // USAR TODO EL PANEL DISPONIBLE - Sin título para más espacio
                 Panel panelGraficoBarra = new Panel();
                 panelGraficoBarra.Dock = DockStyle.Fill;
                 panelGraficoBarra.BackColor = Color.White;
-                panelGraficoBarra.Padding = new Padding(20);
+                panelGraficoBarra.Margin = Padding.Empty;
+                panelGraficoBarra.Padding = Padding.Empty;
 
                 // Buscar columna de totales
                 string columnaNumerica = EncontrarColumnaNumerica(datos);
                 if (string.IsNullOrEmpty(columnaNumerica))
                 {
-                    // Mostrar mensaje si no hay datos numéricos
+                    // Mostrar mensaje si no hay datos numéricos - OCUPANDO TODO EL ESPACIO
                     Label lblSinDatos = new Label();
                     lblSinDatos.Text = "No se encontraron datos numéricos para graficar";
-                    lblSinDatos.Font = new Font("Microsoft Sans Serif", 10F);
+                    lblSinDatos.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold);
                     lblSinDatos.ForeColor = Color.Gray;
                     lblSinDatos.Dock = DockStyle.Fill;
                     lblSinDatos.TextAlign = ContentAlignment.MiddleCenter;
@@ -1220,15 +1184,15 @@ namespace SistemVeterinario.Reportes
                 }
                 else
                 {
-                    // Crear el gráfico de barras
-                    CrearGraficoBarras(panelGraficoBarra, datos, columnaNumerica);
+                    // Crear el gráfico de barras MAXIMIZADO
+                    CrearGraficoBarrasMaximizado(panelGraficoBarra, datos, columnaNumerica);
                 }
 
                 panelGrafico.Controls.Add(panelGraficoBarra);
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error creando gráfico: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error creando gráfico maximizado: {ex.Message}");
             }
         }
 
@@ -1258,6 +1222,188 @@ namespace SistemVeterinario.Reportes
             return "";
         }
 
+        private void CrearGraficoBarrasMaximizado(Panel contenedor, DataTable datos, string columnaNumerica)
+        {
+            try
+            {
+                // Calcular valores
+                decimal valorMaximo = datos.AsEnumerable()
+                    .Where(row => row[columnaNumerica] != DBNull.Value)
+                    .Max(row => Convert.ToDecimal(row[columnaNumerica]));
+
+                if (valorMaximo <= 0) return;
+
+                // USAR TODO EL ESPACIO DISPONIBLE - MÁRGENES MÍNIMOS
+                int margenIzquierdo = 60;   // Solo para etiquetas del eje Y
+                int margenDerecho = 20;     // Mínimo
+                int margenSuperior = 30;    // Mínimo para valores
+                int margenInferior = 60;    // Para etiquetas del eje X
+
+                // MAXIMIZAR EL ÁREA DEL GRÁFICO
+                int alturaGrafico = Math.Max(200, contenedor.Height - margenSuperior - margenInferior);
+                int anchoGrafico = Math.Max(300, contenedor.Width - margenIzquierdo - margenDerecho);
+
+                // Barras MÁS GRANDES - Usar todos los datos disponibles
+                int numBarras = Math.Min(datos.Rows.Count, 15);
+                int espacioEntreBarra = Math.Max(8, anchoGrafico / (numBarras * 6));
+                int anchoBarra = Math.Max(30, (anchoGrafico - (espacioEntreBarra * (numBarras + 1))) / numBarras);
+
+                // Asegurar barras visibles pero no excesivamente anchas
+                if (anchoBarra > 100)
+                {
+                    anchoBarra = 100;
+                    espacioEntreBarra = (anchoGrafico - (anchoBarra * numBarras)) / (numBarras + 1);
+                }
+
+                int x = margenIzquierdo + espacioEntreBarra;
+                int contador = 0;
+                int yBase = margenSuperior + alturaGrafico;
+
+                // Crear barras con MÁXIMO TAMAÑO
+                foreach (DataRow row in datos.Rows)
+                {
+                    if (contador >= numBarras) break;
+
+                    if (row[columnaNumerica] != DBNull.Value)
+                    {
+                        decimal valor = Convert.ToDecimal(row[columnaNumerica]);
+                        int alturaBarra = Math.Max(15, (int)((valor / valorMaximo) * alturaGrafico));
+
+                        // Sombra para efecto 3D
+                        Panel sombra = new Panel();
+                        sombra.BackColor = Color.FromArgb(100, 100, 100);
+                        sombra.Width = anchoBarra + 3;
+                        sombra.Height = alturaBarra + 3;
+                        sombra.Location = new Point(x + 3, yBase - alturaBarra + 3);
+                        contenedor.Controls.Add(sombra);
+
+                        // Barra principal - MÁS GRANDE Y COLORIDA
+                        Panel barra = new Panel();
+                        barra.BackColor = Color.FromArgb(52, 152, 219); // Azul más vibrante
+                        barra.Width = anchoBarra;
+                        barra.Height = alturaBarra;
+                        barra.Location = new Point(x, yBase - alturaBarra);
+                        contenedor.Controls.Add(barra);
+
+                        // Highlight en la parte superior para efecto de brillo
+                        Panel highlight = new Panel();
+                        highlight.BackColor = Color.FromArgb(174, 214, 241);
+                        highlight.Width = anchoBarra;
+                        highlight.Height = Math.Max(3, alturaBarra / 6);
+                        highlight.Location = new Point(x, yBase - alturaBarra);
+                        contenedor.Controls.Add(highlight);
+
+                        // Valor ENCIMA de la barra - GRANDE Y VISIBLE
+                        Label lblValor = new Label();
+                        lblValor.Text = valor.ToString("C0");
+                        lblValor.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
+                        lblValor.ForeColor = Color.FromArgb(52, 152, 219);
+                        lblValor.AutoSize = true;
+                        lblValor.BackColor = Color.White;
+                        
+                        int labelX = x + (anchoBarra / 2) - 25;
+                        int labelY = (yBase - alturaBarra) - 25;
+                        lblValor.Location = new Point(Math.Max(0, labelX), Math.Max(5, labelY));
+                        contenedor.Controls.Add(lblValor);
+
+                        // Etiqueta del período DEBAJO
+                        Label lblPeriodo = new Label();
+                        string textoPeriodo = ObtenerTextoEtiqueta(datos, row, contador);
+                        
+                        lblPeriodo.Text = textoPeriodo;
+                        lblPeriodo.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
+                        lblPeriodo.ForeColor = Color.Black;
+                        lblPeriodo.AutoSize = true;
+                        
+                        int periodoX = x + (anchoBarra / 2) - 20;
+                        lblPeriodo.Location = new Point(Math.Max(0, periodoX), yBase + 10);
+                        contenedor.Controls.Add(lblPeriodo);
+
+                        x += anchoBarra + espacioEntreBarra;
+                        contador++;
+                    }
+                }
+
+                // Ejes y líneas de referencia MÁS PROMINENTES
+                CrearEjesYReferencias(contenedor, margenIzquierdo, margenSuperior, anchoGrafico, alturaGrafico, valorMaximo);
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error creando gráfico maximizado: {ex.Message}");
+            }
+        }
+
+        private string ObtenerTextoEtiqueta(DataTable datos, DataRow row, int contador)
+        {
+            if (datos.Columns.Contains("fecha") && row["fecha"] != DBNull.Value)
+                return Convert.ToDateTime(row["fecha"]).ToString("MMM");
+            else if (datos.Columns.Contains("periodo") && row["periodo"] != DBNull.Value)
+            {
+                string periodoStr = row["periodo"]?.ToString() ?? "";
+                return periodoStr.Length > 6 ? periodoStr.Substring(0, 6) : periodoStr;
+            }
+            return $"P{contador + 1}";
+        }
+
+        private void CrearEjesYReferencias(Panel contenedor, int margenIzq, int margenSup, int ancho, int altura, decimal valorMax)
+        {
+            int yBase = margenSup + altura;
+
+            // Eje X - MÁS GRUESO Y VISIBLE
+            Panel ejeX = new Panel();
+            ejeX.BackColor = Color.Black;
+            ejeX.Height = 3;
+            ejeX.Width = ancho + 5;
+            ejeX.Location = new Point(margenIzq, yBase);
+            contenedor.Controls.Add(ejeX);
+
+            // Eje Y - MÁS GRUESO Y VISIBLE
+            Panel ejeY = new Panel();
+            ejeY.BackColor = Color.Black;
+            ejeY.Height = altura + 3;
+            ejeY.Width = 3;
+            ejeY.Location = new Point(margenIzq, margenSup);
+            contenedor.Controls.Add(ejeY);
+
+            // Líneas de referencia horizontales - MÁS VISIBLES
+            for (int i = 0; i <= 4; i++)
+            {
+                decimal valorLinea = (valorMax / 4) * i;
+                int yLinea = yBase - (int)((valorLinea / valorMax) * altura);
+
+                // Línea horizontal
+                Panel linea = new Panel();
+                linea.BackColor = i == 0 ? Color.Black : Color.FromArgb(180, 180, 180);
+                linea.Height = i == 0 ? 3 : 1;
+                linea.Width = ancho;
+                linea.Location = new Point(margenIzq, yLinea);
+                contenedor.Controls.Add(linea);
+
+                // Etiquetas del eje Y - MÁS GRANDES
+                if (i > 0) // No mostrar $0
+                {
+                    Label lblRef = new Label();
+                    lblRef.Text = valorLinea.ToString("C0");
+                    lblRef.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
+                    lblRef.ForeColor = Color.FromArgb(52, 152, 219);
+                    lblRef.AutoSize = true;
+                    lblRef.BackColor = Color.White;
+                    lblRef.Location = new Point(5, yLinea - 10);
+                    contenedor.Controls.Add(lblRef);
+                }
+            }
+
+            // Título del eje Y
+            Label lblTituloY = new Label();
+            lblTituloY.Text = "Valores";
+            lblTituloY.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
+            lblTituloY.ForeColor = Color.FromArgb(52, 152, 219);
+            lblTituloY.AutoSize = true;
+            lblTituloY.Location = new Point(5, margenSup - 20);
+            contenedor.Controls.Add(lblTituloY);
+        }
+
         private void CrearGraficoBarras(Panel contenedor, DataTable datos, string columnaNumerica)
         {
             try
@@ -1269,90 +1415,160 @@ namespace SistemVeterinario.Reportes
 
                 if (valorMaximo <= 0) return;
 
-                int alturaMaxima = contenedor.Height - 100; // Dejar espacio para etiquetas
-                int anchoDisponible = contenedor.Width - 40;
-                int anchoBarra = Math.Max(30, anchoDisponible / Math.Min(datos.Rows.Count, 10));
-                int espacioBarra = 10;
+                // MÁRGENES OPTIMIZADOS PARA 400PX DE ALTURA
+                int margenIzquierdo = 90;  // Espacio para etiquetas del eje Y
+                int margenDerecho = 30;
+                int margenSuperior = 50;   // Espacio para valores encima de barras
+                int margenInferior = 70;   // Espacio para etiquetas del eje X
 
-                int x = 20;
+                // USAR EL ESPACIO DISPONIBLE (~350px de altura útil para barras)
+                int alturaGrafico = contenedor.Height - margenSuperior - margenInferior;
+                int anchoGrafico = contenedor.Width - margenIzquierdo - margenDerecho;
+
+                // Calcular número de barras y dimensiones - BARRAS GRANDES Y VISIBLES
+                int numBarras = Math.Min(datos.Rows.Count, 10); // 10 barras máximo para que sean bien anchas
+                int espacioTotal = anchoGrafico;
+                int espacioEntreBarra = Math.Max(20, espacioTotal / (numBarras * 3)); // Buen espacio entre barras
+                int anchoBarra = Math.Max(50, (espacioTotal - (espacioEntreBarra * (numBarras + 1))) / numBarras);
+
+                // Ajustar si las barras son muy anchas - PERMITIR BARRAS ANCHAS
+                if (anchoBarra > 150)
+                {
+                    anchoBarra = 150;
+                    espacioEntreBarra = (espacioTotal - (anchoBarra * numBarras)) / (numBarras + 1);
+                }
+
+                int x = margenIzquierdo + espacioEntreBarra;
                 int contador = 0;
+                int yBase = margenSuperior + alturaGrafico; // Línea base desde donde crecen las barras
+
+                // Título del eje Y más grande
+                Label lblEjeY = new Label();
+                lblEjeY.Text = "Valores ($)";
+                lblEjeY.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+                lblEjeY.ForeColor = Color.FromArgb(31, 30, 68);
+                lblEjeY.AutoSize = true;
+                lblEjeY.Location = new Point(5, margenSuperior - 15);
+                contenedor.Controls.Add(lblEjeY);
 
                 foreach (DataRow row in datos.Rows)
                 {
-                    if (contador >= 10) break; // Máximo 10 barras para que se vean bien
+                    if (contador >= numBarras) break;
 
                     if (row[columnaNumerica] != DBNull.Value)
                     {
                         decimal valor = Convert.ToDecimal(row[columnaNumerica]);
-                        int alturaBarra = (int)((valor / valorMaximo) * alturaMaxima);
+                        // ALTURA MÍNIMA GRANDE para barras bien visibles (30px mínimo)
+                        int alturaBarra = Math.Max(30, (int)((valor / valorMaximo) * alturaGrafico));
 
-                        // Crear la barra
+                        // Crear la barra principal - MÁS GRANDE Y VISIBLE CON EFECTO DE SOMBRA
+                        Panel sombraBarra = new Panel();
+                        sombraBarra.BackColor = Color.FromArgb(21, 20, 48); // Sombra más oscura
+                        sombraBarra.Width = anchoBarra + 6;
+                        sombraBarra.Height = alturaBarra + 6;
+                        sombraBarra.Location = new Point(x + 3, yBase - alturaBarra + 3);
+                        contenedor.Controls.Add(sombraBarra); // Agregar primero la sombra
+
                         Panel barra = new Panel();
-                        barra.BackColor = Color.FromArgb(31, 30, 68);
+                        barra.BackColor = Color.FromArgb(31, 30, 68); // Color principal
                         barra.Width = anchoBarra;
                         barra.Height = alturaBarra;
-                        barra.Location = new Point(x, contenedor.Height - alturaBarra - 60);
+                        barra.Location = new Point(x, yBase - alturaBarra);
 
-                        // Etiqueta del valor
+                        // Borde más visible
+                        barra.BorderStyle = BorderStyle.FixedSingle;
+
+                        // Etiqueta del valor ENCIMA de la barra - MÁS GRANDE Y VISIBLE
                         Label lblValor = new Label();
                         lblValor.Text = valor.ToString("C0");
-                        lblValor.Font = new Font("Microsoft Sans Serif", 8F);
-                        lblValor.ForeColor = Color.Black;
+                        lblValor.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold);
+                        lblValor.ForeColor = Color.FromArgb(31, 30, 68);
                         lblValor.AutoSize = true;
-                        lblValor.Location = new Point(x, contenedor.Height - alturaBarra - 80);
+                        lblValor.BackColor = Color.White; // Fondo blanco para contraste
+                        
+                        int labelX = x + (anchoBarra / 2) - 30; // Centrar mejor
+                        int labelY = (yBase - alturaBarra) - 30; // Más espacio arriba
+                        lblValor.Location = new Point(Math.Max(0, labelX), Math.Max(5, labelY));
 
-                        // Etiqueta del período (si existe)
+                        // Etiqueta del período DEBAJO del eje X - MÁS GRANDE
                         Label lblPeriodo = new Label();
                         string textoPeriodo = "";
-                        if (datos.Columns.Contains("fecha"))
-                            textoPeriodo = Convert.ToDateTime(row["fecha"]).ToString("MM/dd");
-                        else if (datos.Columns.Contains("periodo"))
-                            textoPeriodo = row["periodo"]?.ToString() ?? (contador + 1).ToString();
+                        if (datos.Columns.Contains("fecha") && row["fecha"] != DBNull.Value)
+                            textoPeriodo = Convert.ToDateTime(row["fecha"]).ToString("MMM");
+                        else if (datos.Columns.Contains("periodo") && row["periodo"] != DBNull.Value)
+                        {
+                            string periodoStr = row["periodo"]?.ToString() ?? "";
+                            textoPeriodo = periodoStr.Length > 8 ? periodoStr.Substring(0, 8) : periodoStr;
+                            if (string.IsNullOrEmpty(textoPeriodo))
+                                textoPeriodo = $"P{contador + 1}";
+                        }
                         else
-                            textoPeriodo = (contador + 1).ToString();
+                            textoPeriodo = $"P{contador + 1}";
 
                         lblPeriodo.Text = textoPeriodo;
-                        lblPeriodo.Font = new Font("Microsoft Sans Serif", 8F);
+                        lblPeriodo.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Bold);
                         lblPeriodo.ForeColor = Color.Black;
                         lblPeriodo.AutoSize = true;
-                        lblPeriodo.Location = new Point(x, contenedor.Height - 40);
+                        lblPeriodo.BackColor = Color.White; // Fondo para contraste
+                        
+                        int periodoX = x + (anchoBarra / 2) - 25; // Centrar mejor
+                        lblPeriodo.Location = new Point(Math.Max(0, periodoX), yBase + 20); // Más espacio debajo
 
-                        contenedor.Controls.Add(barra);
+                        contenedor.Controls.Add(barra); // Barra principal encima de la sombra
                         contenedor.Controls.Add(lblValor);
                         contenedor.Controls.Add(lblPeriodo);
 
-                        x += anchoBarra + espacioBarra;
+                        x += anchoBarra + espacioEntreBarra;
                         contador++;
                     }
                 }
 
-                // Agregar líneas de referencia y etiquetas del eje Y
-                for (int i = 0; i <= 4; i++)
+                // Líneas de referencia horizontales MÁS VISIBLES
+                for (int i = 0; i <= 5; i++) // 6 líneas de referencia
                 {
-                    decimal valorLinea = (valorMaximo / 4) * i;
-                    int yLinea = contenedor.Height - 60 - (int)((valorLinea / valorMaximo) * alturaMaxima);
+                    decimal valorLinea = (valorMaximo / 5) * i;
+                    int yLinea = yBase - (int)((valorLinea / valorMaximo) * alturaGrafico);
 
-                    // Línea horizontal de referencia
+                    // Línea horizontal más visible y colorida
                     Panel linea = new Panel();
-                    linea.BackColor = Color.LightGray;
-                    linea.Height = 1;
-                    linea.Width = anchoDisponible;
-                    linea.Location = new Point(20, yLinea);
+                    linea.BackColor = i == 0 ? Color.Black : Color.FromArgb(160, 160, 160);
+                    linea.Height = i == 0 ? 3 : 2; // Línea base más gruesa
+                    linea.Width = anchoGrafico;
+                    linea.Location = new Point(margenIzquierdo, yLinea);
                     contenedor.Controls.Add(linea);
 
-                    // Etiqueta del valor
+                    // Etiquetas del eje Y MÁS GRANDES Y VISIBLES
                     Label lblReferencia = new Label();
                     lblReferencia.Text = valorLinea.ToString("C0");
-                    lblReferencia.Font = new Font("Microsoft Sans Serif", 7F);
-                    lblReferencia.ForeColor = Color.Gray;
+                    lblReferencia.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
+                    lblReferencia.ForeColor = Color.FromArgb(31, 30, 68);
                     lblReferencia.AutoSize = true;
-                    lblReferencia.Location = new Point(2, yLinea - 8);
+                    lblReferencia.BackColor = Color.White;
+                    lblReferencia.TextAlign = ContentAlignment.MiddleRight;
+                    lblReferencia.Location = new Point(5, yLinea - 12);
                     contenedor.Controls.Add(lblReferencia);
                 }
+
+                // Eje X más grueso y visible
+                Panel ejeX = new Panel();
+                ejeX.BackColor = Color.Black;
+                ejeX.Height = 4;
+                ejeX.Width = anchoGrafico;
+                ejeX.Location = new Point(margenIzquierdo, yBase);
+                contenedor.Controls.Add(ejeX);
+
+                // Eje Y más grueso y visible
+                Panel ejeY = new Panel();
+                ejeY.BackColor = Color.Black;
+                ejeY.Height = alturaGrafico + 4;
+                ejeY.Width = 4;
+                ejeY.Location = new Point(margenIzquierdo, margenSuperior);
+                contenedor.Controls.Add(ejeY);
+
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error creando gráfico de barras: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error creando gráfico de barras maximizado: {ex.Message}");
             }
         }
 
