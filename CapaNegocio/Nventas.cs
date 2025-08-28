@@ -119,7 +119,7 @@ namespace CapaNegocio
         // MÉTODOS PARA REPORTES DE VENTAS
         // ============================================
 
-        public static DataTable ReporteVentasPorRango(DateTime fechaInicio, DateTime fechaFin, string estado = null)
+        public static DataTable ReporteVentasPorRango(DateTime fechaInicio, DateTime fechaFin, string? estado = null)
         {
             return new DVentas().ReporteVentasPorRango(fechaInicio, fechaFin, estado);
         }
