@@ -33,7 +33,8 @@ namespace SistemVeterinario.Forms
             try
             {
                 // Configurar controles solo después de que estén inicializados
-                this.Load += (s, e) => {
+                this.Load += (s, e) =>
+                {
                     ConfigurarControlesEspecificos();
                     ConfigurarEventosEspecificos();
                     ConfigurarControlesIniciales();
@@ -126,7 +127,7 @@ namespace SistemVeterinario.Forms
 
         protected override void OnBuscar()
         {
-            string textoBuscar = txtBuscar?.Text?.Trim() ?? "";
+            string textoBuscar = txtBuscar?.Text?.Trim() ?? string.Empty;
 
             try
             {
@@ -135,10 +136,12 @@ namespace SistemVeterinario.Forms
                 if (!string.IsNullOrEmpty(textoBuscar))
                 {
                     datos = NProductos.BuscarPorNombre(textoBuscar);
+                    datos.TableName = "ProductosBuscados"; // Nombre descriptivo
                 }
                 else
                 {
                     datos = NProductos.Mostrar();
+                    datos.TableName = "Productos"; // Nombre descriptivo
                 }
 
                 if (datos != null)
@@ -248,6 +251,8 @@ namespace SistemVeterinario.Forms
             try
             {
                 DataTable datos = NProductos.ObtenerPorId(id);
+                datos.TableName = "ProductoPorId"; // Nombre descriptivo
+
                 if (datos.Rows.Count > 0)
                 {
                     DataRow row = datos.Rows[0];
@@ -255,9 +260,9 @@ namespace SistemVeterinario.Forms
                     _currentProductoId = id;
 
                     // Cargar datos básicos
-                    if (txtCodigo != null) txtCodigo.Text = row["codigo"]?.ToString() ?? "";
-                    if (txtNombre != null) txtNombre.Text = row["nombre"]?.ToString() ?? "";
-                    if (txtDescripcion != null) txtDescripcion.Text = row["descripcion"]?.ToString() ?? "";
+                    if (txtCodigo != null) txtCodigo.Text = row["codigo"]?.ToString() ?? string.Empty;
+                    if (txtNombre != null) txtNombre.Text = row["nombre"]?.ToString() ?? string.Empty;
+                    if (txtDescripcion != null) txtDescripcion.Text = row["descripcion"]?.ToString() ?? string.Empty;
 
                     // Configurar precio
                     if (row["precio"] != DBNull.Value && row["precio"] != null && nudPrecio != null)
@@ -353,13 +358,13 @@ namespace SistemVeterinario.Forms
                     {
                         // Recargar categorías sin mostrar el mensaje de inicialización
                         CargarCategoriassilencioso();
-                        
+
                         // Seleccionar la nueva categoría si fue creada
                         if (frmCategoria.CategoriaCreatedId > 0 && cmbCategoria != null)
                         {
                             cmbCategoria.SelectedValue = frmCategoria.CategoriaCreatedId;
                         }
-                        
+
                         MostrarMensaje("Categoría creada exitosamente", "Éxito", MessageBoxIcon.Information);
                     }
                 }
@@ -381,7 +386,38 @@ namespace SistemVeterinario.Forms
                 cmbCategoria.ValueMember = "id";
 
                 DataTable categorias = NProductos.ObtenerCategorias();
-                if (categorias != null && categorias.Rows.Count > 0)
+                categorias.TableName = "Categorias"; // Nombre descriptivo
+
+                // Si no hay categorías, intentar crear las categorías iniciales automáticamente
+                if (categorias == null || categorias.Rows.Count == 0)
+                {
+                    bool categoriasCreadas = NProductos.VerificarYCrearCategoriasIniciales();
+
+                    if (categoriasCreadas)
+                    {
+                        // Recargar categorías después de crearlas
+                        categorias = NProductos.ObtenerCategorias();
+                        categorias.TableName = "Categorias"; // Nombre descriptivo
+
+                        if (categorias != null && categorias.Rows.Count > 0)
+                        {
+                            cmbCategoria.DataSource = categorias;
+                            cmbCategoria.SelectedIndex = 0;
+
+                            // Mensaje informativo mejorado
+                            MostrarMensaje("Se han creado las categorías veterinarias básicas automáticamente.\n" +
+                                         "Puede agregar más categorías usando el botón 'Nueva'.",
+                                         "Categorías Inicializadas", MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        MostrarMensaje("No se pudieron crear las categorías automáticamente.\n" +
+                                     "Use el botón 'Nueva' para crear categorías manualmente.",
+                                     "Error de Inicialización", MessageBoxIcon.Warning);
+                    }
+                }
+                else
                 {
                     cmbCategoria.DataSource = categorias;
                     cmbCategoria.SelectedIndex = 0;
@@ -473,7 +509,7 @@ namespace SistemVeterinario.Forms
                             break;
                     }
                 }
-                
+
                 if (dgvDatos?.Columns[e.ColumnIndex].Name == "requiere_receta" && e.Value != null && e.Value != DBNull.Value)
                 {
                     if (bool.TryParse(e.Value.ToString(), out bool requiere))
@@ -517,12 +553,12 @@ namespace SistemVeterinario.Forms
             {
                 string columnName = dgvDatos.Columns[e.ColumnIndex].Name;
                 string errorMsg = $"Error en columna '{columnName}', fila {e.RowIndex + 1}: {e.Exception.Message}";
-                
+
                 System.Diagnostics.Debug.WriteLine(errorMsg);
-                
+
                 // Marcar como manejado para evitar el diálogo por defecto
                 e.ThrowException = false;
-                
+
                 // Log adicional para diferentes tipos de errores
                 if (e.Exception is FormatException)
                 {
@@ -532,7 +568,7 @@ namespace SistemVeterinario.Forms
                 {
                     System.Diagnostics.Debug.WriteLine($"Error de conversión en columna {columnName}: {e.Exception.Message}");
                 }
-                
+
                 // Log del contexto del error (solo lectura)
                 System.Diagnostics.Debug.WriteLine($"Contexto del error: {e.Context}");
             }
@@ -579,22 +615,24 @@ namespace SistemVeterinario.Forms
                 cmbCategoria.ValueMember = "id";
 
                 DataTable categorias = NProductos.ObtenerCategorias();
-                
+                categorias.TableName = "Categorias"; // Nombre descriptivo
+
                 // Si no hay categorías, intentar crear las categorías iniciales automáticamente
                 if (categorias == null || categorias.Rows.Count == 0)
                 {
                     bool categoriasCreadas = NProductos.VerificarYCrearCategoriasIniciales();
-                    
+
                     if (categoriasCreadas)
                     {
                         // Recargar categorías después de crearlas
                         categorias = NProductos.ObtenerCategorias();
-                        
+                        categorias.TableName = "Categorias"; // Nombre descriptivo
+
                         if (categorias != null && categorias.Rows.Count > 0)
                         {
                             cmbCategoria.DataSource = categorias;
                             cmbCategoria.SelectedIndex = 0;
-                            
+
                             // Mensaje informativo mejorado
                             MostrarMensaje("Se han creado las categorías veterinarias básicas automáticamente.\n" +
                                          "Puede agregar más categorías usando el botón 'Nueva'.",
@@ -622,7 +660,7 @@ namespace SistemVeterinario.Forms
 
         private void ConfigurarColumnasDataGridView()
         {
-            if (dgvDatos?.DataSource == null || dgvDatos.Columns.Count == 0) 
+            if (dgvDatos?.DataSource == null || dgvDatos.Columns.Count == 0)
                 return;
 
             try
@@ -632,7 +670,7 @@ namespace SistemVeterinario.Forms
                     if (column == null) continue;
 
                     string columnName = column.Name?.ToLower() ?? "";
-                    
+
                     switch (columnName)
                     {
                         case "id":
@@ -730,7 +768,7 @@ namespace SistemVeterinario.Forms
                     int.TryParse(cmbCategoria.SelectedValue.ToString(), out categoriaId);
                 }
 
-                string errores = NProductos.ValidarDatosProducto(codigo, nombre, precio, categoriaId, 
+                string errores = NProductos.ValidarDatosProducto(codigo, nombre, precio, categoriaId,
                     stockMinimo, stockActual, descripcion);
 
                 if (!string.IsNullOrEmpty(errores))
@@ -820,7 +858,7 @@ namespace SistemVeterinario.Forms
             cmbSugerencias.Size = new Size(300, 23);
             cmbSugerencias.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSugerencias.SelectedIndexChanged += CmbSugerencias_SelectedIndexChanged;
-            
+
             // Cargar sugerencias veterinarias
             CargarSugerencias();
             cmbSugerencias.SelectedIndex = 0;
@@ -867,7 +905,7 @@ namespace SistemVeterinario.Forms
             {
                 string categoriaSeleccionada = cmbSugerencias.SelectedItem?.ToString() ?? "";
                 txtNombre.Text = categoriaSeleccionada;
-                
+
                 // Agregar descripción automática
                 var descripciones = new Dictionary<string, string>
                 {
