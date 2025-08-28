@@ -292,6 +292,7 @@ namespace SistemVeterinario.Reportes
             Controls.Add(panelStatus);
             Controls.Add(panelControles);
             Controls.Add(panelTop);
+            Controls.Add(panelReporte);
             Margin = new Padding(4);
             MinimumSize = new Size(1166, 692);
             Name = "ReportesAvanzados";

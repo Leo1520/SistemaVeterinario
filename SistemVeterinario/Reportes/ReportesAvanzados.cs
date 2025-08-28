@@ -22,20 +22,7 @@ namespace SistemVeterinario.Reportes
 
         public ReportesAvanzados()
         {
-            try
-            {
-                InitializeComponent();
-                if (reportViewer1 != null)
-                {
-                    reportViewer1.Reset();
-                    reportViewer1.LocalReport.ReportEmbeddedResource = "SistemVeterinario.Reportes.ReporteVentas.rdlc";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error inicializando el formulario de reportes: {ex.Message}",
-                    "Error de Inicialización", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            InitializeComponent();
         }
 
         private void InicializarFormulario()
@@ -144,6 +131,7 @@ namespace SistemVeterinario.Reportes
                     tipoPeriodo = cmbPeriodo.SelectedItem?.ToString()?.ToUpper() ?? "DIARIO";
                     tipoReporte = cmbTipoReporte.SelectedItem?.ToString() ?? "Ventas Agrupadas";
 
+                    // Aquí sí se carga el reporte
                     GenerarReporte();
                 }
             }
@@ -177,7 +165,18 @@ namespace SistemVeterinario.Reportes
 
                 if (datos != null && datos.Rows.Count > 0)
                 {
-                    ConfigurarReporte(datos);
+                    // Uso de la función estática para cargar el reporte
+                    var parametros = new Dictionary<string, string>
+                    {
+                        { "FechaInicio", fechaInicio.ToString("dd/MM/yyyy") },
+                        { "FechaFin", fechaFin.ToString("dd/MM/yyyy") },
+                        { "TipoAgrupamiento", tipoPeriodo }
+                    };
+
+                    CargarReporteDesdeDataTable(reportViewer1.LocalReport, datos, "DataSet1", parametros);
+
+                    reportViewer1.RefreshReport();
+                    lblResultados.Text = $"✓ Reporte generado | {datos.Rows.Count} registros | {DateTime.Now:HH:mm}";
                 }
                 else
                 {
@@ -236,6 +235,16 @@ namespace SistemVeterinario.Reportes
             };
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            if (reportViewer1 != null)
+            {
+                reportViewer1.Reset();
+                reportViewer1.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Local;
+            }
+            base.OnLoad(e);
+        }
+
         private void FrmReportesAvanzados_Load(object sender, EventArgs e)
         {
             try
@@ -247,6 +256,31 @@ namespace SistemVeterinario.Reportes
             {
                 MessageBox.Show("Error al cargar el formulario: " + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void CargarReporteDesdeDataTable(LocalReport report, DataTable datos, string nombreDataSource, Dictionary<string, string> parametros)
+        {
+            try
+            {
+                // Cargar el archivo RDLC
+                using var fs = new FileStream("SistemaVeterinario/Reportes/ReporteVentas.rdlc", FileMode.Open);
+                report.LoadReportDefinition(fs);
+
+                // Asignar los datos al reporte
+                report.DataSources.Clear();
+                report.DataSources.Add(new ReportDataSource(nombreDataSource, datos));
+
+                // Asignar parámetros si se proporcionan
+                if (parametros != null && parametros.Count > 0)
+                {
+                    var reportParameters = parametros.Select(p => new ReportParameter(p.Key, p.Value)).ToArray();
+                    report.SetParameters(reportParameters);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
