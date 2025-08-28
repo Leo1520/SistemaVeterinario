@@ -182,7 +182,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnPersonal_Click(object sender, EventArgs e)
+        private void BtnPersonal_Click(object? sender, EventArgs e)
         {
             CambiarIconoSuperior(IconChar.UserTie, "Personal");
 
