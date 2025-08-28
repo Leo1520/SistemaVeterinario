@@ -493,20 +493,27 @@ namespace SistemVeterinario.Forms
                 if (dgvDatos?.Columns[e.ColumnIndex].Name == "estado_stock" && e.Value != null && e.Value != DBNull.Value)
                 {
                     string estado = e.Value.ToString() ?? "";
-                    switch (estado.ToLower())
+                    if (e.CellStyle != null)
                     {
-                        case "sin stock":
-                            e.CellStyle.BackColor = Color.LightCoral;
-                            e.CellStyle.ForeColor = Color.DarkRed;
-                            break;
-                        case "stock bajo":
-                            e.CellStyle.BackColor = Color.LightYellow;
-                            e.CellStyle.ForeColor = Color.DarkOrange;
-                            break;
-                        case "stock ok":
-                            e.CellStyle.BackColor = Color.LightGreen;
-                            e.CellStyle.ForeColor = Color.DarkGreen;
-                            break;
+                        switch (estado.ToLower())
+                        {
+                            case "sin stock":
+                                e.CellStyle.BackColor = Color.LightCoral;
+                                e.CellStyle.ForeColor = Color.DarkRed;
+                                break;
+                            case "stock bajo":
+                                e.CellStyle.BackColor = Color.LightYellow;
+                                e.CellStyle.ForeColor = Color.DarkOrange;
+                                break;
+                            case "stock ok":
+                                e.CellStyle.BackColor = Color.LightGreen;
+                                e.CellStyle.ForeColor = Color.DarkGreen;
+                                break;
+                            default:
+                                e.CellStyle.BackColor = Color.White;
+                                e.CellStyle.ForeColor = Color.Black;
+                                break;
+                        }
                     }
                 }
 
@@ -552,7 +559,7 @@ namespace SistemVeterinario.Forms
             try
             {
                 string columnName = dgvDatos.Columns[e.ColumnIndex].Name;
-                string errorMsg = $"Error en columna '{columnName}', fila {e.RowIndex + 1}: {e.Exception.Message}";
+                string errorMsg = e.Exception != null ? $"Error en columna '{columnName}', fila {e.RowIndex + 1}: {e.Exception.Message}" : string.Empty;
 
                 System.Diagnostics.Debug.WriteLine(errorMsg);
 
@@ -818,6 +825,12 @@ namespace SistemVeterinario.Forms
         public NuevaCategoriaDialog()
         {
             InitializeComponent();
+
+            cmbSugerencias = new ComboBox();
+            txtNombre = new TextBox();
+            txtDescripcion = new TextBox();
+            btnGuardar = new Button();
+            btnCancelar = new Button();
         }
 
         private void CargarSugerencias()
