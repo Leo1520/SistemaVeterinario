@@ -52,7 +52,6 @@ namespace SistemVeterinario
         private TextBox txtColor;
         private Label lblMicrochip;
         private TextBox txtMicrochip;
-        private Label lblFechaNacimiento;
         private DateTimePicker dtpFechaNacimiento;
         private CheckBox chkTieneFechaNacimiento;
         private CheckBox chkEsterilizado;
