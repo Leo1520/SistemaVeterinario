@@ -25,6 +25,38 @@ namespace SistemVeterinario.Reportes
             InitializeComponent();
         }
 
+        private void InicializarReportViewer()
+        {
+            if (reportViewer1 == null)
+            {
+                // Limpiar cualquier control existente en el panel
+                panelReporte.Controls.Clear();
+                
+                reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+                reportViewer1.Dock = DockStyle.Fill;
+                reportViewer1.Location = new Point(0, 0);
+                reportViewer1.Name = "reportViewer1";
+                reportViewer1.Size = new Size(1400, 569);
+                reportViewer1.TabIndex = 0;
+                
+                panelReporte.Controls.Add(reportViewer1);
+            }
+        }
+
+        private void MostrarMensajeInicial()
+        {
+            panelReporte.Controls.Clear();
+            
+            Label lblMensaje = new Label();
+            lblMensaje.Text = "Seleccione los criterios y haga clic en 'GENERAR REPORTE' para visualizar los resultados";
+            lblMensaje.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular);
+            lblMensaje.ForeColor = Color.Gray;
+            lblMensaje.TextAlign = ContentAlignment.MiddleCenter;
+            lblMensaje.Dock = DockStyle.Fill;
+            
+            panelReporte.Controls.Add(lblMensaje);
+        }
+
         private void InicializarFormulario()
         {
             // Configurar fechas por defecto
@@ -157,6 +189,9 @@ namespace SistemVeterinario.Reportes
         {
             try
             {
+                // Primero inicializar el ReportViewer si no existe
+                InicializarReportViewer();
+
                 DataTable datos;
 
                 // Llamar al procedimiento almacenado
@@ -177,7 +212,10 @@ namespace SistemVeterinario.Reportes
                 }
                 else
                 {
-                    reportViewer1.Reset();
+                    if (reportViewer1 != null)
+                    {
+                        reportViewer1.Reset();
+                    }
                     MessageBox.Show("No se encontraron datos para el período seleccionado.",
                         "Sin datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     lblResultados.Text = "❌ Sin datos para el período seleccionado";
@@ -186,6 +224,7 @@ namespace SistemVeterinario.Reportes
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al generar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblResultados.Text = $"❌ Error: {ex.Message}";
             }
         }
 
@@ -233,6 +272,7 @@ namespace SistemVeterinario.Reportes
             try
             {
                 InicializarFormulario();
+                MostrarMensajeInicial();
                 lblResultados.Text = "Seleccione los criterios y genere un reporte";
             }
             catch (Exception ex)

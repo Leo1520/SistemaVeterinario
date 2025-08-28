@@ -46,11 +46,13 @@ namespace SistemVeterinario.Reportes
             btnGenerar = new Button();
             panelStatus = new Panel();
             lblResultados = new Label();
+            panelReporte = new Panel();
             panelTop.SuspendLayout();
             panelControles.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             panelStatus.SuspendLayout();
+            panelReporte.SuspendLayout();
             SuspendLayout();
             // 
             // panelTop
@@ -287,39 +289,29 @@ namespace SistemVeterinario.Reportes
             // 
             // ReportesAvanzados
             // 
+            // 
+            // panelReporte
+            // 
+            panelReporte.BackColor = Color.White;
+            panelReporte.Dock = DockStyle.Fill;
+            panelReporte.Location = new Point(0, 181);
+            panelReporte.Margin = new Padding(4);
+            panelReporte.Name = "panelReporte";
+            panelReporte.Size = new Size(1400, 569);
+            panelReporte.TabIndex = 5;
+            // 
+            // ReportesAvanzados
+            // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(panelReporte);
             Controls.Add(panelStatus);
             Controls.Add(panelControles);
             Controls.Add(panelTop);
-            Controls.Add(panelReporte);
             Margin = new Padding(4);
             MinimumSize = new Size(1166, 692);
             Name = "ReportesAvanzados";
             Size = new Size(1400, 784);
-            // panelReporte
-            this.panelReporte = new System.Windows.Forms.Panel();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.panelReporte.SuspendLayout();
-            // 
-            // panelReporte
-            // 
-            this.panelReporte.Controls.Add(this.reportViewer1);
-            this.panelReporte.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelReporte.Location = new System.Drawing.Point(0, 181);
-            this.panelReporte.Name = "panelReporte";
-            this.panelReporte.Size = new System.Drawing.Size(1400, 569);
-            this.panelReporte.TabIndex = 5;
-            // 
-            // reportViewer1
-            // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.panelReporte.Name = "reportViewer1";
-            this.reportViewer1.Size = new System.Drawing.Size(1400, 569);
-            this.reportViewer1.TabIndex = 0;
-
-
             Load += FrmReportesAvanzados_Load;
             panelTop.ResumeLayout(false);
             panelTop.PerformLayout();
@@ -330,6 +322,7 @@ namespace SistemVeterinario.Reportes
             groupBox2.PerformLayout();
             panelStatus.ResumeLayout(false);
             panelStatus.PerformLayout();
+            panelReporte.ResumeLayout(false);
             ResumeLayout(false);
 
         }
