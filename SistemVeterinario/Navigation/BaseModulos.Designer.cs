@@ -287,7 +287,7 @@ namespace SistemVeterinario.Navigation
             btnGuardar.BackColor = Color.FromArgb(40, 167, 69);
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(500, 10);
+            btnGuardar.Location = new Point(780, 10);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(100, 30);
             btnGuardar.TabIndex = 0;
@@ -301,7 +301,7 @@ namespace SistemVeterinario.Navigation
             btnCancelar.BackColor = Color.FromArgb(108, 117, 125);
             btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.ForeColor = Color.White;
-            btnCancelar.Location = new Point(250, 500);
+            btnCancelar.Location = new Point(400, 10);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(100, 30);
             btnCancelar.TabIndex = 1;
@@ -314,7 +314,7 @@ namespace SistemVeterinario.Navigation
             btnEliminar.BackColor = Color.FromArgb(220, 53, 69);
             btnEliminar.FlatStyle = FlatStyle.Flat;
             btnEliminar.ForeColor = Color.White;
-            btnEliminar.Location = new Point(20, 10);
+            btnEliminar.Location = new Point(10, 10);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(100, 30);
             btnEliminar.TabIndex = 2;

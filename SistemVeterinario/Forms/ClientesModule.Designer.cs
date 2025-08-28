@@ -81,7 +81,6 @@ namespace SistemVeterinario.Forms
             // 
             tabInicio.Margin = new Padding(3, 4, 3, 4);
             tabInicio.Padding = new Padding(3, 4, 3, 4);
-            tabInicio.Size = new Size(1135, 772);
             tabInicio.Text = "Gestión de Personas";
             // 
             // tabConfiguraciones
@@ -153,7 +152,7 @@ namespace SistemVeterinario.Forms
             // 
             panelSuperior.Location = new Point(11, 13);
             panelSuperior.Margin = new Padding(3, 4, 3, 4);
-            panelSuperior.Size = new Size(1259, 50);
+            panelSuperior.Size = new Size(1402, 50);
             // 
             // lblModo
             // 
@@ -174,30 +173,6 @@ namespace SistemVeterinario.Forms
             txtId.Location = new Point(286, 16);
             txtId.Margin = new Padding(3, 4, 3, 4);
             txtId.Size = new Size(91, 23);
-            // 
-            // panelBotones
-            // 
-            panelBotones.Location = new Point(0, 841);
-            panelBotones.Margin = new Padding(3, 4, 3, 4);
-            panelBotones.Size = new Size(1367, 66);
-            // 
-            // btnGuardar
-            // 
-            btnGuardar.Location = new Point(1103, 13);
-            btnGuardar.Margin = new Padding(3, 4, 3, 4);
-            btnGuardar.Size = new Size(114, 40);
-            // 
-            // btnCancelar
-            // 
-            btnCancelar.Location = new Point(1229, 13);
-            btnCancelar.Margin = new Padding(3, 4, 3, 4);
-            btnCancelar.Size = new Size(114, 40);
-            // 
-            // btnEliminar
-            // 
-            btnEliminar.Location = new Point(23, 13);
-            btnEliminar.Margin = new Padding(3, 4, 3, 4);
-            btnEliminar.Size = new Size(114, 40);
             // 
             // cmbTipoPersona
             // 
@@ -465,7 +440,7 @@ namespace SistemVeterinario.Forms
             lblNit.ForeColor = Color.Black;
             lblNit.Location = new Point(1489, 26);
             lblNit.Name = "lblNit";
-            lblNit.Size = new Size(28, 15);
+            lblNit.Size = new Size(29, 15);
             lblNit.TabIndex = 2;
             lblNit.Text = "NIT:";
             // 
@@ -503,7 +478,7 @@ namespace SistemVeterinario.Forms
             grpDatosComunes.ForeColor = Color.DarkSlateGray;
             grpDatosComunes.Location = new Point(15, 235);
             grpDatosComunes.Name = "grpDatosComunes";
-            grpDatosComunes.Size = new Size(1228, 501);
+            grpDatosComunes.Size = new Size(1101, 262);
             grpDatosComunes.TabIndex = 4;
             grpDatosComunes.TabStop = false;
             grpDatosComunes.Text = "Datos de Contacto";
@@ -514,7 +489,7 @@ namespace SistemVeterinario.Forms
             txtTelefono.BackColor = Color.White;
             txtTelefono.Font = new Font("Segoe UI", 9F);
             txtTelefono.ForeColor = Color.Black;
-            txtTelefono.Location = new Point(1704, 100);
+            txtTelefono.Location = new Point(1577, 100);
             txtTelefono.MaxLength = 15;
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(150, 23);
@@ -526,9 +501,9 @@ namespace SistemVeterinario.Forms
             lblTelefono.AutoSize = true;
             lblTelefono.Font = new Font("Segoe UI", 9F);
             lblTelefono.ForeColor = Color.Black;
-            lblTelefono.Location = new Point(1704, 81);
+            lblTelefono.Location = new Point(1577, 81);
             lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(55, 15);
+            lblTelefono.Size = new Size(56, 15);
             lblTelefono.TabIndex = 4;
             lblTelefono.Text = "Teléfono:";
             // 
@@ -543,7 +518,7 @@ namespace SistemVeterinario.Forms
             txtDireccion.Multiline = true;
             txtDireccion.Name = "txtDireccion";
             txtDireccion.ScrollBars = ScrollBars.Vertical;
-            txtDireccion.Size = new Size(1654, 40);
+            txtDireccion.Size = new Size(1527, 40);
             txtDireccion.TabIndex = 3;
             // 
             // lblDireccion
@@ -566,7 +541,7 @@ namespace SistemVeterinario.Forms
             txtEmail.Location = new Point(15, 46);
             txtEmail.MaxLength = 100;
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(1455, 23);
+            txtEmail.Size = new Size(1328, 23);
             txtEmail.TabIndex = 1;
             // 
             // lblEmail
