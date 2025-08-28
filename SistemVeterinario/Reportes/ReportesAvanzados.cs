@@ -21,6 +21,7 @@ namespace SistemVeterinario.Reportes
         private string tipoReporte = "Resumen de Ventas";
         private string datosEstadisticos = "Ninguno";
         private DataGridView? dgvReporte;
+        private Panel? panelGrafico;
 
         public ReportesAvanzados()
         {
@@ -47,14 +48,59 @@ namespace SistemVeterinario.Reportes
                     return;
                 }
 
+                // Limpiar el panel principal
+                panelReporte.Controls.Clear();
+
+                // Crear panel contenedor principal con layout personalizado
+                Panel panelContenedor = new Panel();
+                panelContenedor.Dock = DockStyle.Fill;
+                panelContenedor.BackColor = Color.WhiteSmoke;
+
+                // Calcular dimensiones disponibles
+                int alturaDisponible = panelReporte.Height;
+                int anchoDisponible = panelReporte.Width;
+
+                // 1. Panel superior para gráfico centrado
+                // Ajustar tamaño del gráfico si es necesario para que quepa
+                int tamanoGrafico = Math.Min(650, Math.Min(anchoDisponible - 20, (alturaDisponible / 2) - 50));
+                tamanoGrafico = Math.Max(300, tamanoGrafico); // Mínimo 300x300
+
+                panelGrafico = new Panel();
+                panelGrafico.Size = new Size(tamanoGrafico, tamanoGrafico);
+                panelGrafico.BackColor = Color.White;
+                panelGrafico.BorderStyle = BorderStyle.FixedSingle;
+                panelGrafico.Anchor = AnchorStyles.Top;
+                
+                // Centrar el gráfico horizontalmente
+                panelGrafico.Location = new Point((anchoDisponible - tamanoGrafico) / 2, 10);
+
+                // Agregar título al panel de gráfico
+                Label lblTituloGrafico = new Label();
+                lblTituloGrafico.Text = "GRÁFICO DE PROMEDIO DE VENTAS";
+                lblTituloGrafico.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+                lblTituloGrafico.ForeColor = Color.FromArgb(31, 30, 68);
+                lblTituloGrafico.Dock = DockStyle.Top;
+                lblTituloGrafico.Height = 30;
+                lblTituloGrafico.TextAlign = ContentAlignment.MiddleCenter;
+                panelGrafico.Controls.Add(lblTituloGrafico);
+
+                // 2. Panel para la tabla del reporte (resto del espacio disponible)
+                Panel panelTabla = new Panel();
+                int yTabla = tamanoGrafico + 20; // Debajo del gráfico con margen
+                int alturaTabla = alturaDisponible - yTabla - 10;
+                
+                panelTabla.Location = new Point(10, yTabla);
+                panelTabla.Size = new Size(anchoDisponible - 20, alturaTabla);
+                panelTabla.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                panelTabla.BackColor = Color.White;
+                panelTabla.BorderStyle = BorderStyle.FixedSingle;
+
                 // Crear el DataGridView dinámicamente
                 dgvReporte = new DataGridView();
                 
                 // Configurar propiedades básicas
                 dgvReporte.Dock = DockStyle.Fill;
-                dgvReporte.Location = new Point(0, 0);
                 dgvReporte.Name = "dgvReporte";
-                dgvReporte.Size = panelReporte.Size;
                 dgvReporte.TabIndex = 0;
                 
                 // Configuraciones del DataGridView
@@ -66,35 +112,67 @@ namespace SistemVeterinario.Reportes
                 dgvReporte.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
                 dgvReporte.RowHeadersVisible = false;
                 
-                // Estilos
+                // Estilos mejorados para mejor visibilidad
                 dgvReporte.BackgroundColor = Color.White;
                 dgvReporte.BorderStyle = BorderStyle.None;
                 dgvReporte.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+                
+                // Configurar colores para filas normales
+                dgvReporte.DefaultCellStyle.BackColor = Color.White;
+                dgvReporte.DefaultCellStyle.ForeColor = Color.Black;
                 dgvReporte.DefaultCellStyle.SelectionBackColor = Color.FromArgb(31, 30, 68);
                 dgvReporte.DefaultCellStyle.SelectionForeColor = Color.White;
+                
+                // Configurar filas alternas con color gris claro
+                dgvReporte.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+                dgvReporte.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
+                
+                // Configurar encabezados de columnas
                 dgvReporte.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(31, 30, 68);
                 dgvReporte.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
                 dgvReporte.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
                 dgvReporte.EnableHeadersVisualStyles = false;
-                
-                // Limpiar el panel y agregar el DataGridView
-                panelReporte.Controls.Clear();
-                panelReporte.Controls.Add(dgvReporte);
-                
-                // Verificar que se agregó correctamente
-                if (panelReporte.Controls.Contains(dgvReporte))
+
+                // Agregar el DataGridView al panel de tabla
+                panelTabla.Controls.Add(dgvReporte);
+
+                // Agregar ambos paneles al contenedor
+                panelContenedor.Controls.Add(panelGrafico);
+                panelContenedor.Controls.Add(panelTabla);
+
+                // Manejar el redimensionamiento para mantener el layout
+                panelContenedor.Resize += (sender, e) =>
                 {
-                    System.Diagnostics.Debug.WriteLine("DataGridView creado y agregado exitosamente");
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("Error: DataGridView no se agregó al panel");
-                    dgvReporte = null;
-                }
+                    if (panelGrafico != null && panelTabla != null)
+                    {
+                        int nuevoAnchoDisponible = panelContenedor.Width;
+                        int nuevaAlturaDisponible = panelContenedor.Height;
+                        
+                        // Recalcular tamaño del gráfico
+                        int nuevoTamanoGrafico = Math.Min(650, Math.Min(nuevoAnchoDisponible - 20, (nuevaAlturaDisponible / 2) - 50));
+                        nuevoTamanoGrafico = Math.Max(300, nuevoTamanoGrafico);
+                        
+                        panelGrafico.Size = new Size(nuevoTamanoGrafico, nuevoTamanoGrafico);
+                        panelGrafico.Location = new Point((nuevoAnchoDisponible - nuevoTamanoGrafico) / 2, 10);
+                        
+                        // Reposicionar tabla
+                        int nuevoYTabla = nuevoTamanoGrafico + 20;
+                        int nuevaAlturaTabla = nuevaAlturaDisponible - nuevoYTabla - 10;
+                        
+                        panelTabla.Location = new Point(10, nuevoYTabla);
+                        panelTabla.Size = new Size(nuevoAnchoDisponible - 20, nuevaAlturaTabla);
+                    }
+                };
+
+                // Agregar el contenedor al panel principal
+                panelReporte.Controls.Add(panelContenedor);
+                
+                System.Diagnostics.Debug.WriteLine($"Layout reorganizado: Gráfico {tamanoGrafico}x{tamanoGrafico} centrado, tabla usando espacio restante");
+                
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error creando DataGridView dinámicamente: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error creando layout dinámicamente: {ex.Message}");
                 System.Diagnostics.Debug.WriteLine($"StackTrace: {ex.StackTrace}");
                 dgvReporte = null;
             }
@@ -130,14 +208,10 @@ namespace SistemVeterinario.Reportes
             });
             cmbRangoFechas.SelectedIndex = 3; // Últimos 30 días por defecto
 
-            // Configurar ComboBox de tipos de reporte
+            // Configurar ComboBox de tipos de reporte - Solo promedio
             cmbTipoReporte.Items.Clear();
             cmbTipoReporte.Items.AddRange(new string[] {
-                "Resumen de Ventas",
-                "Ventas Detalladas",
-                "Productos Más Vendidos",
-                "Clientes Top",
-                "Ventas por Categoría"
+                "Promedio de Ventas"
             });
             cmbTipoReporte.SelectedIndex = 0;
 
@@ -273,12 +347,6 @@ namespace SistemVeterinario.Reportes
             }
 
             TimeSpan diferencia = dtpFechaFin.Value - dtpFechaInicio.Value;
-            if (diferencia.TotalDays > 365)
-            {
-                MessageBox.Show("El rango de fechas no puede ser mayor a 1 año", 
-                    "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
 
             return true;
         }
@@ -303,28 +371,17 @@ namespace SistemVeterinario.Reportes
 
                 switch (tipoReporte)
                 {
-                    case "Resumen de Ventas":
+                    case "Promedio de Ventas":
                         string agrupacionFormato = ConvertirPeriodoAAgrupacion(tipoPeriodo);
                         Console.WriteLine($"Llamando a NVentas.ReporteVentasResumen con agrupación: {agrupacionFormato}");
                         datos = NVentas.ReporteVentasResumen(fechaInicio, fechaFin, agrupacionFormato);
                         rutaReporte = "rptVentasResumen.rdlc";
                         break;
-                    case "Ventas Detalladas":
-                        Console.WriteLine("Llamando a NVentas.ReporteVentasDetalle");
-                        datos = NVentas.ReporteVentasDetalle(fechaInicio, fechaFin);
-                        rutaReporte = "rptVentasDetalle.rdlc";
-                        break;
-                    case "Productos Más Vendidos":
-                        datos = NVentas.ReporteVentasProductosTop(fechaInicio, fechaFin, 10);
-                        rutaReporte = "rptVentasProductosTop.rdlc";
-                        break;
-                    case "Clientes Top":
-                        datos = NVentas.ReporteVentasTopClientes(fechaInicio, fechaFin, 10);
-                        rutaReporte = "rptVentasTopClientes.rdlc";
-                        break;
-                    case "Ventas por Categoría":
-                        datos = NVentas.ReporteVentasEstadisticasGenerales();
-                        rutaReporte = "rptVentasEstadisticas.rdlc";
+                    default:
+                        // Solo mantenemos el reporte de promedio de ventas
+                        string agrupacionDefault = ConvertirPeriodoAAgrupacion(tipoPeriodo);
+                        datos = NVentas.ReporteVentasResumen(fechaInicio, fechaFin, agrupacionDefault);
+                        rutaReporte = "rptVentasResumen.rdlc";
                         break;
                 }
 
@@ -351,6 +408,9 @@ namespace SistemVeterinario.Reportes
                     }
                     
                     ConfigurarYMostrarReporte(datos, rutaReporte);
+                    
+                    // Crear y mostrar gráfico
+                    CrearGraficoPromedio(datos);
                 }
                 else
                 {
@@ -1122,6 +1182,177 @@ namespace SistemVeterinario.Reportes
             catch (Exception ex)
             {
                 MessageBox.Show($"Error verificando procedimientos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CrearGraficoPromedio(DataTable datos)
+        {
+            try
+            {
+                if (panelGrafico == null || datos == null || datos.Rows.Count == 0)
+                    return;
+
+                // Limpiar el panel del gráfico (excepto el título)
+                var controles = panelGrafico.Controls.Cast<Control>().Where(c => c.GetType() != typeof(Label)).ToList();
+                foreach (var control in controles)
+                {
+                    panelGrafico.Controls.Remove(control);
+                }
+
+                // Crear un gráfico de barras simple usando Panel y PictureBox
+                Panel panelGraficoBarra = new Panel();
+                panelGraficoBarra.Dock = DockStyle.Fill;
+                panelGraficoBarra.BackColor = Color.White;
+                panelGraficoBarra.Padding = new Padding(20);
+
+                // Buscar columna de totales
+                string columnaNumerica = EncontrarColumnaNumerica(datos);
+                if (string.IsNullOrEmpty(columnaNumerica))
+                {
+                    // Mostrar mensaje si no hay datos numéricos
+                    Label lblSinDatos = new Label();
+                    lblSinDatos.Text = "No se encontraron datos numéricos para graficar";
+                    lblSinDatos.Font = new Font("Microsoft Sans Serif", 10F);
+                    lblSinDatos.ForeColor = Color.Gray;
+                    lblSinDatos.Dock = DockStyle.Fill;
+                    lblSinDatos.TextAlign = ContentAlignment.MiddleCenter;
+                    panelGraficoBarra.Controls.Add(lblSinDatos);
+                }
+                else
+                {
+                    // Crear el gráfico de barras
+                    CrearGraficoBarras(panelGraficoBarra, datos, columnaNumerica);
+                }
+
+                panelGrafico.Controls.Add(panelGraficoBarra);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error creando gráfico: {ex.Message}");
+            }
+        }
+
+        private string EncontrarColumnaNumerica(DataTable datos)
+        {
+            // Buscar columnas que contengan datos numéricos
+            string[] columnasPosibles = { "total", "Total", "promedio", "Promedio", "suma", "Suma", "cantidad", "Cantidad" };
+            
+            foreach (string nombreColumna in columnasPosibles)
+            {
+                if (datos.Columns.Contains(nombreColumna))
+                {
+                    return nombreColumna;
+                }
+            }
+
+            // Si no encuentra ninguna específica, buscar la primera columna numérica
+            foreach (DataColumn column in datos.Columns)
+            {
+                if (column.DataType == typeof(decimal) || column.DataType == typeof(double) || 
+                    column.DataType == typeof(int) || column.DataType == typeof(float))
+                {
+                    return column.ColumnName;
+                }
+            }
+
+            return "";
+        }
+
+        private void CrearGraficoBarras(Panel contenedor, DataTable datos, string columnaNumerica)
+        {
+            try
+            {
+                // Calcular valores
+                decimal valorMaximo = datos.AsEnumerable()
+                    .Where(row => row[columnaNumerica] != DBNull.Value)
+                    .Max(row => Convert.ToDecimal(row[columnaNumerica]));
+
+                if (valorMaximo <= 0) return;
+
+                int alturaMaxima = contenedor.Height - 100; // Dejar espacio para etiquetas
+                int anchoDisponible = contenedor.Width - 40;
+                int anchoBarra = Math.Max(30, anchoDisponible / Math.Min(datos.Rows.Count, 10));
+                int espacioBarra = 10;
+
+                int x = 20;
+                int contador = 0;
+
+                foreach (DataRow row in datos.Rows)
+                {
+                    if (contador >= 10) break; // Máximo 10 barras para que se vean bien
+
+                    if (row[columnaNumerica] != DBNull.Value)
+                    {
+                        decimal valor = Convert.ToDecimal(row[columnaNumerica]);
+                        int alturaBarra = (int)((valor / valorMaximo) * alturaMaxima);
+
+                        // Crear la barra
+                        Panel barra = new Panel();
+                        barra.BackColor = Color.FromArgb(31, 30, 68);
+                        barra.Width = anchoBarra;
+                        barra.Height = alturaBarra;
+                        barra.Location = new Point(x, contenedor.Height - alturaBarra - 60);
+
+                        // Etiqueta del valor
+                        Label lblValor = new Label();
+                        lblValor.Text = valor.ToString("C0");
+                        lblValor.Font = new Font("Microsoft Sans Serif", 8F);
+                        lblValor.ForeColor = Color.Black;
+                        lblValor.AutoSize = true;
+                        lblValor.Location = new Point(x, contenedor.Height - alturaBarra - 80);
+
+                        // Etiqueta del período (si existe)
+                        Label lblPeriodo = new Label();
+                        string textoPeriodo = "";
+                        if (datos.Columns.Contains("fecha"))
+                            textoPeriodo = Convert.ToDateTime(row["fecha"]).ToString("MM/dd");
+                        else if (datos.Columns.Contains("periodo"))
+                            textoPeriodo = row["periodo"]?.ToString() ?? (contador + 1).ToString();
+                        else
+                            textoPeriodo = (contador + 1).ToString();
+
+                        lblPeriodo.Text = textoPeriodo;
+                        lblPeriodo.Font = new Font("Microsoft Sans Serif", 8F);
+                        lblPeriodo.ForeColor = Color.Black;
+                        lblPeriodo.AutoSize = true;
+                        lblPeriodo.Location = new Point(x, contenedor.Height - 40);
+
+                        contenedor.Controls.Add(barra);
+                        contenedor.Controls.Add(lblValor);
+                        contenedor.Controls.Add(lblPeriodo);
+
+                        x += anchoBarra + espacioBarra;
+                        contador++;
+                    }
+                }
+
+                // Agregar líneas de referencia y etiquetas del eje Y
+                for (int i = 0; i <= 4; i++)
+                {
+                    decimal valorLinea = (valorMaximo / 4) * i;
+                    int yLinea = contenedor.Height - 60 - (int)((valorLinea / valorMaximo) * alturaMaxima);
+
+                    // Línea horizontal de referencia
+                    Panel linea = new Panel();
+                    linea.BackColor = Color.LightGray;
+                    linea.Height = 1;
+                    linea.Width = anchoDisponible;
+                    linea.Location = new Point(20, yLinea);
+                    contenedor.Controls.Add(linea);
+
+                    // Etiqueta del valor
+                    Label lblReferencia = new Label();
+                    lblReferencia.Text = valorLinea.ToString("C0");
+                    lblReferencia.Font = new Font("Microsoft Sans Serif", 7F);
+                    lblReferencia.ForeColor = Color.Gray;
+                    lblReferencia.AutoSize = true;
+                    lblReferencia.Location = new Point(2, yLinea - 8);
+                    contenedor.Controls.Add(lblReferencia);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error creando gráfico de barras: {ex.Message}");
             }
         }
 
