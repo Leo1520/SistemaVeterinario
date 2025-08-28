@@ -224,13 +224,13 @@ namespace CapaNegocio
         {
             if (string.IsNullOrWhiteSpace(nombre))
                 return false;
-            
+
             if (precio <= 0)
                 return false;
-            
+
             if (categoriaId <= 0)
                 return false;
-                
+
             return true;
         }
 
@@ -238,7 +238,7 @@ namespace CapaNegocio
         {
             if (string.IsNullOrWhiteSpace(codigo))
                 return true; // Código es opcional
-            
+
             // Validar formato de código (letras, números, guiones)
             return System.Text.RegularExpressions.Regex.IsMatch(codigo, @"^[A-Za-z0-9\-_]+$");
         }
@@ -253,35 +253,35 @@ namespace CapaNegocio
             return precio > 0 && precio <= 999999.99m;
         }
 
-        public static string ValidarDatosProducto(string codigo, string nombre, decimal precio, 
+        public static string ValidarDatosProducto(string codigo, string nombre, decimal precio,
             int categoriaId, int stockMinimo, int stockActual, string descripcion)
         {
             var errores = new List<string>();
 
             if (string.IsNullOrWhiteSpace(nombre))
                 errores.Add("El nombre del producto es requerido");
-            
+
             if (!ValidarPrecio(precio))
                 errores.Add("El precio debe ser mayor a 0 y menor a $999,999.99");
-            
+
             if (categoriaId <= 0)
                 errores.Add("Debe seleccionar una categoría válida");
-            
+
             if (!ValidarCodigo(codigo))
                 errores.Add("El código solo puede contener letras, números, guiones y guiones bajos");
-            
+
             if (!ValidarStock(stockMinimo))
                 errores.Add("El stock mínimo debe ser mayor o igual a 0");
-            
+
             if (!ValidarStock(stockActual))
                 errores.Add("El stock actual debe ser mayor o igual a 0");
-            
+
             if (!string.IsNullOrWhiteSpace(nombre) && nombre.Length > 200)
                 errores.Add("El nombre no puede tener más de 200 caracteres");
-            
+
             if (!string.IsNullOrWhiteSpace(codigo) && codigo.Length > 50)
                 errores.Add("El código no puede tener más de 50 caracteres");
-            
+
             if (!string.IsNullOrWhiteSpace(descripcion) && descripcion.Length > 1000)
                 errores.Add("La descripción no puede tener más de 1000 caracteres");
 
@@ -292,7 +292,7 @@ namespace CapaNegocio
         {
             if (string.IsNullOrWhiteSpace(codigo))
                 return false;
-            
+
             return new DProductos().ExisteCodigo(codigo, idExcluir);
         }
 
@@ -300,13 +300,13 @@ namespace CapaNegocio
         {
             if (string.IsNullOrWhiteSpace(codigo))
                 return ""; // Código es opcional
-            
+
             if (!ValidarCodigo(codigo))
                 return "El código tiene un formato inválido";
-            
+
             if (ExisteCodigo(codigo, idExcluir))
                 return "Ya existe un producto con este código";
-            
+
             return "";
         }
 
@@ -346,9 +346,10 @@ namespace CapaNegocio
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                dtResultado = null;
+                dtResultado = new DataTable("EstadisticasPorCategoria");
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
             }
             return dtResultado;
         }
@@ -419,7 +420,7 @@ namespace CapaNegocio
             dtResultado.Columns.Add("Nombre", typeof(string));
             dtResultado.Columns.Add("CantidadVendida", typeof(int));
             dtResultado.Columns.Add("IngresosTotales", typeof(decimal));
-            
+
             // TODO: Implementar consulta real cuando esté la tabla de detalle de ventas
             return dtResultado;
         }
@@ -434,33 +435,33 @@ namespace CapaNegocio
             {
                 // Generar código basado en las primeras letras del nombre y categoría
                 string prefijo = "";
-                
+
                 if (!string.IsNullOrWhiteSpace(categoria))
                 {
                     prefijo = categoria.Substring(0, Math.Min(3, categoria.Length)).ToUpper();
                 }
-                
+
                 string nombreLimpio = new string(nombreProducto.Where(c => char.IsLetterOrDigit(c)).ToArray());
                 string sufijo = nombreLimpio.Substring(0, Math.Min(6, nombreLimpio.Length)).ToUpper();
-                
+
                 string codigoBase = $"{prefijo}{sufijo}";
-                
+
                 // Verificar si existe y agregar número si es necesario
                 string codigoFinal = codigoBase;
                 int contador = 1;
-                
+
                 while (ExisteCodigo(codigoFinal))
                 {
                     codigoFinal = $"{codigoBase}{contador:D2}";
                     contador++;
-                    
+
                     if (contador > 99) // Evitar bucle infinito
                     {
                         codigoFinal = $"{codigoBase}{DateTime.Now.Ticks % 1000}";
                         break;
                     }
                 }
-                
+
                 return codigoFinal;
             }
             catch
