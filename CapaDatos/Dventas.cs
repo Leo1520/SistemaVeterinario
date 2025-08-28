@@ -447,5 +447,32 @@ namespace CapaDatos
             }
             return dtResultado;
         }
+        public static DataTable ReporteVentasAgrupadas(DateTime fechaInicio, DateTime fechaFin, string agrupamiento)
+        {
+            try
+            {
+                using (var connection = DbConnection.Instance.GetConnection())
+                {
+                    using (var command = new SqlCommand("sp_ReporteVentasAgrupadas", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                        command.Parameters.AddWithValue("@FechaFin", fechaFin);
+                        command.Parameters.AddWithValue("@Agrupamiento", agrupamiento);
+
+                        DataTable dt = new DataTable();
+                        using (var adapter = new SqlDataAdapter(command))
+                        {
+                            adapter.Fill(dt);
+                        }
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener reporte de ventas agrupadas: " + ex.Message);
+            }
+        }
     }
 }

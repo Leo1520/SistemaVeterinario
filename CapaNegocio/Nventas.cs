@@ -1,10 +1,11 @@
+using CapaDatos;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CapaDatos;
 
 namespace CapaNegocio
 {
@@ -157,6 +158,11 @@ namespace CapaNegocio
         public static DataTable ReporteVentasEstadisticasGenerales()
         {
             return new DVentas().ReporteVentasEstadisticasGenerales();
+        }
+
+        public static DataTable ReporteVentasAgrupadas(DateTime fechaInicio, DateTime fechaFin, string agrupamiento)
+        {
+            return DVentas.ReporteVentasAgrupadas(fechaInicio, fechaFin, agrupamiento);
         }
 
         // ============================================
