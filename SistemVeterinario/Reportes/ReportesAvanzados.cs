@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
 using CapaNegocio;
+using CapaDatos;
 using System.IO;
+using Microsoft.Data.SqlClient;
 
 namespace SistemVeterinario.Reportes
 {
@@ -33,20 +35,17 @@ namespace SistemVeterinario.Reportes
                 {
                     // Limpiar cualquier control existente en el panel
                     panelReporte.Controls.Clear();
-                    
-                    // Configuración específica para .NET 8
-                    System.AppDomain.CurrentDomain.SetData("APP_CONTEXT_DEPS", "");
-                    
+
                     reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
                     reportViewer1.Dock = DockStyle.Fill;
                     reportViewer1.Location = new Point(0, 0);
                     reportViewer1.Name = "reportViewer1";
                     reportViewer1.Size = new Size(1400, 569);
                     reportViewer1.TabIndex = 0;
-                    
+
                     // Configuración adicional para compatibilidad
                     reportViewer1.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Local;
-                    
+
                     panelReporte.Controls.Add(reportViewer1);
                 }
                 catch (Exception ex)
@@ -60,28 +59,28 @@ namespace SistemVeterinario.Reportes
         private void MostrarErrorCompatibilidad(Exception ex)
         {
             panelReporte.Controls.Clear();
-            
+
             Label lblError = new Label();
             lblError.Text = $"Error de compatibilidad con ReportViewer en .NET 8:\n\n{ex.Message}\n\nPor favor, ejecute los comandos de actualización.";
             lblError.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular);
             lblError.ForeColor = Color.Red;
             lblError.TextAlign = ContentAlignment.MiddleCenter;
             lblError.Dock = DockStyle.Fill;
-            
+
             panelReporte.Controls.Add(lblError);
         }
 
         private void MostrarMensajeInicial()
         {
             panelReporte.Controls.Clear();
-            
+
             Label lblMensaje = new Label();
             lblMensaje.Text = "Seleccione los criterios y haga clic en 'GENERAR REPORTE' para visualizar los resultados";
             lblMensaje.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular);
             lblMensaje.ForeColor = Color.Gray;
             lblMensaje.TextAlign = ContentAlignment.MiddleCenter;
             lblMensaje.Dock = DockStyle.Fill;
-            
+
             panelReporte.Controls.Add(lblMensaje);
         }
 
@@ -217,70 +216,71 @@ namespace SistemVeterinario.Reportes
         {
             try
             {
-                // Primero inicializar el ReportViewer si no existe
+                // Inicializar el ReportViewer si no existe
                 InicializarReportViewer();
 
-                DataTable datos;
-
-                // Llamar al procedimiento almacenado
-                string agrupacionFormato = ConvertirPeriodoAAgrupacion(tipoPeriodo);
-                datos = NVentas.ReporteVentasAgrupadas(fechaInicio, fechaFin, agrupacionFormato);
-
-                if (datos != null && datos.Rows.Count > 0)
+                // Crear el DataSet y llenar los datos desde el procedimiento almacenado
+                DataSetReportes dataSet = new DataSetReportes();
+                SqlConnection connection = DbConnection.Instance.GetConnection();
+                using (SqlCommand command = new SqlCommand("sp_ReporteVentasAgrupadas", connection))
                 {
-                    CargarReporte(reportViewer1.LocalReport, datos, "DataSet1", new Dictionary<string, string>
-                    {
-                        { "FechaInicio", fechaInicio.ToString("dd/MM/yyyy") },
-                        { "FechaFin", fechaFin.ToString("dd/MM/yyyy") },
-                        { "TipoAgrupamiento", tipoPeriodo }
-                    });
+                    command.CommandType = CommandType.StoredProcedure;
 
-                    reportViewer1.RefreshReport();
-                    lblResultados.Text = $"✓ Reporte generado | {datos.Rows.Count} registros | {DateTime.Now:HH:mm}";
-                }
-                else
-                {
-                    if (reportViewer1 != null)
+                    // Agregar parámetros al procedimiento almacenado
+                    command.Parameters.Add(new SqlParameter("@FechaInicio", SqlDbType.Date) { Value = fechaInicio });
+                    command.Parameters.Add(new SqlParameter("@FechaFin", SqlDbType.Date) { Value = fechaFin });
+                    command.Parameters.Add(new SqlParameter("@Agrupamiento", SqlDbType.VarChar, 10) { Value = ConvertirPeriodoAAgrupacion(tipoPeriodo) });
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        reportViewer1.Reset();
+                        adapter.Fill(dataSet, "sp_ReporteVentasAgrupadas");
                     }
-                    MessageBox.Show("No se encontraron datos para el período seleccionado.",
-                        "Sin datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    lblResultados.Text = "❌ Sin datos para el período seleccionado";
                 }
+
+                // Verificar si hay datos en el DataSet
+                if (dataSet.Tables["sp_ReporteVentasAgrupadas"].Rows.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron resultados para el reporte.",
+                        "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                string currentDir = Directory.GetCurrentDirectory();
+                string repoRoot = currentDir;
+
+                // Subir directorios hasta encontrar la carpeta SistemVeterinario
+                while (repoRoot != null && !Directory.Exists(Path.Combine(repoRoot, "SistemVeterinario")))
+                {
+                    var parent = Directory.GetParent(repoRoot);
+                    repoRoot = parent?.FullName;
+                }
+                string reportPath = Path.Combine(repoRoot, "SistemVeterinario", "Reportes", "ReporteVentas.rdlc");
+                if (!File.Exists(reportPath))
+                {
+                    throw new FileNotFoundException($"No se encontró el archivo de reporte en: {reportPath}");
+                }
+
+                // Configurar el ReportViewer
+                reportViewer1.LocalReport.ReportPath = reportPath;
+                reportViewer1.LocalReport.DataSources.Clear();
+
+                // Asignar el DataSet al ReportViewer
+                ReportDataSource reportDataSource = new ReportDataSource("DataSetReportes", dataSet.Tables["sp_ReporteVentasAgrupadas"]);
+                reportViewer1.LocalReport.DataSources.Add(reportDataSource);
+
+                // Refrescar el ReportViewer
+                reportViewer1.RefreshReport();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al generar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                lblResultados.Text = $"❌ Error: {ex.Message}";
             }
         }
 
-        private void CargarReporte(LocalReport report, DataTable datos, string nombreDataSource, Dictionary<string, string> parametros)
-        {
-            try
-            {
-                report.ReportEmbeddedResource = "SistemVeterinario.Reportes.ReporteVentas.rdlc";
-
-                report.DataSources.Clear();
-                report.DataSources.Add(new ReportDataSource(nombreDataSource, datos));
-
-                if (parametros != null && parametros.Count > 0)
-                {
-                    var reportParameters = parametros.Select(p => new ReportParameter(p.Key, p.Value)).ToArray();
-                    report.SetParameters(reportParameters);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private string ConvertirPeriodoAAgrupacion(string periodo)
         {
-            periodo= periodo.Trim().ToLower();
-            switch(periodo)
+            periodo = periodo.Trim().ToLower();
+            switch (periodo)
             {
                 case "diario":
                     return "DIA";
