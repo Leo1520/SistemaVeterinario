@@ -11,9 +11,9 @@ namespace CapaNegocio
 
         // Insertar Personal Auxiliar
         public static string InsertarPersonalAuxiliar(string nombre, string apellido, string email, 
-            string usuario, string contrasena, string? telefono = null, string? direccion = null, 
+            string usuario, string contrasena, string telefono = null, string direccion = null, 
             DateTime? fechaContratacion = null, decimal? salario = null, string rol = "Usuario",
-            string? area = null, string turno = "Mañana", string nivel = "Básico")
+            string area = null, string turno = "Mañana", string nivel = "Básico")
         {
             // Validaciones de campos obligatorios
             if (string.IsNullOrWhiteSpace(nombre))
@@ -60,9 +60,9 @@ namespace CapaNegocio
 
         // Insertar Personal Veterinario
         public static string InsertarPersonalVeterinario(string nombre, string apellido, string email, 
-            string usuario, string contrasena, string? telefono = null, string? direccion = null,
+            string usuario, string contrasena, string telefono = null, string direccion = null,
             DateTime? fechaContratacion = null, decimal? salario = null, string rol = "Usuario",
-            string? numLicencia = null, string? especialidad = null, string? universidad = null,
+            string numLicencia = null, string especialidad = null, string universidad = null,
             int? aniosExperiencia = null)
         {
             // Validaciones de campos obligatorios
@@ -115,8 +115,8 @@ namespace CapaNegocio
 
         // Editar Personal Auxiliar
         public static string EditarPersonalAuxiliar(int id, string nombre, string apellido, string email, 
-            string usuario, string? telefono = null, string? direccion = null, decimal? salario = null,
-            string rol = "Usuario", string? area = null, string turno = "Mañana", string nivel = "Básico")
+            string usuario, string telefono = null, string direccion = null, decimal? salario = null,
+            string rol = "Usuario", string area = null, string turno = "Mañana", string nivel = "Básico")
         {
             if (id <= 0)
                 return "ID de personal no válido";
@@ -162,9 +162,9 @@ namespace CapaNegocio
 
         // Editar Personal Veterinario
         public static string EditarPersonalVeterinario(int id, string nombre, string apellido, string email, 
-            string usuario, string? telefono = null, string? direccion = null, decimal? salario = null,
-            string rol = "Usuario", string? numLicencia = null, string? especialidad = null, 
-            string? universidad = null, int? aniosExperiencia = null)
+            string usuario, string telefono = null, string direccion = null, decimal? salario = null,
+            string rol = "Usuario", string numLicencia = null, string especialidad = null, 
+            string universidad = null, int? aniosExperiencia = null)
         {
             if (id <= 0)
                 return "ID de personal no válido";
@@ -263,7 +263,7 @@ namespace CapaNegocio
         #region Métodos de Validación
 
         // Validar Email
-        public static bool ValidarEmail(string? email)
+        public static bool ValidarEmail(string email)
         {
             if (string.IsNullOrEmpty(email))
                 return false; // Email es obligatorio para personal
@@ -280,7 +280,7 @@ namespace CapaNegocio
         }
 
         // Validar Teléfono
-        public static bool ValidarTelefono(string? telefono)
+        public static bool ValidarTelefono(string telefono)
         {
             if (string.IsNullOrEmpty(telefono))
                 return true; // Teléfono es opcional
@@ -396,7 +396,7 @@ namespace CapaNegocio
 
         // Validación completa para Personal Auxiliar
         private static string ValidarDatosPersonalAuxiliar(string nombre, string apellido, string email, 
-            string usuario, string contrasena, string? telefono, decimal? salario, string turno, 
+            string usuario, string contrasena, string telefono, decimal? salario, string turno, 
             string nivel, int? idPersonal = null)
         {
             // Validar formato de campos
@@ -440,7 +440,7 @@ namespace CapaNegocio
 
         // Validación completa para Personal Veterinario
         private static string ValidarDatosPersonalVeterinario(string nombre, string apellido, string email, 
-            string usuario, string contrasena, string? telefono, decimal? salario, string? numLicencia,
+            string usuario, string contrasena, string telefono, decimal? salario, string numLicencia,
             int? aniosExperiencia, int? idPersonal = null)
         {
             // Validar formato de campos

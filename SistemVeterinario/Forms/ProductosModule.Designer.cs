@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+using System.Drawing;
 namespace SistemVeterinario.Forms
 {
     partial class ProductosModule
@@ -120,7 +122,6 @@ namespace SistemVeterinario.Forms
             // 
             txtBuscar.Location = new Point(15, 9);
             txtBuscar.Margin = new Padding(3, 2, 3, 2);
-            txtBuscar.PlaceholderText = "Buscar por código, nombre, categoría...";
             txtBuscar.Size = new Size(307, 23);
             // 
             // btnBuscar
@@ -417,7 +418,6 @@ namespace SistemVeterinario.Forms
             txtDescripcion.Margin = new Padding(3, 2, 3, 2);
             txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.PlaceholderText = "Ingrese una descripción detallada del producto...";
             txtDescripcion.ScrollBars = ScrollBars.Vertical;
             txtDescripcion.Size = new Size(718, 91);
             txtDescripcion.TabIndex = 16;

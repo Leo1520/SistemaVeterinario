@@ -125,12 +125,12 @@ namespace SistemVeterinario.Navigation
             OnEliminar();
         }
 
-        private void ChkMostrarTodo_CheckedChanged(object? sender, EventArgs e)
+        private void ChkMostrarTodo_CheckedChanged(object sender, EventArgs e)
         {
             AlternarVisibilidadTodasLasColumnas();
         }
 
-        private void DgvDatos_ColumnHeaderMouseClick(object? sender, DataGridViewCellMouseEventArgs e)
+        private void DgvDatos_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             // Solo procesar clic secundario (botón derecho)
             if (e.Button == MouseButtons.Right)

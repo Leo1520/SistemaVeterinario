@@ -251,7 +251,7 @@ namespace SistemVeterinario.Forms
                         if (row["fecha_nacimiento"] != DBNull.Value && row["fecha_nacimiento"] != null)
                             dtpFechaNacimiento.Value = Convert.ToDateTime(row["fecha_nacimiento"]);
 
-                        string? genero = row["genero"]?.ToString();
+                        string genero = row["genero"]?.ToString();
                         if (!string.IsNullOrEmpty(genero))
                         {
                             cmbGenero.SelectedItem = genero;
@@ -295,13 +295,13 @@ namespace SistemVeterinario.Forms
         #endregion
 
         #region Eventos
-        private void CmbTipoPersona_SelectedIndexChanged(object? sender, EventArgs e)
+        private void CmbTipoPersona_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Filtrar automáticamente cuando cambie el tipo
             OnBuscar();
         }
 
-        private void CmbTipoPersonaForm_SelectedIndexChanged(object? sender, EventArgs e)
+        private void CmbTipoPersonaForm_SelectedIndexChanged(object sender, EventArgs e)
         {
             string tipoSeleccionado = cmbTipoPersonaForm.SelectedItem?.ToString() ?? "Física";
             MostrarCamposSegunTipo(tipoSeleccionado);

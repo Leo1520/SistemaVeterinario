@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+using System.Drawing;
 namespace SistemVeterinario.Forms
 {
     partial class ClientesModule
@@ -110,7 +112,6 @@ namespace SistemVeterinario.Forms
             // 
             txtBuscar.Location = new Point(20, 15);
             txtBuscar.Margin = new Padding(3, 4, 3, 4);
-            txtBuscar.PlaceholderText = "Buscar por nombre, CI, NIT, email, razón social...";
             txtBuscar.Size = new Size(349, 23);
             // 
             // btnBuscar

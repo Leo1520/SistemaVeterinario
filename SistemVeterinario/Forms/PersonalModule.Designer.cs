@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+using System.Drawing;
 namespace SistemVeterinario.Forms
 {
     partial class PersonalModule

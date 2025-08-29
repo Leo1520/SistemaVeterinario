@@ -1,3 +1,5 @@
+using System.Drawing;
+using System.Windows.Forms;
 namespace SistemVeterinario.Forms
 {
     partial class MascotasModule
@@ -83,7 +85,6 @@ namespace SistemVeterinario.Forms
             // txtBuscar
             // 
             txtBuscar.Location = new Point(17, 3);
-            txtBuscar.PlaceholderText = "Buscar por nombre, especie, raza, propietario...";
             txtBuscar.Size = new Size(350, 23);
             // 
             // btnBuscar
@@ -320,8 +321,7 @@ namespace SistemVeterinario.Forms
             txtRaza.Location = new Point(180, 105);
             txtRaza.MaxLength = 100;
             txtRaza.Name = "txtRaza";
-            txtRaza.PlaceholderText = "o escriba otra raza";
-            txtRaza.Size = new Size(150, 23);
+                txtRaza.Size = new Size(150, 23);
             txtRaza.TabIndex = 6;
             // 
             // cmbRaza

@@ -241,7 +241,7 @@ namespace CapaDatos
         // MÉTODOS PARA REPORTES DE VENTAS
         // ============================================
 
-        public DataTable ReporteVentasPorRango(DateTime fechaInicio, DateTime fechaFin, string? estado = null)
+        public DataTable ReporteVentasPorRango(DateTime fechaInicio, DateTime fechaFin, string estado = null)
         {
             DataTable dtResultado = new DataTable("ReporteVentasPorRango");
             SqlConnection connection = DbConnection.Instance.GetConnection();

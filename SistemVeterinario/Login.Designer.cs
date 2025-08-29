@@ -1,5 +1,6 @@
 using System.Drawing;
-
+using System.Windows.Forms;
+using System;
 namespace SistemVeterinario
 {
     partial class Login
@@ -111,7 +112,6 @@ namespace SistemVeterinario
             txtContrasena.Margin = new Padding(3, 4, 3, 4);
             txtContrasena.Name = "txtContrasena";
             txtContrasena.PasswordChar = '*';
-            txtContrasena.PlaceholderText = "Ingrese su contraseña...";
             txtContrasena.Size = new Size(333, 34);
             txtContrasena.TabIndex = 3;
             // 
@@ -143,7 +143,6 @@ namespace SistemVeterinario
             txtUsuario.Location = new Point(76, 27);
             txtUsuario.Margin = new Padding(3, 4, 3, 4);
             txtUsuario.Name = "txtUsuario";
-            txtUsuario.PlaceholderText = "Usuario o Email";
             txtUsuario.Size = new Size(332, 34);
             txtUsuario.TabIndex = 2;
             txtUsuario.Text = "";

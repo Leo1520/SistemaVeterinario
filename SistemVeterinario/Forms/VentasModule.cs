@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using CapaNegocio;
 using SistemVeterinario.Navigation;
+using System.Collections.Generic;
 
 namespace SistemVeterinario.Forms
 {
@@ -219,7 +220,7 @@ namespace SistemVeterinario.Forms
 
         private void ValidarControlesInicializados()
         {
-            var controlesRequeridos = new Dictionary<string, Control?>
+            var controlesRequeridos = new Dictionary<string, Control>
             {
                 { "tabControlPrincipal", tabControlPrincipal },
                 { "dgvDatos", dgvDatos },
@@ -287,12 +288,12 @@ namespace SistemVeterinario.Forms
 
         #region Eventos de Botones
 
-        private void BtnNuevo_Click(object? sender, EventArgs e)
+        private void BtnNuevo_Click(object sender, EventArgs e)
         {
             OnNuevo();
         }
 
-        private void BtnGuardar_Click(object? sender, EventArgs e)
+        private void BtnGuardar_Click(object sender, EventArgs e)
         {
             if (ValidarDatos())
             {
@@ -354,7 +355,7 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void BtnEditar_Click(object? sender, EventArgs e)
+        private void BtnEditar_Click(object sender, EventArgs e)
         {
             if (dgvDatos?.CurrentRow != null)
             {
@@ -367,7 +368,7 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void BtnCancelar_Click(object? sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Está seguro de cancelar? Se perderán los cambios no guardados.",
                 "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -379,7 +380,7 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void BtnEliminar_Click(object? sender, EventArgs e)
+        private void BtnEliminar_Click(object sender, EventArgs e)
         {
             if (dgvDatos?.CurrentRow != null)
             {
@@ -392,12 +393,12 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void BtnBuscar_Click(object? sender, EventArgs e)
+        private void BtnBuscar_Click(object sender, EventArgs e)
         {
             OnBuscar();
         }
 
-        private void BtnRefrescar_Click(object? sender, EventArgs e)
+        private void BtnRefrescar_Click(object sender, EventArgs e)
         {
             CargarDatosVentas();
             if (txtBuscarPersonaId != null) txtBuscarPersonaId.Clear();
@@ -407,14 +408,14 @@ namespace SistemVeterinario.Forms
 
         #region Eventos del DataGridView
 
-        private void DgvDatos_SelectionChanged(object? sender, EventArgs e)
+        private void DgvDatos_SelectionChanged(object sender, EventArgs e)
         {
             bool haySeleccion = dgvDatos?.CurrentRow != null;
             // btnEditar se maneja desde BaseModulos
             if (btnEliminar != null) btnEliminar.Enabled = haySeleccion;
         }
 
-        private void DgvDatos_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        private void DgvDatos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dgvDatos?.Rows[e.RowIndex] != null)
             {

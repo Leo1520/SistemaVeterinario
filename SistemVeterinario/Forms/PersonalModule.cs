@@ -79,7 +79,7 @@ namespace SistemVeterinario.Forms
             MostrarCamposSegunTipo();
         }
 
-        private void CmbTipoPersonalForm_SelectedIndexChanged(object? sender, EventArgs e)
+        private void CmbTipoPersonalForm_SelectedIndexChanged(object sender, EventArgs e)
         {
             MostrarCamposSegunTipo();
         }
@@ -107,7 +107,7 @@ namespace SistemVeterinario.Forms
             cmbNivel.Visible = !esVeterinario;
         }
 
-        private void CmbTipoPersonal_SelectedIndexChanged(object? sender, EventArgs e)
+        private void CmbTipoPersonal_SelectedIndexChanged(object sender, EventArgs e)
         {
             _tipoPersonalSeleccionado = cmbTipoPersonal.Text;
             CargarDatos();
@@ -249,11 +249,13 @@ namespace SistemVeterinario.Forms
                 string resultado;
                 string tipoPersonal = cmbTipoPersonalForm.Text;
 
+                decimal? salario = string.IsNullOrEmpty(txtSalario.Text) ? (decimal?)null : decimal.Parse(txtSalario.Text);
                 if (ModoEdicion)
                 {
                     // Editar registro existente
                     if (tipoPersonal == "Veterinario")
                     {
+
                         resultado = NPersonal.EditarPersonalVeterinario(
                             IdSeleccionado,
                             txtNombre.Text.Trim(),
@@ -262,7 +264,7 @@ namespace SistemVeterinario.Forms
                             txtUsuario.Text.Trim(),
                             txtTelefono.Text.Trim(),
                             txtDireccion.Text.Trim(),
-                            string.IsNullOrEmpty(txtSalario.Text) ? null : decimal.Parse(txtSalario.Text),
+                            salario,
                             cmbRolForm.Text,
                             txtLicencia.Text.Trim(),
                             txtEspecialidad.Text.Trim(),
@@ -280,7 +282,7 @@ namespace SistemVeterinario.Forms
                             txtUsuario.Text.Trim(),
                             txtTelefono.Text.Trim(),
                             txtDireccion.Text.Trim(),
-                            string.IsNullOrEmpty(txtSalario.Text) ? null : decimal.Parse(txtSalario.Text),
+                            salario,
                             cmbRolForm.Text,
                             txtArea.Text.Trim(),
                             cmbTurno.Text,
@@ -302,7 +304,7 @@ namespace SistemVeterinario.Forms
                             txtTelefono.Text.Trim(),
                             txtDireccion.Text.Trim(),
                             dtpFechaContratacion.Value,
-                            string.IsNullOrEmpty(txtSalario.Text) ? null : decimal.Parse(txtSalario.Text),
+                            salario,
                             cmbRolForm.Text,
                             txtLicencia.Text.Trim(),
                             txtEspecialidad.Text.Trim(),
@@ -321,7 +323,7 @@ namespace SistemVeterinario.Forms
                             txtTelefono.Text.Trim(),
                             txtDireccion.Text.Trim(),
                             dtpFechaContratacion.Value,
-                            string.IsNullOrEmpty(txtSalario.Text) ? null : decimal.Parse(txtSalario.Text),
+                            salario,
                             cmbRolForm.Text,
                             txtArea.Text.Trim(),
                             cmbTurno.Text,

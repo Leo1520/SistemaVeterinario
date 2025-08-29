@@ -279,14 +279,20 @@ namespace SistemVeterinario.Reportes
 
         private string ConvertirPeriodoAAgrupacion(string periodo)
         {
-            return periodo switch
+            periodo= periodo.Trim().ToLower();
+            switch(periodo)
             {
-                "DIARIO" => "DIA",
-                "SEMANAL" => "SEMANA",
-                "MENSUAL" => "MES",
-                "ANUAL" => "AÑO",
-                _ => "DIA"
-            };
+                case "diario":
+                    return "DIA";
+                case "semanal":
+                    return "SEMANA";
+                case "mensual":
+                    return "MES";
+                case "anual":
+                    return "AÑO";
+                default:
+                    return "DIA";
+            }
         }
 
         protected override void OnLoad(EventArgs e)

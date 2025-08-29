@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using CapaNegocio;
+using System.Collections.Generic;
 
 namespace SistemVeterinario
 {
@@ -31,7 +32,7 @@ namespace SistemVeterinario
 
         private void ValidarControlesInicializados()
         {
-            var controlesRequeridos = new Dictionary<string, Control?>
+            var controlesRequeridos = new Dictionary<string, Control>
             {
                 { "tabControl", tabControl },
                 { "dgvMascotas", dgvMascotas },
@@ -534,7 +535,7 @@ namespace SistemVeterinario
             {
                 string nombre = txtNombre?.Text?.Trim() ?? "";
                 string especie = cmbEspecie?.Text?.Trim() ?? "";
-                decimal? peso = nudPeso?.Value > 0 ? nudPeso.Value : null;
+                decimal? peso = (nudPeso != null && nudPeso.Value > 0) ? (decimal?)nudPeso.Value : null;
                 string genero = cmbGenero?.Text?.Trim() ?? "";
                 string microchip = txtMicrochip?.Text?.Trim() ?? "";
                 DateTime? fechaNacimiento = null;
@@ -565,7 +566,7 @@ namespace SistemVeterinario
 
         #region Event Handlers
 
-        private void BtnNuevo_Click(object? sender, EventArgs e)
+        private void BtnNuevo_Click(object sender, EventArgs e)
         {
             try
             {
@@ -590,7 +591,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnGuardar_Click(object? sender, EventArgs e)
+        private void BtnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -603,7 +604,7 @@ namespace SistemVeterinario
                 string color = txtColor?.Text?.Trim() ?? "";
                 string genero = cmbGenero?.Text?.Trim() ?? "";
                 string microchip = txtMicrochip?.Text?.Trim() ?? "";
-                decimal? peso = nudPeso?.Value > 0 ? nudPeso.Value : null;
+                decimal? peso = (nudPeso != null && nudPeso.Value > 0) ? (decimal?)nudPeso.Value : null;
                 bool esterilizado = chkEsterilizado?.Checked ?? false;
                 DateTime? fechaNacimiento = null;
 
@@ -652,7 +653,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnEditar_Click(object? sender, EventArgs e)
+        private void BtnEditar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -680,7 +681,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnEliminar_Click(object? sender, EventArgs e)
+        private void BtnEliminar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -720,7 +721,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnCancelar_Click(object? sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -739,7 +740,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnBuscar_Click(object? sender, EventArgs e)
+        private void BtnBuscar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -774,7 +775,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnRefrescar_Click(object? sender, EventArgs e)
+        private void BtnRefrescar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -788,7 +789,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnBuscarPropietario_Click(object? sender, EventArgs e)
+        private void BtnBuscarPropietario_Click(object sender, EventArgs e)
         {
             try
             {
@@ -811,7 +812,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnHistorial_Click(object? sender, EventArgs e)
+        private void BtnHistorial_Click(object sender, EventArgs e)
         {
             try
             {
@@ -836,7 +837,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void CmbEspecie_SelectedIndexChanged(object? sender, EventArgs e)
+        private void CmbEspecie_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -849,7 +850,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void ChkTieneFechaNacimiento_CheckedChanged(object? sender, EventArgs e)
+        private void ChkTieneFechaNacimiento_CheckedChanged(object sender, EventArgs e)
         {
             try
             {
@@ -864,7 +865,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void DgvMascotas_CellClick(object? sender, DataGridViewCellEventArgs e)
+        private void DgvMascotas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -879,7 +880,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void DgvMascotas_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        private void DgvMascotas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -965,7 +966,6 @@ namespace SistemVeterinario
             txtBuscar = new TextBox();
             txtBuscar.Location = new Point(10, 10);
             txtBuscar.Size = new Size(200, 23);
-            txtBuscar.PlaceholderText = "Buscar cliente...";
 
             btnBuscar = new Button();
             btnBuscar.Text = "Buscar";
@@ -1022,7 +1022,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnBuscar_Click(object? sender, EventArgs e)
+        private void BtnBuscar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1039,12 +1039,12 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnSeleccionar_Click(object? sender, EventArgs e)
+        private void BtnSeleccionar_Click(object sender, EventArgs e)
         {
             SeleccionarCliente();
         }
 
-        private void DgvClientes_DoubleClick(object? sender, EventArgs e)
+        private void DgvClientes_DoubleClick(object sender, EventArgs e)
         {
             SeleccionarCliente();
         }

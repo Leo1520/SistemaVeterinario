@@ -13,25 +13,25 @@ namespace CapaDatos
         private string _email = string.Empty;
         private string _usuario = string.Empty;
         private string _contrasena = string.Empty;
-        private string? _telefono;
-        private string? _direccion;
+        private string _telefono = string.Empty;
+        private string _direccion = string.Empty;
         private DateTime _fechaContratacion;
         private decimal? _salario;
         private string _rol = "Usuario";
         private bool _activo;
         private DateTime? _fechaUltimoAcceso;
         private string _creadoPor = "Sistema";
-        private string? _modificadoPor;
+        private string _modificadoPor = string.Empty;
         private DateTime? _fechaModificacion;
 
         // Propiedades específicas de veterinario
-        private string? _numLicencia;
-        private string? _especialidad;
-        private string? _universidad;
+        private string _numLicencia = string.Empty;
+        private string _especialidad = string.Empty;
+        private string _universidad = string.Empty;
         private int? _aniosExperiencia;
 
         // Propiedades específicas de auxiliar
-        private string? _area;
+        private string _area;
         private string _turno = "Mañana";
         private string _nivel = "Básico";
 
@@ -46,25 +46,25 @@ namespace CapaDatos
         public string Email { get => _email; set => _email = value; }
         public string Usuario { get => _usuario; set => _usuario = value; }
         public string Contrasena { get => _contrasena; set => _contrasena = value; }
-        public string? Telefono { get => _telefono; set => _telefono = value; }
-        public string? Direccion { get => _direccion; set => _direccion = value; }
+        public string Telefono { get => _telefono; set => _telefono = value; }
+        public string Direccion { get => _direccion; set => _direccion = value; }
         public DateTime FechaContratacion { get => _fechaContratacion; set => _fechaContratacion = value; }
         public decimal? Salario { get => _salario; set => _salario = value; }
         public string Rol { get => _rol; set => _rol = value; }
         public bool Activo { get => _activo; set => _activo = value; }
         public DateTime? FechaUltimoAcceso { get => _fechaUltimoAcceso; set => _fechaUltimoAcceso = value; }
         public string CreadoPor { get => _creadoPor; set => _creadoPor = value; }
-        public string? ModificadoPor { get => _modificadoPor; set => _modificadoPor = value; }
+        public string ModificadoPor { get => _modificadoPor; set => _modificadoPor = value; }
         public DateTime? FechaModificacion { get => _fechaModificacion; set => _fechaModificacion = value; }
 
         // Veterinario
-        public string? NumLicencia { get => _numLicencia; set => _numLicencia = value; }
-        public string? Especialidad { get => _especialidad; set => _especialidad = value; }
-        public string? Universidad { get => _universidad; set => _universidad = value; }
+        public string NumLicencia { get => _numLicencia; set => _numLicencia = value; }
+        public string Especialidad { get => _especialidad; set => _especialidad = value; }
+        public string Universidad { get => _universidad; set => _universidad = value; }
         public int? AniosExperiencia { get => _aniosExperiencia; set => _aniosExperiencia = value; }
 
         // Auxiliar
-        public string? Area { get => _area; set => _area = value; }
+        public string Area { get => _area; set => _area = value; }
         public string Turno { get => _turno; set => _turno = value; }
         public string Nivel { get => _nivel; set => _nivel = value; }
 

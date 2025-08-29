@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+using System.Drawing;
 namespace SistemVeterinario.Navigation
 {
     partial class BaseModulos
@@ -97,7 +99,6 @@ namespace SistemVeterinario.Navigation
             // 
             txtBuscar.Location = new Point(10, 18);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.PlaceholderText = "Buscar...";
             txtBuscar.Size = new Size(300, 23);
             txtBuscar.TabIndex = 0;
             txtBuscar.KeyPress += TxtBuscar_KeyPress;

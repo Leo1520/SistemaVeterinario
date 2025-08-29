@@ -1,5 +1,9 @@
 using FontAwesome.Sharp;
 using SistemVeterinario.Forms;
+using System.Windows.Forms;
+using System.Drawing;
+using System;
+using System.Linq;
 
 namespace SistemVeterinario
 {
@@ -124,7 +128,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnClientes_Click(object? sender, EventArgs e)
+        private void BtnClientes_Click(object sender, EventArgs e)
         {
             CambiarIconoSuperior(IconChar.Users, "Clientes");
 
@@ -153,7 +157,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnMascotas_Click(object? sender, EventArgs e)
+        private void BtnMascotas_Click(object sender, EventArgs e)
         {
             CambiarIconoSuperior(IconChar.Paw, "Mascotas");
 
@@ -182,7 +186,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnPersonal_Click(object? sender, EventArgs e)
+        private void BtnPersonal_Click(object sender, EventArgs e)
         {
             CambiarIconoSuperior(IconChar.UserTie, "Personal");
 
@@ -234,7 +238,7 @@ namespace SistemVeterinario
 
         }
 
-        private void BtnVentas_Click(object? sender, EventArgs e)
+        private void BtnVentas_Click(object sender, EventArgs e)
         {
             CambiarIconoSuperior(IconChar.ShoppingBag, "Ventas");
 
@@ -267,7 +271,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnReportes_Click(object? sender, EventArgs e)
+        private void BtnReportes_Click(object sender, EventArgs e)
         {
             CambiarIconoSuperior(IconChar.ChartLine, "Reportes");
 
@@ -300,7 +304,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnConfiguracion_Click(object? sender, EventArgs e)
+        private void BtnConfiguracion_Click(object sender, EventArgs e)
         {
             CambiarIconoSuperior(IconChar.Toolbox, "Reportes");
 
@@ -308,7 +312,7 @@ namespace SistemVeterinario
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void BtnLogout_Click(object? sender, EventArgs e)
+        private void BtnLogout_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("¿Está seguro que desea cerrar sesión?",
                 "Confirmar Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -320,7 +324,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnProductos_Click(object? sender, EventArgs e)
+        private void BtnProductos_Click(object sender, EventArgs e)
         {
             CambiarIconoSuperior(IconChar.BoxOpen, "Productos");
 

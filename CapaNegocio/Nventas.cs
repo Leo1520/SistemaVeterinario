@@ -120,7 +120,7 @@ namespace CapaNegocio
         // MÉTODOS PARA REPORTES DE VENTAS
         // ============================================
 
-        public static DataTable ReporteVentasPorRango(DateTime fechaInicio, DateTime fechaFin, string? estado = null)
+        public static DataTable ReporteVentasPorRango(DateTime fechaInicio, DateTime fechaFin, string estado = null)
         {
             return new DVentas().ReporteVentasPorRango(fechaInicio, fechaFin, estado);
         }
@@ -195,32 +195,53 @@ namespace CapaNegocio
 
         public static string ObtenerNombrePeriodo(string periodo)
         {
-            return periodo switch
+            periodo = periodo.Trim().ToUpper();
+            switch(periodo)
             {
-                "HOY" => "Ventas de Hoy",
-                "AYER" => "Ventas de Ayer", 
-                "ULTIMOS_7_DIAS" => "Últimos 7 Días",
-                "MES_ACTUAL" => "Mes Actual",
-                "ULTIMOS_30_DIAS" => "Últimos 30 Días",
-                "AÑO_ACTUAL" => "Año Actual",
-                _ => "Período Personalizado"
-            };
+                case "HOY":
+                    return "Ventas de Hoy";
+                case "AYER":
+                    return "Ventas de Ayer";
+                case "ULTIMOS_7_DIAS":
+                    return "Últimos 7 Días";
+                case "MES_ACTUAL":
+                    return "Mes Actual";
+                case "ULTIMOS_30_DIAS":
+                    return "Últimos 30 Días";
+                case "AÑO_ACTUAL":
+                    return "Año Actual";
+                default:
+                    return "Período Personalizado";
+            }
         }
 
         public static (DateTime fechaInicio, DateTime fechaFin) CalcularFechasPeriodo(string periodo)
         {
             DateTime hoy = DateTime.Now.Date;
-            
-            return periodo switch
+            // pertiodo eliminar el espacio y pasar a minusculas
+            periodo = periodo.Trim().ToUpper();
+            switch(periodo)
             {
-                "HOY" => (hoy, hoy),
-                "AYER" => (hoy.AddDays(-1), hoy.AddDays(-1)),
-                "ULTIMOS_7_DIAS" => (hoy.AddDays(-6), hoy),
-                "MES_ACTUAL" => (new DateTime(hoy.Year, hoy.Month, 1), hoy),
-                "ULTIMOS_30_DIAS" => (hoy.AddDays(-29), hoy),
-                "AÑO_ACTUAL" => (new DateTime(hoy.Year, 1, 1), hoy),
-                _ => (hoy.AddMonths(-1), hoy)
-            };
+                case "HOY":
+                    return (hoy, hoy);
+                case "AYER":
+                    DateTime ayer = hoy.AddDays(-1);
+                    return (ayer, ayer);
+                case "ULTIMOS_7_DIAS":
+                    return (hoy.AddDays(-6), hoy);
+                case "MES_ACTUAL":
+                    DateTime primerDiaMes = new DateTime(hoy.Year, hoy.Month, 1);
+                    DateTime ultimoDiaMes = primerDiaMes.AddMonths(1).AddDays(-1);
+                    return (primerDiaMes, ultimoDiaMes);
+                case "ULTIMOS_30_DIAS":
+                    return (hoy.AddDays(-29), hoy);
+                case "AÑO_ACTUAL":
+                    DateTime primerDiaAño = new DateTime(hoy.Year, 1, 1);
+                    DateTime ultimoDiaAño = new DateTime(hoy.Year, 12, 31);
+                    return (primerDiaAño, ultimoDiaAño);
+                default:
+                    return (hoy, hoy); // Por defecto retorna hoy
+            }
         }
     }
 }

@@ -1,9 +1,0 @@
-{
-  "runtimeOptions": {
-    "configProperties": {
-      "Microsoft.NETCore.App.UseFileSystemWatcher": false,
-      "System.Drawing.EnableUnixSupport": false,
-      "System.Windows.Forms.ApplicationHighDpiMode": "SystemAware"
-    }
-  }
-}

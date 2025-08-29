@@ -38,7 +38,6 @@ namespace SistemVeterinario.Forms
             // 
             this.txtBuscar.Location = new System.Drawing.Point(10, 10);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.PlaceholderText = "Buscar cliente...";
             this.txtBuscar.Size = new System.Drawing.Size(200, 23);
             this.txtBuscar.TabIndex = 0;
             // 

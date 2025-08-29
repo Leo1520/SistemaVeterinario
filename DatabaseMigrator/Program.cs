@@ -12,7 +12,7 @@ class Program
 
         // Obtener la ruta base del repositorio (subir desde el directorio de ejecución hasta encontrar CapaDatos)
         string currentDir = Directory.GetCurrentDirectory();
-        string? repoRoot = currentDir;
+        string repoRoot = currentDir;
         
         // Subir directorios hasta encontrar la carpeta CapaDatos
         while (repoRoot != null && !Directory.Exists(Path.Combine(repoRoot, "CapaDatos")))

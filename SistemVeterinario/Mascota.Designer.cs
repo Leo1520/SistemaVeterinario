@@ -1,5 +1,5 @@
 using System.Drawing;
-
+using System.Windows.Forms;
 namespace SistemVeterinario
 {
     partial class Mascota
@@ -120,7 +120,6 @@ namespace SistemVeterinario
             txtBuscar = new TextBox();
             txtBuscar.Location = new Point(120, 18);
             txtBuscar.Size = new Size(200, 23);
-            txtBuscar.PlaceholderText = "Nombre, especie, raza, propietario...";
 
             btnBuscar = new Button();
             btnBuscar.Text = "Buscar";
@@ -281,7 +280,6 @@ namespace SistemVeterinario
             txtRaza = new TextBox();
             txtRaza.Location = new Point(200, 63);
             txtRaza.Size = new Size(120, 23);
-            txtRaza.PlaceholderText = "o escriba otra raza";
 
             lblColor = new Label();
             lblColor.Text = "Color:";

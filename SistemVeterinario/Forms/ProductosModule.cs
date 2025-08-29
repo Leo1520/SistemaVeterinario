@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using CapaNegocio;
 using SistemVeterinario.Navigation;
+using System.Collections.Generic;
 
 namespace SistemVeterinario.Forms
 {
@@ -323,7 +324,7 @@ namespace SistemVeterinario.Forms
         #endregion
 
         #region Eventos Específicos de Productos
-        private void BtnGenerarCodigo_Click(object? sender, EventArgs e)
+        private void BtnGenerarCodigo_Click(object sender, EventArgs e)
         {
             try
             {
@@ -348,7 +349,7 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void BtnNuevaCategoria_Click(object? sender, EventArgs e)
+        private void BtnNuevaCategoria_Click(object sender, EventArgs e)
         {
             try
             {
@@ -429,7 +430,7 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void BtnStockBajo_Click(object? sender, EventArgs e)
+        private void BtnStockBajo_Click(object sender, EventArgs e)
         {
             try
             {
@@ -456,7 +457,7 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void TxtNombre_TextChanged(object? sender, EventArgs e)
+        private void TxtNombre_TextChanged(object sender, EventArgs e)
         {
             // Actualizar sugerencia de código si está vacío
             if (string.IsNullOrEmpty(txtCodigo?.Text))
@@ -466,7 +467,7 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void CmbCategoria_SelectedIndexChanged(object? sender, EventArgs e)
+        private void CmbCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -481,12 +482,12 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void DgvDatos_DataSourceChanged(object? sender, EventArgs e)
+        private void DgvDatos_DataSourceChanged(object sender, EventArgs e)
         {
             ConfigurarColumnasDataGridView();
         }
 
-        private void DgvDatos_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        private void DgvDatos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             try
             {
@@ -554,7 +555,7 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void DgvDatos_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        private void DgvDatos_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             try
             {
@@ -785,7 +786,8 @@ namespace SistemVeterinario.Forms
                 }
 
                 // Validar código único
-                string errorCodigo = NProductos.ValidarCodigoUnico(codigo, ModoEdicion ? _currentProductoId : null);
+                int? idExcluir = ModoEdicion ? (int?)_currentProductoId : null;
+                string errorCodigo = NProductos.ValidarCodigoUnico(codigo, idExcluir);
                 if (!string.IsNullOrEmpty(errorCodigo))
                 {
                     MostrarMensaje(errorCodigo, "Error de Código", MessageBoxIcon.Warning);
@@ -912,7 +914,7 @@ namespace SistemVeterinario.Forms
             });
         }
 
-        private void CmbSugerencias_SelectedIndexChanged(object? sender, EventArgs e)
+        private void CmbSugerencias_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbSugerencias.SelectedIndex > 0)
             {
@@ -947,7 +949,7 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void BtnGuardar_Click(object? sender, EventArgs e)
+        private void BtnGuardar_Click(object sender, EventArgs e)
         {
             try
             {

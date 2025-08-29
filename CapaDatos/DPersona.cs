@@ -13,13 +13,13 @@ namespace CapaDatos
         // Propiedades comunes de persona
         private int _id;
         private string _tipo = string.Empty;
-        private string? _email;
-        private string? _direccion;
-        private string? _telefono;
+        private string _email = string.Empty;
+        private string _direccion = string.Empty;
+        private string _telefono = string.Empty;
         private bool _activo;
 
         // Propiedades específicas de persona física
-        private string? _ci;
+        private string _ci = string.Empty;
         private string _nombre = string.Empty;
         private string _apellido = string.Empty;
         private DateTime? _fechaNacimiento;
@@ -27,9 +27,9 @@ namespace CapaDatos
 
         // Propiedades específicas de persona jurídica
         private string _razonSocial = string.Empty;
-        private string? _nit;
-        private string? _encargadoNombre;
-        private string? _encargadoCargo;
+        private string _nit = string.Empty;
+        private string _encargadoNombre = string.Empty;
+        private string _encargadoCargo = string.Empty;
 
         // Propiedades auxiliares
         private string _textoBuscar = string.Empty;
@@ -37,13 +37,13 @@ namespace CapaDatos
         // Propiedades públicas
         public int Id { get => _id; set => _id = value; }
         public string Tipo { get => _tipo; set => _tipo = value; }
-        public string? Email { get => _email; set => _email = value; }
-        public string? Direccion { get => _direccion; set => _direccion = value; }
-        public string? Telefono { get => _telefono; set => _telefono = value; }
+        public string Email { get => _email; set => _email = value; }
+        public string Direccion { get => _direccion; set => _direccion = value; }
+        public string Telefono { get => _telefono; set => _telefono = value; }
         public bool Activo { get => _activo; set => _activo = value; }
 
         // Persona Física
-        public string? Ci { get => _ci; set => _ci = value; }
+        public string Ci { get => _ci; set => _ci = value; }
         public string Nombre { get => _nombre; set => _nombre = value; }
         public string Apellido { get => _apellido; set => _apellido = value; }
         public DateTime? FechaNacimiento { get => _fechaNacimiento; set => _fechaNacimiento = value; }
@@ -51,9 +51,9 @@ namespace CapaDatos
 
         // Persona Jurídica
         public string RazonSocial { get => _razonSocial; set => _razonSocial = value; }
-        public string? Nit { get => _nit; set => _nit = value; }
-        public string? EncargadoNombre { get => _encargadoNombre; set => _encargadoNombre = value; }
-        public string? EncargadoCargo { get => _encargadoCargo; set => _encargadoCargo = value; }
+        public string Nit { get => _nit; set => _nit = value; }
+        public string EncargadoNombre { get => _encargadoNombre; set => _encargadoNombre = value; }
+        public string EncargadoCargo { get => _encargadoCargo; set => _encargadoCargo = value; }
 
         // Auxiliares
         public string TextoBuscar { get => _textoBuscar; set => _textoBuscar = value; }
@@ -495,7 +495,7 @@ namespace CapaDatos
         }
 
         // Método para validar CI único
-        public bool ValidarCIUnico(string? ci, int? idPersona = null)
+        public bool ValidarCIUnico(string ci, int? idPersona = null)
         {
             if (string.IsNullOrEmpty(ci))
                 return true; // CI es opcional
@@ -529,7 +529,7 @@ namespace CapaDatos
         }
 
         // Método para validar NIT único
-        public bool ValidarNITUnico(string? nit, int? idPersona = null)
+        public bool ValidarNITUnico(string nit, int? idPersona = null)
         {
             if (string.IsNullOrEmpty(nit))
                 return true; // NIT es opcional
@@ -563,7 +563,7 @@ namespace CapaDatos
         }
 
         // Método para validar Email único
-        public bool ValidarEmailUnico(string? email, int? idPersona = null)
+        public bool ValidarEmailUnico(string email, int? idPersona = null)
         {
             if (string.IsNullOrEmpty(email))
                 return true; // Email es opcional

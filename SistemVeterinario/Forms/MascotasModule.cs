@@ -189,7 +189,11 @@ namespace SistemVeterinario.Forms
                 string color = txtColor?.Text?.Trim() ?? "";
                 string genero = ObtenerGeneroSeleccionado();
                 string microchip = txtMicrochip?.Text?.Trim() ?? "";
-                decimal? peso = nudPeso?.Value > 0 ? nudPeso.Value : null;
+                decimal? peso = null;
+                if (nudPeso != null && nudPeso.Value > 0)
+                {
+                    peso = nudPeso.Value;
+                }
                 bool esterilizado = chkEsterilizado?.Checked ?? false;
                 DateTime? fechaNacimiento = null;
 
@@ -493,7 +497,7 @@ namespace SistemVeterinario.Forms
         #endregion
 
         #region Eventos
-        private void CmbEspecie_SelectedIndexChanged(object? sender, EventArgs e)
+        private void CmbEspecie_SelectedIndexChanged(object sender, EventArgs e)
         {
             string especieSeleccionada = cmbEspecie?.Text ?? "";
             CargarRazasPorEspecie(especieSeleccionada);
@@ -522,7 +526,7 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void ChkTieneFechaNacimiento_CheckedChanged(object? sender, EventArgs e)
+        private void ChkTieneFechaNacimiento_CheckedChanged(object sender, EventArgs e)
         {
             if (dtpFechaNacimiento != null)
             {

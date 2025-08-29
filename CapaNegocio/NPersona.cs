@@ -14,8 +14,8 @@ namespace CapaNegocio
         #region Métodos de Inserción
 
         // Insertar Persona Física
-        public static string InsertarPersonaFisica(string? ci, string nombre, string apellido, 
-            string? email = null, string? direccion = null, string? telefono = null, 
+        public static string InsertarPersonaFisica(string ci, string nombre, string apellido, 
+            string email = null, string direccion = null, string telefono = null, 
             DateTime? fechaNacimiento = null, char? genero = null)
         {
             // Validaciones de campos obligatorios
@@ -33,8 +33,8 @@ namespace CapaNegocio
             DPersona objPersona = new DPersona()
             {
                 Ci = ci,
-                Nombre = nombre!.Trim(),
-                Apellido = apellido!.Trim(),
+                Nombre = nombre?.Trim(),
+                Apellido = apellido?.Trim(),
                 Email = email?.Trim(),
                 Direccion = direccion?.Trim(),
                 Telefono = telefono?.Trim(),
@@ -46,9 +46,9 @@ namespace CapaNegocio
         }
 
         // Insertar Persona Jurídica
-        public static string InsertarPersonaJuridica(string razonSocial, string? nit = null, 
-            string? encargadoNombre = null, string? encargadoCargo = null, string? email = null, 
-            string? direccion = null, string? telefono = null)
+        public static string InsertarPersonaJuridica(string razonSocial, string nit = null, 
+            string encargadoNombre = null, string encargadoCargo = null, string email = null, 
+            string direccion = null, string telefono = null)
         {
             // Validaciones de campos obligatorios
             if (string.IsNullOrWhiteSpace(razonSocial))
@@ -61,7 +61,7 @@ namespace CapaNegocio
 
             DPersona objPersona = new DPersona()
             {
-                RazonSocial = razonSocial!.Trim(),
+                RazonSocial = razonSocial?.Trim(),
                 Nit = nit?.Trim(),
                 EncargadoNombre = encargadoNombre?.Trim(),
                 EncargadoCargo = encargadoCargo?.Trim(),
@@ -78,8 +78,8 @@ namespace CapaNegocio
         #region Métodos de Edición
 
         // Editar Persona Física
-        public static string EditarPersonaFisica(int id, string? ci, string? nombre, string? apellido,
-            string? email = null, string? direccion = null, string? telefono = null,
+        public static string EditarPersonaFisica(int id, string ci, string nombre, string apellido,
+            string email = null, string direccion = null, string telefono = null,
             DateTime? fechaNacimiento = null, char? genero = null)
         {
             if (id <= 0)
@@ -102,8 +102,8 @@ namespace CapaNegocio
                 Id = id,
                 Tipo = "Física",
                 Ci = ci,
-                Nombre = nombre!.Trim(),
-                Apellido = apellido!.Trim(),
+                Nombre = nombre?.Trim(),
+                Apellido = apellido?.Trim(),
                 Email = email?.Trim(),
                 Direccion = direccion?.Trim(),
                 Telefono = telefono?.Trim(),
@@ -115,9 +115,9 @@ namespace CapaNegocio
         }
 
         // Editar Persona Jurídica
-        public static string EditarPersonaJuridica(int id, string? razonSocial, string? nit = null,
-            string? encargadoNombre = null, string? encargadoCargo = null, string? email = null,
-            string? direccion = null, string? telefono = null)
+        public static string EditarPersonaJuridica(int id, string razonSocial, string nit = null,
+            string encargadoNombre = null, string encargadoCargo = null, string email = null,
+            string direccion = null, string telefono = null)
         {
             if (id <= 0)
                 return "ID de persona no válido";
@@ -135,7 +135,7 @@ namespace CapaNegocio
             {
                 Id = id,
                 Tipo = "Jurídica",
-                RazonSocial = razonSocial!.Trim(),
+                RazonSocial = razonSocial?.Trim(),
                 Nit = nit?.Trim(),
                 EncargadoNombre = encargadoNombre?.Trim(),
                 EncargadoCargo = encargadoCargo?.Trim(),
@@ -148,10 +148,10 @@ namespace CapaNegocio
         }
 
         // Método genérico de edición
-        public static string Editar(int id, string tipo, string? ci = null, string? nombre = null, 
-            string? apellido = null, string? razonSocial = null, string? nit = null,
-            string? encargadoNombre = null, string? encargadoCargo = null, string? email = null,
-            string? direccion = null, string? telefono = null, DateTime? fechaNacimiento = null,
+        public static string Editar(int id, string tipo, string ci = null, string nombre = null, 
+            string apellido = null, string razonSocial = null, string nit = null,
+            string encargadoNombre = null, string encargadoCargo = null, string email = null,
+            string direccion = null, string telefono = null, DateTime? fechaNacimiento = null,
             char? genero = null)
         {
             if (tipo == "Física")
@@ -173,10 +173,10 @@ namespace CapaNegocio
         #region Cambiar Tipo de Persona
 
         // Cambiar de Persona Física a Jurídica
-        public static string CambiarTipoPersona(int id, string nuevoTipo, string? ci = null, 
-            string? nombre = null, string? apellido = null, string? razonSocial = null, 
-            string? nit = null, string? encargadoNombre = null, string? encargadoCargo = null,
-            string? email = null, string? direccion = null, string? telefono = null,
+        public static string CambiarTipoPersona(int id, string nuevoTipo, string ci = null, 
+            string nombre = null, string apellido = null, string razonSocial = null, 
+            string nit = null, string encargadoNombre = null, string encargadoCargo = null,
+            string email = null, string direccion = null, string telefono = null,
             DateTime? fechaNacimiento = null, char? genero = null)
         {
             if (id <= 0)
@@ -299,7 +299,7 @@ namespace CapaNegocio
         }
 
         // Validar Email
-        public static bool ValidarEmail(string? email)
+        public static bool ValidarEmail(string email)
         {
             if (string.IsNullOrEmpty(email))
                 return true; // Email es opcional
@@ -316,7 +316,7 @@ namespace CapaNegocio
         }
 
         // Validar Teléfono
-        public static bool ValidarTelefono(string? telefono)
+        public static bool ValidarTelefono(string telefono)
         {
             if (string.IsNullOrEmpty(telefono))
                 return true; // Teléfono es opcional
@@ -336,7 +336,7 @@ namespace CapaNegocio
         }
 
         // Validar NIT
-        public static bool ValidarNit(string? nit)
+        public static bool ValidarNit(string nit)
         {
             if (string.IsNullOrEmpty(nit))
                 return true; // NIT es opcional
@@ -412,8 +412,8 @@ namespace CapaNegocio
         }
 
         // Validación completa para Persona Física
-        private static string ValidarDatosPersonaFisica(string? ci, string? nombre, string? apellido, 
-            string? email, string? telefono, char? genero, int? idPersona = null)
+        private static string ValidarDatosPersonaFisica(string ci, string nombre, string apellido, 
+            string email, string telefono, char? genero, int? idPersona = null)
         {
             // Validar campos obligatorios
             if (string.IsNullOrWhiteSpace(nombre))
@@ -453,8 +453,8 @@ namespace CapaNegocio
         }
 
         // Validación completa para Persona Jurídica
-        private static string ValidarDatosPersonaJuridica(string? razonSocial, string? nit, 
-            string? email, string? telefono, int? idPersona = null)
+        private static string ValidarDatosPersonaJuridica(string razonSocial, string nit, 
+            string email, string telefono, int? idPersona = null)
         {
             // Validar campos obligatorios
             if (string.IsNullOrWhiteSpace(razonSocial))
@@ -489,7 +489,7 @@ namespace CapaNegocio
         #region Métodos Auxiliares
 
         // Verificar si existe una persona por CI
-        public static bool ExistePersonaPorCi(string? ci, int? idPersona = null)
+        public static bool ExistePersonaPorCi(string ci, int? idPersona = null)
         {
             if (string.IsNullOrEmpty(ci))
                 return false;
@@ -498,7 +498,7 @@ namespace CapaNegocio
         }
 
         // Verificar si existe una persona por NIT
-        public static bool ExistePersonaPorNit(string? nit, int? idPersona = null)
+        public static bool ExistePersonaPorNit(string nit, int? idPersona = null)
         {
             if (string.IsNullOrEmpty(nit))
                 return false;
@@ -507,7 +507,7 @@ namespace CapaNegocio
         }
 
         // Verificar si existe una persona por Email
-        public static bool ExistePersonaPorEmail(string? email, int? idPersona = null)
+        public static bool ExistePersonaPorEmail(string email, int? idPersona = null)
         {
             if (string.IsNullOrEmpty(email))
                 return false;
