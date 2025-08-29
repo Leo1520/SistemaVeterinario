@@ -155,7 +155,7 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>sp_ReporteVentasAgrupadas</DataSetName>
+        <DataSetName>ReporteVententaAgrupadasDataSet</DataSetName>
         <Top>10.45104cm</Top>
         <Left>0.635cm</Left>
         <Height>0.58125in</Height>
@@ -341,7 +341,7 @@
             <VerticalAlign>Top</VerticalAlign>
           </Style>
         </ChartNoDataMessage>
-        <DataSetName>ReporteVentasAgrupadasDataSet</DataSetName>
+        <DataSetName>ReporteVententaAgrupadasDataSet</DataSetName>
         <Top>0.8in</Top>
         <Left>0.25in</Left>
         <Height>3in</Height>
@@ -411,7 +411,7 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>DataSetReportes</rd:DataSetName>
+        <rd:DataSetName>ReporteVententaAgrupadasDataSet</rd:DataSetName>
         <rd:SchemaPath>
           C:\Users\ESTE-PC-01\Documents\GitHub\SistemaVeterinario\SistemVeterinario\Reportes\DataSetReportes.xsd</rd:SchemaPath>
         <rd:TableName>sp_ReporteVentasAgrupadas</rd:TableName>

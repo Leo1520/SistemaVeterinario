@@ -264,7 +264,7 @@ namespace SistemVeterinario.Reportes
                 reportViewer1.LocalReport.DataSources.Clear();
 
                 // Asignar el DataSet al ReportViewer
-                ReportDataSource reportDataSource = new ReportDataSource("DataSetReportes", dataSet.Tables["sp_ReporteVentasAgrupadas"]);
+                ReportDataSource reportDataSource = new ReportDataSource("ReporteVententaAgrupadasDataSet", dataSet.Tables["sp_ReporteVentasAgrupadas"]);
                 reportViewer1.LocalReport.DataSources.Add(reportDataSource);
 
                 // Refrescar el ReportViewer
