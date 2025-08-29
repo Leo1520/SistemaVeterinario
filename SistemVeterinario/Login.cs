@@ -177,7 +177,12 @@ namespace SistemVeterinario
                     _dashboardInstance.FormClosed -= Dashboard_FormClosed;
                     _dashboardInstance = null;
                 }
-
+                if (ommitLogin)
+                {
+                    // cerramos todo complementamente
+                    Application.Exit();
+                    return;
+                }
 
                 // Limpiar campos de login para nueva sesión
                 txtContrasena.Text = "";
