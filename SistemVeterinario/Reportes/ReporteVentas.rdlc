@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition"
-  xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
       <Textbox Name="Textbox1">
@@ -30,12 +29,17 @@
         <ChartCategoryHierarchy>
           <ChartMembers>
             <ChartMember>
-              <Group Name="PeriodoGroup">
+              <Group Name="ChartTotalVentas_CategoryGroup">
                 <GroupExpressions>
                   <GroupExpression>=Fields!periodo.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
-              <Label>Periodo</Label>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!periodo.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <Label>=Fields!periodo.Value</Label>
             </ChartMember>
           </ChartMembers>
         </ChartCategoryHierarchy>
@@ -91,7 +95,6 @@
                 <ChartAxisTitle>
                   <Caption>Periodo</Caption>
                   <Style>
-                    <FontSize>10pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </ChartAxisTitle>
@@ -108,7 +111,6 @@
                 <ChartAxisTitle>
                   <Caption>Total Ventas</Caption>
                   <Style>
-                    <FontSize>10pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </ChartAxisTitle>
@@ -117,30 +119,28 @@
                 <Minimum>NaN</Minimum>
                 <Maximum>NaN</Maximum>
                 <ChartAxisScaleBreak>
+                  <Style />
                 </ChartAxisScaleBreak>
               </ChartAxis>
             </ChartCategoryAxes>
             <ChartValueAxes>
               <ChartAxis Name="ValueAxis">
-                <Style>
-                </Style>
+                <Style />
                 <ChartAxisTitle>
                   <Caption>Total Ventas</Caption>
                   <Style>
-                    <FontSize>10pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </ChartAxisTitle>
                 <ChartAxisScaleBreak>
+                  <Style />
                 </ChartAxisScaleBreak>
               </ChartAxis>
               <ChartAxis Name="Secondary">
-                <Style>
-                </Style>
+                <Style />
                 <ChartAxisTitle>
                   <Caption>Eje Secundario</Caption>
                   <Style>
-                    <FontSize>10pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </ChartAxisTitle>
@@ -149,6 +149,7 @@
                 <Minimum>NaN</Minimum>
                 <Maximum>NaN</Maximum>
                 <ChartAxisScaleBreak>
+                  <Style />
                 </ChartAxisScaleBreak>
               </ChartAxis>
             </ChartValueAxes>
@@ -173,6 +174,7 @@
             <VerticalAlign>Top</VerticalAlign>
           </Style>
         </ChartNoDataMessage>
+        <DataSetName>ReporteVententaAgrupadasDataSet</DataSetName>
         <Top>2.08139cm</Top>
         <Left>1.14142cm</Left>
         <Height>3in</Height>
@@ -197,6 +199,9 @@
             </TablixColumn>
             <TablixColumn>
               <Width>2in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -310,7 +315,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Fecha Fin</Value>
+                              <Value>Fecha Inicio</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                                 <TextAlign>Center</TextAlign>
@@ -320,6 +325,33 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Fecha Fin</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox2</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -455,7 +487,37 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="fecha_fin">
+                    <Textbox Name="fecha_inicio">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!fecha_inicio.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>fecha_inicio</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="fecha_fin1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -469,7 +531,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>fecha_fin</rd:DefaultName>
+                      <rd:DefaultName>fecha_fin1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -492,10 +554,14 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
           <TablixMembers>
+            <TablixMember />
             <TablixMember>
               <Group Name="Group1">
                 <GroupExpressions>
@@ -509,7 +575,7 @@
         <Top>10.45104cm</Top>
         <Left>1.41993cm</Left>
         <Height>0.88125in</Height>
-        <Width>10in</Width>
+        <Width>11in</Width>
         <ZIndex>2</ZIndex>
         <Style />
       </Tablix>
@@ -517,12 +583,17 @@
         <ChartCategoryHierarchy>
           <ChartMembers>
             <ChartMember>
-              <Group Name="PeriodoGroup">
+              <Group Name="ChartVentas_CategoryGroup">
                 <GroupExpressions>
                   <GroupExpression>=Fields!periodo.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
-              <Label>Periodo</Label>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!periodo.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <Label>=Fields!periodo.Value</Label>
             </ChartMember>
           </ChartMembers>
         </ChartCategoryHierarchy>
@@ -571,27 +642,24 @@
           <ChartArea Name="DefaultChartArea">
             <ChartCategoryAxes>
               <ChartAxis Name="CategoryAxis">
-                <Style>
-                </Style>
+                <Style />
                 <ChartAxisTitle>
                   <Caption>Periodo</Caption>
                   <Style>
-                    <FontSize>10pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </ChartAxisTitle>
                 <Minimum>NaN</Minimum>
                 <Maximum>NaN</Maximum>
                 <ChartAxisScaleBreak>
+                  <Style />
                 </ChartAxisScaleBreak>
               </ChartAxis>
               <ChartAxis Name="Secondary">
-                <Style>
-                </Style>
+                <Style />
                 <ChartAxisTitle>
                   <Caption>Cantidad Facturas</Caption>
                   <Style>
-                    <FontSize>10pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </ChartAxisTitle>
@@ -600,30 +668,28 @@
                 <Minimum>NaN</Minimum>
                 <Maximum>NaN</Maximum>
                 <ChartAxisScaleBreak>
+                  <Style />
                 </ChartAxisScaleBreak>
               </ChartAxis>
             </ChartCategoryAxes>
             <ChartValueAxes>
               <ChartAxis Name="ValueAxis">
-                <Style>
-                </Style>
+                <Style />
                 <ChartAxisTitle>
                   <Caption>Cantidad Facturas</Caption>
                   <Style>
-                    <FontSize>10pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </ChartAxisTitle>
                 <ChartAxisScaleBreak>
+                  <Style />
                 </ChartAxisScaleBreak>
               </ChartAxis>
               <ChartAxis Name="Secondary">
-                <Style>
-                </Style>
+                <Style />
                 <ChartAxisTitle>
-                  <Caption></Caption>
+                  <Caption />
                   <Style>
-                    <FontSize>10pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </ChartAxisTitle>
@@ -632,6 +698,7 @@
                 <Minimum>NaN</Minimum>
                 <Maximum>NaN</Maximum>
                 <ChartAxisScaleBreak>
+                  <Style />
                 </ChartAxisScaleBreak>
               </ChartAxis>
             </ChartValueAxes>
@@ -640,21 +707,6 @@
             </Style>
           </ChartArea>
         </ChartAreas>
-        <ChartLegends>
-          <ChartLegend Name="DefaultLegend">
-            <Style>
-              <FontSize>8pt</FontSize>
-            </Style>
-            <ChartLegendTitle>
-              <Caption />
-              <Style>
-                <FontSize>8pt</FontSize>
-                <FontWeight>Bold</FontWeight>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </ChartLegendTitle>
-          </ChartLegend>
-        </ChartLegends>
         <ChartBorderSkin>
           <Style>
             <BackgroundColor>Gray</BackgroundColor>
