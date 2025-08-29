@@ -155,7 +155,7 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>DataSetReportes</DataSetName>
+        <DataSetName>sp_ReporteVentasAgrupadas</DataSetName>
         <Top>10.45104cm</Top>
         <Left>0.635cm</Left>
         <Height>0.58125in</Height>
