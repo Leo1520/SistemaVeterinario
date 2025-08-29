@@ -451,7 +451,7 @@ namespace SistemVeterinario.Reportes {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             private void InitClass() {
-                this.columnperiodo = new global::System.Data.DataColumn("periodo", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                this.columnperiodo = new global::System.Data.DataColumn("periodo", typeof(global::System.String), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnperiodo);
                 this.columnfecha_inicio = new global::System.Data.DataColumn("fecha_inicio", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfecha_inicio);
@@ -611,10 +611,10 @@ namespace SistemVeterinario.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public System.DateTime periodo {
+            public System.String periodo {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tablesp_ReporteVentasAgrupadas.periodoColumn]));
+                        return ((global::System.String)(this[this.tablesp_ReporteVentasAgrupadas.periodoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("El valor de la columna \'periodo\' de la tabla \'sp_ReporteVentasAgrupadas\' es DBNul" +

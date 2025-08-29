@@ -387,7 +387,7 @@
       <Fields>
         <Field Name="periodo">
           <DataField>periodo</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="fecha_inicio">
           <DataField>fecha_inicio</DataField>
