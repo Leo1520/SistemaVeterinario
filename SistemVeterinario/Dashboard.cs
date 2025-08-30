@@ -24,9 +24,7 @@ namespace SistemVeterinario
         {
             lblUsuario.Text = "Bienvenido, Falta obtener su nombre";
             lblEmail.Text = "Falta obtener su email";
-            
             // Configurar el orden z de los paneles
-            
         }
 
         private void InicializarNavegacion()
@@ -102,7 +100,6 @@ namespace SistemVeterinario
             try
             {
                 OcultarElementosDisenador();
-                
                 // Limpiar módulo activo anterior
                 if (ModuleActive != null)
                 {
@@ -208,7 +205,6 @@ namespace SistemVeterinario
             panel1.BringToFront();
             panel2.BringToFront();
             panelModulo.SendToBack();
-            
             CambiarIconoSuperior(IconChar.Home, "Home");
         }
     }

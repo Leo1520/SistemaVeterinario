@@ -47,14 +47,6 @@ namespace SistemVeterinario
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelContent = new System.Windows.Forms.Panel();
             this.panelModulo = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblHora = new System.Windows.Forms.Label();
-            this.lblEmail = new System.Windows.Forms.Label();
-            this.iconButton2 = new FontAwesome.Sharp.IconButton();
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
-            this.lblUsuario = new System.Windows.Forms.Label();
-            this.tituloSuperior = new System.Windows.Forms.Label();
-            this.iconoSuperior = new FontAwesome.Sharp.IconButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -65,12 +57,19 @@ namespace SistemVeterinario
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.lblSubtitulo = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblHora = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.iconButton2 = new FontAwesome.Sharp.IconButton();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.lblUsuario = new System.Windows.Forms.Label();
+            this.tituloSuperior = new System.Windows.Forms.Label();
+            this.iconoSuperior = new FontAwesome.Sharp.IconButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelContent.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -79,6 +78,7 @@ namespace SistemVeterinario
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSidebar
@@ -374,109 +374,6 @@ namespace SistemVeterinario
             this.panelModulo.Size = new System.Drawing.Size(851, 515);
             this.panelModulo.TabIndex = 100;
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.MediumOrchid;
-            this.panel1.Controls.Add(this.lblHora);
-            this.panel1.Controls.Add(this.lblEmail);
-            this.panel1.Controls.Add(this.iconButton2);
-            this.panel1.Controls.Add(this.iconButton1);
-            this.panel1.Controls.Add(this.lblUsuario);
-            this.panel1.Controls.Add(this.tituloSuperior);
-            this.panel1.Controls.Add(this.iconoSuperior);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(851, 92);
-            this.panel1.TabIndex = 2;
-            // 
-            // lblHora
-            // 
-            this.lblHora.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblHora.AutoSize = true;
-            this.lblHora.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHora.Location = new System.Drawing.Point(163, 38);
-            this.lblHora.Name = "lblHora";
-            this.lblHora.Size = new System.Drawing.Size(51, 23);
-            this.lblHora.TabIndex = 8;
-            this.lblHora.Text = "00:00";
-            // 
-            // lblEmail
-            // 
-            this.lblEmail.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lblEmail.AutoSize = true;
-            this.lblEmail.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmail.Location = new System.Drawing.Point(1246, 45);
-            this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(130, 20);
-            this.lblEmail.TabIndex = 7;
-            this.lblEmail.Text = "Correo Electronico:";
-            // 
-            // iconButton2
-            // 
-            this.iconButton2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.iconButton2.BackColor = System.Drawing.Color.MediumOrchid;
-            this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.Bell;
-            this.iconButton2.IconColor = System.Drawing.Color.White;
-            this.iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton2.Location = new System.Drawing.Point(1421, 21);
-            this.iconButton2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.iconButton2.Name = "iconButton2";
-            this.iconButton2.Size = new System.Drawing.Size(55, 48);
-            this.iconButton2.TabIndex = 6;
-            this.iconButton2.UseVisualStyleBackColor = false;
-            // 
-            // iconButton1
-            // 
-            this.iconButton1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.iconButton1.BackColor = System.Drawing.Color.MediumOrchid;
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.UserMd;
-            this.iconButton1.IconColor = System.Drawing.Color.White;
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton1.Location = new System.Drawing.Point(1487, 21);
-            this.iconButton1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(55, 48);
-            this.iconButton1.TabIndex = 5;
-            this.iconButton1.UseVisualStyleBackColor = false;
-            // 
-            // lblUsuario
-            // 
-            this.lblUsuario.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsuario.Location = new System.Drawing.Point(1300, 27);
-            this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(74, 23);
-            this.lblUsuario.TabIndex = 4;
-            this.lblUsuario.Text = "Usuario:";
-            // 
-            // tituloSuperior
-            // 
-            this.tituloSuperior.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.tituloSuperior.AutoSize = true;
-            this.tituloSuperior.Font = new System.Drawing.Font("Arial Narrow", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSuperior.Location = new System.Drawing.Point(71, 36);
-            this.tituloSuperior.Name = "tituloSuperior";
-            this.tituloSuperior.Size = new System.Drawing.Size(62, 26);
-            this.tituloSuperior.TabIndex = 1;
-            this.tituloSuperior.Text = "Home";
-            // 
-            // iconoSuperior
-            // 
-            this.iconoSuperior.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.iconoSuperior.BackColor = System.Drawing.Color.MediumOrchid;
-            this.iconoSuperior.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
-            this.iconoSuperior.IconColor = System.Drawing.Color.White;
-            this.iconoSuperior.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconoSuperior.Location = new System.Drawing.Point(12, 21);
-            this.iconoSuperior.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.iconoSuperior.Name = "iconoSuperior";
-            this.iconoSuperior.Size = new System.Drawing.Size(55, 48);
-            this.iconoSuperior.TabIndex = 0;
-            this.iconoSuperior.UseVisualStyleBackColor = false;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Thistle;
@@ -606,9 +503,113 @@ namespace SistemVeterinario
             this.lblSubtitulo.TabIndex = 2;
             this.lblSubtitulo.Text = "Desarrollado en la UPDS";
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.MediumOrchid;
+            this.panel1.Controls.Add(this.lblHora);
+            this.panel1.Controls.Add(this.lblEmail);
+            this.panel1.Controls.Add(this.iconButton2);
+            this.panel1.Controls.Add(this.iconButton1);
+            this.panel1.Controls.Add(this.lblUsuario);
+            this.panel1.Controls.Add(this.tituloSuperior);
+            this.panel1.Controls.Add(this.iconoSuperior);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(851, 92);
+            this.panel1.TabIndex = 2;
+            // 
+            // lblHora
+            // 
+            this.lblHora.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblHora.AutoSize = true;
+            this.lblHora.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHora.Location = new System.Drawing.Point(205, 39);
+            this.lblHora.Name = "lblHora";
+            this.lblHora.Size = new System.Drawing.Size(191, 23);
+            this.lblHora.TabIndex = 8;
+            this.lblHora.Text = "HH:mm:ss - dd/MM/yyyy";
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.Location = new System.Drawing.Point(1246, 45);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(130, 20);
+            this.lblEmail.TabIndex = 7;
+            this.lblEmail.Text = "Correo Electronico:";
+            // 
+            // iconButton2
+            // 
+            this.iconButton2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.iconButton2.BackColor = System.Drawing.Color.MediumOrchid;
+            this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.Bell;
+            this.iconButton2.IconColor = System.Drawing.Color.White;
+            this.iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton2.Location = new System.Drawing.Point(1421, 21);
+            this.iconButton2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.iconButton2.Name = "iconButton2";
+            this.iconButton2.Size = new System.Drawing.Size(55, 48);
+            this.iconButton2.TabIndex = 6;
+            this.iconButton2.UseVisualStyleBackColor = false;
+            // 
+            // iconButton1
+            // 
+            this.iconButton1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.iconButton1.BackColor = System.Drawing.Color.MediumOrchid;
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.UserMd;
+            this.iconButton1.IconColor = System.Drawing.Color.White;
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton1.Location = new System.Drawing.Point(1487, 21);
+            this.iconButton1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(55, 48);
+            this.iconButton1.TabIndex = 5;
+            this.iconButton1.UseVisualStyleBackColor = false;
+            // 
+            // lblUsuario
+            // 
+            this.lblUsuario.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblUsuario.AutoSize = true;
+            this.lblUsuario.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuario.Location = new System.Drawing.Point(1300, 27);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(74, 23);
+            this.lblUsuario.TabIndex = 4;
+            this.lblUsuario.Text = "Usuario:";
+            // 
+            // tituloSuperior
+            // 
+            this.tituloSuperior.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.tituloSuperior.AutoSize = true;
+            this.tituloSuperior.Font = new System.Drawing.Font("Arial Narrow", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSuperior.Location = new System.Drawing.Point(71, 36);
+            this.tituloSuperior.Name = "tituloSuperior";
+            this.tituloSuperior.Size = new System.Drawing.Size(62, 26);
+            this.tituloSuperior.TabIndex = 1;
+            this.tituloSuperior.Text = "Home";
+            // 
+            // iconoSuperior
+            // 
+            this.iconoSuperior.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.iconoSuperior.BackColor = System.Drawing.Color.MediumOrchid;
+            this.iconoSuperior.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
+            this.iconoSuperior.IconColor = System.Drawing.Color.White;
+            this.iconoSuperior.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconoSuperior.Location = new System.Drawing.Point(12, 21);
+            this.iconoSuperior.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.iconoSuperior.Name = "iconoSuperior";
+            this.iconoSuperior.Size = new System.Drawing.Size(55, 48);
+            this.iconoSuperior.TabIndex = 0;
+            this.iconoSuperior.UseVisualStyleBackColor = false;
+            // 
             // timer1
             // 
             this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Dashboard
             // 
@@ -626,8 +627,6 @@ namespace SistemVeterinario
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelContent.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
@@ -637,6 +636,8 @@ namespace SistemVeterinario
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
