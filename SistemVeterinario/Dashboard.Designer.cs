@@ -30,606 +30,604 @@ namespace SistemVeterinario
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Dashboard));
-            panelSidebar = new Panel();
-            pictureBox2 = new PictureBox();
-            BtnConfiguracion = new FontAwesome.Sharp.IconButton();
-            BtnDashboard = new FontAwesome.Sharp.IconButton();
-            BtnReportes = new FontAwesome.Sharp.IconButton();
-            BtnConsultas = new FontAwesome.Sharp.IconButton();
-            BtnHistorial = new FontAwesome.Sharp.IconButton();
-            BtnMascotas = new FontAwesome.Sharp.IconButton();
-            BtnProductos = new FontAwesome.Sharp.IconButton();
-            BtnVentas = new FontAwesome.Sharp.IconButton();
-            BtnPersonal = new FontAwesome.Sharp.IconButton();
-            BtnClientes = new FontAwesome.Sharp.IconButton();
-            pictureBox1 = new PictureBox();
-            panelContent = new Panel();
-            panel1 = new Panel();
-            lblHora = new Label();
-            lblEmail = new Label();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
-            lblUsuario = new Label();
-            tituloSuperior = new Label();
-            iconoSuperior = new FontAwesome.Sharp.IconButton();
-            panel2 = new Panel();
-            pictureBox12 = new PictureBox();
-            pictureBox3 = new PictureBox();
-            pictureBox11 = new PictureBox();
-            pictureBox8 = new PictureBox();
-            lblTitulo = new Label();
-            pictureBox6 = new PictureBox();
-            pictureBox10 = new PictureBox();
-            pictureBox9 = new PictureBox();
-            lblSubtitulo = new Label();
-            timer1 = new System.Windows.Forms.Timer(components);
-            panelSidebar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panelContent.SuspendLayout();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
-            SuspendLayout();
+            this.panelSidebar = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.BtnConfiguracion = new FontAwesome.Sharp.IconButton();
+            this.BtnDashboard = new FontAwesome.Sharp.IconButton();
+            this.BtnReportes = new FontAwesome.Sharp.IconButton();
+            this.BtnConsultas = new FontAwesome.Sharp.IconButton();
+            this.BtnHistorial = new FontAwesome.Sharp.IconButton();
+            this.BtnMascotas = new FontAwesome.Sharp.IconButton();
+            this.BtnProductos = new FontAwesome.Sharp.IconButton();
+            this.BtnVentas = new FontAwesome.Sharp.IconButton();
+            this.BtnPersonal = new FontAwesome.Sharp.IconButton();
+            this.BtnClientes = new FontAwesome.Sharp.IconButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panelContent = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblHora = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.iconButton2 = new FontAwesome.Sharp.IconButton();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.lblUsuario = new System.Windows.Forms.Label();
+            this.tituloSuperior = new System.Windows.Forms.Label();
+            this.iconoSuperior = new FontAwesome.Sharp.IconButton();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.lblSubtitulo = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panelSidebar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelContent.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            this.SuspendLayout();
             // 
             // panelSidebar
             // 
-            panelSidebar.BackColor = Color.MediumOrchid;
-            panelSidebar.Controls.Add(pictureBox2);
-            panelSidebar.Controls.Add(BtnConfiguracion);
-            panelSidebar.Controls.Add(BtnDashboard);
-            panelSidebar.Controls.Add(BtnReportes);
-            panelSidebar.Controls.Add(BtnConsultas);
-            panelSidebar.Controls.Add(BtnHistorial);
-            panelSidebar.Controls.Add(BtnMascotas);
-            panelSidebar.Controls.Add(BtnProductos);
-            panelSidebar.Controls.Add(BtnVentas);
-            panelSidebar.Controls.Add(BtnPersonal);
-            panelSidebar.Controls.Add(BtnClientes);
-            panelSidebar.Controls.Add(pictureBox1);
-            panelSidebar.Dock = DockStyle.Left;
-            panelSidebar.Location = new Point(0, 0);
-            panelSidebar.Name = "panelSidebar";
-            panelSidebar.Size = new Size(208, 700);
-            panelSidebar.TabIndex = 1;
+            this.panelSidebar.BackColor = System.Drawing.Color.MediumOrchid;
+            this.panelSidebar.Controls.Add(this.pictureBox2);
+            this.panelSidebar.Controls.Add(this.BtnConfiguracion);
+            this.panelSidebar.Controls.Add(this.BtnDashboard);
+            this.panelSidebar.Controls.Add(this.BtnReportes);
+            this.panelSidebar.Controls.Add(this.BtnConsultas);
+            this.panelSidebar.Controls.Add(this.BtnHistorial);
+            this.panelSidebar.Controls.Add(this.BtnMascotas);
+            this.panelSidebar.Controls.Add(this.BtnProductos);
+            this.panelSidebar.Controls.Add(this.BtnVentas);
+            this.panelSidebar.Controls.Add(this.BtnPersonal);
+            this.panelSidebar.Controls.Add(this.BtnClientes);
+            this.panelSidebar.Controls.Add(this.pictureBox1);
+            this.panelSidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelSidebar.Location = new System.Drawing.Point(0, 0);
+            this.panelSidebar.Name = "panelSidebar";
+            this.panelSidebar.Size = new System.Drawing.Size(178, 607);
+            this.panelSidebar.TabIndex = 1;
             // 
             // pictureBox2
             // 
-            pictureBox2.Image = Properties.Resources.UPDS;
-            pictureBox2.Location = new Point(10, 645);
-            pictureBox2.Margin = new Padding(3, 2, 3, 2);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(192, 46);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 12;
-            pictureBox2.TabStop = false;
+            this.pictureBox2.Image = global::SistemVeterinario.Properties.Resources.UPDS;
+            this.pictureBox2.Location = new System.Drawing.Point(9, 559);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(165, 40);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 12;
+            this.pictureBox2.TabStop = false;
             // 
             // BtnConfiguracion
             // 
-            BtnConfiguracion.Dock = DockStyle.Top;
-            BtnConfiguracion.FlatAppearance.BorderSize = 0;
-            BtnConfiguracion.FlatStyle = FlatStyle.Flat;
-            BtnConfiguracion.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnConfiguracion.ForeColor = SystemColors.ControlLightLight;
-            BtnConfiguracion.IconChar = FontAwesome.Sharp.IconChar.Toolbox;
-            BtnConfiguracion.IconColor = Color.White;
-            BtnConfiguracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnConfiguracion.IconSize = 50;
-            BtnConfiguracion.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnConfiguracion.Location = new Point(0, 537);
-            BtnConfiguracion.Margin = new Padding(3, 2, 3, 2);
-            BtnConfiguracion.Name = "BtnConfiguracion";
-            BtnConfiguracion.Size = new Size(208, 47);
-            BtnConfiguracion.TabIndex = 11;
-            BtnConfiguracion.Text = "Configuracion";
-            BtnConfiguracion.TextAlign = ContentAlignment.MiddleLeft;
-            BtnConfiguracion.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnConfiguracion.UseVisualStyleBackColor = false;
-            BtnConfiguracion.Click += BtnConfiguracion_Click;
+            this.BtnConfiguracion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnConfiguracion.FlatAppearance.BorderSize = 0;
+            this.BtnConfiguracion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnConfiguracion.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnConfiguracion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnConfiguracion.IconChar = FontAwesome.Sharp.IconChar.Toolbox;
+            this.BtnConfiguracion.IconColor = System.Drawing.Color.White;
+            this.BtnConfiguracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnConfiguracion.IconSize = 50;
+            this.BtnConfiguracion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnConfiguracion.Location = new System.Drawing.Point(0, 468);
+            this.BtnConfiguracion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnConfiguracion.Name = "BtnConfiguracion";
+            this.BtnConfiguracion.Size = new System.Drawing.Size(178, 41);
+            this.BtnConfiguracion.TabIndex = 11;
+            this.BtnConfiguracion.Text = "Configuracion";
+            this.BtnConfiguracion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnConfiguracion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnConfiguracion.UseVisualStyleBackColor = false;
             // 
             // BtnDashboard
             // 
-            BtnDashboard.Dock = DockStyle.Top;
-            BtnDashboard.FlatAppearance.BorderSize = 0;
-            BtnDashboard.FlatStyle = FlatStyle.Flat;
-            BtnDashboard.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnDashboard.ForeColor = SystemColors.ControlLightLight;
-            BtnDashboard.IconChar = FontAwesome.Sharp.IconChar.TachometerFast;
-            BtnDashboard.IconColor = Color.White;
-            BtnDashboard.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnDashboard.IconSize = 50;
-            BtnDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnDashboard.Location = new Point(0, 490);
-            BtnDashboard.Margin = new Padding(3, 2, 3, 2);
-            BtnDashboard.Name = "BtnDashboard";
-            BtnDashboard.Size = new Size(208, 47);
-            BtnDashboard.TabIndex = 10;
-            BtnDashboard.Text = "Dashboard";
-            BtnDashboard.TextAlign = ContentAlignment.MiddleLeft;
-            BtnDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnDashboard.UseVisualStyleBackColor = false;
-            BtnDashboard.Click += BtnDashboard_Click;
+            this.BtnDashboard.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnDashboard.FlatAppearance.BorderSize = 0;
+            this.BtnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnDashboard.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDashboard.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnDashboard.IconChar = FontAwesome.Sharp.IconChar.TachometerFast;
+            this.BtnDashboard.IconColor = System.Drawing.Color.White;
+            this.BtnDashboard.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnDashboard.IconSize = 50;
+            this.BtnDashboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnDashboard.Location = new System.Drawing.Point(0, 427);
+            this.BtnDashboard.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnDashboard.Name = "BtnDashboard";
+            this.BtnDashboard.Size = new System.Drawing.Size(178, 41);
+            this.BtnDashboard.TabIndex = 10;
+            this.BtnDashboard.Text = "Dashboard";
+            this.BtnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnDashboard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnDashboard.UseVisualStyleBackColor = false;
             // 
             // BtnReportes
             // 
-            BtnReportes.Dock = DockStyle.Top;
-            BtnReportes.FlatAppearance.BorderSize = 0;
-            BtnReportes.FlatStyle = FlatStyle.Flat;
-            BtnReportes.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnReportes.ForeColor = SystemColors.ControlLightLight;
-            BtnReportes.IconChar = FontAwesome.Sharp.IconChar.ChartColumn;
-            BtnReportes.IconColor = Color.White;
-            BtnReportes.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnReportes.IconSize = 50;
-            BtnReportes.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnReportes.Location = new Point(0, 443);
-            BtnReportes.Margin = new Padding(3, 2, 3, 2);
-            BtnReportes.Name = "BtnReportes";
-            BtnReportes.Size = new Size(208, 47);
-            BtnReportes.TabIndex = 9;
-            BtnReportes.Text = "Reportes";
-            BtnReportes.TextAlign = ContentAlignment.MiddleLeft;
-            BtnReportes.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnReportes.UseVisualStyleBackColor = false;
-            BtnReportes.Click += BtnReportes_Click;
+            this.BtnReportes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnReportes.FlatAppearance.BorderSize = 0;
+            this.BtnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnReportes.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnReportes.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnReportes.IconChar = FontAwesome.Sharp.IconChar.ChartColumn;
+            this.BtnReportes.IconColor = System.Drawing.Color.White;
+            this.BtnReportes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnReportes.IconSize = 50;
+            this.BtnReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnReportes.Location = new System.Drawing.Point(0, 386);
+            this.BtnReportes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnReportes.Name = "BtnReportes";
+            this.BtnReportes.Size = new System.Drawing.Size(178, 41);
+            this.BtnReportes.TabIndex = 9;
+            this.BtnReportes.Text = "Reportes";
+            this.BtnReportes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnReportes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnReportes.UseVisualStyleBackColor = false;
+            this.BtnReportes.Click += new System.EventHandler(this.BtnReportes_Click);
             // 
             // BtnConsultas
             // 
-            BtnConsultas.Dock = DockStyle.Top;
-            BtnConsultas.FlatAppearance.BorderSize = 0;
-            BtnConsultas.FlatStyle = FlatStyle.Flat;
-            BtnConsultas.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnConsultas.ForeColor = SystemColors.ControlLightLight;
-            BtnConsultas.IconChar = FontAwesome.Sharp.IconChar.UserNurse;
-            BtnConsultas.IconColor = Color.White;
-            BtnConsultas.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnConsultas.IconSize = 50;
-            BtnConsultas.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnConsultas.Location = new Point(0, 396);
-            BtnConsultas.Margin = new Padding(3, 2, 3, 2);
-            BtnConsultas.Name = "BtnConsultas";
-            BtnConsultas.Size = new Size(208, 47);
-            BtnConsultas.TabIndex = 8;
-            BtnConsultas.Text = "Consultas";
-            BtnConsultas.TextAlign = ContentAlignment.MiddleLeft;
-            BtnConsultas.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnConsultas.UseVisualStyleBackColor = false;
-            BtnConsultas.Click += BtnConsultas_Click;
+            this.BtnConsultas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnConsultas.FlatAppearance.BorderSize = 0;
+            this.BtnConsultas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnConsultas.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnConsultas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnConsultas.IconChar = FontAwesome.Sharp.IconChar.UserNurse;
+            this.BtnConsultas.IconColor = System.Drawing.Color.White;
+            this.BtnConsultas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnConsultas.IconSize = 50;
+            this.BtnConsultas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnConsultas.Location = new System.Drawing.Point(0, 345);
+            this.BtnConsultas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnConsultas.Name = "BtnConsultas";
+            this.BtnConsultas.Size = new System.Drawing.Size(178, 41);
+            this.BtnConsultas.TabIndex = 8;
+            this.BtnConsultas.Text = "Consultas";
+            this.BtnConsultas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnConsultas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnConsultas.UseVisualStyleBackColor = false;
+            this.BtnConsultas.Click += new System.EventHandler(this.BtnConsultas_Click);
             // 
             // BtnHistorial
             // 
-            BtnHistorial.Dock = DockStyle.Top;
-            BtnHistorial.FlatAppearance.BorderSize = 0;
-            BtnHistorial.FlatStyle = FlatStyle.Flat;
-            BtnHistorial.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnHistorial.ForeColor = SystemColors.ControlLightLight;
-            BtnHistorial.IconChar = FontAwesome.Sharp.IconChar.NotesMedical;
-            BtnHistorial.IconColor = Color.White;
-            BtnHistorial.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnHistorial.IconSize = 50;
-            BtnHistorial.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnHistorial.Location = new Point(0, 349);
-            BtnHistorial.Margin = new Padding(3, 2, 3, 2);
-            BtnHistorial.Name = "BtnHistorial";
-            BtnHistorial.Size = new Size(208, 47);
-            BtnHistorial.TabIndex = 7;
-            BtnHistorial.Text = "Historial Medico";
-            BtnHistorial.TextAlign = ContentAlignment.MiddleLeft;
-            BtnHistorial.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnHistorial.UseVisualStyleBackColor = false;
-            BtnHistorial.Click += BtnHistorial_Click;
+            this.BtnHistorial.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnHistorial.FlatAppearance.BorderSize = 0;
+            this.BtnHistorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnHistorial.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnHistorial.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnHistorial.IconChar = FontAwesome.Sharp.IconChar.NotesMedical;
+            this.BtnHistorial.IconColor = System.Drawing.Color.White;
+            this.BtnHistorial.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnHistorial.IconSize = 50;
+            this.BtnHistorial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnHistorial.Location = new System.Drawing.Point(0, 304);
+            this.BtnHistorial.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnHistorial.Name = "BtnHistorial";
+            this.BtnHistorial.Size = new System.Drawing.Size(178, 41);
+            this.BtnHistorial.TabIndex = 7;
+            this.BtnHistorial.Text = "Historial Medico";
+            this.BtnHistorial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnHistorial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnHistorial.UseVisualStyleBackColor = false;
             // 
             // BtnMascotas
             // 
-            BtnMascotas.Dock = DockStyle.Top;
-            BtnMascotas.FlatAppearance.BorderSize = 0;
-            BtnMascotas.FlatStyle = FlatStyle.Flat;
-            BtnMascotas.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnMascotas.ForeColor = SystemColors.ControlLightLight;
-            BtnMascotas.IconChar = FontAwesome.Sharp.IconChar.Paw;
-            BtnMascotas.IconColor = Color.White;
-            BtnMascotas.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnMascotas.IconSize = 50;
-            BtnMascotas.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnMascotas.Location = new Point(0, 302);
-            BtnMascotas.Margin = new Padding(3, 2, 3, 2);
-            BtnMascotas.Name = "BtnMascotas";
-            BtnMascotas.Size = new Size(208, 47);
-            BtnMascotas.TabIndex = 6;
-            BtnMascotas.Text = "Mascotas";
-            BtnMascotas.TextAlign = ContentAlignment.MiddleLeft;
-            BtnMascotas.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnMascotas.UseVisualStyleBackColor = false;
-            BtnMascotas.Click += BtnMascotas_Click;
+            this.BtnMascotas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnMascotas.FlatAppearance.BorderSize = 0;
+            this.BtnMascotas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnMascotas.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnMascotas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnMascotas.IconChar = FontAwesome.Sharp.IconChar.Paw;
+            this.BtnMascotas.IconColor = System.Drawing.Color.White;
+            this.BtnMascotas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnMascotas.IconSize = 50;
+            this.BtnMascotas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnMascotas.Location = new System.Drawing.Point(0, 263);
+            this.BtnMascotas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnMascotas.Name = "BtnMascotas";
+            this.BtnMascotas.Size = new System.Drawing.Size(178, 41);
+            this.BtnMascotas.TabIndex = 6;
+            this.BtnMascotas.Text = "Mascotas";
+            this.BtnMascotas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnMascotas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnMascotas.UseVisualStyleBackColor = false;
+            this.BtnMascotas.Click += new System.EventHandler(this.BtnMascotas_Click);
             // 
             // BtnProductos
             // 
-            BtnProductos.Dock = DockStyle.Top;
-            BtnProductos.FlatAppearance.BorderSize = 0;
-            BtnProductos.FlatStyle = FlatStyle.Flat;
-            BtnProductos.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnProductos.ForeColor = SystemColors.ControlLightLight;
-            BtnProductos.IconChar = FontAwesome.Sharp.IconChar.BoxOpen;
-            BtnProductos.IconColor = Color.White;
-            BtnProductos.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnProductos.IconSize = 50;
-            BtnProductos.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnProductos.Location = new Point(0, 255);
-            BtnProductos.Margin = new Padding(3, 2, 3, 2);
-            BtnProductos.Name = "BtnProductos";
-            BtnProductos.Size = new Size(208, 47);
-            BtnProductos.TabIndex = 5;
-            BtnProductos.Text = "Productos";
-            BtnProductos.TextAlign = ContentAlignment.MiddleLeft;
-            BtnProductos.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnProductos.UseVisualStyleBackColor = false;
-            BtnProductos.Click += BtnProductos_Click;
+            this.BtnProductos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnProductos.FlatAppearance.BorderSize = 0;
+            this.BtnProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnProductos.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnProductos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnProductos.IconChar = FontAwesome.Sharp.IconChar.BoxOpen;
+            this.BtnProductos.IconColor = System.Drawing.Color.White;
+            this.BtnProductos.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnProductos.IconSize = 50;
+            this.BtnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnProductos.Location = new System.Drawing.Point(0, 222);
+            this.BtnProductos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnProductos.Name = "BtnProductos";
+            this.BtnProductos.Size = new System.Drawing.Size(178, 41);
+            this.BtnProductos.TabIndex = 5;
+            this.BtnProductos.Text = "Productos";
+            this.BtnProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnProductos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnProductos.UseVisualStyleBackColor = false;
+            this.BtnProductos.Click += new System.EventHandler(this.BtnProductos_Click);
             // 
             // BtnVentas
             // 
-            BtnVentas.Dock = DockStyle.Top;
-            BtnVentas.FlatAppearance.BorderSize = 0;
-            BtnVentas.FlatStyle = FlatStyle.Flat;
-            BtnVentas.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnVentas.ForeColor = SystemColors.ControlLightLight;
-            BtnVentas.IconChar = FontAwesome.Sharp.IconChar.Shopify;
-            BtnVentas.IconColor = Color.White;
-            BtnVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnVentas.IconSize = 50;
-            BtnVentas.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnVentas.Location = new Point(0, 208);
-            BtnVentas.Margin = new Padding(3, 2, 3, 2);
-            BtnVentas.Name = "BtnVentas";
-            BtnVentas.Size = new Size(208, 47);
-            BtnVentas.TabIndex = 4;
-            BtnVentas.Text = "Ventas";
-            BtnVentas.TextAlign = ContentAlignment.MiddleLeft;
-            BtnVentas.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnVentas.UseVisualStyleBackColor = false;
-            BtnVentas.Click += BtnVentas_Click;
+            this.BtnVentas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnVentas.FlatAppearance.BorderSize = 0;
+            this.BtnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnVentas.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnVentas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnVentas.IconChar = FontAwesome.Sharp.IconChar.Shopify;
+            this.BtnVentas.IconColor = System.Drawing.Color.White;
+            this.BtnVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnVentas.IconSize = 50;
+            this.BtnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnVentas.Location = new System.Drawing.Point(0, 181);
+            this.BtnVentas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnVentas.Name = "BtnVentas";
+            this.BtnVentas.Size = new System.Drawing.Size(178, 41);
+            this.BtnVentas.TabIndex = 4;
+            this.BtnVentas.Text = "Ventas";
+            this.BtnVentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnVentas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnVentas.UseVisualStyleBackColor = false;
+            this.BtnVentas.Click += new System.EventHandler(this.BtnVentas_Click);
             // 
             // BtnPersonal
             // 
-            BtnPersonal.Dock = DockStyle.Top;
-            BtnPersonal.FlatAppearance.BorderSize = 0;
-            BtnPersonal.FlatStyle = FlatStyle.Flat;
-            BtnPersonal.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnPersonal.ForeColor = SystemColors.ControlLightLight;
-            BtnPersonal.IconChar = FontAwesome.Sharp.IconChar.UserGear;
-            BtnPersonal.IconColor = Color.White;
-            BtnPersonal.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnPersonal.IconSize = 50;
-            BtnPersonal.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnPersonal.Location = new Point(0, 161);
-            BtnPersonal.Margin = new Padding(3, 2, 3, 2);
-            BtnPersonal.Name = "BtnPersonal";
-            BtnPersonal.Size = new Size(208, 47);
-            BtnPersonal.TabIndex = 2;
-            BtnPersonal.Text = "Personal";
-            BtnPersonal.TextAlign = ContentAlignment.MiddleLeft;
-            BtnPersonal.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnPersonal.UseVisualStyleBackColor = false;
-            BtnPersonal.Click += BtnPersonal_Click;
+            this.BtnPersonal.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnPersonal.FlatAppearance.BorderSize = 0;
+            this.BtnPersonal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnPersonal.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnPersonal.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnPersonal.IconChar = FontAwesome.Sharp.IconChar.UserGear;
+            this.BtnPersonal.IconColor = System.Drawing.Color.White;
+            this.BtnPersonal.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnPersonal.IconSize = 50;
+            this.BtnPersonal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPersonal.Location = new System.Drawing.Point(0, 140);
+            this.BtnPersonal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnPersonal.Name = "BtnPersonal";
+            this.BtnPersonal.Size = new System.Drawing.Size(178, 41);
+            this.BtnPersonal.TabIndex = 2;
+            this.BtnPersonal.Text = "Personal";
+            this.BtnPersonal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPersonal.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnPersonal.UseVisualStyleBackColor = false;
+            this.BtnPersonal.Click += new System.EventHandler(this.BtnPersonal_Click);
             // 
             // BtnClientes
             // 
-            BtnClientes.Dock = DockStyle.Top;
-            BtnClientes.FlatAppearance.BorderSize = 0;
-            BtnClientes.FlatStyle = FlatStyle.Flat;
-            BtnClientes.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnClientes.ForeColor = SystemColors.ControlLightLight;
-            BtnClientes.IconChar = FontAwesome.Sharp.IconChar.Users;
-            BtnClientes.IconColor = Color.White;
-            BtnClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnClientes.IconSize = 50;
-            BtnClientes.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnClientes.Location = new Point(0, 106);
-            BtnClientes.Margin = new Padding(3, 2, 3, 2);
-            BtnClientes.Name = "BtnClientes";
-            BtnClientes.Size = new Size(208, 55);
-            BtnClientes.TabIndex = 1;
-            BtnClientes.Text = "Clientes";
-            BtnClientes.TextAlign = ContentAlignment.MiddleLeft;
-            BtnClientes.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnClientes.UseVisualStyleBackColor = false;
-            BtnClientes.Click += BtnClientes_Click;
+            this.BtnClientes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnClientes.FlatAppearance.BorderSize = 0;
+            this.BtnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnClientes.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnClientes.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BtnClientes.IconChar = FontAwesome.Sharp.IconChar.Users;
+            this.BtnClientes.IconColor = System.Drawing.Color.White;
+            this.BtnClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnClientes.IconSize = 50;
+            this.BtnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnClientes.Location = new System.Drawing.Point(0, 92);
+            this.BtnClientes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BtnClientes.Name = "BtnClientes";
+            this.BtnClientes.Size = new System.Drawing.Size(178, 48);
+            this.BtnClientes.TabIndex = 1;
+            this.BtnClientes.Text = "Clientes";
+            this.BtnClientes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnClientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnClientes.UseVisualStyleBackColor = false;
+            this.BtnClientes.Click += new System.EventHandler(this.BtnClientes_Click);
             // 
             // pictureBox1
             // 
-            pictureBox1.Dock = DockStyle.Top;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Margin = new Padding(3, 2, 3, 2);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(208, 106);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(178, 92);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // panelContent
             // 
-            panelContent.BackColor = Color.FromArgb(236, 240, 241);
-            panelContent.Controls.Add(panel1);
-            panelContent.Controls.Add(panel2);
-            panelContent.Dock = DockStyle.Fill;
-            panelContent.ForeColor = Color.Cornsilk;
-            panelContent.Location = new Point(208, 0);
-            panelContent.Name = "panelContent";
-            panelContent.Size = new Size(992, 700);
-            panelContent.TabIndex = 2;
+            this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.panelContent.Controls.Add(this.panel1);
+            this.panelContent.Controls.Add(this.panel2);
+            this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContent.ForeColor = System.Drawing.Color.Cornsilk;
+            this.panelContent.Location = new System.Drawing.Point(178, 0);
+            this.panelContent.Name = "panelContent";
+            this.panelContent.Size = new System.Drawing.Size(851, 607);
+            this.panelContent.TabIndex = 2;
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.BackColor = Color.MediumOrchid;
-            panel1.Controls.Add(lblHora);
-            panel1.Controls.Add(lblEmail);
-            panel1.Controls.Add(iconButton2);
-            panel1.Controls.Add(iconButton1);
-            panel1.Controls.Add(lblUsuario);
-            panel1.Controls.Add(tituloSuperior);
-            panel1.Controls.Add(iconoSuperior);
-            panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(3, 2, 3, 2);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(992, 106);
-            panel1.TabIndex = 2;
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.MediumOrchid;
+            this.panel1.Controls.Add(this.lblHora);
+            this.panel1.Controls.Add(this.lblEmail);
+            this.panel1.Controls.Add(this.iconButton2);
+            this.panel1.Controls.Add(this.iconButton1);
+            this.panel1.Controls.Add(this.lblUsuario);
+            this.panel1.Controls.Add(this.tituloSuperior);
+            this.panel1.Controls.Add(this.iconoSuperior);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(851, 92);
+            this.panel1.TabIndex = 2;
             // 
             // lblHora
             // 
-            lblHora.Anchor = AnchorStyles.Left;
-            lblHora.AutoSize = true;
-            lblHora.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblHora.Location = new Point(190, 44);
-            lblHora.Name = "lblHora";
-            lblHora.Size = new Size(51, 23);
-            lblHora.TabIndex = 8;
-            lblHora.Text = "00:00";
+            this.lblHora.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblHora.AutoSize = true;
+            this.lblHora.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHora.Location = new System.Drawing.Point(163, 38);
+            this.lblHora.Name = "lblHora";
+            this.lblHora.Size = new System.Drawing.Size(51, 23);
+            this.lblHora.TabIndex = 8;
+            this.lblHora.Text = "00:00";
             // 
             // lblEmail
             // 
-            lblEmail.Anchor = AnchorStyles.Right;
-            lblEmail.AutoSize = true;
-            lblEmail.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblEmail.Location = new Point(1452, 52);
-            lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(130, 20);
-            lblEmail.TabIndex = 7;
-            lblEmail.Text = "Correo Electronico:";
+            this.lblEmail.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.Location = new System.Drawing.Point(1246, 45);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(130, 20);
+            this.lblEmail.TabIndex = 7;
+            this.lblEmail.Text = "Correo Electronico:";
             // 
             // iconButton2
             // 
-            iconButton2.Anchor = AnchorStyles.Right;
-            iconButton2.BackColor = Color.MediumOrchid;
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Bell;
-            iconButton2.IconColor = Color.White;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.Location = new Point(1657, 24);
-            iconButton2.Margin = new Padding(3, 2, 3, 2);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(64, 55);
-            iconButton2.TabIndex = 6;
-            iconButton2.UseVisualStyleBackColor = false;
+            this.iconButton2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.iconButton2.BackColor = System.Drawing.Color.MediumOrchid;
+            this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.Bell;
+            this.iconButton2.IconColor = System.Drawing.Color.White;
+            this.iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton2.Location = new System.Drawing.Point(1421, 21);
+            this.iconButton2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.iconButton2.Name = "iconButton2";
+            this.iconButton2.Size = new System.Drawing.Size(55, 48);
+            this.iconButton2.TabIndex = 6;
+            this.iconButton2.UseVisualStyleBackColor = false;
             // 
             // iconButton1
             // 
-            iconButton1.Anchor = AnchorStyles.Right;
-            iconButton1.BackColor = Color.MediumOrchid;
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.UserDoctor;
-            iconButton1.IconColor = Color.White;
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.Location = new Point(1734, 24);
-            iconButton1.Margin = new Padding(3, 2, 3, 2);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(64, 55);
-            iconButton1.TabIndex = 5;
-            iconButton1.UseVisualStyleBackColor = false;
+            this.iconButton1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.iconButton1.BackColor = System.Drawing.Color.MediumOrchid;
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.UserMd;
+            this.iconButton1.IconColor = System.Drawing.Color.White;
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton1.Location = new System.Drawing.Point(1487, 21);
+            this.iconButton1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(55, 48);
+            this.iconButton1.TabIndex = 5;
+            this.iconButton1.UseVisualStyleBackColor = false;
             // 
             // lblUsuario
             // 
-            lblUsuario.Anchor = AnchorStyles.Right;
-            lblUsuario.AutoSize = true;
-            lblUsuario.Font = new Font("Arial Narrow", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblUsuario.Location = new Point(1515, 31);
-            lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(74, 23);
-            lblUsuario.TabIndex = 4;
-            lblUsuario.Text = "Usuario:";
+            this.lblUsuario.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblUsuario.AutoSize = true;
+            this.lblUsuario.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuario.Location = new System.Drawing.Point(1300, 27);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(74, 23);
+            this.lblUsuario.TabIndex = 4;
+            this.lblUsuario.Text = "Usuario:";
             // 
             // tituloSuperior
             // 
-            tituloSuperior.Anchor = AnchorStyles.Left;
-            tituloSuperior.AutoSize = true;
-            tituloSuperior.Font = new Font("Arial Narrow", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            tituloSuperior.Location = new Point(83, 41);
-            tituloSuperior.Name = "tituloSuperior";
-            tituloSuperior.Size = new Size(62, 26);
-            tituloSuperior.TabIndex = 1;
-            tituloSuperior.Text = "Home";
+            this.tituloSuperior.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.tituloSuperior.AutoSize = true;
+            this.tituloSuperior.Font = new System.Drawing.Font("Arial Narrow", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSuperior.Location = new System.Drawing.Point(71, 36);
+            this.tituloSuperior.Name = "tituloSuperior";
+            this.tituloSuperior.Size = new System.Drawing.Size(62, 26);
+            this.tituloSuperior.TabIndex = 1;
+            this.tituloSuperior.Text = "Home";
             // 
             // iconoSuperior
             // 
-            iconoSuperior.Anchor = AnchorStyles.Left;
-            iconoSuperior.BackColor = Color.MediumOrchid;
-            iconoSuperior.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
-            iconoSuperior.IconColor = Color.White;
-            iconoSuperior.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconoSuperior.Location = new Point(14, 24);
-            iconoSuperior.Margin = new Padding(3, 2, 3, 2);
-            iconoSuperior.Name = "iconoSuperior";
-            iconoSuperior.Size = new Size(64, 55);
-            iconoSuperior.TabIndex = 0;
-            iconoSuperior.UseVisualStyleBackColor = false;
+            this.iconoSuperior.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.iconoSuperior.BackColor = System.Drawing.Color.MediumOrchid;
+            this.iconoSuperior.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
+            this.iconoSuperior.IconColor = System.Drawing.Color.White;
+            this.iconoSuperior.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconoSuperior.Location = new System.Drawing.Point(12, 21);
+            this.iconoSuperior.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.iconoSuperior.Name = "iconoSuperior";
+            this.iconoSuperior.Size = new System.Drawing.Size(55, 48);
+            this.iconoSuperior.TabIndex = 0;
+            this.iconoSuperior.UseVisualStyleBackColor = false;
             // 
             // panel2
             // 
-            panel2.BackColor = Color.Thistle;
-            panel2.Controls.Add(pictureBox12);
-            panel2.Controls.Add(pictureBox3);
-            panel2.Controls.Add(pictureBox11);
-            panel2.Controls.Add(pictureBox8);
-            panel2.Controls.Add(lblTitulo);
-            panel2.Controls.Add(pictureBox6);
-            panel2.Controls.Add(pictureBox10);
-            panel2.Controls.Add(pictureBox9);
-            panel2.Controls.Add(lblSubtitulo);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(3, 2, 3, 2);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(992, 700);
-            panel2.TabIndex = 13;
+            this.panel2.BackColor = System.Drawing.Color.Thistle;
+            this.panel2.Controls.Add(this.pictureBox12);
+            this.panel2.Controls.Add(this.pictureBox3);
+            this.panel2.Controls.Add(this.pictureBox11);
+            this.panel2.Controls.Add(this.pictureBox8);
+            this.panel2.Controls.Add(this.lblTitulo);
+            this.panel2.Controls.Add(this.pictureBox6);
+            this.panel2.Controls.Add(this.pictureBox10);
+            this.panel2.Controls.Add(this.pictureBox9);
+            this.panel2.Controls.Add(this.lblSubtitulo);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(851, 607);
+            this.panel2.TabIndex = 13;
             // 
             // pictureBox12
             // 
-            pictureBox12.Anchor = AnchorStyles.None;
-            pictureBox12.Image = (Image)resources.GetObject("pictureBox12.Image");
-            pictureBox12.Location = new Point(1227, 767);
-            pictureBox12.Margin = new Padding(3, 2, 3, 2);
-            pictureBox12.Name = "pictureBox12";
-            pictureBox12.Size = new Size(144, 120);
-            pictureBox12.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox12.TabIndex = 11;
-            pictureBox12.TabStop = false;
+            this.pictureBox12.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
+            this.pictureBox12.Location = new System.Drawing.Point(1052, 665);
+            this.pictureBox12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(123, 104);
+            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox12.TabIndex = 11;
+            this.pictureBox12.TabStop = false;
             // 
             // pictureBox3
             // 
-            pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(190, 277);
-            pictureBox3.Margin = new Padding(3, 2, 3, 2);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(640, 128);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 0;
-            pictureBox3.TabStop = false;
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(163, 240);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(550, 111);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 0;
+            this.pictureBox3.TabStop = false;
             // 
             // pictureBox11
             // 
-            pictureBox11.Anchor = AnchorStyles.None;
-            pictureBox11.Image = (Image)resources.GetObject("pictureBox11.Image");
-            pictureBox11.Location = new Point(1067, 767);
-            pictureBox11.Margin = new Padding(3, 2, 3, 2);
-            pictureBox11.Name = "pictureBox11";
-            pictureBox11.Size = new Size(144, 120);
-            pictureBox11.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox11.TabIndex = 10;
-            pictureBox11.TabStop = false;
+            this.pictureBox11.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
+            this.pictureBox11.Location = new System.Drawing.Point(915, 665);
+            this.pictureBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(123, 104);
+            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox11.TabIndex = 10;
+            this.pictureBox11.TabStop = false;
             // 
             // pictureBox8
             // 
-            pictureBox8.Anchor = AnchorStyles.None;
-            pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(593, 767);
-            pictureBox8.Margin = new Padding(3, 2, 3, 2);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(144, 120);
-            pictureBox8.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox8.TabIndex = 7;
-            pictureBox8.TabStop = false;
+            this.pictureBox8.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+            this.pictureBox8.Location = new System.Drawing.Point(508, 665);
+            this.pictureBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(123, 104);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox8.TabIndex = 7;
+            this.pictureBox8.TabStop = false;
             // 
             // lblTitulo
             // 
-            lblTitulo.Anchor = AnchorStyles.None;
-            lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Britannic Bold", 22.2F);
-            lblTitulo.ForeColor = Color.DarkSlateBlue;
-            lblTitulo.Location = new Point(705, 674);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(370, 33);
-            lblTitulo.TabIndex = 1;
-            lblTitulo.Text = "VETERINARIA -ZOOFIPETSS-";
-            lblTitulo.Click += lblTitulo_Click;
+            this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Britannic Bold", 22.2F);
+            this.lblTitulo.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.lblTitulo.Location = new System.Drawing.Point(604, 584);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(370, 33);
+            this.lblTitulo.TabIndex = 1;
+            this.lblTitulo.Text = "VETERINARIA -ZOOFIPETSS-";
             // 
             // pictureBox6
             // 
-            pictureBox6.Anchor = AnchorStyles.None;
-            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(430, 767);
-            pictureBox6.Margin = new Padding(3, 2, 3, 2);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(144, 120);
-            pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox6.TabIndex = 6;
-            pictureBox6.TabStop = false;
+            this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+            this.pictureBox6.Location = new System.Drawing.Point(369, 665);
+            this.pictureBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(123, 104);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 6;
+            this.pictureBox6.TabStop = false;
             // 
             // pictureBox10
             // 
-            pictureBox10.Anchor = AnchorStyles.None;
-            pictureBox10.Image = (Image)resources.GetObject("pictureBox10.Image");
-            pictureBox10.Location = new Point(909, 767);
-            pictureBox10.Margin = new Padding(3, 2, 3, 2);
-            pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(144, 120);
-            pictureBox10.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox10.TabIndex = 9;
-            pictureBox10.TabStop = false;
+            this.pictureBox10.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+            this.pictureBox10.Location = new System.Drawing.Point(779, 665);
+            this.pictureBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(123, 104);
+            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox10.TabIndex = 9;
+            this.pictureBox10.TabStop = false;
             // 
             // pictureBox9
             // 
-            pictureBox9.Anchor = AnchorStyles.None;
-            pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(753, 767);
-            pictureBox9.Margin = new Padding(3, 2, 3, 2);
-            pictureBox9.Name = "pictureBox9";
-            pictureBox9.Size = new Size(144, 120);
-            pictureBox9.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox9.TabIndex = 8;
-            pictureBox9.TabStop = false;
+            this.pictureBox9.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
+            this.pictureBox9.Location = new System.Drawing.Point(645, 665);
+            this.pictureBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(123, 104);
+            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox9.TabIndex = 8;
+            this.pictureBox9.TabStop = false;
             // 
             // lblSubtitulo
             // 
-            lblSubtitulo.Anchor = AnchorStyles.None;
-            lblSubtitulo.AutoSize = true;
-            lblSubtitulo.Font = new Font("Century", 13.8F, FontStyle.Bold);
-            lblSubtitulo.ForeColor = Color.DimGray;
-            lblSubtitulo.Location = new Point(764, 721);
-            lblSubtitulo.Name = "lblSubtitulo";
-            lblSubtitulo.Size = new Size(257, 23);
-            lblSubtitulo.TabIndex = 2;
-            lblSubtitulo.Text = "Desarrollado en la UPDS";
+            this.lblSubtitulo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSubtitulo.AutoSize = true;
+            this.lblSubtitulo.Font = new System.Drawing.Font("Century", 13.8F, System.Drawing.FontStyle.Bold);
+            this.lblSubtitulo.ForeColor = System.Drawing.Color.DimGray;
+            this.lblSubtitulo.Location = new System.Drawing.Point(655, 625);
+            this.lblSubtitulo.Name = "lblSubtitulo";
+            this.lblSubtitulo.Size = new System.Drawing.Size(257, 23);
+            this.lblSubtitulo.TabIndex = 2;
+            this.lblSubtitulo.Text = "Desarrollado en la UPDS";
             // 
             // timer1
             // 
-            timer1.Interval = 1000;
-            timer1.Tick += timer1_Tick;
+            this.timer1.Interval = 1000;
             // 
             // Dashboard
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1200, 700);
-            Controls.Add(panelContent);
-            Controls.Add(panelSidebar);
-            Name = "Dashboard";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Veterinaria - Dashboard";
-            WindowState = FormWindowState.Maximized;
-            Load += Dashboard_Load;
-            panelSidebar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panelContent.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox12).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1029, 607);
+            this.Controls.Add(this.panelContent);
+            this.Controls.Add(this.panelSidebar);
+            this.Name = "Dashboard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Veterinaria - Dashboard";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.panelSidebar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelContent.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion

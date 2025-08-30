@@ -31,12 +31,7 @@ namespace SistemVeterinario
             lblEmail.Text = "Falta obtener su email";
 
             // Configurar eventos de botones
-            BtnClientes.Click += BtnClientes_Click;
-            BtnMascotas.Click += BtnMascotas_Click;
-            BtnVentas.Click += BtnVentas_Click;
-            BtnProductos.Click += BtnProductos_Click;
-            BtnReportes.Click += BtnReportes_Click;
-            BtnPersonal.Click += BtnPersonal_Click;
+
         }
 
         /// <summary>
@@ -227,8 +222,23 @@ namespace SistemVeterinario
 
         private void BtnConsultas_Click(object sender, EventArgs e)
         {
-            // Cambiar icono antes de abrir el formulario
-            CambiarIconoSuperior(IconChar.UserMd, "Consulta");
+            CambiarIconoSuperior(IconChar.UserMd, "Consultas");
+            try
+            {
+                OcultarElementosDisenador();
+                var userControls = panelContent.Controls.OfType<UserControl>().ToList();
+                foreach (var control in userControls)
+                {
+                    panelContent.Controls.Remove(control);
+                    control.Dispose();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el módulo de consultas: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -366,5 +376,6 @@ namespace SistemVeterinario
         {
 
         }
+
     }
 }
