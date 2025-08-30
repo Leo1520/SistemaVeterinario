@@ -46,6 +46,7 @@ namespace SistemVeterinario
             this.BtnClientes = new FontAwesome.Sharp.IconButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelContent = new System.Windows.Forms.Panel();
+            this.panelModulo = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblHora = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
@@ -155,6 +156,7 @@ namespace SistemVeterinario
             this.BtnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnDashboard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnDashboard.UseVisualStyleBackColor = false;
+            this.BtnDashboard.Click += new System.EventHandler(this.BtnDashboard_Click);
             // 
             // BtnReportes
             // 
@@ -354,8 +356,9 @@ namespace SistemVeterinario
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.panelContent.Controls.Add(this.panel1);
+            this.panelContent.Controls.Add(this.panelModulo);
             this.panelContent.Controls.Add(this.panel2);
+            this.panelContent.Controls.Add(this.panel1);
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContent.ForeColor = System.Drawing.Color.Cornsilk;
             this.panelContent.Location = new System.Drawing.Point(178, 0);
@@ -363,10 +366,16 @@ namespace SistemVeterinario
             this.panelContent.Size = new System.Drawing.Size(851, 607);
             this.panelContent.TabIndex = 2;
             // 
+            // panelModulo
+            // 
+            this.panelModulo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelModulo.Location = new System.Drawing.Point(0, 92);
+            this.panelModulo.Name = "panelModulo";
+            this.panelModulo.Size = new System.Drawing.Size(851, 515);
+            this.panelModulo.TabIndex = 100;
+            // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.MediumOrchid;
             this.panel1.Controls.Add(this.lblHora);
             this.panel1.Controls.Add(this.lblEmail);
@@ -375,6 +384,7 @@ namespace SistemVeterinario
             this.panel1.Controls.Add(this.lblUsuario);
             this.panel1.Controls.Add(this.tituloSuperior);
             this.panel1.Controls.Add(this.iconoSuperior);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
@@ -480,17 +490,17 @@ namespace SistemVeterinario
             this.panel2.Controls.Add(this.pictureBox9);
             this.panel2.Controls.Add(this.lblSubtitulo);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Location = new System.Drawing.Point(0, 92);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(851, 607);
+            this.panel2.Size = new System.Drawing.Size(851, 515);
             this.panel2.TabIndex = 13;
             // 
             // pictureBox12
             // 
             this.pictureBox12.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
-            this.pictureBox12.Location = new System.Drawing.Point(1052, 665);
+            this.pictureBox12.Location = new System.Drawing.Point(1052, 619);
             this.pictureBox12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox12.Name = "pictureBox12";
             this.pictureBox12.Size = new System.Drawing.Size(123, 104);
@@ -500,14 +510,14 @@ namespace SistemVeterinario
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(163, 240);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(550, 111);
+            this.pictureBox3.Size = new System.Drawing.Size(550, 19);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 0;
             this.pictureBox3.TabStop = false;
@@ -516,7 +526,7 @@ namespace SistemVeterinario
             // 
             this.pictureBox11.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
-            this.pictureBox11.Location = new System.Drawing.Point(915, 665);
+            this.pictureBox11.Location = new System.Drawing.Point(915, 619);
             this.pictureBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.Size = new System.Drawing.Size(123, 104);
@@ -528,7 +538,7 @@ namespace SistemVeterinario
             // 
             this.pictureBox8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
-            this.pictureBox8.Location = new System.Drawing.Point(508, 665);
+            this.pictureBox8.Location = new System.Drawing.Point(508, 619);
             this.pictureBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(123, 104);
@@ -542,7 +552,7 @@ namespace SistemVeterinario
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Britannic Bold", 22.2F);
             this.lblTitulo.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.lblTitulo.Location = new System.Drawing.Point(604, 584);
+            this.lblTitulo.Location = new System.Drawing.Point(604, 538);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(370, 33);
             this.lblTitulo.TabIndex = 1;
@@ -552,7 +562,7 @@ namespace SistemVeterinario
             // 
             this.pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
-            this.pictureBox6.Location = new System.Drawing.Point(369, 665);
+            this.pictureBox6.Location = new System.Drawing.Point(369, 619);
             this.pictureBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(123, 104);
@@ -564,7 +574,7 @@ namespace SistemVeterinario
             // 
             this.pictureBox10.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
-            this.pictureBox10.Location = new System.Drawing.Point(779, 665);
+            this.pictureBox10.Location = new System.Drawing.Point(779, 619);
             this.pictureBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.Size = new System.Drawing.Size(123, 104);
@@ -576,7 +586,7 @@ namespace SistemVeterinario
             // 
             this.pictureBox9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
-            this.pictureBox9.Location = new System.Drawing.Point(645, 665);
+            this.pictureBox9.Location = new System.Drawing.Point(645, 619);
             this.pictureBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.Size = new System.Drawing.Size(123, 104);
@@ -590,7 +600,7 @@ namespace SistemVeterinario
             this.lblSubtitulo.AutoSize = true;
             this.lblSubtitulo.Font = new System.Drawing.Font("Century", 13.8F, System.Drawing.FontStyle.Bold);
             this.lblSubtitulo.ForeColor = System.Drawing.Color.DimGray;
-            this.lblSubtitulo.Location = new System.Drawing.Point(655, 625);
+            this.lblSubtitulo.Location = new System.Drawing.Point(655, 579);
             this.lblSubtitulo.Name = "lblSubtitulo";
             this.lblSubtitulo.Size = new System.Drawing.Size(257, 23);
             this.lblSubtitulo.TabIndex = 2;
@@ -611,6 +621,7 @@ namespace SistemVeterinario
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Veterinaria - Dashboard";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Dashboard_Load);
             this.panelSidebar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -634,6 +645,7 @@ namespace SistemVeterinario
         private Panel panelSidebar;
         private Panel panelContent;
         private Panel panel1;
+        private Panel panelModulo;
         private FontAwesome.Sharp.IconButton BtnClientes;
         private PictureBox pictureBox1;
         private FontAwesome.Sharp.IconButton BtnReportes;
