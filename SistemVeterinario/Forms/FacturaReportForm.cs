@@ -204,12 +204,6 @@ namespace SistemVeterinario.Forms
             }
             catch (Exception ex)
             {
-                // Si el error es específicamente por tamaño del QR, devolver el mensaje
-                if (ex.Message.Contains("payload exceeds the maximum size"))
-                {
-                    return $"{{\"The given payload exceeds the maximum size of the QR code standard. The maximum size allowed for the choosen paramters (ECC level=M, EncodingMode=Byte) is {ex.Message.Split(' ').LastOrDefault()}\"}}";
-                }
-                
                 // Para otros errores, escribir en debug y devolver null
                 System.Diagnostics.Debug.WriteLine($"Error al generar QR: {ex.Message}");
                 return null;
