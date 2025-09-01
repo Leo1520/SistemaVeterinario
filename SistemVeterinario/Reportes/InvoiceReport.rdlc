@@ -166,7 +166,6 @@ SUCURSAL No: 001</Value>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          
           <Textbox Name="InvoiceTitle">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -208,7 +207,7 @@ CÓDIGO AUTORIZACIÓN: AUTH-2024-001</Value>
             <Left>2.825in</Left>
             <Height>0.6in</Height>
             <Width>2.85in</Width>
-            <ZIndex>2</ZIndex>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -219,7 +218,6 @@ CÓDIGO AUTORIZACIÓN: AUTH-2024-001</Value>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          
           <Textbox Name="DateCustomer">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -262,7 +260,7 @@ CLIENTE: </Value>
             <Left>2.825in</Left>
             <Height>0.5in</Height>
             <Width>2.85in</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -273,8 +271,71 @@ CLIENTE: </Value>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-
-          <!-- Tabla de Productos -->
+          <Textbox Name="TotalInfo">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>EFECTIVO Bs.: </Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Format(First(Fields!total.Value, "sp_factura_datos_principales"), "C2")</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>
+CAMBIO: Bs. 0.00</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>TotalInfo</rd:DefaultName>
+            <Top>4in</Top>
+            <Left>2.825in</Left>
+            <Height>0.5in</Height>
+            <Width>2.85in</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border />
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="QRCodeImage">
+            <Source>Database</Source>
+            <Value>=System.Convert.FromBase64String(Parameters!QRCodeImage.Value)</Value>
+            <MIMEType>image/png</MIMEType>
+            <Sizing>FitProportional</Sizing>
+            <Top>4.7in</Top>
+            <Left>2.825in</Left>
+            <Height>2.85in</Height>
+            <Width>2.85in</Width>
+            <ZIndex>4</ZIndex>
+            <Visibility>
+              <Hidden>=IsNothing(Parameters!QRCodeImage.Value) OR Parameters!QRCodeImage.Value = ""</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Color>LightGrey</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Image>
           <Tablix Name="ProductosTable">
             <TablixBody>
               <TablixColumns>
@@ -581,14 +642,12 @@ CLIENTE: </Value>
             <Left>2.825in</Left>
             <Height>0.3in</Height>
             <Width>2.8in</Width>
-            <ZIndex>10</ZIndex>
+            <ZIndex>5</ZIndex>
             <Visibility>
               <Hidden>=CountRows("sp_factura_detalle_productos") = 0</Hidden>
             </Visibility>
             <Style />
           </Tablix>
-
-          <!-- Tabla de Servicios -->
           <Tablix Name="ServiciosTable">
             <TablixBody>
               <TablixColumns>
@@ -895,94 +954,25 @@ CLIENTE: </Value>
             <Left>2.825in</Left>
             <Height>0.3in</Height>
             <Width>2.8in</Width>
-            <ZIndex>11</ZIndex>
+            <ZIndex>6</ZIndex>
             <Visibility>
               <Hidden>=CountRows("sp_factura_detalle_servicios") = 0</Hidden>
             </Visibility>
             <Style />
           </Tablix>
-
-          <Textbox Name="TotalInfo">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>EFECTIVO Bs.: </Value>
-                    <Style>
-                      <FontSize>9pt</FontSize>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value>=Format(First(Fields!total.Value, "sp_factura_datos_principales"), "C2")</Value>
-                    <Style>
-                      <FontSize>9pt</FontSize>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value>
-CAMBIO: Bs. 0.00</Value>
-                    <Style>
-                      <FontSize>9pt</FontSize>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>TotalInfo</rd:DefaultName>
-            <Top>4in</Top>
-            <Left>2.825in</Left>
-            <Height>0.5in</Height>
-            <Width>2.85in</Width>
-            <ZIndex>8</ZIndex>
-            <Style>
-              <Border>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          
-          <!-- Código QR de la factura -->
-          <Image Name="QRCodeImage">
-            <Source>Database</Source>
-            <Value>=System.Convert.FromBase64String(Parameters!QRCodeImage.Value)</Value>
-            <MIMEType>image/png</MIMEType>
-            <Sizing>FitProportional</Sizing>
-            <Top>4.7in</Top>
-            <Left>3.8in</Left>
-            <Height>1.2in</Height>
-            <Width>1.2in</Width>
-            <ZIndex>9</ZIndex>
-            <Visibility>
-              <Hidden>=IsNothing(Parameters!QRCodeImage.Value) OR Parameters!QRCodeImage.Value = ""</Hidden>
-            </Visibility>
-            <Style>
-              <Border>
-                <Style>Solid</Style>
-                <Width>1pt</Width>
-                <Color>LightGray</Color>
-              </Border>
-            </Style>
-          </Image>
-          
         </ReportItems>
-        <Height>6in</Height>
+        <Height>7.55in</Height>
         <Style />
       </Body>
       <Width>8.5in</Width>
       <Page>
         <PageHeader>
           <Height>0in</Height>
+          <Style />
         </PageHeader>
         <PageFooter>
           <Height>0in</Height>
+          <Style />
         </PageFooter>
         <LeftMargin>0.1in</LeftMargin>
         <RightMargin>0.1in</RightMargin>

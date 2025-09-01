@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace CapaNegocio
 {
@@ -245,35 +246,53 @@ namespace CapaNegocio
         }
         
         /// <summary>
-        /// Genera un XML completo de una factura con todos sus datos y detalles
+        /// Genera un JSON completo de una factura con todos sus datos y detalles
         /// </summary>
-        /// <param name="facturaId">ID de la factura a convertir a XML</param>
-        /// <returns>XML serializado de la factura completa o mensaje de error</returns>
-        public static string VentaToXML(int facturaId)
+        /// <param name="facturaId">ID de la factura a convertir a JSON</param>
+        /// <returns>JSON serializado de la factura completa o mensaje de error</returns>
+        public static string VentaToJson(int facturaId)
         {
             try
             {
-                var facturaCompleta = new Models.FacturaCompleta();
-                
                 // 1. Cargar datos principales de la factura
-                facturaCompleta.DatosPrincipales = CargarDatosPrincipales(facturaId);
-                if (facturaCompleta.DatosPrincipales == null)
+                var datosPrincipales = CargarDatosPrincipales(facturaId);
+                if (datosPrincipales == null)
                 {
                     return "Error: No se encontró la factura especificada o no tiene permisos para acceder a ella.";
                 }
 
-                // 2. Cargar detalle de productos
-                facturaCompleta.DetalleProductos = CargarDetalleProductos(facturaId);
+                // 2. Cargar detalle de productos como arrays simples
+                var productos = CargarDetalleProductosCompacto(facturaId);
 
-                // 3. Cargar detalle de servicios
-                facturaCompleta.DetalleServicios = CargarDetalleServicios(facturaId);
+                // 3. Cargar detalle de servicios como arrays simples
+                var servicios = CargarDetalleServiciosCompacto(facturaId);
 
-                // 4. Serializar a XML
-                return SerializarFacturaAXML(facturaCompleta);
+                // 4. Crear JSON ultra-compacto
+                var facturaCompacta = new
+                {
+                    f = datosPrincipales.FacturaId,
+                    n = datosPrincipales.NumeroFactura,
+                    fe = datosPrincipales.FechaEmision.ToString("yyyy-MM-dd"),
+                    t = datosPrincipales.Total,
+                    c = datosPrincipales.ClienteNombreCompleto,
+                    d = datosPrincipales.ClienteDocumento,
+                    p = productos, // Array simple de productos
+                    s = servicios  // Array simple de servicios
+                };
+
+                // 5. Serializar a JSON ultra-compacto
+                var settings = new JsonSerializerSettings
+                {
+                    Formatting = Formatting.None,
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat
+                };
+
+                return JsonConvert.SerializeObject(facturaCompacta, settings);
             }
             catch (Exception ex)
             {
-                return $"Error al generar XML de la factura: {ex.Message}";
+                return $"Error al generar JSON de la factura: {ex.Message}";
             }
         }
 
@@ -337,11 +356,11 @@ namespace CapaNegocio
         }
 
         /// <summary>
-        /// Carga el detalle de productos de una factura
+        /// Carga el detalle de productos de una factura en formato compacto (array simple)
         /// </summary>
-        private static List<Models.FacturaDetalleProducto> CargarDetalleProductos(int facturaId)
+        private static object[] CargarDetalleProductosCompacto(int facturaId)
         {
-            var productos = new List<Models.FacturaDetalleProducto>();
+            var productos = new List<object>();
 
             SqlConnection connection = DbConnection.Instance.GetConnection();
             using (SqlCommand command = new SqlCommand("sp_factura_detalle_productos", connection))
@@ -356,48 +375,27 @@ namespace CapaNegocio
 
                     foreach (DataRow row in dataTable.Rows)
                     {
-                        productos.Add(new Models.FacturaDetalleProducto
+                        // Array: [nombre, cantidad, precio, subtotal]
+                        productos.Add(new object[]
                         {
-                            DetalleId = Convert.ToInt32(row["detalle_id"]),
-                            Cantidad = Convert.ToInt32(row["cantidad"]),
-                            PrecioUnitario = Convert.ToDecimal(row["precio_unitario"]),
-                            DescuentoUnitario = Convert.ToDecimal(row["descuento_unitario"]),
-                            Subtotal = Convert.ToDecimal(row["subtotal"]),
-                            RecetaVerificada = Convert.ToBoolean(row["receta_verificada"]),
-                            Lote = row["lote"].ToString(),
-                            FechaVencimientoProducto = row["fecha_vencimiento_producto"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(row["fecha_vencimiento_producto"]),
-
-                            // Datos del producto
-                            ProductoId = Convert.ToInt32(row["producto_id"]),
-                            ProductoCodigo = row["producto_codigo"].ToString(),
-                            ProductoNombre = row["producto_nombre"].ToString(),
-                            ProductoDescripcion = row["producto_descripcion"].ToString(),
-                            ProductoPrecioCatalogo = Convert.ToDecimal(row["producto_precio_catalogo"]),
-                            ProductoRequiereReceta = Convert.ToBoolean(row["producto_requiere_receta"]),
-
-                            // Datos de la categoría
-                            CategoriaId = Convert.ToInt32(row["categoria_id"]),
-                            CategoriaNombre = row["categoria_nombre"].ToString(),
-                            CategoriaDescripcion = row["categoria_descripcion"].ToString(),
-
-                            // Cálculos adicionales
-                            SubtotalBruto = Convert.ToDecimal(row["subtotal_bruto"]),
-                            DescuentoTotal = Convert.ToDecimal(row["descuento_total"]),
-                            SubtotalNeto = Convert.ToDecimal(row["subtotal_neto"])
+                            row["producto_nombre"].ToString(),
+                            Convert.ToInt32(row["cantidad"]),
+                            Convert.ToDecimal(row["precio_unitario"]),
+                            Convert.ToDecimal(row["subtotal"])
                         });
                     }
                 }
             }
 
-            return productos;
+            return productos.ToArray();
         }
 
         /// <summary>
-        /// Carga el detalle de servicios de una factura
+        /// Carga el detalle de servicios de una factura en formato compacto (array simple)
         /// </summary>
-        private static List<Models.FacturaDetalleServicio> CargarDetalleServicios(int facturaId)
+        private static object[] CargarDetalleServiciosCompacto(int facturaId)
         {
-            var servicios = new List<Models.FacturaDetalleServicio>();
+            var servicios = new List<object>();
 
             SqlConnection connection = DbConnection.Instance.GetConnection();
             using (SqlCommand command = new SqlCommand("sp_factura_detalle_servicios", connection))
@@ -412,105 +410,41 @@ namespace CapaNegocio
 
                     foreach (DataRow row in dataTable.Rows)
                     {
-                        servicios.Add(new Models.FacturaDetalleServicio
+                        // Array: [servicio, cantidad, precio, subtotal]
+                        servicios.Add(new object[]
                         {
-                            DetalleId = Convert.ToInt32(row["detalle_id"]),
-                            Cantidad = Convert.ToInt32(row["cantidad"]),
-                            PrecioUnitario = Convert.ToDecimal(row["precio_unitario"]),
-                            DescuentoUnitario = Convert.ToDecimal(row["descuento_unitario"]),
-                            Subtotal = Convert.ToDecimal(row["subtotal"]),
-
-                            // Datos del diagnóstico/servicio
-                            DiagnosticoId = Convert.ToInt32(row["diagnostico_id"]),
-                            DiagnosticoCodigo = row["diagnostico_codigo"].ToString(),
-                            DiagnosticoNombre = row["diagnostico_nombre"].ToString(),
-                            DiagnosticoDescripcion = row["diagnostico_descripcion"].ToString(),
-                            DiagnosticoPrecioBase = Convert.ToDecimal(row["diagnostico_precio_base"]),
-                            DiagnosticoCategoria = row["diagnostico_categoria"].ToString(),
-                            DiagnosticoRequiereEquipamiento = Convert.ToBoolean(row["diagnostico_requiere_equipamiento"]),
-
-                            // Datos del veterinario (si aplica)
-                            VeterinarioId = row["veterinario_id"] == DBNull.Value ? null : (int?)Convert.ToInt32(row["veterinario_id"]),
-                            VeterinarioLicencia = row["veterinario_licencia"].ToString(),
-                            VeterinarioEspecialidad = row["veterinario_especialidad"].ToString(),
-                            VeterinarioNombreCompleto = row["veterinario_nombre_completo"].ToString(),
-
-                            // Datos del detalle histórico (si está vinculado)
-                            HistoricoDetalleId = row["historico_detalle_id"] == DBNull.Value ? null : (int?)Convert.ToInt32(row["historico_detalle_id"]),
-                            HistoricoTipoEvento = row["historico_tipo_evento"].ToString(),
-                            HistoricoFechaEvento = row["historico_fecha_evento"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(row["historico_fecha_evento"]),
-                            HistoricoObservaciones = row["historico_observaciones"].ToString(),
-                            HistoricoTratamiento = row["historico_tratamiento"].ToString(),
-
-                            // Datos del animal (si hay detalle histórico)
-                            AnimalId = row["animal_id"] == DBNull.Value || Convert.ToInt32(row["animal_id"]) == 0 ? null : (int?)Convert.ToInt32(row["animal_id"]),
-                            AnimalNombre = row["animal_nombre"].ToString(),
-                            AnimalEspecie = row["animal_especie"].ToString(),
-                            AnimalRaza = row["animal_raza"].ToString(),
-
-                            // Cálculos adicionales
-                            SubtotalBruto = Convert.ToDecimal(row["subtotal_bruto"]),
-                            DescuentoTotal = Convert.ToDecimal(row["descuento_total"]),
-                            SubtotalNeto = Convert.ToDecimal(row["subtotal_neto"])
+                            row["diagnostico_nombre"].ToString(),
+                            Convert.ToInt32(row["cantidad"]),
+                            Convert.ToDecimal(row["precio_unitario"]),
+                            Convert.ToDecimal(row["subtotal"])
                         });
                     }
                 }
             }
 
-            return servicios;
+            return servicios.ToArray();
         }
 
         /// <summary>
-        /// Serializa una factura completa a formato XML
+        /// Serializa una factura completa a formato JSON
         /// </summary>
-        private static string SerializarFacturaAXML(Models.FacturaCompleta facturaCompleta)
+        private static string SerializarFacturaAJSON(Models.FacturaCompleta facturaCompleta)
         {
             try
             {
-                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Models.FacturaCompleta));
-                
-                using (var stringWriter = new System.IO.StringWriter())
+                // Configuración para JSON compacto
+                var settings = new JsonSerializerSettings
                 {
-                    using (var xmlWriter = System.Xml.XmlWriter.Create(stringWriter, new System.Xml.XmlWriterSettings 
-                    { 
-                        Indent = true, 
-                        IndentChars = "  ",
-                        OmitXmlDeclaration = false,
-                        Encoding = System.Text.Encoding.UTF8
-                    }))
-                    {
-                        serializer.Serialize(xmlWriter, facturaCompleta);
-                        return stringWriter.ToString();
-                    }
-                }
+                    Formatting = Formatting.None, // Sin indentación para compactar
+                    NullValueHandling = NullValueHandling.Ignore, // Omitir valores nulos
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat
+                };
+
+                return JsonConvert.SerializeObject(facturaCompleta, settings);
             }
             catch (Exception ex)
             {
-                return $"Error al serializar factura a XML: {ex.Message}";
-            }
-        }
-
-        /// <summary>
-        /// Valida si una factura existe y está en estado válido para generar XML
-        /// </summary>
-        /// <param name="facturaId">ID de la factura a validar</param>
-        /// <returns>True si la factura es válida, false en caso contrario</returns>
-        public static bool ValidarFacturaParaXML(int facturaId)
-        {
-            try
-            {
-                SqlConnection connection = DbConnection.Instance.GetConnection();
-                using (SqlCommand command = new SqlCommand(
-                    "SELECT COUNT(*) FROM factura WHERE id = @facturaId AND estado != 'Anulada'", connection))
-                {
-                    command.Parameters.AddWithValue("@facturaId", facturaId);
-                    int count = (int)command.ExecuteScalar();
-                    return count > 0;
-                }
-            }
-            catch
-            {
-                return false;
+                return $"Error al serializar factura a JSON: {ex.Message}";
             }
         }
 

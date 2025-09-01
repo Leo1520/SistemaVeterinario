@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -16,7 +16,8 @@
     <PackageReference Include="Microsoft.SqlServer.Types" Version="160.1000.6" />
     <PackageReference Include="QRCoder" Version="1.4.3" />
     <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
-    <PackageReference Include="System.Memory" Version="4.5.5" />
+    <!-- Cambio principal: Downgrade de System.Memory para compatibilidad -->
+    <PackageReference Include="System.Memory" Version="4.5.4" />
   </ItemGroup>
 
   <ItemGroup>

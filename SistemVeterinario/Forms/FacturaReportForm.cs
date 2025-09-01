@@ -10,6 +10,7 @@ using System.IO;
 using Microsoft.Data.SqlClient;
 using SistemVeterinario.Reportes;
 using QRCoder;
+using System.Linq;
 
 namespace SistemVeterinario.Forms
 {
@@ -166,45 +167,29 @@ namespace SistemVeterinario.Forms
         }
 
         /// <summary>
-        /// Genera un código QR con el XML completo de la factura
+        /// Genera un código QR con el JSON completo de la factura
         /// </summary>
-        /// <returns>Imagen del código QR en formato Base64</returns>
+        /// <returns>Imagen del código QR en formato Base64 o mensaje de error</returns>
         private string GenerarQRFactura()
         {
             try
             {
-                // Obtener el XML de la factura
-                string xmlData = NVentas.VentaToXML(facturaId);
+                // Obtener el JSON de la factura
+                string jsonData = NVentas.VentaToJson(facturaId);
                 
-                // Verificar si hubo error al generar el XML
-                if (xmlData.StartsWith("Error"))
+                // Verificar si hubo error al generar el JSON
+                if (jsonData.StartsWith("Error"))
                 {
-                    return null; // No generar QR si hay error en XML
+                    return null; // No generar QR si hay error en JSON
                 }
 
-                // Comprimir el XML usando GZIP antes de generar QR
-                byte[] xmlBytes = System.Text.Encoding.UTF8.GetBytes(xmlData);
-                byte[] compressedXml;
-                
-                using (var output = new MemoryStream())
-                {
-                    using (var gzip = new System.IO.Compression.GZipStream(output, System.IO.Compression.CompressionMode.Compress))
-                    {
-                        gzip.Write(xmlBytes, 0, xmlBytes.Length);
-                    }
-                    compressedXml = output.ToArray();
-                }
-                
-                // Convertir datos comprimidos a Base64 para QR
-                string compressedData = Convert.ToBase64String(compressedXml);
-                
-                // Generar el código QR usando QRCoder con datos comprimidos
+                // Intentar generar el código QR directamente del JSON sin comprimir
                 using (var qrGenerator = new QRCodeGenerator())
                 {
-                    var qrCodeData = qrGenerator.CreateQrCode(compressedData, QRCodeGenerator.ECCLevel.L);
+                    var qrCodeData = qrGenerator.CreateQrCode(jsonData, QRCodeGenerator.ECCLevel.M);
                     using (var qrCode = new QRCode(qrCodeData))
                     {
-                        using (Bitmap qrCodeImage = qrCode.GetGraphic(2)) // Píxeles más pequeños para QR más denso
+                        using (Bitmap qrCodeImage = qrCode.GetGraphic(4)) // Píxeles de tamaño medio
                         {
                             // Convertir la imagen a Base64
                             using (var ms = new MemoryStream())
@@ -219,7 +204,13 @@ namespace SistemVeterinario.Forms
             }
             catch (Exception ex)
             {
-                // En caso de error, simplemente no mostrar QR
+                // Si el error es específicamente por tamaño del QR, devolver el mensaje
+                if (ex.Message.Contains("payload exceeds the maximum size"))
+                {
+                    return $"{{\"The given payload exceeds the maximum size of the QR code standard. The maximum size allowed for the choosen paramters (ECC level=M, EncodingMode=Byte) is {ex.Message.Split(' ').LastOrDefault()}\"}}";
+                }
+                
+                // Para otros errores, escribir en debug y devolver null
                 System.Diagnostics.Debug.WriteLine($"Error al generar QR: {ex.Message}");
                 return null;
             }
