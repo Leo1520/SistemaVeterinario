@@ -1,4 +1,7 @@
--- Triggers de updated_at
+-- =============================================
+-- TRIGGERS SIMPLES UPDATED_AT - TODAS LAS TABLAS CON UPDATED_AT
+-- =============================================
+-- 1. persona
 CREATE TRIGGER TR_UpdatedAt_Persona ON persona
 AFTER UPDATE
 AS
@@ -10,6 +13,7 @@ BEGIN
 END;
 GO
 
+-- 2. persona_fisica
 CREATE TRIGGER TR_UpdatedAt_PersonaFisica ON persona_fisica
 AFTER UPDATE
 AS
@@ -21,6 +25,7 @@ BEGIN
 END;
 GO
 
+-- 3. persona_juridica
 CREATE TRIGGER TR_UpdatedAt_PersonaJuridica ON persona_juridica
 AFTER UPDATE
 AS
@@ -32,6 +37,7 @@ BEGIN
 END;
 GO
 
+-- 4. personal
 CREATE TRIGGER TR_UpdatedAt_Personal ON personal
 AFTER UPDATE
 AS
@@ -43,6 +49,7 @@ BEGIN
 END;
 GO
 
+-- 5. personal_veterinario
 CREATE TRIGGER TR_UpdatedAt_PersonalVeterinario ON personal_veterinario
 AFTER UPDATE
 AS
@@ -54,6 +61,7 @@ BEGIN
 END;
 GO
 
+-- 6. personal_auxiliar
 CREATE TRIGGER TR_UpdatedAt_PersonalAuxiliar ON personal_auxiliar
 AFTER UPDATE
 AS
@@ -65,6 +73,7 @@ BEGIN
 END;
 GO
 
+-- 7. animal
 CREATE TRIGGER TR_UpdatedAt_Animal ON animal
 AFTER UPDATE
 AS
@@ -76,6 +85,7 @@ BEGIN
 END;
 GO
 
+-- 8. historico
 CREATE TRIGGER TR_UpdatedAt_Historico ON historico
 AFTER UPDATE
 AS
@@ -87,6 +97,7 @@ BEGIN
 END;
 GO
 
+-- 9. detalle_historico
 CREATE TRIGGER TR_UpdatedAt_DetalleHistorico ON detalle_historico
 AFTER UPDATE
 AS
@@ -98,6 +109,7 @@ BEGIN
 END;
 GO
 
+-- 10. categoria
 CREATE TRIGGER TR_UpdatedAt_Categoria ON categoria
 AFTER UPDATE
 AS
@@ -109,6 +121,7 @@ BEGIN
 END;
 GO
 
+-- 11. producto
 CREATE TRIGGER TR_UpdatedAt_Producto ON producto
 AFTER UPDATE
 AS
@@ -120,6 +133,7 @@ BEGIN
 END;
 GO
 
+-- 12. diagnostico
 CREATE TRIGGER TR_UpdatedAt_Diagnostico ON diagnostico
 AFTER UPDATE
 AS
@@ -131,6 +145,7 @@ BEGIN
 END;
 GO
 
+-- 13. factura
 CREATE TRIGGER TR_UpdatedAt_Factura ON factura
 AFTER UPDATE
 AS
@@ -142,6 +157,7 @@ BEGIN
 END;
 GO
 
+-- 14. detalle_productos
 CREATE TRIGGER TR_UpdatedAt_DetalleProductos ON detalle_productos
 AFTER UPDATE
 AS
@@ -153,6 +169,7 @@ BEGIN
 END;
 GO
 
+-- 15. detalle_servicios
 CREATE TRIGGER TR_UpdatedAt_DetalleServicios ON detalle_servicios
 AFTER UPDATE
 AS
@@ -164,97 +181,7 @@ BEGIN
 END;
 GO
 
--- Triggers de cálculo de subtotales
-CREATE TRIGGER TR_CalcularSubtotal_DetalleProductos ON detalle_productos
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE dp
-    SET subtotal = i.cantidad * i.precio_unitario - (i.cantidad * i.descuento_unitario)
-    FROM detalle_productos dp
-    INNER JOIN inserted i ON dp.id = i.id;
-END;
-GO
-
-CREATE TRIGGER TR_CalcularSubtotal_DetalleServicios ON detalle_servicios
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE ds
-    SET subtotal = i.cantidad * i.precio_unitario - (i.cantidad * i.descuento_unitario)
-    FROM detalle_servicios ds
-    INNER JOIN inserted i ON ds.id = i.id;
-END;
-GO
-
--- Triggers de actualización de totales en facturas
-CREATE TRIGGER TR_ActualizarTotal_Factura_Productos ON detalle_productos
-AFTER INSERT, UPDATE, DELETE
-AS
-BEGIN
-    SET NOCOUNT ON;
-    DECLARE @facturas_afectadas TABLE (factura_id INT);
-    
-    INSERT INTO @facturas_afectadas (factura_id)
-    SELECT DISTINCT factura_id FROM inserted
-    UNION
-    SELECT DISTINCT factura_id FROM deleted;
-    
-    UPDATE f
-    SET subtotal = ISNULL(productos.total_productos, 0) + ISNULL(servicios.total_servicios, 0),
-        total = ISNULL(productos.total_productos, 0) + ISNULL(servicios.total_servicios, 0) + f.impuestos - f.descuentos
-    FROM factura f
-    LEFT JOIN (
-        SELECT factura_id, SUM(subtotal) as total_productos
-        FROM detalle_productos
-        WHERE factura_id IN (SELECT factura_id FROM @facturas_afectadas)
-        GROUP BY factura_id
-    ) productos ON f.id = productos.factura_id
-    LEFT JOIN (
-        SELECT factura_id, SUM(subtotal) as total_servicios
-        FROM detalle_servicios
-        WHERE factura_id IN (SELECT factura_id FROM @facturas_afectadas)
-        GROUP BY factura_id
-    ) servicios ON f.id = servicios.factura_id
-    WHERE f.id IN (SELECT factura_id FROM @facturas_afectadas);
-END;
-GO
-
-CREATE TRIGGER TR_ActualizarTotal_Factura_Servicios ON detalle_servicios
-AFTER INSERT, UPDATE, DELETE
-AS
-BEGIN
-    SET NOCOUNT ON;
-    DECLARE @facturas_afectadas TABLE (factura_id INT);
-    
-    INSERT INTO @facturas_afectadas (factura_id)
-    SELECT DISTINCT factura_id FROM inserted
-    UNION
-    SELECT DISTINCT factura_id FROM deleted;
-    
-    UPDATE f
-    SET subtotal = ISNULL(productos.total_productos, 0) + ISNULL(servicios.total_servicios, 0),
-        total = ISNULL(productos.total_productos, 0) + ISNULL(servicios.total_servicios, 0) + f.impuestos - f.descuentos
-    FROM factura f
-    LEFT JOIN (
-        SELECT factura_id, SUM(subtotal) as total_productos
-        FROM detalle_productos
-        WHERE factura_id IN (SELECT factura_id FROM @facturas_afectadas)
-        GROUP BY factura_id
-    ) productos ON f.id = productos.factura_id
-    LEFT JOIN (
-        SELECT factura_id, SUM(subtotal) as total_servicios
-        FROM detalle_servicios
-        WHERE factura_id IN (SELECT factura_id FROM @facturas_afectadas)
-        GROUP BY factura_id
-    ) servicios ON f.id = servicios.factura_id
-    WHERE f.id IN (SELECT factura_id FROM @facturas_afectadas);
-END;
-GO
-
--- Vistas
+-- Vista de personas completas - CRÍTICA PARA VENTAS
 CREATE VIEW VW_PersonasCompletas AS
 SELECT 
     p.id,
@@ -288,6 +215,7 @@ FROM persona p
     LEFT JOIN persona_juridica pj ON p.id = pj.id AND p.tipo = 'Jurídica';
 GO
 
+-- Vista de animales con propietario
 CREATE VIEW VW_AnimalesConPropietario AS
 SELECT 
     a.id,
@@ -321,6 +249,7 @@ FROM animal a
 WHERE a.activo = 1;
 GO
 
+-- Vista de personal completo
 CREATE VIEW VW_PersonalCompleto AS
 SELECT 
     p.id,
@@ -352,4 +281,25 @@ FROM personal p
     LEFT JOIN personal_veterinario pv ON p.id = pv.id
     LEFT JOIN personal_auxiliar pa ON p.id = pa.id
 WHERE p.activo = 1;
+GO
+
+-- RESUMEN 
+PRINT 'Triggers de updated_at creados exitosamente para 15 tablas:'
+PRINT '1. persona, 2. persona_fisica, 3. persona_juridica'
+PRINT '4. personal, 5. personal_veterinario, 6. personal_auxiliar'
+PRINT '7. animal, 8. historico, 9. detalle_historico'
+PRINT '10. categoria, 11. producto, 12. diagnostico'
+PRINT '13. factura, 14. detalle_productos, 15. detalle_servicios'
+PRINT ''
+
+
+PRINT 'Creando vistas del sistema...'
+
+
+PRINT 'Vistas del sistema creadas:'
+PRINT '- VW_PersonasCompletas (crítica para ventas)'
+PRINT '- VW_AnimalesConPropietario'  
+PRINT '- VW_PersonalCompleto'
+PRINT ''
+PRINT 'Sistema listo para funcionar correctamente.'
 GO
