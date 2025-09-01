@@ -243,5 +243,318 @@ namespace CapaNegocio
                     return (hoy, hoy); // Por defecto retorna hoy
             }
         }
+        
+        /// <summary>
+        /// Genera un XML completo de una factura con todos sus datos y detalles
+        /// </summary>
+        /// <param name="facturaId">ID de la factura a convertir a XML</param>
+        /// <returns>XML serializado de la factura completa o mensaje de error</returns>
+        public static string VentaToXML(int facturaId)
+        {
+            try
+            {
+                var facturaCompleta = new Models.FacturaCompleta();
+                
+                // 1. Cargar datos principales de la factura
+                facturaCompleta.DatosPrincipales = CargarDatosPrincipales(facturaId);
+                if (facturaCompleta.DatosPrincipales == null)
+                {
+                    return "Error: No se encontró la factura especificada o no tiene permisos para acceder a ella.";
+                }
+
+                // 2. Cargar detalle de productos
+                facturaCompleta.DetalleProductos = CargarDetalleProductos(facturaId);
+
+                // 3. Cargar detalle de servicios
+                facturaCompleta.DetalleServicios = CargarDetalleServicios(facturaId);
+
+                // 4. Serializar a XML
+                return SerializarFacturaAXML(facturaCompleta);
+            }
+            catch (Exception ex)
+            {
+                return $"Error al generar XML de la factura: {ex.Message}";
+            }
+        }
+
+        /// <summary>
+        /// Carga los datos principales de una factura
+        /// </summary>
+        private static Models.FacturaDatosPrincipales CargarDatosPrincipales(int facturaId)
+        {
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            using (SqlCommand command = new SqlCommand("sp_factura_datos_principales", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add(new SqlParameter("@factura_id", SqlDbType.Int) { Value = facturaId });
+
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    if (dataTable.Rows.Count == 0)
+                        return null;
+
+                    DataRow row = dataTable.Rows[0];
+                    return new Models.FacturaDatosPrincipales
+                    {
+                        FacturaId = Convert.ToInt32(row["factura_id"]),
+                        NumeroFactura = row["numero_factura"].ToString(),
+                        FechaEmision = Convert.ToDateTime(row["fecha_emision"]),
+                        FechaVencimiento = row["fecha_vencimiento"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(row["fecha_vencimiento"]),
+                        Subtotal = Convert.ToDecimal(row["subtotal"]),
+                        Impuestos = Convert.ToDecimal(row["impuestos"]),
+                        Descuentos = Convert.ToDecimal(row["descuentos"]),
+                        Total = Convert.ToDecimal(row["total"]),
+                        Estado = row["estado"].ToString(),
+                        Notas = row["notas"].ToString(),
+
+                        // Datos del cliente
+                        ClienteId = Convert.ToInt32(row["cliente_id"]),
+                        ClienteTipo = row["cliente_tipo"].ToString(),
+                        ClienteEmail = row["cliente_email"].ToString(),
+                        ClienteDireccion = row["cliente_direccion"].ToString(),
+                        ClienteTelefono = row["cliente_telefono"].ToString(),
+                        ClienteNombreCompleto = row["cliente_nombre_completo"].ToString(),
+                        ClienteDocumento = row["cliente_documento"].ToString(),
+
+                        // Datos adicionales para persona física
+                        ClienteNombres = row["cliente_nombres"].ToString(),
+                        ClienteApellidos = row["cliente_apellidos"].ToString(),
+                        ClienteCi = row["cliente_ci"].ToString(),
+                        ClienteFechaNacimiento = row["cliente_fecha_nacimiento"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(row["cliente_fecha_nacimiento"]),
+                        ClienteGenero = row["cliente_genero"].ToString(),
+
+                        // Datos adicionales para persona jurídica
+                        ClienteRazonSocial = row["cliente_razon_social"].ToString(),
+                        ClienteNit = row["cliente_nit"].ToString(),
+                        ClienteEncargadoNombre = row["cliente_encargado_nombre"].ToString(),
+                        ClienteEncargadoCargo = row["cliente_encargado_cargo"].ToString()
+                    };
+                }
+            }
+        }
+
+        /// <summary>
+        /// Carga el detalle de productos de una factura
+        /// </summary>
+        private static List<Models.FacturaDetalleProducto> CargarDetalleProductos(int facturaId)
+        {
+            var productos = new List<Models.FacturaDetalleProducto>();
+
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            using (SqlCommand command = new SqlCommand("sp_factura_detalle_productos", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add(new SqlParameter("@factura_id", SqlDbType.Int) { Value = facturaId });
+
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        productos.Add(new Models.FacturaDetalleProducto
+                        {
+                            DetalleId = Convert.ToInt32(row["detalle_id"]),
+                            Cantidad = Convert.ToInt32(row["cantidad"]),
+                            PrecioUnitario = Convert.ToDecimal(row["precio_unitario"]),
+                            DescuentoUnitario = Convert.ToDecimal(row["descuento_unitario"]),
+                            Subtotal = Convert.ToDecimal(row["subtotal"]),
+                            RecetaVerificada = Convert.ToBoolean(row["receta_verificada"]),
+                            Lote = row["lote"].ToString(),
+                            FechaVencimientoProducto = row["fecha_vencimiento_producto"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(row["fecha_vencimiento_producto"]),
+
+                            // Datos del producto
+                            ProductoId = Convert.ToInt32(row["producto_id"]),
+                            ProductoCodigo = row["producto_codigo"].ToString(),
+                            ProductoNombre = row["producto_nombre"].ToString(),
+                            ProductoDescripcion = row["producto_descripcion"].ToString(),
+                            ProductoPrecioCatalogo = Convert.ToDecimal(row["producto_precio_catalogo"]),
+                            ProductoRequiereReceta = Convert.ToBoolean(row["producto_requiere_receta"]),
+
+                            // Datos de la categoría
+                            CategoriaId = Convert.ToInt32(row["categoria_id"]),
+                            CategoriaNombre = row["categoria_nombre"].ToString(),
+                            CategoriaDescripcion = row["categoria_descripcion"].ToString(),
+
+                            // Cálculos adicionales
+                            SubtotalBruto = Convert.ToDecimal(row["subtotal_bruto"]),
+                            DescuentoTotal = Convert.ToDecimal(row["descuento_total"]),
+                            SubtotalNeto = Convert.ToDecimal(row["subtotal_neto"])
+                        });
+                    }
+                }
+            }
+
+            return productos;
+        }
+
+        /// <summary>
+        /// Carga el detalle de servicios de una factura
+        /// </summary>
+        private static List<Models.FacturaDetalleServicio> CargarDetalleServicios(int facturaId)
+        {
+            var servicios = new List<Models.FacturaDetalleServicio>();
+
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            using (SqlCommand command = new SqlCommand("sp_factura_detalle_servicios", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add(new SqlParameter("@factura_id", SqlDbType.Int) { Value = facturaId });
+
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        servicios.Add(new Models.FacturaDetalleServicio
+                        {
+                            DetalleId = Convert.ToInt32(row["detalle_id"]),
+                            Cantidad = Convert.ToInt32(row["cantidad"]),
+                            PrecioUnitario = Convert.ToDecimal(row["precio_unitario"]),
+                            DescuentoUnitario = Convert.ToDecimal(row["descuento_unitario"]),
+                            Subtotal = Convert.ToDecimal(row["subtotal"]),
+
+                            // Datos del diagnóstico/servicio
+                            DiagnosticoId = Convert.ToInt32(row["diagnostico_id"]),
+                            DiagnosticoCodigo = row["diagnostico_codigo"].ToString(),
+                            DiagnosticoNombre = row["diagnostico_nombre"].ToString(),
+                            DiagnosticoDescripcion = row["diagnostico_descripcion"].ToString(),
+                            DiagnosticoPrecioBase = Convert.ToDecimal(row["diagnostico_precio_base"]),
+                            DiagnosticoCategoria = row["diagnostico_categoria"].ToString(),
+                            DiagnosticoRequiereEquipamiento = Convert.ToBoolean(row["diagnostico_requiere_equipamiento"]),
+
+                            // Datos del veterinario (si aplica)
+                            VeterinarioId = row["veterinario_id"] == DBNull.Value ? null : (int?)Convert.ToInt32(row["veterinario_id"]),
+                            VeterinarioLicencia = row["veterinario_licencia"].ToString(),
+                            VeterinarioEspecialidad = row["veterinario_especialidad"].ToString(),
+                            VeterinarioNombreCompleto = row["veterinario_nombre_completo"].ToString(),
+
+                            // Datos del detalle histórico (si está vinculado)
+                            HistoricoDetalleId = row["historico_detalle_id"] == DBNull.Value ? null : (int?)Convert.ToInt32(row["historico_detalle_id"]),
+                            HistoricoTipoEvento = row["historico_tipo_evento"].ToString(),
+                            HistoricoFechaEvento = row["historico_fecha_evento"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(row["historico_fecha_evento"]),
+                            HistoricoObservaciones = row["historico_observaciones"].ToString(),
+                            HistoricoTratamiento = row["historico_tratamiento"].ToString(),
+
+                            // Datos del animal (si hay detalle histórico)
+                            AnimalId = row["animal_id"] == DBNull.Value || Convert.ToInt32(row["animal_id"]) == 0 ? null : (int?)Convert.ToInt32(row["animal_id"]),
+                            AnimalNombre = row["animal_nombre"].ToString(),
+                            AnimalEspecie = row["animal_especie"].ToString(),
+                            AnimalRaza = row["animal_raza"].ToString(),
+
+                            // Cálculos adicionales
+                            SubtotalBruto = Convert.ToDecimal(row["subtotal_bruto"]),
+                            DescuentoTotal = Convert.ToDecimal(row["descuento_total"]),
+                            SubtotalNeto = Convert.ToDecimal(row["subtotal_neto"])
+                        });
+                    }
+                }
+            }
+
+            return servicios;
+        }
+
+        /// <summary>
+        /// Serializa una factura completa a formato XML
+        /// </summary>
+        private static string SerializarFacturaAXML(Models.FacturaCompleta facturaCompleta)
+        {
+            try
+            {
+                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Models.FacturaCompleta));
+                
+                using (var stringWriter = new System.IO.StringWriter())
+                {
+                    using (var xmlWriter = System.Xml.XmlWriter.Create(stringWriter, new System.Xml.XmlWriterSettings 
+                    { 
+                        Indent = true, 
+                        IndentChars = "  ",
+                        OmitXmlDeclaration = false,
+                        Encoding = System.Text.Encoding.UTF8
+                    }))
+                    {
+                        serializer.Serialize(xmlWriter, facturaCompleta);
+                        return stringWriter.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Error al serializar factura a XML: {ex.Message}";
+            }
+        }
+
+        /// <summary>
+        /// Valida si una factura existe y está en estado válido para generar XML
+        /// </summary>
+        /// <param name="facturaId">ID de la factura a validar</param>
+        /// <returns>True si la factura es válida, false en caso contrario</returns>
+        public static bool ValidarFacturaParaXML(int facturaId)
+        {
+            try
+            {
+                SqlConnection connection = DbConnection.Instance.GetConnection();
+                using (SqlCommand command = new SqlCommand(
+                    "SELECT COUNT(*) FROM factura WHERE id = @facturaId AND estado != 'Anulada'", connection))
+                {
+                    command.Parameters.AddWithValue("@facturaId", facturaId);
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene información resumida de una factura para validaciones rápidas
+        /// </summary>
+        /// <param name="facturaId">ID de la factura</param>
+        /// <returns>Información básica de la factura o null si no existe</returns>
+        public static object ObtenerInfoFacturaResumida(int facturaId)
+        {
+            try
+            {
+                SqlConnection connection = DbConnection.Instance.GetConnection();
+                using (SqlCommand command = new SqlCommand(@"
+                    SELECT f.id, f.numero_factura, f.fecha_emision, f.total, f.estado,
+                           p.nombre_mostrar as cliente_nombre
+                    FROM factura f
+                    INNER JOIN VW_PersonasCompletas p ON f.persona_id = p.id
+                    WHERE f.id = @facturaId", connection))
+                {
+                    command.Parameters.AddWithValue("@facturaId", facturaId);
+                    
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new
+                            {
+                                Id = reader["id"],
+                                NumeroFactura = reader["numero_factura"].ToString(),
+                                FechaEmision = Convert.ToDateTime(reader["fecha_emision"]),
+                                Total = Convert.ToDecimal(reader["total"]),
+                                Estado = reader["estado"].ToString(),
+                                ClienteNombre = reader["cliente_nombre"].ToString()
+                            };
+                        }
+                    }
+                }
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

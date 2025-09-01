@@ -949,8 +949,31 @@ CAMBIO: Bs. 0.00</Value>
             </Style>
           </Textbox>
           
+          <!-- Código QR de la factura -->
+          <Image Name="QRCodeImage">
+            <Source>Database</Source>
+            <Value>=System.Convert.FromBase64String(Parameters!QRCodeImage.Value)</Value>
+            <MIMEType>image/png</MIMEType>
+            <Sizing>FitProportional</Sizing>
+            <Top>4.7in</Top>
+            <Left>3.8in</Left>
+            <Height>1.2in</Height>
+            <Width>1.2in</Width>
+            <ZIndex>9</ZIndex>
+            <Visibility>
+              <Hidden>=IsNothing(Parameters!QRCodeImage.Value) OR Parameters!QRCodeImage.Value = ""</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+                <Width>1pt</Width>
+                <Color>LightGray</Color>
+              </Border>
+            </Style>
+          </Image>
+          
         </ReportItems>
-        <Height>5.7in</Height>
+        <Height>6in</Height>
         <Style />
       </Body>
       <Width>8.5in</Width>
@@ -970,10 +993,26 @@ CAMBIO: Bs. 0.00</Value>
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="QRCodeImage">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>QRCodeImage</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+  </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>1</NumberOfColumns>
       <NumberOfRows>1</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>QRCodeImage</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
