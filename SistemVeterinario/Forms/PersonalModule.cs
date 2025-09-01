@@ -75,8 +75,24 @@ namespace SistemVeterinario.Forms
             cmbTipoPersonalForm.SelectedIndexChanged += CmbTipoPersonalForm_SelectedIndexChanged;
             dtpFechaContratacion.Value = DateTime.Now;
 
+            // Configurar scroll horizontal del DataGridView
+            ConfigurarScrollDataGrid();
+
             // Ocultar campos específicos inicialmente
             MostrarCamposSegunTipo();
+        }
+
+        private void ConfigurarScrollDataGrid()
+        {
+            // Configuración inicial del DataGridView para scroll horizontal y vertical
+            dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvDatos.ScrollBars = ScrollBars.Both;
+            dgvDatos.AllowUserToResizeColumns = true;
+            dgvDatos.AllowUserToResizeRows = false;
+            
+            // Asegurar que el DataGridView use scroll cuando sea necesario
+            dgvDatos.AutoSize = false;
+            dgvDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         }
 
         private void CmbTipoPersonalForm_SelectedIndexChanged(object sender, EventArgs e)
@@ -136,7 +152,7 @@ namespace SistemVeterinario.Forms
                     dt = NPersonal.BuscarPorTipo(_tipoPersonalSeleccionado);
                 }
 
-                dgvDatos.DataSource = dt;
+                base.CargarDatos(dt);
                 ConfigurarColumnasGrid();
             }
             catch (Exception ex)
@@ -159,7 +175,7 @@ namespace SistemVeterinario.Forms
                 }
 
                 dt = NPersonal.BuscarTexto(textoBuscar);
-                dgvDatos.DataSource = dt;
+                base.CargarDatos(dt);
                 ConfigurarColumnasGrid();
             }
             catch (Exception ex)
@@ -592,6 +608,7 @@ namespace SistemVeterinario.Forms
         private void ConfigurarColumnasGrid()
         {
             PersonalizarColumnas();
+            ConfigurarScrollHorizontal();
 
             // Configurar formato de columnas específicas
             if (dgvDatos.Columns.Contains("salario"))
@@ -603,6 +620,25 @@ namespace SistemVeterinario.Forms
             if (dgvDatos.Columns.Contains("fecha_contratacion"))
             {
                 dgvDatos.Columns["fecha_contratacion"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            }
+        }
+
+        private void ConfigurarScrollHorizontal()
+        {
+            // Configurar scroll horizontal automático
+            dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvDatos.ScrollBars = ScrollBars.Both;
+            
+            // Permitir que las columnas mantengan su ancho fijo para habilitar scroll horizontal
+            foreach (DataGridViewColumn column in dgvDatos.Columns)
+            {
+                if (column.Name != "btnEditar" && column.Name != "btnEliminar")
+                {
+                    column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    // Asegurar un ancho mínimo para que sea necesario hacer scroll
+                    if (column.Width < 100)
+                        column.Width = 120;
+                }
             }
         }
 

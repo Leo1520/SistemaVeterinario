@@ -82,19 +82,19 @@ namespace SistemVeterinario.Forms
             // tabControlPrincipal
             // 
             tabControlPrincipal.Margin = new Padding(3, 2, 3, 2);
-            tabControlPrincipal.Size = new Size(875, 450);
+            tabControlPrincipal.Size = new Size(1000, 600);
             // 
             // tabInicio
             // 
             tabInicio.Margin = new Padding(3, 2, 3, 2);
             tabInicio.Padding = new Padding(3, 2, 3, 2);
-            tabInicio.Size = new Size(867, 422);
+            tabInicio.Size = new Size(992, 572);
             // 
             // tabConfiguraciones
             // 
             tabConfiguraciones.Margin = new Padding(3, 2, 3, 2);
             tabConfiguraciones.Padding = new Padding(3, 2, 3, 2);
-            tabConfiguraciones.Size = new Size(867, 422);
+            tabConfiguraciones.Size = new Size(992, 572);
             // 
             // panelBusqueda
             // 
@@ -102,7 +102,7 @@ namespace SistemVeterinario.Forms
             panelBusqueda.Controls.Add(lblTipoPersonal);
             panelBusqueda.Location = new Point(5, 8);
             panelBusqueda.Margin = new Padding(3, 2, 3, 2);
-            panelBusqueda.Size = new Size(858, 100);
+            panelBusqueda.Size = new Size(980, 133);
             panelBusqueda.Controls.SetChildIndex(lblTipoPersonal, 0);
             panelBusqueda.Controls.SetChildIndex(cmbTipoPersonal, 0);
             panelBusqueda.Controls.SetChildIndex(chkMostrarTodo, 0);
@@ -173,7 +173,7 @@ namespace SistemVeterinario.Forms
             panelFormulario.Controls.Add(cmbNivel);
             panelFormulario.Location = new Point(3, 2);
             panelFormulario.Margin = new Padding(3, 2, 3, 2);
-            panelFormulario.Size = new Size(861, 418);
+            panelFormulario.Size = new Size(986, 566);
             panelFormulario.Controls.SetChildIndex(cmbNivel, 0);
             panelFormulario.Controls.SetChildIndex(lblNivel, 0);
             panelFormulario.Controls.SetChildIndex(cmbTurno, 0);
@@ -243,7 +243,7 @@ namespace SistemVeterinario.Forms
             // 
             panelBotones.Location = new Point(9, 718);
             panelBotones.Margin = new Padding(3, 2, 3, 2);
-            panelBotones.Size = new Size(1526, 38);
+            panelBotones.Size = new Size(900, 50);
             // 
             // btnGuardar
             // 
@@ -676,7 +676,7 @@ namespace SistemVeterinario.Forms
             AutoScaleDimensions = new SizeF(7F, 15F);
             Margin = new Padding(3, 2, 3, 2);
             Name = "PersonalModule";
-            Size = new Size(875, 450);
+            Size = new Size(1000, 600);
             tabControlPrincipal.ResumeLayout(false);
             tabInicio.ResumeLayout(false);
             tabConfiguraciones.ResumeLayout(false);
