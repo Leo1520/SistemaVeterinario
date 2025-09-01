@@ -427,6 +427,51 @@ namespace SistemVeterinario.Forms
 
         #region Métodos Auxiliares
 
+        public override void AddBtnCustom()
+        {
+            // Definir las columnas personalizadas para este módulo
+            ColumnasPersonalizadas = new string[] { "btnFactura" };
+
+            // Agregar columna de botón Factura específica para el módulo de ventas
+            DataGridViewButtonColumn btnFactura = new DataGridViewButtonColumn();
+            btnFactura.Name = "btnFactura";
+            btnFactura.HeaderText = "FACTURA";
+            btnFactura.Text = "📄 Ver Factura";
+            btnFactura.UseColumnTextForButtonValue = true;
+            btnFactura.Width = 120;
+            btnFactura.FlatStyle = FlatStyle.Flat;
+            btnFactura.DefaultCellStyle.BackColor = Color.FromArgb(40, 167, 69);
+            btnFactura.DefaultCellStyle.ForeColor = Color.White;
+            btnFactura.DefaultCellStyle.SelectionBackColor = Color.FromArgb(34, 139, 58);
+            btnFactura.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvDatos.Columns.Add(btnFactura);
+        }
+
+        protected override void OnAccionPersonalizada(DataGridViewRow row, string accion)
+        {
+            if (accion == "btnFactura" && row != null)
+            {
+                try
+                {
+                    // Obtener el ID de la factura desde la fila seleccionada
+                    if (row.DataBoundItem is DataRowView dataRow)
+                    {
+                        int facturaId = Convert.ToInt32(dataRow["id"]);
+                        
+                        // Abrir el formulario de reporte de factura
+                        using (var facturaForm = new FacturaReportForm(facturaId))
+                        {
+                            facturaForm.ShowDialog(this);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al abrir la factura: {ex.Message}", "Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
 
         private void ConfigurarColumnasGrid()
         {
