@@ -131,7 +131,7 @@ namespace SistemVeterinario.Forms
             // panelSuperior
             // 
             this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.panelSuperior.Size = new System.Drawing.Size(1133, 60);
+            this.panelSuperior.Size = new System.Drawing.Size(1076, 60);
             // 
             // lblModo
             // 
@@ -155,30 +155,16 @@ namespace SistemVeterinario.Forms
             // 
             // panelBotones
             // 
+            // Los botones son heredados de BaseModulos con sus configuraciones originales
+            // Este panel ahora es completamente editable desde el diseñador
+            // 
             this.panelBotones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.panelBotones.Location = new System.Drawing.Point(17, 524);
+            this.panelBotones.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBotones.Location = new System.Drawing.Point(17, 590);
+            this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(1073, 80);
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnGuardar.Location = new System.Drawing.Point(915, 20);
-            this.btnGuardar.Size = new System.Drawing.Size(120, 40);
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnCancelar.Location = new System.Drawing.Point(733, 20);
-            this.btnCancelar.Size = new System.Drawing.Size(120, 40);
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.FlatAppearance.BorderSize = 0;
-            this.btnEliminar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnEliminar.Location = new System.Drawing.Point(45, 21);
-            this.btnEliminar.Size = new System.Drawing.Size(120, 40);
+            this.panelBotones.TabIndex = 0;
+            this.panelBotones.Tag = "EditableButtonPanel";
             // 
             // lblContador
             // 

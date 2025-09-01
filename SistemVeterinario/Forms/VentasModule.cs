@@ -30,7 +30,28 @@ namespace SistemVeterinario.Forms
                 ConfigurarValidacionEnTiempoReal();
                 ConfigurarEstilosModernos();
                 ConfigurarEventosPersonalizados();
+                ConfigurarBotonesEditables();
             };
+            
+            // También configurar cuando se cambia a la pestaña de configuración
+            if (this.tabControlPrincipal != null)
+            {
+                this.tabControlPrincipal.SelectedIndexChanged += (s, e) =>
+                {
+                    if (this.tabControlPrincipal.SelectedTab == this.tabConfiguraciones)
+                    {
+                        // Pequeño delay para que el tab se renderice completamente
+                        var timer = new System.Windows.Forms.Timer();
+                        timer.Interval = 50;
+                        timer.Tick += (ts, te) =>
+                        {
+                            timer.Stop();
+                            ConfigurarBotonesEditables();
+                        };
+                        timer.Start();
+                    }
+                };
+            }
         }
 
         protected override void OnLoad()
@@ -766,6 +787,88 @@ namespace SistemVeterinario.Forms
         private void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             LimpiarFiltros();
+        }
+
+        #endregion
+
+        #region Configuración de Botones
+
+        private void ConfigurarBotonesEditables()
+        {
+            // Asegurar que tenemos acceso a los botones a través de la base
+            if (this.btnEliminar == null || this.btnCancelar == null || this.btnGuardar == null)
+                return;
+
+            // Usar un Timer para configurar después de que la UI se haya cargado completamente
+            var timer = new System.Windows.Forms.Timer();
+            timer.Interval = 100; // 100ms delay
+            timer.Tick += (s, e) =>
+            {
+                timer.Stop();
+                
+                try
+                {
+                    // Configurar propiedades básicas primero
+                    var buttonWidth = 100;
+                    var buttonHeight = 35;
+                    var spacing = 15;
+                    
+                    // Asegurar que los botones estén en el tab correcto
+                    if (this.tabConfiguraciones != null)
+                    {
+                        // Remover de cualquier contenedor anterior
+                        if (this.btnEliminar.Parent != this.tabConfiguraciones)
+                            this.tabConfiguraciones.Controls.Add(this.btnEliminar);
+                        if (this.btnCancelar.Parent != this.tabConfiguraciones)
+                            this.tabConfiguraciones.Controls.Add(this.btnCancelar);
+                        if (this.btnGuardar.Parent != this.tabConfiguraciones)
+                            this.tabConfiguraciones.Controls.Add(this.btnGuardar);
+                        
+                        var tabWidth = this.tabConfiguraciones.ClientSize.Width;
+                        var tabHeight = this.tabConfiguraciones.ClientSize.Height;
+                        
+                        // Calcular posición centrada más robusta
+                        var totalWidth = (buttonWidth * 3) + (spacing * 2);
+                        var startX = Math.Max(10, (tabWidth - totalWidth) / 2);
+                        var buttonY = Math.Max(10, tabHeight - 60); // 60px desde el bottom
+                        
+                        // Configurar btnEliminar
+                        this.btnEliminar.Size = new Size(buttonWidth, buttonHeight);
+                        this.btnEliminar.Location = new Point(startX, buttonY);
+                        this.btnEliminar.Visible = true;
+                        this.btnEliminar.Enabled = true;
+                        this.btnEliminar.BringToFront();
+                        this.btnEliminar.TabIndex = 0;
+                        
+                        // Configurar btnCancelar
+                        this.btnCancelar.Size = new Size(buttonWidth, buttonHeight);
+                        this.btnCancelar.Location = new Point(startX + buttonWidth + spacing, buttonY);
+                        this.btnCancelar.Visible = true;
+                        this.btnCancelar.Enabled = true;
+                        this.btnCancelar.BringToFront();
+                        this.btnCancelar.TabIndex = 1;
+                        
+                        // Configurar btnGuardar
+                        this.btnGuardar.Size = new Size(buttonWidth, buttonHeight);
+                        this.btnGuardar.Location = new Point(startX + (buttonWidth + spacing) * 2, buttonY);
+                        this.btnGuardar.Visible = true;
+                        this.btnGuardar.Enabled = true;
+                        this.btnGuardar.BringToFront();
+                        this.btnGuardar.TabIndex = 2;
+                        
+                        // Forzar actualización
+                        this.tabConfiguraciones.Refresh();
+                    }
+                }
+                catch (Exception)
+                {
+                    // Si hay algún error, al menos hacer los botones visibles
+                    this.btnEliminar.Visible = true;
+                    this.btnCancelar.Visible = true;
+                    this.btnGuardar.Visible = true;
+                }
+            };
+            timer.Start();
         }
 
         #endregion

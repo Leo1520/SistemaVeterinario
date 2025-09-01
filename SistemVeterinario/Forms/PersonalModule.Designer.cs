@@ -101,7 +101,7 @@ namespace SistemVeterinario.Forms
             this.tabInicio.Location = new System.Drawing.Point(4, 39);
             this.tabInicio.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabInicio.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabInicio.Size = new System.Drawing.Size(1298, 810);
+            this.tabInicio.Size = new System.Drawing.Size(1135, 597);
             this.tabInicio.Text = "Gestión de Personal";
             // 
             // tabConfiguraciones
@@ -174,9 +174,9 @@ namespace SistemVeterinario.Forms
             // 
             // panelSuperior
             // 
-            this.panelSuperior.Location = new System.Drawing.Point(13, 14);
+            this.panelSuperior.Location = new System.Drawing.Point(30, 41);
             this.panelSuperior.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panelSuperior.Size = new System.Drawing.Size(2093, 79);
+            this.panelSuperior.Size = new System.Drawing.Size(1190, 79);
             // 
             // lblModo
             // 
@@ -200,18 +200,18 @@ namespace SistemVeterinario.Forms
             // 
             // panelBotones
             // 
-            this.panelBotones.Location = new System.Drawing.Point(100, 921);
-            this.panelBotones.Size = new System.Drawing.Size(1399, 65);
+            this.panelBotones.Location = new System.Drawing.Point(100, 1347);
+            this.panelBotones.Size = new System.Drawing.Size(1725, 65);
             // 
             // btnGuardar
             // 
             this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.Location = new System.Drawing.Point(1262, 15);
+            this.btnGuardar.Location = new System.Drawing.Point(1588, 15);
             // 
             // btnCancelar
             // 
             this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.Location = new System.Drawing.Point(1079, 15);
+            this.btnCancelar.Location = new System.Drawing.Point(1405, 15);
             // 
             // btnEliminar
             // 

@@ -104,9 +104,9 @@ namespace SistemVeterinario.Forms
             this.panelBusqueda.Controls.Add(this.lblContador);
             this.panelBusqueda.Controls.Add(this.lblTipoPersona);
             this.panelBusqueda.Controls.Add(this.cmbTipoPersona);
-            this.panelBusqueda.Location = new System.Drawing.Point(13, 14);
+            this.panelBusqueda.Location = new System.Drawing.Point(13, 27);
             this.panelBusqueda.Margin = new System.Windows.Forms.Padding(10);
-            this.panelBusqueda.Size = new System.Drawing.Size(1435, 120);
+            this.panelBusqueda.Size = new System.Drawing.Size(1246, 120);
             this.panelBusqueda.Controls.SetChildIndex(this.cmbTipoPersona, 0);
             this.panelBusqueda.Controls.SetChildIndex(this.lblTipoPersona, 0);
             this.panelBusqueda.Controls.SetChildIndex(this.lblContador, 0);
@@ -119,19 +119,19 @@ namespace SistemVeterinario.Forms
             // 
             this.txtBuscar.Location = new System.Drawing.Point(25, 30);
             this.txtBuscar.Margin = new System.Windows.Forms.Padding(5);
-            this.txtBuscar.Size = new System.Drawing.Size(607, 32);
+            this.txtBuscar.Size = new System.Drawing.Size(418, 32);
             // 
             // btnBuscar
             // 
             this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.Location = new System.Drawing.Point(647, 28);
+            this.btnBuscar.Location = new System.Drawing.Point(458, 28);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(5);
             this.btnBuscar.Size = new System.Drawing.Size(120, 36);
             // 
             // btnNuevo
             // 
             this.btnNuevo.FlatAppearance.BorderSize = 0;
-            this.btnNuevo.Location = new System.Drawing.Point(1209, 22);
+            this.btnNuevo.Location = new System.Drawing.Point(993, 22);
             this.btnNuevo.Margin = new System.Windows.Forms.Padding(5);
             this.btnNuevo.Size = new System.Drawing.Size(150, 40);
             this.btnNuevo.Text = "➕ Nueva Persona";
@@ -159,9 +159,9 @@ namespace SistemVeterinario.Forms
             // 
             // panelSuperior
             // 
-            this.panelSuperior.Location = new System.Drawing.Point(13, 14);
+            this.panelSuperior.Location = new System.Drawing.Point(35, 26);
             this.panelSuperior.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panelSuperior.Size = new System.Drawing.Size(2256, 72);
+            this.panelSuperior.Size = new System.Drawing.Size(1222, 72);
             // 
             // lblModo
             // 
@@ -169,34 +169,34 @@ namespace SistemVeterinario.Forms
             // 
             // cmbModo
             // 
-            this.cmbModo.Location = new System.Drawing.Point(191, 24);
+            this.cmbModo.Location = new System.Drawing.Point(227, 24);
             this.cmbModo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbModo.Size = new System.Drawing.Size(156, 31);
             // 
             // lblId
             // 
-            this.lblId.Location = new System.Drawing.Point(428, 25);
+            this.lblId.Location = new System.Drawing.Point(438, 24);
             // 
             // txtId
             // 
-            this.txtId.Location = new System.Drawing.Point(471, 25);
+            this.txtId.Location = new System.Drawing.Point(513, 24);
             this.txtId.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtId.Size = new System.Drawing.Size(129, 30);
             // 
             // panelBotones
             // 
-            this.panelBotones.Location = new System.Drawing.Point(100, 1334);
-            this.panelBotones.Size = new System.Drawing.Size(1562, 65);
+            this.panelBotones.Location = new System.Drawing.Point(100, 1760);
+            this.panelBotones.Size = new System.Drawing.Size(1888, 65);
             // 
             // btnGuardar
             // 
             this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.Location = new System.Drawing.Point(1425, 15);
+            this.btnGuardar.Location = new System.Drawing.Point(1751, 15);
             // 
             // btnCancelar
             // 
             this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.Location = new System.Drawing.Point(1242, 15);
+            this.btnCancelar.Location = new System.Drawing.Point(1568, 15);
             // 
             // btnEliminar
             // 
@@ -210,7 +210,7 @@ namespace SistemVeterinario.Forms
             this.cmbTipoPersona.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbTipoPersona.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbTipoPersona.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.cmbTipoPersona.Location = new System.Drawing.Point(832, 55);
+            this.cmbTipoPersona.Location = new System.Drawing.Point(670, 54);
             this.cmbTipoPersona.Margin = new System.Windows.Forms.Padding(5);
             this.cmbTipoPersona.Name = "cmbTipoPersona";
             this.cmbTipoPersona.Size = new System.Drawing.Size(180, 31);
@@ -222,7 +222,7 @@ namespace SistemVeterinario.Forms
             this.lblTipoPersona.AutoSize = true;
             this.lblTipoPersona.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblTipoPersona.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblTipoPersona.Location = new System.Drawing.Point(828, 21);
+            this.lblTipoPersona.Location = new System.Drawing.Point(666, 21);
             this.lblTipoPersona.Margin = new System.Windows.Forms.Padding(5);
             this.lblTipoPersona.Name = "lblTipoPersona";
             this.lblTipoPersona.Size = new System.Drawing.Size(166, 23);
@@ -235,7 +235,7 @@ namespace SistemVeterinario.Forms
             this.lblContador.AutoSize = true;
             this.lblContador.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblContador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblContador.Location = new System.Drawing.Point(1190, 75);
+            this.lblContador.Location = new System.Drawing.Point(989, 75);
             this.lblContador.Margin = new System.Windows.Forms.Padding(5);
             this.lblContador.Name = "lblContador";
             this.lblContador.Size = new System.Drawing.Size(169, 23);
