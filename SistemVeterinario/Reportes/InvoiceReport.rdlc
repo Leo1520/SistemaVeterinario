@@ -378,7 +378,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>ProductoHeader</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -410,7 +410,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>CantidadHeader</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -442,7 +442,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>PrecioHeader</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -474,7 +474,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>TotalHeader</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -510,7 +510,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>ProductoNombre</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -541,7 +541,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>ProductoCantidad</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -572,7 +572,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>ProductoPrecio</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -603,7 +603,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>ProductoSubtotal</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -690,7 +690,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>ServicioHeader</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -722,7 +722,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>MascotaHeader</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -754,7 +754,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>CantServHeader</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -786,7 +786,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>TotalServHeader</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -822,7 +822,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>ServicioNombre</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -853,7 +853,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>AnimalNombre</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -884,7 +884,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>ServicioCantidad</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -915,7 +915,7 @@ CAMBIO: Bs. 0.00</Value>
                           <rd:DefaultName>ServicioSubtotal</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
