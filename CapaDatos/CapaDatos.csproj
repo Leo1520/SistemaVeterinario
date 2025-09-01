@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1" />
+    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
   </ItemGroup>
 
 </Project>
