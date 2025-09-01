@@ -73,7 +73,7 @@ namespace SistemVeterinario.Forms
             // tabInicio
             // 
             this.tabInicio.Location = new System.Drawing.Point(4, 39);
-            this.tabInicio.Size = new System.Drawing.Size(1135, 597);
+            this.tabInicio.Size = new System.Drawing.Size(1135, 663);
             this.tabInicio.Text = "Gestión de Mascotas";
             // 
             // tabConfiguraciones
@@ -96,27 +96,27 @@ namespace SistemVeterinario.Forms
             // txtBuscar
             // 
             this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtBuscar.Location = new System.Drawing.Point(25, 30);
+            this.txtBuscar.Location = new System.Drawing.Point(36, 22);
             this.txtBuscar.Size = new System.Drawing.Size(450, 30);
             // 
             // btnBuscar
             // 
             this.btnBuscar.FlatAppearance.BorderSize = 0;
             this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnBuscar.Location = new System.Drawing.Point(578, 30);
+            this.btnBuscar.Location = new System.Drawing.Point(553, 13);
             this.btnBuscar.Size = new System.Drawing.Size(138, 47);
             // 
             // btnNuevo
             // 
             this.btnNuevo.FlatAppearance.BorderSize = 0;
             this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnNuevo.Location = new System.Drawing.Point(898, 30);
+            this.btnNuevo.Location = new System.Drawing.Point(841, 13);
             this.btnNuevo.Size = new System.Drawing.Size(163, 47);
             // 
             // chkMostrarTodo
             // 
             this.chkMostrarTodo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.chkMostrarTodo.Location = new System.Drawing.Point(120, 76);
+            this.chkMostrarTodo.Location = new System.Drawing.Point(157, 58);
             this.chkMostrarTodo.Size = new System.Drawing.Size(237, 24);
             // 
             // panelFormulario
@@ -139,7 +139,7 @@ namespace SistemVeterinario.Forms
             // 
             // cmbModo
             // 
-            this.cmbModo.Location = new System.Drawing.Point(175, 13);
+            this.cmbModo.Location = new System.Drawing.Point(184, 13);
             // 
             // lblId
             // 
@@ -150,21 +150,30 @@ namespace SistemVeterinario.Forms
             // txtId
             // 
             this.txtId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
-            this.txtId.Location = new System.Drawing.Point(527, 16);
+            this.txtId.Location = new System.Drawing.Point(542, 13);
             this.txtId.Size = new System.Drawing.Size(100, 30);
             // 
             // panelBotones
             // 
-            // Los botones son heredados de BaseModulos con sus configuraciones originales
-            // Este panel ahora es completamente editable desde el diseñador
-            // 
             this.panelBotones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.panelBotones.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBotones.Location = new System.Drawing.Point(17, 590);
-            this.panelBotones.Name = "panelBotones";
+            this.panelBotones.Location = new System.Drawing.Point(17, 656);
             this.panelBotones.Size = new System.Drawing.Size(1073, 80);
             this.panelBotones.TabIndex = 0;
             this.panelBotones.Tag = "EditableButtonPanel";
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.FlatAppearance.BorderSize = 0;
+            this.btnGuardar.Location = new System.Drawing.Point(918, 16);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.Location = new System.Drawing.Point(763, 16);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.FlatAppearance.BorderSize = 0;
             // 
             // lblContador
             // 
@@ -172,7 +181,7 @@ namespace SistemVeterinario.Forms
             this.lblContador.AutoSize = true;
             this.lblContador.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblContador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblContador.Location = new System.Drawing.Point(860, 80);
+            this.lblContador.Location = new System.Drawing.Point(814, 67);
             this.lblContador.Name = "lblContador";
             this.lblContador.Size = new System.Drawing.Size(169, 23);
             this.lblContador.TabIndex = 6;

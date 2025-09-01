@@ -30,7 +30,10 @@ namespace SistemVeterinario.Forms
             ConfigurarEstilosModernos();
             
             // Configurar botones editables después de la inicialización
-            this.Load += (s, e) => ConfigurarBotonesEditables();
+            this.Load += (s, e) => {
+                ConfigurarBotonesEditables();
+                OptimizarLayoutPaneles();
+            };
             
             // También configurar cuando se cambia a la pestaña de configuración
             if (this.tabControlPrincipal != null)
@@ -49,8 +52,16 @@ namespace SistemVeterinario.Forms
                         };
                         timer.Start();
                     }
+                    else if (this.tabControlPrincipal.SelectedTab == this.tabInicio)
+                    {
+                        // Optimizar layout cuando se va al tab de inicio
+                        OptimizarLayoutPaneles();
+                    }
                 };
             }
+            
+            // Configurar redimensionamiento automático
+            this.Resize += (s, e) => OptimizarLayoutPaneles();
         }
         #endregion
 
@@ -278,6 +289,92 @@ namespace SistemVeterinario.Forms
                 }
             };
             timer.Start();
+        }
+
+        private void OptimizarLayoutPaneles()
+        {
+            try
+            {
+                if (this.tabInicio != null && this.panelBusqueda != null && this.dgvDatos != null)
+                {
+                    // Obtener el tamaño disponible del tab
+                    var tabWidth = this.tabInicio.ClientSize.Width;
+                    var tabHeight = this.tabInicio.ClientSize.Height;
+                    
+                    // Configurar panel de búsqueda
+                    var margin = 10;
+                    var panelBusquedaHeight = 80; // Altura óptima para el panel de búsqueda
+                    
+                    this.panelBusqueda.Location = new Point(margin, margin);
+                    this.panelBusqueda.Size = new Size(tabWidth - (margin * 2), panelBusquedaHeight);
+                    this.panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    
+                    // Configurar DataGridView para ocupar todo el espacio restante
+                    var dgvTop = this.panelBusqueda.Bottom + margin;
+                    var dgvHeight = tabHeight - dgvTop - margin;
+                    
+                    this.dgvDatos.Location = new Point(margin, dgvTop);
+                    this.dgvDatos.Size = new Size(tabWidth - (margin * 2), dgvHeight);
+                    this.dgvDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                    
+                    // Asegurar que el DataGridView llene completamente el espacio
+                    this.dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    
+                    // Optimizar la visualización de las columnas específicas para productos
+                    if (this.dgvDatos.Columns.Count > 0)
+                    {
+                        // Configuración específica para columnas de productos
+                        foreach (DataGridViewColumn column in this.dgvDatos.Columns)
+                        {
+                            // Configurar anchos mínimos específicos para productos
+                            switch (column.Name.ToLower())
+                            {
+                                case "codigo":
+                                case "código":
+                                    column.MinimumWidth = 80;
+                                    column.FillWeight = 80;
+                                    break;
+                                case "nombre":
+                                    column.MinimumWidth = 150;
+                                    column.FillWeight = 150;
+                                    break;
+                                case "descripcion":
+                                case "descripción":
+                                    column.MinimumWidth = 200;
+                                    column.FillWeight = 200;
+                                    break;
+                                case "precio":
+                                    column.MinimumWidth = 80;
+                                    column.FillWeight = 80;
+                                    break;
+                                case "stock":
+                                    column.MinimumWidth = 60;
+                                    column.FillWeight = 60;
+                                    break;
+                                case "categoria":
+                                case "categoría":
+                                    column.MinimumWidth = 120;
+                                    column.FillWeight = 120;
+                                    break;
+                                default:
+                                    column.MinimumWidth = 100;
+                                    column.FillWeight = 100;
+                                    break;
+                            }
+                            column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        }
+                    }
+                    
+                    // Forzar actualización visual
+                    this.tabInicio.Invalidate();
+                    this.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Error silencioso para no interrumpir la funcionalidad
+                System.Diagnostics.Debug.WriteLine($"Error optimizando layout de productos: {ex.Message}");
+            }
         }
         #endregion
 

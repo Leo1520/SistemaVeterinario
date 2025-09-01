@@ -26,7 +26,10 @@ namespace SistemVeterinario.Forms
             ConfigurarEstilosModernos();
             
             // Configurar botones editables después de la inicialización
-            this.Load += (s, e) => ConfigurarBotonesEditables();
+            this.Load += (s, e) => {
+                ConfigurarBotonesEditables();
+                OptimizarLayoutPaneles();
+            };
             
             // También configurar cuando se cambia a la pestaña de configuración
             if (this.tabControlPrincipal != null)
@@ -45,8 +48,16 @@ namespace SistemVeterinario.Forms
                         };
                         timer.Start();
                     }
+                    else if (this.tabControlPrincipal.SelectedTab == this.tabInicio)
+                    {
+                        // Optimizar layout cuando se va al tab de inicio
+                        OptimizarLayoutPaneles();
+                    }
                 };
             }
+            
+            // Configurar redimensionamiento automático
+            this.Resize += (s, e) => OptimizarLayoutPaneles();
         }
         #endregion
 
@@ -202,6 +213,62 @@ namespace SistemVeterinario.Forms
             };
             timer.Start();
         }
+
+        private void OptimizarLayoutPaneles()
+        {
+            try
+            {
+                if (this.tabInicio != null && this.panelBusqueda != null && this.dgvDatos != null)
+                {
+                    // Obtener el tamaño disponible del tab
+                    var tabWidth = this.tabInicio.ClientSize.Width;
+                    var tabHeight = this.tabInicio.ClientSize.Height;
+                    
+                    // Configurar panel de búsqueda
+                    var margin = 10;
+                    var panelBusquedaHeight = 80; // Altura óptima para el panel de búsqueda
+                    
+                    this.panelBusqueda.Location = new Point(margin, margin);
+                    this.panelBusqueda.Size = new Size(tabWidth - (margin * 2), panelBusquedaHeight);
+                    this.panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    
+                    // Configurar DataGridView para ocupar todo el espacio restante
+                    var dgvTop = this.panelBusqueda.Bottom + margin;
+                    var dgvHeight = tabHeight - dgvTop - margin;
+                    
+                    this.dgvDatos.Location = new Point(margin, dgvTop);
+                    this.dgvDatos.Size = new Size(tabWidth - (margin * 2), dgvHeight);
+                    this.dgvDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                    
+                    // Asegurar que el DataGridView llene completamente el espacio
+                    this.dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    
+                    // Optimizar la visualización de las columnas
+                    if (this.dgvDatos.Columns.Count > 0)
+                    {
+                        // Ajustar ancho de columnas para mejor visualización
+                        var totalWidth = this.dgvDatos.ClientSize.Width;
+                        var columnCount = this.dgvDatos.Columns.Count;
+                        var columnWidth = totalWidth / columnCount;
+                        
+                        foreach (DataGridViewColumn column in this.dgvDatos.Columns)
+                        {
+                            column.MinimumWidth = Math.Max(100, columnWidth - 20);
+                            column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        }
+                    }
+                    
+                    // Forzar actualización visual
+                    this.tabInicio.Invalidate();
+                    this.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Error silencioso para no interrumpir la funcionalidad
+                System.Diagnostics.Debug.WriteLine($"Error optimizando layout: {ex.Message}");
+            }
+        }
         #endregion
 
         #region Métodos Override de BaseModulos
@@ -244,6 +311,7 @@ namespace SistemVeterinario.Forms
                 }
 
                 base.CargarDatos(datos);
+                PersonalizarColumnasClientes();
                 ActualizarContadorRegistros(datos.Rows.Count);
             }
             catch (Exception ex)
@@ -461,11 +529,146 @@ namespace SistemVeterinario.Forms
             {
                 DataTable datos = NPersona.Mostrar();
                 base.CargarDatos(datos);
+                PersonalizarColumnasClientes();
                 ActualizarContadorRegistros(datos.Rows.Count);
             }
             catch (Exception ex)
             {
                 MostrarMensaje($"Error al cargar datos: {ex.Message}", "Error", MessageBoxIcon.Error);
+            }
+        }
+
+        private void PersonalizarColumnasClientes()
+        {
+            if (dgvDatos?.DataSource == null) return;
+
+            try
+            {
+                foreach (DataGridViewColumn column in dgvDatos.Columns)
+                {
+                    if (column == null || string.IsNullOrEmpty(column.Name))
+                        continue;
+
+                    // Evitar configurar las columnas de botones
+                    if (column.Name == "btnEditar" || column.Name == "btnEliminar")
+                    {
+                        column.Width = 80; // Reducir el ancho de los botones
+                        continue;
+                    }
+
+                    switch (column.Name.ToLower())
+                    {
+                        case "id":
+                            column.HeaderText = "ID";
+                            column.Width = 40;
+                            column.Visible = false;
+                            break;
+                        case "nombre":
+                            column.HeaderText = "Nombre";
+                            column.Width = 80;
+                            break;
+                        case "apellido":
+                            column.HeaderText = "Apellido";
+                            column.Width = 80;
+                            break;
+                        case "email":
+                            column.HeaderText = "Email";
+                            column.Width = 120;
+                            break;
+                        case "usuario":
+                            column.HeaderText = "Usuario";
+                            column.Width = 60;
+                            break;
+                        case "telefono":
+                            column.HeaderText = "Teléfono";
+                            column.Width = 80;
+                            break;
+                        case "direccion":
+                            column.HeaderText = "Dirección";
+                            column.Width = 100;
+                            break;
+                        case "fecha_nacimiento":
+                            column.HeaderText = "F. Nac.";
+                            column.Width = 70;
+                            break;
+                        case "salario":
+                            column.HeaderText = "Salario";
+                            column.Width = 70;
+                            column.DefaultCellStyle.Format = "C0";
+                            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                            break;
+                        case "rol":
+                            column.HeaderText = "Rol";
+                            column.Width = 60;
+                            break;
+                        case "activo":
+                            column.HeaderText = "Activo";
+                            column.Width = 50;
+                            break;
+                        case "fecha_ultimo_acceso":
+                            column.HeaderText = "Último Acc.";
+                            column.Width = 80;
+                            break;
+                        case "licencia":
+                            column.HeaderText = "Licencia";
+                            column.Width = 60;
+                            break;
+                        case "especialidad":
+                            column.HeaderText = "Especialidad";
+                            column.Width = 80;
+                            break;
+                        case "universidad":
+                            column.HeaderText = "Universidad";
+                            column.Width = 80;
+                            break;
+                        case "anos_experiencia":
+                            column.HeaderText = "Años Exp.";
+                            column.Width = 60;
+                            break;
+                        case "area":
+                            column.HeaderText = "Área";
+                            column.Width = 60;
+                            break;
+                        case "tipo":
+                            column.HeaderText = "Tipo";
+                            column.Width = 60;
+                            break;
+                        case "ci":
+                            column.HeaderText = "CI";
+                            column.Width = 70;
+                            break;
+                        case "genero":
+                            column.HeaderText = "Género";
+                            column.Width = 50;
+                            break;
+                        case "razon_social":
+                            column.HeaderText = "Razón Social";
+                            column.Width = 100;
+                            break;
+                        case "nit":
+                            column.HeaderText = "NIT";
+                            column.Width = 70;
+                            break;
+                        case "encargado_nombre":
+                            column.HeaderText = "Encargado";
+                            column.Width = 80;
+                            break;
+                        case "encargado_cargo":
+                            column.HeaderText = "Cargo Enc.";
+                            column.Width = 70;
+                            break;
+                    }
+                }
+
+                // No usar AutoSizeColumnsMode.Fill para evitar que se expandan demasiado
+                dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+                
+                // Habilitar scroll horizontal si es necesario
+                dgvDatos.ScrollBars = ScrollBars.Both;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en PersonalizarColumnasClientes: {ex.Message}");
             }
         }
 

@@ -25,7 +25,10 @@ namespace SistemVeterinario.Forms
             ConfigurarModulo();
             
             // Configurar botones editables después de la inicialización
-            this.Load += (s, e) => ConfigurarBotonesEditables();
+            this.Load += (s, e) => {
+                ConfigurarBotonesEditables();
+                OptimizarLayoutPaneles();
+            };
             
             // También configurar cuando se cambia a la pestaña de configuración
             if (this.tabControlPrincipal != null)
@@ -44,8 +47,16 @@ namespace SistemVeterinario.Forms
                         };
                         timer.Start();
                     }
+                    else if (this.tabControlPrincipal.SelectedTab == this.tabInicio)
+                    {
+                        // Optimizar layout cuando se va al tab de inicio
+                        OptimizarLayoutPaneles();
+                    }
                 };
             }
+            
+            // Configurar redimensionamiento automático
+            this.Resize += (s, e) => OptimizarLayoutPaneles();
         }
         #endregion
 
@@ -125,6 +136,114 @@ namespace SistemVeterinario.Forms
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error configurando botones: {ex.Message}");
+            }
+        }
+
+        private void OptimizarLayoutPaneles()
+        {
+            try
+            {
+                if (this.tabInicio != null && this.panelBusqueda != null && this.dgvDatos != null)
+                {
+                    // Obtener el tamaño disponible del tab
+                    var tabWidth = this.tabInicio.ClientSize.Width;
+                    var tabHeight = this.tabInicio.ClientSize.Height;
+                    
+                    // Configurar panel de búsqueda
+                    var margin = 10;
+                    var panelBusquedaHeight = 80; // Altura óptima para el panel de búsqueda
+                    
+                    this.panelBusqueda.Location = new Point(margin, margin);
+                    this.panelBusqueda.Size = new Size(tabWidth - (margin * 2), panelBusquedaHeight);
+                    this.panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    
+                    // Configurar DataGridView para ocupar todo el espacio restante
+                    var dgvTop = this.panelBusqueda.Bottom + margin;
+                    var dgvHeight = tabHeight - dgvTop - margin;
+                    
+                    this.dgvDatos.Location = new Point(margin, dgvTop);
+                    this.dgvDatos.Size = new Size(tabWidth - (margin * 2), dgvHeight);
+                    this.dgvDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                    
+                    // Asegurar que el DataGridView llene completamente el espacio
+                    this.dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    
+                    // Optimizar la visualización de las columnas específicas para mascotas
+                    if (this.dgvDatos.Columns.Count > 0)
+                    {
+                        // Configuración específica para columnas de mascotas
+                        foreach (DataGridViewColumn column in this.dgvDatos.Columns)
+                        {
+                            // Configurar anchos mínimos específicos para mascotas
+                            switch (column.Name.ToLower())
+                            {
+                                case "nombre":
+                                    column.MinimumWidth = 120;
+                                    column.FillWeight = 120;
+                                    break;
+                                case "especie":
+                                    column.MinimumWidth = 80;
+                                    column.FillWeight = 80;
+                                    break;
+                                case "raza":
+                                    column.MinimumWidth = 120;
+                                    column.FillWeight = 120;
+                                    break;
+                                case "fecha_nacimiento":
+                                case "fecha_nac":
+                                    column.MinimumWidth = 100;
+                                    column.FillWeight = 100;
+                                    break;
+                                case "peso":
+                                    column.MinimumWidth = 70;
+                                    column.FillWeight = 70;
+                                    break;
+                                case "color":
+                                    column.MinimumWidth = 100;
+                                    column.FillWeight = 100;
+                                    break;
+                                case "genero":
+                                case "género":
+                                    column.MinimumWidth = 60;
+                                    column.FillWeight = 60;
+                                    break;
+                                case "esterilizado":
+                                    column.MinimumWidth = 80;
+                                    column.FillWeight = 80;
+                                    break;
+                                case "microchip":
+                                    column.MinimumWidth = 120;
+                                    column.FillWeight = 120;
+                                    break;
+                                case "propietario":
+                                case "propietario_id":
+                                    column.MinimumWidth = 150;
+                                    column.FillWeight = 150;
+                                    break;
+                                case "telefono":
+                                case "teléfono":
+                                case "telefono_propietario":
+                                    column.MinimumWidth = 100;
+                                    column.FillWeight = 100;
+                                    break;
+                                default:
+                                    column.MinimumWidth = 100;
+                                    column.FillWeight = 100;
+                                    break;
+                            }
+                            column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        }
+                    }
+                    
+                    // Forzar actualización visual
+                    this.tabInicio.Invalidate();
+                    this.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Error silencioso para no interrumpir la funcionalidad
+                System.Diagnostics.Debug.WriteLine($"Error optimizando layout de mascotas: {ex.Message}");
             }
         }
         

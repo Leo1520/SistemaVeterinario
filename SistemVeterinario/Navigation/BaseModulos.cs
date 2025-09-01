@@ -36,6 +36,9 @@ namespace SistemVeterinario.Navigation
             cmbModo.SelectedIndex = 0;
             IdSeleccionado = 0;
             ModoEdicion = false;
+            
+            // Limpiar cualquier columna de acción duplicada existente
+            LimpiarColumnasDuplicadas();
         }
 
         private void SearchBase_Load(object sender, EventArgs e)
@@ -47,14 +50,44 @@ namespace SistemVeterinario.Navigation
         private void DgvDatos_DataSourceChanged(object sender, EventArgs e)
         {
             // Este evento se ejecuta cuando cambia el DataSource
-            AgregarColumnasAccion();
-            ConfigurarEventosColumnas();
+            // Solo agregar columnas si hay datos y no existen ya las columnas de acción
+            if (dgvDatos.DataSource != null && 
+                dgvDatos.Columns["btnEditar"] == null && 
+                dgvDatos.Columns["btnEliminar"] == null)
+            {
+                AgregarColumnasAccion();
+                ConfigurarEventosColumnas();
+            }
         }
 
         private void ConfigurarEventosColumnas()
         {
             // Agregar evento de clic secundario en headers
             dgvDatos.ColumnHeaderMouseClick += DgvDatos_ColumnHeaderMouseClick;
+        }
+
+        private void LimpiarColumnasDuplicadas()
+        {
+            // Limpiar cualquier columna de botones duplicada al inicializar
+            var columnasAEliminar = new List<DataGridViewColumn>();
+            
+            foreach (DataGridViewColumn col in dgvDatos.Columns)
+            {
+                if (col is DataGridViewButtonColumn && 
+                    (col.HeaderText == "EDITAR" || col.Name == "btnEditar" ||
+                     col.HeaderText == "ELIMINAR" || col.Name == "btnEliminar" ||
+                     col.HeaderText == "Editar" || col.HeaderText == "Eliminar" ||
+                     (col.HeaderText != null && (col.HeaderText.Contains("Editar") || col.HeaderText.Contains("EDITAR"))) ||
+                     (col.HeaderText != null && (col.HeaderText.Contains("Eliminar") || col.HeaderText.Contains("ELIMINAR")))))
+                {
+                    columnasAEliminar.Add(col);
+                }
+            }
+            
+            foreach (DataGridViewColumn column in columnasAEliminar)
+            {
+                dgvDatos.Columns.Remove(column);
+            }
         }
 
         #endregion
@@ -81,19 +114,24 @@ namespace SistemVeterinario.Navigation
 
         private void DgvDatos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 var row = dgvDatos.Rows[e.RowIndex];
+                var column = dgvDatos.Columns[e.ColumnIndex];
 
-                // Verificar si se hizo click en el botón Editar
-                if (e.ColumnIndex == dgvDatos.Columns["btnEditar"]?.Index)
+                // Verificar si es una columna de botón y que sea la correcta
+                if (column is DataGridViewButtonColumn)
                 {
-                    OnEditar(row);
-                }
-                // Verificar si se hizo click en el botón Eliminar
-                else if (e.ColumnIndex == dgvDatos.Columns["btnEliminar"]?.Index)
-                {
-                    OnEliminarFila(row);
+                    // Verificar si se hizo click en el botón Editar (solo el primero que encuentre)
+                    if (column.Name == "btnEditar" || (column.HeaderText == "EDITAR" && column.Name.Contains("Editar")))
+                    {
+                        OnEditar(row);
+                    }
+                    // Verificar si se hizo click en el botón Eliminar (solo el primero que encuentre)
+                    else if (column.Name == "btnEliminar" || (column.HeaderText == "ELIMINAR" && column.Name.Contains("Eliminar")))
+                    {
+                        OnEliminarFila(row);
+                    }
                 }
             }
         }
@@ -247,6 +285,9 @@ namespace SistemVeterinario.Navigation
 
         public void CargarDatos(DataTable datos)
         {
+            // Limpiar columnas duplicadas antes de cargar nuevos datos
+            LimpiarColumnasDuplicadas();
+            
             dgvDatos.DataSource = datos;
 
             // Ocultar columna ID si existe
@@ -259,14 +300,13 @@ namespace SistemVeterinario.Navigation
 
         private void AgregarColumnasAccion()
         {
-            // Verificar si ya existen las columnas para no duplicarlas
-            if (dgvDatos.Columns["btnEditar"] != null)
+            // Limpiar cualquier columna de botones duplicada existente
+            LimpiarColumnasDuplicadas();
+
+            // Verificar una vez más que no existen para evitar duplicados
+            if (dgvDatos.Columns["btnEditar"] != null || dgvDatos.Columns["btnEliminar"] != null)
             {
-                dgvDatos.Columns.Remove("btnEditar");
-            }
-            if (dgvDatos.Columns["btnEliminar"] != null)
-            {
-                dgvDatos.Columns.Remove("btnEliminar");
+                return; // Si ya existen, no agregar más
             }
 
             // Agregar columna de botón Editar

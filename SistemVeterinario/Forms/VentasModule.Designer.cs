@@ -84,21 +84,22 @@ namespace SistemVeterinario.Forms
             // 
             // txtBuscar
             // 
+            this.txtBuscar.Location = new System.Drawing.Point(20, 19);
             this.txtBuscar.Size = new System.Drawing.Size(515, 32);
             // 
             // btnBuscar
             // 
             this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.Location = new System.Drawing.Point(555, 25);
+            this.btnBuscar.Location = new System.Drawing.Point(572, 15);
             // 
             // btnNuevo
             // 
             this.btnNuevo.FlatAppearance.BorderSize = 0;
-            this.btnNuevo.Location = new System.Drawing.Point(894, 23);
+            this.btnNuevo.Location = new System.Drawing.Point(919, 13);
             // 
             // chkMostrarTodo
             // 
-            this.chkMostrarTodo.Location = new System.Drawing.Point(119, 80);
+            this.chkMostrarTodo.Location = new System.Drawing.Point(149, 57);
             // 
             // panelFormulario
             // 
@@ -107,6 +108,22 @@ namespace SistemVeterinario.Forms
             // panelSuperior
             // 
             this.panelSuperior.Size = new System.Drawing.Size(1078, 64);
+            // 
+            // lblModo
+            // 
+            this.lblModo.Location = new System.Drawing.Point(48, 18);
+            // 
+            // cmbModo
+            // 
+            this.cmbModo.Location = new System.Drawing.Point(141, 14);
+            // 
+            // lblId
+            // 
+            this.lblId.Location = new System.Drawing.Point(351, 18);
+            // 
+            // txtId
+            // 
+            this.txtId.Location = new System.Drawing.Point(418, 18);
             // 
             // panelBotones
             // 

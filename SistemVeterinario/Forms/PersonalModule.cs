@@ -24,7 +24,10 @@ namespace SistemVeterinario.Forms
             ConfigurarModulo();
             
             // Configurar botones editables después de la inicialización
-            this.Load += (s, e) => ConfigurarBotonesEditables();
+            this.Load += (s, e) => {
+                ConfigurarBotonesEditables();
+                OptimizarLayoutPaneles();
+            };
             
             // También configurar cuando se cambia a la pestaña de configuración
             if (this.tabControlPrincipal != null)
@@ -43,8 +46,16 @@ namespace SistemVeterinario.Forms
                         };
                         timer.Start();
                     }
+                    else if (this.tabControlPrincipal.SelectedTab == this.tabInicio)
+                    {
+                        // Optimizar layout cuando se va al tab de inicio
+                        OptimizarLayoutPaneles();
+                    }
                 };
             }
+            
+            // Configurar redimensionamiento automático
+            this.Resize += (s, e) => OptimizarLayoutPaneles();
         }
         #endregion
 
@@ -213,6 +224,62 @@ namespace SistemVeterinario.Forms
             };
             timer.Start();
         }
+
+        private void OptimizarLayoutPaneles()
+        {
+            try
+            {
+                if (this.tabInicio != null && this.panelBusqueda != null && this.dgvDatos != null)
+                {
+                    // Obtener el tamaño disponible del tab
+                    var tabWidth = this.tabInicio.ClientSize.Width;
+                    var tabHeight = this.tabInicio.ClientSize.Height;
+                    
+                    // Configurar panel de búsqueda
+                    var margin = 10;
+                    var panelBusquedaHeight = 80; // Altura óptima para el panel de búsqueda
+                    
+                    this.panelBusqueda.Location = new Point(margin, margin);
+                    this.panelBusqueda.Size = new Size(tabWidth - (margin * 2), panelBusquedaHeight);
+                    this.panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    
+                    // Configurar DataGridView para ocupar todo el espacio restante
+                    var dgvTop = this.panelBusqueda.Bottom + margin;
+                    var dgvHeight = tabHeight - dgvTop - margin;
+                    
+                    this.dgvDatos.Location = new Point(margin, dgvTop);
+                    this.dgvDatos.Size = new Size(tabWidth - (margin * 2), dgvHeight);
+                    this.dgvDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                    
+                    // Asegurar que el DataGridView llene completamente el espacio
+                    this.dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    
+                    // Optimizar la visualización de las columnas
+                    if (this.dgvDatos.Columns.Count > 0)
+                    {
+                        // Ajustar ancho de columnas para mejor visualización
+                        var totalWidth = this.dgvDatos.ClientSize.Width;
+                        var columnCount = this.dgvDatos.Columns.Count;
+                        var columnWidth = totalWidth / columnCount;
+                        
+                        foreach (DataGridViewColumn column in this.dgvDatos.Columns)
+                        {
+                            column.MinimumWidth = Math.Max(100, columnWidth - 20);
+                            column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        }
+                    }
+                    
+                    // Forzar actualización visual
+                    this.tabInicio.Invalidate();
+                    this.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Error silencioso para no interrumpir la funcionalidad
+                System.Diagnostics.Debug.WriteLine($"Error optimizando layout: {ex.Message}");
+            }
+        }
         #endregion
 
         #region Métodos Override de BaseModulos
@@ -237,7 +304,8 @@ namespace SistemVeterinario.Forms
                     dt = NPersonal.BuscarPorTipo(_tipoPersonalSeleccionado);
                 }
 
-                dgvDatos.DataSource = dt;
+                // Usar el método base para cargar datos (esto limpia los duplicados)
+                base.CargarDatos(dt);
                 ConfigurarColumnasGrid();
             }
             catch (Exception ex)
@@ -260,7 +328,8 @@ namespace SistemVeterinario.Forms
                 }
 
                 dt = NPersonal.BuscarTexto(textoBuscar);
-                dgvDatos.DataSource = dt;
+                // Usar el método base para cargar datos (esto limpia los duplicados)
+                base.CargarDatos(dt);
                 ConfigurarColumnasGrid();
             }
             catch (Exception ex)
@@ -595,83 +664,124 @@ namespace SistemVeterinario.Forms
 
             try
             {
-                // Configurar encabezados de columnas
+                // Configurar encabezados de columnas con anchos reducidos
                 if (dgvDatos.Columns.Contains("id"))
                     dgvDatos.Columns["id"].Visible = false;
                     
                 if (dgvDatos.Columns.Contains("nombre"))
                 {
                     dgvDatos.Columns["nombre"].HeaderText = "Nombre";
-                    dgvDatos.Columns["nombre"].Width = 150;
+                    dgvDatos.Columns["nombre"].Width = 80;
                 }
                 
                 if (dgvDatos.Columns.Contains("apellido"))
                 {
                     dgvDatos.Columns["apellido"].HeaderText = "Apellido";
-                    dgvDatos.Columns["apellido"].Width = 150;
+                    dgvDatos.Columns["apellido"].Width = 80;
                 }
                 
                 if (dgvDatos.Columns.Contains("email"))
                 {
                     dgvDatos.Columns["email"].HeaderText = "Email";
-                    dgvDatos.Columns["email"].Width = 200;
+                    dgvDatos.Columns["email"].Width = 120;
                 }
                 
                 if (dgvDatos.Columns.Contains("usuario"))
                 {
                     dgvDatos.Columns["usuario"].HeaderText = "Usuario";
-                    dgvDatos.Columns["usuario"].Width = 120;
+                    dgvDatos.Columns["usuario"].Width = 70;
                 }
                 
                 if (dgvDatos.Columns.Contains("telefono"))
                 {
                     dgvDatos.Columns["telefono"].HeaderText = "Teléfono";
-                    dgvDatos.Columns["telefono"].Width = 120;
+                    dgvDatos.Columns["telefono"].Width = 80;
                 }
                 
                 if (dgvDatos.Columns.Contains("rol"))
                 {
                     dgvDatos.Columns["rol"].HeaderText = "Rol";
-                    dgvDatos.Columns["rol"].Width = 100;
+                    dgvDatos.Columns["rol"].Width = 70;
                 }
                 
                 if (dgvDatos.Columns.Contains("fecha_contratacion"))
                 {
-                    dgvDatos.Columns["fecha_contratacion"].HeaderText = "F. Contratación";
-                    dgvDatos.Columns["fecha_contratacion"].Width = 120;
+                    dgvDatos.Columns["fecha_contratacion"].HeaderText = "F. Contrat.";
+                    dgvDatos.Columns["fecha_contratacion"].Width = 80;
                 }
                 
                 if (dgvDatos.Columns.Contains("salario"))
                 {
                     dgvDatos.Columns["salario"].HeaderText = "Salario";
-                    dgvDatos.Columns["salario"].Width = 100;
+                    dgvDatos.Columns["salario"].Width = 70;
                 }
                 
-                // Campos específicos
+                // Campos específicos con anchos reducidos
                 if (dgvDatos.Columns.Contains("num_licencia"))
                 {
                     dgvDatos.Columns["num_licencia"].HeaderText = "Licencia";
-                    dgvDatos.Columns["num_licencia"].Width = 120;
+                    dgvDatos.Columns["num_licencia"].Width = 70;
                 }
                 
                 if (dgvDatos.Columns.Contains("especialidad"))
                 {
                     dgvDatos.Columns["especialidad"].HeaderText = "Especialidad";
-                    dgvDatos.Columns["especialidad"].Width = 150;
+                    dgvDatos.Columns["especialidad"].Width = 90;
+                }
+                
+                if (dgvDatos.Columns.Contains("universidad"))
+                {
+                    dgvDatos.Columns["universidad"].HeaderText = "Universidad";
+                    dgvDatos.Columns["universidad"].Width = 80;
+                }
+                
+                if (dgvDatos.Columns.Contains("anos_experiencia"))
+                {
+                    dgvDatos.Columns["anos_experiencia"].HeaderText = "Años Exp.";
+                    dgvDatos.Columns["anos_experiencia"].Width = 60;
                 }
                 
                 if (dgvDatos.Columns.Contains("area"))
                 {
                     dgvDatos.Columns["area"].HeaderText = "Área";
-                    dgvDatos.Columns["area"].Width = 120;
+                    dgvDatos.Columns["area"].Width = 60;
                 }
                 
                 if (dgvDatos.Columns.Contains("turno"))
                 {
                     dgvDatos.Columns["turno"].HeaderText = "Turno";
-                    dgvDatos.Columns["turno"].Width = 80;
+                    dgvDatos.Columns["turno"].Width = 60;
                 }
                 
+                if (dgvDatos.Columns.Contains("nivel"))
+                {
+                    dgvDatos.Columns["nivel"].HeaderText = "Nivel";
+                    dgvDatos.Columns["nivel"].Width = 50;
+                }
+
+                if (dgvDatos.Columns.Contains("activo"))
+                {
+                    dgvDatos.Columns["activo"].HeaderText = "Activo";
+                    dgvDatos.Columns["activo"].Width = 50;
+                }
+
+                if (dgvDatos.Columns.Contains("fecha_ultimo_acceso"))
+                {
+                    dgvDatos.Columns["fecha_ultimo_acceso"].HeaderText = "Últ. Acc.";
+                    dgvDatos.Columns["fecha_ultimo_acceso"].Width = 80;
+                }
+                
+                // Configurar los botones de acción con ancho reducido
+                if (dgvDatos.Columns.Contains("btnEditar"))
+                {
+                    dgvDatos.Columns["btnEditar"].Width = 80;
+                }
+                
+                if (dgvDatos.Columns.Contains("btnEliminar"))
+                {
+                    dgvDatos.Columns["btnEliminar"].Width = 80;
+                }
+
                 // Ocultar campos internos
                 if (dgvDatos.Columns.Contains("contrasena"))
                     dgvDatos.Columns["contrasena"].Visible = false;
@@ -679,6 +789,12 @@ namespace SistemVeterinario.Forms
                     dgvDatos.Columns["created_at"].Visible = false;
                 if (dgvDatos.Columns.Contains("updated_at"))
                     dgvDatos.Columns["updated_at"].Visible = false;
+
+                // No usar AutoSizeColumnsMode.Fill para evitar que se expandan
+                dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+                
+                // Habilitar scroll horizontal si es necesario
+                dgvDatos.ScrollBars = ScrollBars.Both;
             }
             catch (Exception ex)
             {

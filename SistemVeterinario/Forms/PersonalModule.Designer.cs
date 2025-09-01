@@ -101,7 +101,7 @@ namespace SistemVeterinario.Forms
             this.tabInicio.Location = new System.Drawing.Point(4, 39);
             this.tabInicio.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabInicio.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabInicio.Size = new System.Drawing.Size(1135, 597);
+            this.tabInicio.Size = new System.Drawing.Size(1298, 810);
             this.tabInicio.Text = "Gestión de Personal";
             // 
             // tabConfiguraciones
@@ -119,7 +119,7 @@ namespace SistemVeterinario.Forms
             this.panelBusqueda.Controls.Add(this.cmbTipoPersonal);
             this.panelBusqueda.Location = new System.Drawing.Point(13, 14);
             this.panelBusqueda.Margin = new System.Windows.Forms.Padding(10);
-            this.panelBusqueda.Size = new System.Drawing.Size(1272, 120);
+            this.panelBusqueda.Size = new System.Drawing.Size(2087, 120);
             this.panelBusqueda.Controls.SetChildIndex(this.cmbTipoPersonal, 0);
             this.panelBusqueda.Controls.SetChildIndex(this.lblTipoPersonal, 0);
             this.panelBusqueda.Controls.SetChildIndex(this.lblContador, 0);
@@ -130,28 +130,28 @@ namespace SistemVeterinario.Forms
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(25, 30);
+            this.txtBuscar.Location = new System.Drawing.Point(31, 11);
             this.txtBuscar.Margin = new System.Windows.Forms.Padding(5);
-            this.txtBuscar.Size = new System.Drawing.Size(444, 32);
+            this.txtBuscar.Size = new System.Drawing.Size(1259, 32);
             // 
             // btnBuscar
             // 
             this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.Location = new System.Drawing.Point(510, 26);
+            this.btnBuscar.Location = new System.Drawing.Point(1332, 7);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(5);
             this.btnBuscar.Size = new System.Drawing.Size(120, 36);
             // 
             // btnNuevo
             // 
             this.btnNuevo.FlatAppearance.BorderSize = 0;
-            this.btnNuevo.Location = new System.Drawing.Point(1039, 27);
+            this.btnNuevo.Location = new System.Drawing.Point(1744, 11);
             this.btnNuevo.Margin = new System.Windows.Forms.Padding(5);
             this.btnNuevo.Size = new System.Drawing.Size(140, 36);
             this.btnNuevo.Text = "➕ Nuevo Personal";
             // 
             // chkMostrarTodo
             // 
-            this.chkMostrarTodo.Location = new System.Drawing.Point(100, 72);
+            this.chkMostrarTodo.Location = new System.Drawing.Point(180, 53);
             this.chkMostrarTodo.Margin = new System.Windows.Forms.Padding(5);
             // 
             // panelFormulario
@@ -176,42 +176,42 @@ namespace SistemVeterinario.Forms
             // 
             this.panelSuperior.Location = new System.Drawing.Point(30, 41);
             this.panelSuperior.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panelSuperior.Size = new System.Drawing.Size(1190, 79);
+            this.panelSuperior.Size = new System.Drawing.Size(2005, 79);
             // 
             // lblModo
             // 
-            this.lblModo.Location = new System.Drawing.Point(35, 27);
+            this.lblModo.Location = new System.Drawing.Point(54, 21);
             // 
             // cmbModo
             // 
-            this.cmbModo.Location = new System.Drawing.Point(145, 21);
+            this.cmbModo.Location = new System.Drawing.Point(174, 21);
             this.cmbModo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbModo.Size = new System.Drawing.Size(156, 31);
             // 
             // lblId
             // 
-            this.lblId.Location = new System.Drawing.Point(392, 21);
+            this.lblId.Location = new System.Drawing.Point(413, 27);
             // 
             // txtId
             // 
-            this.txtId.Location = new System.Drawing.Point(452, 17);
+            this.txtId.Location = new System.Drawing.Point(484, 22);
             this.txtId.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtId.Size = new System.Drawing.Size(129, 30);
             // 
             // panelBotones
             // 
-            this.panelBotones.Location = new System.Drawing.Point(100, 1347);
-            this.panelBotones.Size = new System.Drawing.Size(1725, 65);
+            this.panelBotones.Location = new System.Drawing.Point(100, 2412);
+            this.panelBotones.Size = new System.Drawing.Size(2540, 65);
             // 
             // btnGuardar
             // 
             this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.Location = new System.Drawing.Point(1588, 15);
+            this.btnGuardar.Location = new System.Drawing.Point(2403, 15);
             // 
             // btnCancelar
             // 
             this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.Location = new System.Drawing.Point(1405, 15);
+            this.btnCancelar.Location = new System.Drawing.Point(2220, 15);
             // 
             // btnEliminar
             // 
@@ -226,7 +226,7 @@ namespace SistemVeterinario.Forms
             this.cmbTipoPersonal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbTipoPersonal.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbTipoPersonal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.cmbTipoPersonal.Location = new System.Drawing.Point(676, 57);
+            this.cmbTipoPersonal.Location = new System.Drawing.Point(1500, 47);
             this.cmbTipoPersonal.Margin = new System.Windows.Forms.Padding(5);
             this.cmbTipoPersonal.Name = "cmbTipoPersonal";
             this.cmbTipoPersonal.Size = new System.Drawing.Size(180, 31);
@@ -238,7 +238,7 @@ namespace SistemVeterinario.Forms
             this.lblTipoPersonal.AutoSize = true;
             this.lblTipoPersonal.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblTipoPersonal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblTipoPersonal.Location = new System.Drawing.Point(685, 30);
+            this.lblTipoPersonal.Location = new System.Drawing.Point(1496, 15);
             this.lblTipoPersonal.Margin = new System.Windows.Forms.Padding(5);
             this.lblTipoPersonal.Name = "lblTipoPersonal";
             this.lblTipoPersonal.Size = new System.Drawing.Size(171, 23);
@@ -251,7 +251,7 @@ namespace SistemVeterinario.Forms
             this.lblContador.AutoSize = true;
             this.lblContador.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblContador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblContador.Location = new System.Drawing.Point(1019, 65);
+            this.lblContador.Location = new System.Drawing.Point(1740, 55);
             this.lblContador.Margin = new System.Windows.Forms.Padding(5);
             this.lblContador.Name = "lblContador";
             this.lblContador.Size = new System.Drawing.Size(169, 23);

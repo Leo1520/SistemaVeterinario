@@ -130,7 +130,8 @@ namespace SistemVeterinario.Forms
 
                 if (dt != null && dt.Rows.Count >= 0)
                 {
-                    dgvDatos.DataSource = dt;
+                    // Usar el método base para cargar datos (esto limpia los duplicados)
+                    CargarDatos(dt);
                     PersonalizarColumnasVentas();
                 }
                 else
@@ -154,58 +155,88 @@ namespace SistemVeterinario.Forms
 
             try
             {
+                // Primero configurar los headers y formatos
                 foreach (DataGridViewColumn column in dgvDatos.Columns)
                 {
                     if (column == null || string.IsNullOrEmpty(column.Name))
+                        continue;
+
+                    // Evitar configurar las columnas de botones
+                    if (column.Name == "btnEditar" || column.Name == "btnEliminar")
                         continue;
 
                     switch (column.Name.ToLower())
                     {
                         case "id":
                             column.HeaderText = "ID";
-                            column.Width = 50;
+                            column.MinimumWidth = 50;
+                            column.Visible = false; // ID generalmente se oculta
                             break;
                         case "numero_factura":
-                            column.HeaderText = "Nº Factura";
-                            column.Width = 100;
+                            column.HeaderText = "Nº";
+                            column.MinimumWidth = 80;
                             break;
                         case "fecha_emision":
-                            column.HeaderText = "Fecha Emisión";
-                            column.Width = 100;
+                            column.HeaderText = "Fecha";
+                            column.MinimumWidth = 100;
                             break;
                         case "fecha_vencimiento":
-                            column.HeaderText = "Fecha Vencimiento";
-                            column.Width = 120;
+                            column.HeaderText = "Fecha Venc";
+                            column.MinimumWidth = 100;
                             break;
                         case "cliente":
                             column.HeaderText = "Cliente";
-                            column.Width = 200;
+                            column.MinimumWidth = 150;
                             break;
                         case "subtotal":
                             column.HeaderText = "Subtotal";
-                            column.Width = 80;
+                            column.MinimumWidth = 80;
                             column.DefaultCellStyle.Format = "C2";
+                            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                             break;
                         case "impuestos":
                             column.HeaderText = "Impuestos";
-                            column.Width = 80;
+                            column.MinimumWidth = 80;
                             column.DefaultCellStyle.Format = "C2";
+                            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                             break;
                         case "descuentos":
                             column.HeaderText = "Descuentos";
-                            column.Width = 80;
+                            column.MinimumWidth = 80;
                             column.DefaultCellStyle.Format = "C2";
+                            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                             break;
                         case "total":
                             column.HeaderText = "Total";
-                            column.Width = 80;
+                            column.MinimumWidth = 80;
                             column.DefaultCellStyle.Format = "C2";
+                            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                             break;
                         case "estado":
                             column.HeaderText = "Estado";
-                            column.Width = 80;
+                            column.MinimumWidth = 80;
+                            break;
+                        case "notas":
+                            column.HeaderText = "notas";
+                            column.MinimumWidth = 60;
                             break;
                     }
+                }
+
+                // Configurar que todas las columnas (excepto los botones) se expandan automáticamente
+                dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                
+                // Configurar los botones para que mantengan su tamaño fijo
+                if (dgvDatos.Columns["btnEditar"] != null)
+                {
+                    dgvDatos.Columns["btnEditar"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    dgvDatos.Columns["btnEditar"].Width = 100;
+                }
+                
+                if (dgvDatos.Columns["btnEliminar"] != null)
+                {
+                    dgvDatos.Columns["btnEliminar"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    dgvDatos.Columns["btnEliminar"].Width = 100;
                 }
             }
             catch (Exception ex)
@@ -223,7 +254,8 @@ namespace SistemVeterinario.Forms
                     DataTable dt = NVentas.BuscarPorPersona(personaId);
                     if (dt != null && dt.Rows.Count > 0)
                     {
-                        dgvDatos.DataSource = dt;
+                        // Usar el método base para cargar datos (esto limpia los duplicados)
+                        CargarDatos(dt);
                         PersonalizarColumnasVentas();
                     }
                     else
