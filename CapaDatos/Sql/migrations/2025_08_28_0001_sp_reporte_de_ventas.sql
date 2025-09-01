@@ -11,7 +11,7 @@ BEGIN
     IF @agg = 'dia'
     BEGIN
         SELECT 
-            CONVERT(DATE, f.fecha_emision) AS periodo,
+            CONVERT(VARCHAR(10), CONVERT(DATE, f.fecha_emision)) AS periodo,
             CONVERT(DATE, f.fecha_emision) AS fecha_inicio,
             CONVERT(DATE, f.fecha_emision) AS fecha_fin,
             COUNT(*) AS cantidad_facturas,
@@ -25,7 +25,7 @@ BEGIN
     ELSE IF @agg = 'semana'
     BEGIN
         SELECT 
-            CONCAT('Sem ', DATEPART(WEEK, f.fecha_emision), ' - ', DATEPART(YEAR, f.fecha_emision)) AS periodo,
+            CONVERT(VARCHAR(12), CONCAT('Sem ', DATEPART(WEEK, f.fecha_emision), ' - ', DATEPART(YEAR, f.fecha_emision))) AS periodo,
             MIN(CONVERT(DATE, f.fecha_emision)) AS fecha_inicio,
             MAX(CONVERT(DATE, f.fecha_emision)) AS fecha_fin,
             COUNT(*) AS cantidad_facturas,
@@ -39,7 +39,7 @@ BEGIN
     ELSE IF @agg = 'mes'
     BEGIN
         SELECT 
-            FORMAT(f.fecha_emision, 'MMMM yyyy') AS periodo,
+            CONVERT(VARCHAR(15), FORMAT(f.fecha_emision, 'MMMM yyyy')) AS periodo,
             MIN(CONVERT(DATE, f.fecha_emision)) AS fecha_inicio,
             MAX(CONVERT(DATE, f.fecha_emision)) AS fecha_fin,
             COUNT(*) AS cantidad_facturas,
@@ -53,7 +53,7 @@ BEGIN
     ELSE IF @agg = 'año' OR @agg = 'ano'
     BEGIN
         SELECT 
-            CAST(YEAR(f.fecha_emision) AS VARCHAR(4)) AS periodo,
+            CONVERT(VARCHAR(4), CAST(YEAR(f.fecha_emision) AS VARCHAR(4))) AS periodo,
             MIN(CONVERT(DATE, f.fecha_emision)) AS fecha_inicio,
             MAX(CONVERT(DATE, f.fecha_emision)) AS fecha_fin,
             COUNT(*) AS cantidad_facturas,
