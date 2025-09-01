@@ -64,11 +64,11 @@ namespace SistemVeterinario.Forms
             cmbNivel.SelectedIndex = 0;
 
             // Configurar ComboBox de rol para formulario
-            cmbRolForm.Items.Clear();
-            cmbRolForm.Items.Add("Usuario");
-            cmbRolForm.Items.Add("Administrador");
-            cmbRolForm.Items.Add("Supervisor");
-            cmbRolForm.SelectedIndex = 0;
+            cmbRol.Items.Clear();
+            cmbRol.Items.Add("Usuario");
+            cmbRol.Items.Add("Administrador");
+            cmbRol.Items.Add("Supervisor");
+            cmbRol.SelectedIndex = 0;
 
             // Configurar eventos
             cmbTipoPersonal.SelectedIndexChanged += CmbTipoPersonal_SelectedIndexChanged;
@@ -206,10 +206,10 @@ namespace SistemVeterinario.Forms
                 return false;
             }
 
-            if (cmbRolForm.SelectedIndex == -1)
+            if (cmbRol.SelectedIndex == -1)
             {
                 MostrarMensaje("Debe seleccionar un rol", "Validación", MessageBoxIcon.Warning);
-                cmbRolForm.Focus();
+                cmbRol.Focus();
                 return false;
             }
 
@@ -265,7 +265,7 @@ namespace SistemVeterinario.Forms
                             txtTelefono.Text.Trim(),
                             txtDireccion.Text.Trim(),
                             salario,
-                            cmbRolForm.Text,
+                            cmbRol.Text,
                             txtLicencia.Text.Trim(),
                             txtEspecialidad.Text.Trim(),
                             txtUniversidad.Text.Trim(),
@@ -283,7 +283,7 @@ namespace SistemVeterinario.Forms
                             txtTelefono.Text.Trim(),
                             txtDireccion.Text.Trim(),
                             salario,
-                            cmbRolForm.Text,
+                            cmbRol.Text,
                             txtArea.Text.Trim(),
                             cmbTurno.Text,
                             cmbNivel.Text
@@ -305,7 +305,7 @@ namespace SistemVeterinario.Forms
                             txtDireccion.Text.Trim(),
                             dtpFechaContratacion.Value,
                             salario,
-                            cmbRolForm.Text,
+                            cmbRol.Text,
                             txtLicencia.Text.Trim(),
                             txtEspecialidad.Text.Trim(),
                             txtUniversidad.Text.Trim(),
@@ -324,7 +324,7 @@ namespace SistemVeterinario.Forms
                             txtDireccion.Text.Trim(),
                             dtpFechaContratacion.Value,
                             salario,
-                            cmbRolForm.Text,
+                            cmbRol.Text,
                             txtArea.Text.Trim(),
                             cmbTurno.Text,
                             cmbNivel.Text
@@ -426,7 +426,7 @@ namespace SistemVeterinario.Forms
                     txtTelefono.Text = row["telefono"]?.ToString() ?? "";
                     txtDireccion.Text = row["direccion"]?.ToString() ?? "";
                     txtSalario.Text = row["salario"]?.ToString() ?? "";
-                    cmbRolForm.Text = row["rol"]?.ToString() ?? "Usuario";
+                    cmbRol.Text = row["rol"]?.ToString() ?? "Usuario";
 
                     if (DateTime.TryParse(row["fecha_contratacion"]?.ToString(), out DateTime fechaContratacion))
                         dtpFechaContratacion.Value = fechaContratacion;
@@ -472,7 +472,7 @@ namespace SistemVeterinario.Forms
             txtTelefono.Text = "";
             txtDireccion.Text = "";
             txtSalario.Text = "";
-            cmbRolForm.SelectedIndex = 0;
+            cmbRol.SelectedIndex = 0;
             dtpFechaContratacion.Value = DateTime.Now;
 
             // Campos específicos

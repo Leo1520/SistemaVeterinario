@@ -30,556 +30,677 @@ namespace SistemVeterinario.Forms
         /// </summary>
         private new void InitializeComponent()
         {
-            cmbTipoPersona = new ComboBox();
-            lblTipoPersona = new Label();
-            lblContador = new Label();
-            lblTipoPersonaForm = new Label();
-            cmbTipoPersonaForm = new ComboBox();
-            grpPersonaFisica = new GroupBox();
-            cmbGenero = new ComboBox();
-            lblGenero = new Label();
-            dtpFechaNacimiento = new DateTimePicker();
-            lblFechaNacimiento = new Label();
-            txtApellido = new TextBox();
-            lblApellido = new Label();
-            txtNombre = new TextBox();
-            lblNombre = new Label();
-            txtCi = new TextBox();
-            lblCi = new Label();
-            grpPersonaJuridica = new GroupBox();
-            txtEncargadoCargo = new TextBox();
-            lblEncargadoCargo = new Label();
-            txtEncargadoNombre = new TextBox();
-            lblEncargadoNombre = new Label();
-            txtNit = new TextBox();
-            lblNit = new Label();
-            txtRazonSocial = new TextBox();
-            lblRazonSocial = new Label();
-            grpDatosComunes = new GroupBox();
-            txtTelefono = new TextBox();
-            lblTelefono = new Label();
-            txtDireccion = new TextBox();
-            lblDireccion = new Label();
-            txtEmail = new TextBox();
-            lblEmail = new Label();
-            tabControlPrincipal.SuspendLayout();
-            tabInicio.SuspendLayout();
-            tabConfiguraciones.SuspendLayout();
-            panelBusqueda.SuspendLayout();
-            panelFormulario.SuspendLayout();
-            panelSuperior.SuspendLayout();
-            panelBotones.SuspendLayout();
-            grpPersonaFisica.SuspendLayout();
-            grpPersonaJuridica.SuspendLayout();
-            grpDatosComunes.SuspendLayout();
-            SuspendLayout();
+            this.cmbTipoPersona = new System.Windows.Forms.ComboBox();
+            this.lblTipoPersona = new System.Windows.Forms.Label();
+            this.lblContador = new System.Windows.Forms.Label();
+            this.lblTipoPersonaForm = new System.Windows.Forms.Label();
+            this.cmbTipoPersonaForm = new System.Windows.Forms.ComboBox();
+            this.grpPersonaFisica = new System.Windows.Forms.GroupBox();
+            this.tableLayoutFisica = new System.Windows.Forms.TableLayoutPanel();
+            this.lblCi = new System.Windows.Forms.Label();
+            this.txtCi = new System.Windows.Forms.TextBox();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.lblApellido = new System.Windows.Forms.Label();
+            this.txtApellido = new System.Windows.Forms.TextBox();
+            this.lblFechaNacimiento = new System.Windows.Forms.Label();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.lblGenero = new System.Windows.Forms.Label();
+            this.cmbGenero = new System.Windows.Forms.ComboBox();
+            this.grpPersonaJuridica = new System.Windows.Forms.GroupBox();
+            this.txtEncargadoCargo = new System.Windows.Forms.TextBox();
+            this.lblEncargadoCargo = new System.Windows.Forms.Label();
+            this.txtEncargadoNombre = new System.Windows.Forms.TextBox();
+            this.lblEncargadoNombre = new System.Windows.Forms.Label();
+            this.txtNit = new System.Windows.Forms.TextBox();
+            this.lblNit = new System.Windows.Forms.Label();
+            this.txtRazonSocial = new System.Windows.Forms.TextBox();
+            this.lblRazonSocial = new System.Windows.Forms.Label();
+            this.tableLayoutJuridica = new System.Windows.Forms.TableLayoutPanel();
+            this.grpDatosComunes = new System.Windows.Forms.GroupBox();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
+            this.lblTelefono = new System.Windows.Forms.Label();
+            this.txtDireccion = new System.Windows.Forms.TextBox();
+            this.lblDireccion = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.tableLayoutComunes = new System.Windows.Forms.TableLayoutPanel();
+            this.tabControlPrincipal.SuspendLayout();
+            this.tabInicio.SuspendLayout();
+            this.tabConfiguraciones.SuspendLayout();
+            this.panelBusqueda.SuspendLayout();
+            this.panelFormulario.SuspendLayout();
+            this.panelSuperior.SuspendLayout();
+            this.panelBotones.SuspendLayout();
+            this.grpPersonaFisica.SuspendLayout();
+            this.tableLayoutFisica.SuspendLayout();
+            this.grpPersonaJuridica.SuspendLayout();
+            this.grpDatosComunes.SuspendLayout();
+            this.SuspendLayout();
             // 
             // tabControlPrincipal
             // 
-            tabControlPrincipal.Margin = new Padding(3, 4, 3, 4);
-            tabControlPrincipal.Size = new Size(1143, 800);
+            this.tabControlPrincipal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabControlPrincipal.Size = new System.Drawing.Size(1306, 853);
             // 
             // tabInicio
             // 
-            tabInicio.Margin = new Padding(3, 4, 3, 4);
-            tabInicio.Padding = new Padding(3, 4, 3, 4);
-            tabInicio.Text = "Gestión de Personas";
+            this.tabInicio.Location = new System.Drawing.Point(4, 39);
+            this.tabInicio.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabInicio.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabInicio.Size = new System.Drawing.Size(1298, 810);
+            this.tabInicio.Text = "Gestión de Personas";
             // 
             // tabConfiguraciones
             // 
-            tabConfiguraciones.Margin = new Padding(3, 4, 3, 4);
-            tabConfiguraciones.Padding = new Padding(3, 4, 3, 4);
-            tabConfiguraciones.Size = new Size(1135, 772);
-            tabConfiguraciones.Text = "Configuración de Persona";
+            this.tabConfiguraciones.Location = new System.Drawing.Point(4, 39);
+            this.tabConfiguraciones.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabConfiguraciones.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabConfiguraciones.Size = new System.Drawing.Size(1298, 810);
+            this.tabConfiguraciones.Text = "Configuración de Persona";
             // 
             // panelBusqueda
             // 
-            panelBusqueda.Controls.Add(lblContador);
-            panelBusqueda.Controls.Add(lblTipoPersona);
-            panelBusqueda.Controls.Add(cmbTipoPersona);
-            panelBusqueda.Location = new Point(11, 13);
-            panelBusqueda.Margin = new Padding(3, 4, 3, 4);
-            panelBusqueda.Size = new Size(1098, 80);
-            panelBusqueda.Controls.SetChildIndex(cmbTipoPersona, 0);
-            panelBusqueda.Controls.SetChildIndex(lblTipoPersona, 0);
-            panelBusqueda.Controls.SetChildIndex(lblContador, 0);
-            panelBusqueda.Controls.SetChildIndex(chkMostrarTodo, 0);
-            panelBusqueda.Controls.SetChildIndex(btnNuevo, 0);
-            panelBusqueda.Controls.SetChildIndex(btnBuscar, 0);
-            panelBusqueda.Controls.SetChildIndex(txtBuscar, 0);
+            this.panelBusqueda.Controls.Add(this.lblContador);
+            this.panelBusqueda.Controls.Add(this.lblTipoPersona);
+            this.panelBusqueda.Controls.Add(this.cmbTipoPersona);
+            this.panelBusqueda.Location = new System.Drawing.Point(13, 14);
+            this.panelBusqueda.Margin = new System.Windows.Forms.Padding(10);
+            this.panelBusqueda.Size = new System.Drawing.Size(1435, 120);
+            this.panelBusqueda.Controls.SetChildIndex(this.cmbTipoPersona, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.lblTipoPersona, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.lblContador, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.chkMostrarTodo, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.btnNuevo, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.btnBuscar, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.txtBuscar, 0);
             // 
             // txtBuscar
             // 
-            txtBuscar.Location = new Point(20, 15);
-            txtBuscar.Margin = new Padding(3, 4, 3, 4);
-            txtBuscar.Size = new Size(349, 23);
+            this.txtBuscar.Location = new System.Drawing.Point(25, 30);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(5);
+            this.txtBuscar.Size = new System.Drawing.Size(607, 32);
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(278, 42);
-            btnBuscar.Margin = new Padding(3, 4, 3, 4);
-            btnBuscar.Size = new Size(91, 33);
+            this.btnBuscar.FlatAppearance.BorderSize = 0;
+            this.btnBuscar.Location = new System.Drawing.Point(647, 28);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(5);
+            this.btnBuscar.Size = new System.Drawing.Size(120, 36);
             // 
             // btnNuevo
             // 
-            btnNuevo.Location = new Point(969, 17);
-            btnNuevo.Margin = new Padding(3, 4, 3, 4);
-            btnNuevo.Size = new Size(91, 33);
+            this.btnNuevo.FlatAppearance.BorderSize = 0;
+            this.btnNuevo.Location = new System.Drawing.Point(1209, 22);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(5);
+            this.btnNuevo.Size = new System.Drawing.Size(150, 40);
+            this.btnNuevo.Text = "➕ Nueva Persona";
             // 
             // chkMostrarTodo
             // 
-            chkMostrarTodo.Location = new Point(101, 50);
-            chkMostrarTodo.Margin = new Padding(3, 4, 3, 4);
+            this.chkMostrarTodo.Location = new System.Drawing.Point(125, 74);
+            this.chkMostrarTodo.Margin = new System.Windows.Forms.Padding(5);
             // 
             // panelFormulario
             // 
-            panelFormulario.Controls.Add(grpDatosComunes);
-            panelFormulario.Controls.Add(grpPersonaJuridica);
-            panelFormulario.Controls.Add(grpPersonaFisica);
-            panelFormulario.Controls.Add(cmbTipoPersonaForm);
-            panelFormulario.Controls.Add(lblTipoPersonaForm);
-            panelFormulario.Location = new Point(3, 4);
-            panelFormulario.Margin = new Padding(3, 4, 3, 4);
-            panelFormulario.Size = new Size(1129, 764);
-            panelFormulario.Controls.SetChildIndex(lblTipoPersonaForm, 0);
-            panelFormulario.Controls.SetChildIndex(cmbTipoPersonaForm, 0);
-            panelFormulario.Controls.SetChildIndex(grpPersonaFisica, 0);
-            panelFormulario.Controls.SetChildIndex(grpPersonaJuridica, 0);
-            panelFormulario.Controls.SetChildIndex(grpDatosComunes, 0);
-            panelFormulario.Controls.SetChildIndex(panelBotones, 0);
-            panelFormulario.Controls.SetChildIndex(panelSuperior, 0);
+            this.panelFormulario.Controls.Add(this.grpDatosComunes);
+            this.panelFormulario.Controls.Add(this.grpPersonaFisica);
+            this.panelFormulario.Controls.Add(this.cmbTipoPersonaForm);
+            this.panelFormulario.Controls.Add(this.lblTipoPersonaForm);
+            this.panelFormulario.Location = new System.Drawing.Point(3, 4);
+            this.panelFormulario.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelFormulario.Size = new System.Drawing.Size(1292, 802);
+            this.panelFormulario.Controls.SetChildIndex(this.lblTipoPersonaForm, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.cmbTipoPersonaForm, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.grpPersonaFisica, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.grpDatosComunes, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.panelBotones, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.panelSuperior, 0);
             // 
             // panelSuperior
             // 
-            panelSuperior.Location = new Point(11, 13);
-            panelSuperior.Margin = new Padding(3, 4, 3, 4);
-            panelSuperior.Size = new Size(1402, 50);
+            this.panelSuperior.Location = new System.Drawing.Point(13, 14);
+            this.panelSuperior.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelSuperior.Size = new System.Drawing.Size(2256, 72);
             // 
             // lblModo
             // 
-            lblModo.Location = new Point(11, 20);
+            this.lblModo.Location = new System.Drawing.Point(97, 24);
             // 
             // cmbModo
             // 
-            cmbModo.Location = new Point(80, 16);
-            cmbModo.Margin = new Padding(3, 4, 3, 4);
-            cmbModo.Size = new Size(137, 23);
+            this.cmbModo.Location = new System.Drawing.Point(191, 24);
+            this.cmbModo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbModo.Size = new System.Drawing.Size(156, 31);
             // 
             // lblId
             // 
-            lblId.Location = new Point(240, 20);
+            this.lblId.Location = new System.Drawing.Point(428, 25);
             // 
             // txtId
             // 
-            txtId.Location = new Point(286, 16);
-            txtId.Margin = new Padding(3, 4, 3, 4);
-            txtId.Size = new Size(91, 23);
+            this.txtId.Location = new System.Drawing.Point(471, 25);
+            this.txtId.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtId.Size = new System.Drawing.Size(129, 30);
+            // 
+            // panelBotones
+            // 
+            this.panelBotones.Location = new System.Drawing.Point(100, 1334);
+            this.panelBotones.Size = new System.Drawing.Size(1562, 65);
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.FlatAppearance.BorderSize = 0;
+            this.btnGuardar.Location = new System.Drawing.Point(1425, 15);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.Location = new System.Drawing.Point(1242, 15);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.FlatAppearance.BorderSize = 0;
             // 
             // cmbTipoPersona
             // 
-            cmbTipoPersona.BackColor = Color.White;
-            cmbTipoPersona.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbTipoPersona.Font = new Font("Segoe UI", 9F);
-            cmbTipoPersona.ForeColor = Color.Black;
-            cmbTipoPersona.Location = new Point(506, 33);
-            cmbTipoPersona.Name = "cmbTipoPersona";
-            cmbTipoPersona.Size = new Size(150, 23);
-            cmbTipoPersona.TabIndex = 4;
+            this.cmbTipoPersona.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbTipoPersona.BackColor = System.Drawing.Color.White;
+            this.cmbTipoPersona.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoPersona.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbTipoPersona.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbTipoPersona.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.cmbTipoPersona.Location = new System.Drawing.Point(832, 55);
+            this.cmbTipoPersona.Margin = new System.Windows.Forms.Padding(5);
+            this.cmbTipoPersona.Name = "cmbTipoPersona";
+            this.cmbTipoPersona.Size = new System.Drawing.Size(180, 31);
+            this.cmbTipoPersona.TabIndex = 4;
             // 
             // lblTipoPersona
             // 
-            lblTipoPersona.AutoSize = true;
-            lblTipoPersona.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblTipoPersona.ForeColor = Color.Black;
-            lblTipoPersona.Location = new Point(506, 15);
-            lblTipoPersona.Name = "lblTipoPersona";
-            lblTipoPersona.Size = new Size(98, 15);
-            lblTipoPersona.TabIndex = 5;
-            lblTipoPersona.Text = "Tipo de Persona:";
+            this.lblTipoPersona.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTipoPersona.AutoSize = true;
+            this.lblTipoPersona.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTipoPersona.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblTipoPersona.Location = new System.Drawing.Point(828, 21);
+            this.lblTipoPersona.Margin = new System.Windows.Forms.Padding(5);
+            this.lblTipoPersona.Name = "lblTipoPersona";
+            this.lblTipoPersona.Size = new System.Drawing.Size(166, 23);
+            this.lblTipoPersona.TabIndex = 5;
+            this.lblTipoPersona.Text = "💼 Tipo de Persona";
             // 
             // lblContador
             // 
-            lblContador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblContador.AutoSize = true;
-            lblContador.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblContador.Location = new Point(944, 54);
-            lblContador.Name = "lblContador";
-            lblContador.Size = new Size(116, 15);
-            lblContador.TabIndex = 6;
-            lblContador.Text = "Total de registros: 0";
+            this.lblContador.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblContador.AutoSize = true;
+            this.lblContador.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblContador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblContador.Location = new System.Drawing.Point(1190, 75);
+            this.lblContador.Margin = new System.Windows.Forms.Padding(5);
+            this.lblContador.Name = "lblContador";
+            this.lblContador.Size = new System.Drawing.Size(169, 23);
+            this.lblContador.TabIndex = 6;
+            this.lblContador.Text = "Total de registros: 0";
             // 
             // lblTipoPersonaForm
             // 
-            lblTipoPersonaForm.AutoSize = true;
-            lblTipoPersonaForm.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblTipoPersonaForm.ForeColor = Color.DarkBlue;
-            lblTipoPersonaForm.Location = new Point(15, 65);
-            lblTipoPersonaForm.Name = "lblTipoPersonaForm";
-            lblTipoPersonaForm.Size = new Size(103, 15);
-            lblTipoPersonaForm.TabIndex = 0;
-            lblTipoPersonaForm.Text = "Tipo de Persona *";
+            this.lblTipoPersonaForm.AutoSize = true;
+            this.lblTipoPersonaForm.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblTipoPersonaForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblTipoPersonaForm.Location = new System.Drawing.Point(49, 117);
+            this.lblTipoPersonaForm.Name = "lblTipoPersonaForm";
+            this.lblTipoPersonaForm.Size = new System.Drawing.Size(160, 25);
+            this.lblTipoPersonaForm.TabIndex = 0;
+            this.lblTipoPersonaForm.Text = "Tipo de Persona:";
             // 
             // cmbTipoPersonaForm
             // 
-            cmbTipoPersonaForm.BackColor = Color.White;
-            cmbTipoPersonaForm.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbTipoPersonaForm.Font = new Font("Segoe UI", 9F);
-            cmbTipoPersonaForm.ForeColor = Color.Black;
-            cmbTipoPersonaForm.Location = new Point(130, 62);
-            cmbTipoPersonaForm.Name = "cmbTipoPersonaForm";
-            cmbTipoPersonaForm.Size = new Size(150, 23);
-            cmbTipoPersonaForm.TabIndex = 1;
+            this.cmbTipoPersonaForm.BackColor = System.Drawing.Color.White;
+            this.cmbTipoPersonaForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoPersonaForm.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.cmbTipoPersonaForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.cmbTipoPersonaForm.Location = new System.Drawing.Point(229, 114);
+            this.cmbTipoPersonaForm.Name = "cmbTipoPersonaForm";
+            this.cmbTipoPersonaForm.Size = new System.Drawing.Size(250, 33);
+            this.cmbTipoPersonaForm.TabIndex = 1;
             // 
             // grpPersonaFisica
             // 
-            grpPersonaFisica.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            grpPersonaFisica.Controls.Add(cmbGenero);
-            grpPersonaFisica.Controls.Add(lblGenero);
-            grpPersonaFisica.Controls.Add(dtpFechaNacimiento);
-            grpPersonaFisica.Controls.Add(lblFechaNacimiento);
-            grpPersonaFisica.Controls.Add(txtApellido);
-            grpPersonaFisica.Controls.Add(lblApellido);
-            grpPersonaFisica.Controls.Add(txtNombre);
-            grpPersonaFisica.Controls.Add(lblNombre);
-            grpPersonaFisica.Controls.Add(txtCi);
-            grpPersonaFisica.Controls.Add(lblCi);
-            grpPersonaFisica.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            grpPersonaFisica.ForeColor = Color.DarkBlue;
-            grpPersonaFisica.Location = new Point(15, 100);
-            grpPersonaFisica.Name = "grpPersonaFisica";
-            grpPersonaFisica.Size = new Size(1228, 120);
-            grpPersonaFisica.TabIndex = 2;
-            grpPersonaFisica.TabStop = false;
-            grpPersonaFisica.Text = "Datos de Persona Física";
+            this.grpPersonaFisica.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpPersonaFisica.BackColor = System.Drawing.Color.White;
+            this.grpPersonaFisica.Controls.Add(this.tableLayoutFisica);
+            this.grpPersonaFisica.Controls.Add(this.grpPersonaJuridica);
+            this.grpPersonaFisica.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.grpPersonaFisica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.grpPersonaFisica.Location = new System.Drawing.Point(20, 180);
+            this.grpPersonaFisica.Margin = new System.Windows.Forms.Padding(10);
+            this.grpPersonaFisica.Name = "grpPersonaFisica";
+            this.grpPersonaFisica.Padding = new System.Windows.Forms.Padding(15);
+            this.grpPersonaFisica.Size = new System.Drawing.Size(1252, 176);
+            this.grpPersonaFisica.TabIndex = 2;
+            this.grpPersonaFisica.TabStop = false;
+            this.grpPersonaFisica.Text = "👤 Datos de Persona Física";
             // 
-            // cmbGenero
+            // tableLayoutFisica
             // 
-            cmbGenero.BackColor = Color.White;
-            cmbGenero.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbGenero.Font = new Font("Segoe UI", 9F);
-            cmbGenero.ForeColor = Color.Black;
-            cmbGenero.Location = new Point(335, 77);
-            cmbGenero.Name = "cmbGenero";
-            cmbGenero.Size = new Size(80, 23);
-            cmbGenero.TabIndex = 9;
-            // 
-            // lblGenero
-            // 
-            lblGenero.AutoSize = true;
-            lblGenero.Font = new Font("Segoe UI", 9F);
-            lblGenero.ForeColor = Color.Black;
-            lblGenero.Location = new Point(280, 81);
-            lblGenero.Name = "lblGenero";
-            lblGenero.Size = new Size(48, 15);
-            lblGenero.TabIndex = 8;
-            lblGenero.Text = "Género:";
-            // 
-            // dtpFechaNacimiento
-            // 
-            dtpFechaNacimiento.Font = new Font("Segoe UI", 9F);
-            dtpFechaNacimiento.Format = DateTimePickerFormat.Short;
-            dtpFechaNacimiento.Location = new Point(140, 77);
-            dtpFechaNacimiento.Name = "dtpFechaNacimiento";
-            dtpFechaNacimiento.Size = new Size(120, 23);
-            dtpFechaNacimiento.TabIndex = 7;
-            // 
-            // lblFechaNacimiento
-            // 
-            lblFechaNacimiento.AutoSize = true;
-            lblFechaNacimiento.Font = new Font("Segoe UI", 9F);
-            lblFechaNacimiento.ForeColor = Color.Black;
-            lblFechaNacimiento.Location = new Point(15, 81);
-            lblFechaNacimiento.Name = "lblFechaNacimiento";
-            lblFechaNacimiento.Size = new Size(122, 15);
-            lblFechaNacimiento.TabIndex = 6;
-            lblFechaNacimiento.Text = "Fecha de Nacimiento:";
-            // 
-            // txtApellido
-            // 
-            txtApellido.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtApellido.BackColor = Color.White;
-            txtApellido.Font = new Font("Segoe UI", 9F);
-            txtApellido.ForeColor = Color.Black;
-            txtApellido.Location = new Point(395, 46);
-            txtApellido.MaxLength = 100;
-            txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(1254, 23);
-            txtApellido.TabIndex = 5;
-            // 
-            // lblApellido
-            // 
-            lblApellido.AutoSize = true;
-            lblApellido.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblApellido.ForeColor = Color.DarkRed;
-            lblApellido.Location = new Point(395, 26);
-            lblApellido.Name = "lblApellido";
-            lblApellido.Size = new Size(60, 15);
-            lblApellido.TabIndex = 4;
-            lblApellido.Text = "Apellido *";
-            // 
-            // txtNombre
-            // 
-            txtNombre.BackColor = Color.White;
-            txtNombre.Font = new Font("Segoe UI", 9F);
-            txtNombre.ForeColor = Color.Black;
-            txtNombre.Location = new Point(180, 45);
-            txtNombre.MaxLength = 100;
-            txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(200, 23);
-            txtNombre.TabIndex = 3;
-            // 
-            // lblNombre
-            // 
-            lblNombre.AutoSize = true;
-            lblNombre.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblNombre.ForeColor = Color.DarkRed;
-            lblNombre.Location = new Point(180, 26);
-            lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(61, 15);
-            lblNombre.TabIndex = 2;
-            lblNombre.Text = "Nombre *";
-            // 
-            // txtCi
-            // 
-            txtCi.BackColor = Color.White;
-            txtCi.Font = new Font("Segoe UI", 9F);
-            txtCi.ForeColor = Color.Black;
-            txtCi.Location = new Point(15, 45);
-            txtCi.MaxLength = 15;
-            txtCi.Name = "txtCi";
-            txtCi.Size = new Size(150, 23);
-            txtCi.TabIndex = 1;
+            this.tableLayoutFisica.ColumnCount = 5;
+            this.tableLayoutFisica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutFisica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutFisica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutFisica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutFisica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutFisica.Controls.Add(this.lblCi, 0, 0);
+            this.tableLayoutFisica.Controls.Add(this.txtCi, 0, 1);
+            this.tableLayoutFisica.Controls.Add(this.lblNombre, 1, 0);
+            this.tableLayoutFisica.Controls.Add(this.txtNombre, 1, 1);
+            this.tableLayoutFisica.Controls.Add(this.lblApellido, 2, 0);
+            this.tableLayoutFisica.Controls.Add(this.txtApellido, 2, 1);
+            this.tableLayoutFisica.Controls.Add(this.lblFechaNacimiento, 3, 0);
+            this.tableLayoutFisica.Controls.Add(this.dtpFechaNacimiento, 3, 1);
+            this.tableLayoutFisica.Controls.Add(this.lblGenero, 4, 0);
+            this.tableLayoutFisica.Controls.Add(this.cmbGenero, 4, 1);
+            this.tableLayoutFisica.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutFisica.Location = new System.Drawing.Point(15, 40);
+            this.tableLayoutFisica.Name = "tableLayoutFisica";
+            this.tableLayoutFisica.Padding = new System.Windows.Forms.Padding(10);
+            this.tableLayoutFisica.RowCount = 2;
+            this.tableLayoutFisica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutFisica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutFisica.Size = new System.Drawing.Size(1222, 121);
+            this.tableLayoutFisica.TabIndex = 0;
             // 
             // lblCi
             // 
-            lblCi.AutoSize = true;
-            lblCi.Font = new Font("Segoe UI", 9F);
-            lblCi.ForeColor = Color.Black;
-            lblCi.Location = new Point(15, 26);
-            lblCi.Name = "lblCi";
-            lblCi.Size = new Size(21, 15);
-            lblCi.TabIndex = 0;
-            lblCi.Text = "CI:";
+            this.lblCi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCi.AutoSize = true;
+            this.lblCi.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblCi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblCi.Location = new System.Drawing.Point(15, 15);
+            this.lblCi.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblCi.Name = "lblCi";
+            this.lblCi.Size = new System.Drawing.Size(230, 23);
+            this.lblCi.TabIndex = 0;
+            this.lblCi.Text = "🎫 CI *";
+            // 
+            // txtCi
+            // 
+            this.txtCi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCi.BackColor = System.Drawing.Color.White;
+            this.txtCi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCi.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtCi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtCi.Location = new System.Drawing.Point(15, 50);
+            this.txtCi.Margin = new System.Windows.Forms.Padding(5);
+            this.txtCi.MaxLength = 15;
+            this.txtCi.Name = "txtCi";
+            this.txtCi.Size = new System.Drawing.Size(230, 30);
+            this.txtCi.TabIndex = 1;
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblNombre.Location = new System.Drawing.Point(255, 15);
+            this.lblNombre.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(230, 23);
+            this.lblNombre.TabIndex = 2;
+            this.lblNombre.Text = "📝 Nombre";
+            // 
+            // txtNombre
+            // 
+            this.txtNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNombre.BackColor = System.Drawing.Color.White;
+            this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtNombre.Location = new System.Drawing.Point(255, 50);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(5);
+            this.txtNombre.MaxLength = 100;
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(230, 30);
+            this.txtNombre.TabIndex = 3;
+            // 
+            // lblApellido
+            // 
+            this.lblApellido.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblApellido.AutoSize = true;
+            this.lblApellido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblApellido.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblApellido.Location = new System.Drawing.Point(495, 15);
+            this.lblApellido.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblApellido.Name = "lblApellido";
+            this.lblApellido.Size = new System.Drawing.Size(230, 23);
+            this.lblApellido.TabIndex = 4;
+            this.lblApellido.Text = "📝 Apellido *";
+            // 
+            // txtApellido
+            // 
+            this.txtApellido.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtApellido.BackColor = System.Drawing.Color.White;
+            this.txtApellido.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtApellido.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtApellido.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtApellido.Location = new System.Drawing.Point(495, 50);
+            this.txtApellido.Margin = new System.Windows.Forms.Padding(5);
+            this.txtApellido.MaxLength = 100;
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(230, 30);
+            this.txtApellido.TabIndex = 5;
+            // 
+            // lblFechaNacimiento
+            // 
+            this.lblFechaNacimiento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFechaNacimiento.AutoSize = true;
+            this.lblFechaNacimiento.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblFechaNacimiento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblFechaNacimiento.Location = new System.Drawing.Point(735, 15);
+            this.lblFechaNacimiento.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblFechaNacimiento.Name = "lblFechaNacimiento";
+            this.lblFechaNacimiento.Size = new System.Drawing.Size(230, 23);
+            this.lblFechaNacimiento.TabIndex = 6;
+            this.lblFechaNacimiento.Text = "📅 Fecha Nacimiento";
+            // 
+            // dtpFechaNacimiento
+            // 
+            this.dtpFechaNacimiento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtpFechaNacimiento.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.dtpFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(735, 50);
+            this.dtpFechaNacimiento.Margin = new System.Windows.Forms.Padding(5);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(230, 30);
+            this.dtpFechaNacimiento.TabIndex = 7;
+            // 
+            // lblGenero
+            // 
+            this.lblGenero.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblGenero.AutoSize = true;
+            this.lblGenero.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblGenero.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblGenero.Location = new System.Drawing.Point(975, 15);
+            this.lblGenero.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblGenero.Name = "lblGenero";
+            this.lblGenero.Size = new System.Drawing.Size(232, 23);
+            this.lblGenero.TabIndex = 8;
+            this.lblGenero.Text = "🐾 Género";
+            // 
+            // cmbGenero
+            // 
+            this.cmbGenero.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbGenero.BackColor = System.Drawing.Color.White;
+            this.cmbGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGenero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbGenero.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbGenero.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.cmbGenero.Location = new System.Drawing.Point(975, 50);
+            this.cmbGenero.Margin = new System.Windows.Forms.Padding(5);
+            this.cmbGenero.Name = "cmbGenero";
+            this.cmbGenero.Size = new System.Drawing.Size(232, 31);
+            this.cmbGenero.TabIndex = 9;
             // 
             // grpPersonaJuridica
             // 
-            grpPersonaJuridica.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            grpPersonaJuridica.Controls.Add(txtEncargadoCargo);
-            grpPersonaJuridica.Controls.Add(lblEncargadoCargo);
-            grpPersonaJuridica.Controls.Add(txtEncargadoNombre);
-            grpPersonaJuridica.Controls.Add(lblEncargadoNombre);
-            grpPersonaJuridica.Controls.Add(txtNit);
-            grpPersonaJuridica.Controls.Add(lblNit);
-            grpPersonaJuridica.Controls.Add(txtRazonSocial);
-            grpPersonaJuridica.Controls.Add(lblRazonSocial);
-            grpPersonaJuridica.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            grpPersonaJuridica.ForeColor = Color.DarkGreen;
-            grpPersonaJuridica.Location = new Point(15, 100);
-            grpPersonaJuridica.Name = "grpPersonaJuridica";
-            grpPersonaJuridica.Size = new Size(1228, 120);
-            grpPersonaJuridica.TabIndex = 3;
-            grpPersonaJuridica.TabStop = false;
-            grpPersonaJuridica.Text = "Datos de Persona Jurídica";
-            grpPersonaJuridica.Visible = false;
+            this.grpPersonaJuridica.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpPersonaJuridica.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.grpPersonaJuridica.Controls.Add(this.txtEncargadoCargo);
+            this.grpPersonaJuridica.Controls.Add(this.lblEncargadoCargo);
+            this.grpPersonaJuridica.Controls.Add(this.txtEncargadoNombre);
+            this.grpPersonaJuridica.Controls.Add(this.lblEncargadoNombre);
+            this.grpPersonaJuridica.Controls.Add(this.txtNit);
+            this.grpPersonaJuridica.Controls.Add(this.lblNit);
+            this.grpPersonaJuridica.Controls.Add(this.txtRazonSocial);
+            this.grpPersonaJuridica.Controls.Add(this.lblRazonSocial);
+            this.grpPersonaJuridica.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.grpPersonaJuridica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
+            this.grpPersonaJuridica.Location = new System.Drawing.Point(109, 12);
+            this.grpPersonaJuridica.Name = "grpPersonaJuridica";
+            this.grpPersonaJuridica.Padding = new System.Windows.Forms.Padding(15);
+            this.grpPersonaJuridica.Size = new System.Drawing.Size(1069, 118);
+            this.grpPersonaJuridica.TabIndex = 3;
+            this.grpPersonaJuridica.TabStop = false;
+            this.grpPersonaJuridica.Text = "Datos de Persona Jurídica";
+            this.grpPersonaJuridica.Visible = false;
             // 
             // txtEncargadoCargo
             // 
-            txtEncargadoCargo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtEncargadoCargo.Font = new Font("Segoe UI", 9F);
-            txtEncargadoCargo.Location = new Point(490, 78);
-            txtEncargadoCargo.MaxLength = 100;
-            txtEncargadoCargo.Name = "txtEncargadoCargo";
-            txtEncargadoCargo.Size = new Size(1254, 23);
-            txtEncargadoCargo.TabIndex = 7;
+            this.txtEncargadoCargo.BackColor = System.Drawing.Color.White;
+            this.txtEncargadoCargo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEncargadoCargo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtEncargadoCargo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtEncargadoCargo.Location = new System.Drawing.Point(870, 50);
+            this.txtEncargadoCargo.MaxLength = 100;
+            this.txtEncargadoCargo.Name = "txtEncargadoCargo";
+            this.txtEncargadoCargo.Size = new System.Drawing.Size(130, 27);
+            this.txtEncargadoCargo.TabIndex = 7;
             // 
             // lblEncargadoCargo
             // 
-            lblEncargadoCargo.AutoSize = true;
-            lblEncargadoCargo.Font = new Font("Segoe UI", 9F);
-            lblEncargadoCargo.ForeColor = Color.Black;
-            lblEncargadoCargo.Location = new Point(370, 81);
-            lblEncargadoCargo.Name = "lblEncargadoCargo";
-            lblEncargadoCargo.Size = new Size(120, 15);
-            lblEncargadoCargo.TabIndex = 6;
-            lblEncargadoCargo.Text = "Cargo del Encargado:";
+            this.lblEncargadoCargo.AutoSize = true;
+            this.lblEncargadoCargo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblEncargadoCargo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblEncargadoCargo.Location = new System.Drawing.Point(870, 30);
+            this.lblEncargadoCargo.Name = "lblEncargadoCargo";
+            this.lblEncargadoCargo.Size = new System.Drawing.Size(52, 20);
+            this.lblEncargadoCargo.TabIndex = 6;
+            this.lblEncargadoCargo.Text = "Cargo:";
             // 
             // txtEncargadoNombre
             // 
-            txtEncargadoNombre.Font = new Font("Segoe UI", 9F);
-            txtEncargadoNombre.Location = new Point(150, 77);
-            txtEncargadoNombre.MaxLength = 100;
-            txtEncargadoNombre.Name = "txtEncargadoNombre";
-            txtEncargadoNombre.Size = new Size(200, 23);
-            txtEncargadoNombre.TabIndex = 5;
+            this.txtEncargadoNombre.BackColor = System.Drawing.Color.White;
+            this.txtEncargadoNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEncargadoNombre.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtEncargadoNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtEncargadoNombre.Location = new System.Drawing.Point(690, 50);
+            this.txtEncargadoNombre.MaxLength = 100;
+            this.txtEncargadoNombre.Name = "txtEncargadoNombre";
+            this.txtEncargadoNombre.Size = new System.Drawing.Size(150, 27);
+            this.txtEncargadoNombre.TabIndex = 5;
             // 
             // lblEncargadoNombre
             // 
-            lblEncargadoNombre.AutoSize = true;
-            lblEncargadoNombre.Font = new Font("Segoe UI", 9F);
-            lblEncargadoNombre.ForeColor = Color.Black;
-            lblEncargadoNombre.Location = new Point(15, 81);
-            lblEncargadoNombre.Name = "lblEncargadoNombre";
-            lblEncargadoNombre.Size = new Size(132, 15);
-            lblEncargadoNombre.TabIndex = 4;
-            lblEncargadoNombre.Text = "Nombre del Encargado:";
+            this.lblEncargadoNombre.AutoSize = true;
+            this.lblEncargadoNombre.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblEncargadoNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblEncargadoNombre.Location = new System.Drawing.Point(690, 30);
+            this.lblEncargadoNombre.Name = "lblEncargadoNombre";
+            this.lblEncargadoNombre.Size = new System.Drawing.Size(83, 20);
+            this.lblEncargadoNombre.TabIndex = 4;
+            this.lblEncargadoNombre.Text = "Encargado:";
             // 
             // txtNit
             // 
-            txtNit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtNit.Font = new Font("Segoe UI", 9F);
-            txtNit.Location = new Point(1489, 46);
-            txtNit.MaxLength = 15;
-            txtNit.Name = "txtNit";
-            txtNit.Size = new Size(150, 23);
-            txtNit.TabIndex = 3;
+            this.txtNit.BackColor = System.Drawing.Color.White;
+            this.txtNit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNit.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtNit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtNit.Location = new System.Drawing.Point(480, 50);
+            this.txtNit.MaxLength = 15;
+            this.txtNit.Name = "txtNit";
+            this.txtNit.Size = new System.Drawing.Size(180, 27);
+            this.txtNit.TabIndex = 3;
             // 
             // lblNit
             // 
-            lblNit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblNit.AutoSize = true;
-            lblNit.Font = new Font("Segoe UI", 9F);
-            lblNit.ForeColor = Color.Black;
-            lblNit.Location = new Point(1489, 26);
-            lblNit.Name = "lblNit";
-            lblNit.Size = new Size(29, 15);
-            lblNit.TabIndex = 2;
-            lblNit.Text = "NIT:";
+            this.lblNit.AutoSize = true;
+            this.lblNit.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblNit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblNit.Location = new System.Drawing.Point(480, 30);
+            this.lblNit.Name = "lblNit";
+            this.lblNit.Size = new System.Drawing.Size(35, 20);
+            this.lblNit.TabIndex = 2;
+            this.lblNit.Text = "NIT:";
             // 
             // txtRazonSocial
             // 
-            txtRazonSocial.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtRazonSocial.Font = new Font("Segoe UI", 9F);
-            txtRazonSocial.Location = new Point(15, 46);
-            txtRazonSocial.MaxLength = 255;
-            txtRazonSocial.Name = "txtRazonSocial";
-            txtRazonSocial.Size = new Size(1455, 23);
-            txtRazonSocial.TabIndex = 1;
+            this.txtRazonSocial.BackColor = System.Drawing.Color.White;
+            this.txtRazonSocial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRazonSocial.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtRazonSocial.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtRazonSocial.Location = new System.Drawing.Point(50, 50);
+            this.txtRazonSocial.MaxLength = 255;
+            this.txtRazonSocial.Name = "txtRazonSocial";
+            this.txtRazonSocial.Size = new System.Drawing.Size(400, 27);
+            this.txtRazonSocial.TabIndex = 1;
             // 
             // lblRazonSocial
             // 
-            lblRazonSocial.AutoSize = true;
-            lblRazonSocial.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblRazonSocial.ForeColor = Color.DarkRed;
-            lblRazonSocial.Location = new Point(15, 26);
-            lblRazonSocial.Name = "lblRazonSocial";
-            lblRazonSocial.Size = new Size(84, 15);
-            lblRazonSocial.TabIndex = 0;
-            lblRazonSocial.Text = "Razón Social *";
+            this.lblRazonSocial.AutoSize = true;
+            this.lblRazonSocial.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblRazonSocial.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblRazonSocial.Location = new System.Drawing.Point(50, 30);
+            this.lblRazonSocial.Name = "lblRazonSocial";
+            this.lblRazonSocial.Size = new System.Drawing.Size(97, 20);
+            this.lblRazonSocial.TabIndex = 0;
+            this.lblRazonSocial.Text = "Razón Social:";
+            // 
+            // tableLayoutJuridica
+            // 
+            this.tableLayoutJuridica.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutJuridica.Name = "tableLayoutJuridica";
+            this.tableLayoutJuridica.Size = new System.Drawing.Size(200, 100);
+            this.tableLayoutJuridica.TabIndex = 0;
             // 
             // grpDatosComunes
             // 
-            grpDatosComunes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            grpDatosComunes.Controls.Add(txtTelefono);
-            grpDatosComunes.Controls.Add(lblTelefono);
-            grpDatosComunes.Controls.Add(txtDireccion);
-            grpDatosComunes.Controls.Add(lblDireccion);
-            grpDatosComunes.Controls.Add(txtEmail);
-            grpDatosComunes.Controls.Add(lblEmail);
-            grpDatosComunes.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            grpDatosComunes.ForeColor = Color.DarkSlateGray;
-            grpDatosComunes.Location = new Point(15, 235);
-            grpDatosComunes.Name = "grpDatosComunes";
-            grpDatosComunes.Size = new Size(1101, 262);
-            grpDatosComunes.TabIndex = 4;
-            grpDatosComunes.TabStop = false;
-            grpDatosComunes.Text = "Datos de Contacto";
+            this.grpDatosComunes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpDatosComunes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.grpDatosComunes.Controls.Add(this.txtTelefono);
+            this.grpDatosComunes.Controls.Add(this.lblTelefono);
+            this.grpDatosComunes.Controls.Add(this.txtDireccion);
+            this.grpDatosComunes.Controls.Add(this.lblDireccion);
+            this.grpDatosComunes.Controls.Add(this.txtEmail);
+            this.grpDatosComunes.Controls.Add(this.lblEmail);
+            this.grpDatosComunes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.grpDatosComunes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(89)))), ((int)(((byte)(182)))));
+            this.grpDatosComunes.Location = new System.Drawing.Point(99, 397);
+            this.grpDatosComunes.Name = "grpDatosComunes";
+            this.grpDatosComunes.Padding = new System.Windows.Forms.Padding(15);
+            this.grpDatosComunes.Size = new System.Drawing.Size(1068, 213);
+            this.grpDatosComunes.TabIndex = 4;
+            this.grpDatosComunes.TabStop = false;
+            this.grpDatosComunes.Text = "Datos de Contacto";
             // 
             // txtTelefono
             // 
-            txtTelefono.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtTelefono.BackColor = Color.White;
-            txtTelefono.Font = new Font("Segoe UI", 9F);
-            txtTelefono.ForeColor = Color.Black;
-            txtTelefono.Location = new Point(1577, 100);
-            txtTelefono.MaxLength = 15;
-            txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(150, 23);
-            txtTelefono.TabIndex = 5;
+            this.txtTelefono.BackColor = System.Drawing.Color.White;
+            this.txtTelefono.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTelefono.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtTelefono.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtTelefono.Location = new System.Drawing.Point(480, 50);
+            this.txtTelefono.MaxLength = 15;
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(180, 27);
+            this.txtTelefono.TabIndex = 5;
             // 
             // lblTelefono
             // 
-            lblTelefono.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblTelefono.AutoSize = true;
-            lblTelefono.Font = new Font("Segoe UI", 9F);
-            lblTelefono.ForeColor = Color.Black;
-            lblTelefono.Location = new Point(1577, 81);
-            lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(56, 15);
-            lblTelefono.TabIndex = 4;
-            lblTelefono.Text = "Teléfono:";
+            this.lblTelefono.AutoSize = true;
+            this.lblTelefono.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblTelefono.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblTelefono.Location = new System.Drawing.Point(480, 30);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(70, 20);
+            this.lblTelefono.TabIndex = 4;
+            this.lblTelefono.Text = "Teléfono:";
             // 
             // txtDireccion
             // 
-            txtDireccion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtDireccion.BackColor = Color.White;
-            txtDireccion.Font = new Font("Segoe UI", 9F);
-            txtDireccion.ForeColor = Color.Black;
-            txtDireccion.Location = new Point(15, 100);
-            txtDireccion.MaxLength = 255;
-            txtDireccion.Multiline = true;
-            txtDireccion.Name = "txtDireccion";
-            txtDireccion.ScrollBars = ScrollBars.Vertical;
-            txtDireccion.Size = new Size(1527, 40);
-            txtDireccion.TabIndex = 3;
+            this.txtDireccion.BackColor = System.Drawing.Color.White;
+            this.txtDireccion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDireccion.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtDireccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtDireccion.Location = new System.Drawing.Point(50, 100);
+            this.txtDireccion.MaxLength = 255;
+            this.txtDireccion.Multiline = true;
+            this.txtDireccion.Name = "txtDireccion";
+            this.txtDireccion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDireccion.Size = new System.Drawing.Size(950, 60);
+            this.txtDireccion.TabIndex = 3;
             // 
             // lblDireccion
             // 
-            lblDireccion.AutoSize = true;
-            lblDireccion.Font = new Font("Segoe UI", 9F);
-            lblDireccion.ForeColor = Color.Black;
-            lblDireccion.Location = new Point(15, 81);
-            lblDireccion.Name = "lblDireccion";
-            lblDireccion.Size = new Size(60, 15);
-            lblDireccion.TabIndex = 2;
-            lblDireccion.Text = "Dirección:";
+            this.lblDireccion.AutoSize = true;
+            this.lblDireccion.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblDireccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblDireccion.Location = new System.Drawing.Point(50, 80);
+            this.lblDireccion.Name = "lblDireccion";
+            this.lblDireccion.Size = new System.Drawing.Size(75, 20);
+            this.lblDireccion.TabIndex = 2;
+            this.lblDireccion.Text = "Dirección:";
             // 
             // txtEmail
             // 
-            txtEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtEmail.BackColor = Color.White;
-            txtEmail.Font = new Font("Segoe UI", 9F);
-            txtEmail.ForeColor = Color.Black;
-            txtEmail.Location = new Point(15, 46);
-            txtEmail.MaxLength = 100;
-            txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(1328, 23);
-            txtEmail.TabIndex = 1;
+            this.txtEmail.BackColor = System.Drawing.Color.White;
+            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtEmail.Location = new System.Drawing.Point(50, 50);
+            this.txtEmail.MaxLength = 100;
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(400, 27);
+            this.txtEmail.TabIndex = 1;
             // 
             // lblEmail
             // 
-            lblEmail.AutoSize = true;
-            lblEmail.Font = new Font("Segoe UI", 9F);
-            lblEmail.ForeColor = Color.Black;
-            lblEmail.Location = new Point(15, 26);
-            lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(39, 15);
-            lblEmail.TabIndex = 0;
-            lblEmail.Text = "Email:";
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblEmail.Location = new System.Drawing.Point(50, 30);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(49, 20);
+            this.lblEmail.TabIndex = 0;
+            this.lblEmail.Text = "Email:";
+            // 
+            // tableLayoutComunes
+            // 
+            this.tableLayoutComunes.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutComunes.Name = "tableLayoutComunes";
+            this.tableLayoutComunes.Size = new System.Drawing.Size(200, 100);
+            this.tableLayoutComunes.TabIndex = 0;
             // 
             // ClientesModule
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "ClientesModule";
-            Size = new Size(1143, 800);
-            tabControlPrincipal.ResumeLayout(false);
-            tabInicio.ResumeLayout(false);
-            tabConfiguraciones.ResumeLayout(false);
-            panelBusqueda.ResumeLayout(false);
-            panelBusqueda.PerformLayout();
-            panelFormulario.ResumeLayout(false);
-            panelFormulario.PerformLayout();
-            panelSuperior.ResumeLayout(false);
-            panelSuperior.PerformLayout();
-            panelBotones.ResumeLayout(false);
-            grpPersonaFisica.ResumeLayout(false);
-            grpPersonaFisica.PerformLayout();
-            grpPersonaJuridica.ResumeLayout(false);
-            grpPersonaJuridica.PerformLayout();
-            grpDatosComunes.ResumeLayout(false);
-            grpDatosComunes.PerformLayout();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Name = "ClientesModule";
+            this.Size = new System.Drawing.Size(1306, 853);
+            this.tabControlPrincipal.ResumeLayout(false);
+            this.tabInicio.ResumeLayout(false);
+            this.tabConfiguraciones.ResumeLayout(false);
+            this.panelBusqueda.ResumeLayout(false);
+            this.panelBusqueda.PerformLayout();
+            this.panelFormulario.ResumeLayout(false);
+            this.panelFormulario.PerformLayout();
+            this.panelSuperior.ResumeLayout(false);
+            this.panelSuperior.PerformLayout();
+            this.panelBotones.ResumeLayout(false);
+            this.grpPersonaFisica.ResumeLayout(false);
+            this.tableLayoutFisica.ResumeLayout(false);
+            this.tableLayoutFisica.PerformLayout();
+            this.grpPersonaJuridica.ResumeLayout(false);
+            this.grpPersonaJuridica.PerformLayout();
+            this.grpDatosComunes.ResumeLayout(false);
+            this.grpDatosComunes.PerformLayout();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -616,5 +737,8 @@ namespace SistemVeterinario.Forms
         private TextBox txtDireccion;
         private Label lblTelefono;
         private TextBox txtTelefono;
+        private TableLayoutPanel tableLayoutFisica;
+        private TableLayoutPanel tableLayoutJuridica;
+        private TableLayoutPanel tableLayoutComunes;
     }
 }

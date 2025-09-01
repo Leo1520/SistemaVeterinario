@@ -18,6 +18,7 @@ namespace SistemVeterinario.Forms
         #region Variables Privadas
         private int _currentProductoId = 0;
         private int _currentCategoriaId = 0;
+        private string _categoriaFiltroSeleccionada = "";
         #endregion
 
         #region Constructor
@@ -25,6 +26,8 @@ namespace SistemVeterinario.Forms
         {
             InitializeComponent();
             ConfigurarModulo();
+            ConfigurarValidacionEnTiempoReal();
+            ConfigurarEstilosModernos();
         }
         #endregion
 
@@ -76,6 +79,13 @@ namespace SistemVeterinario.Forms
 
                 // Cargar categorías
                 CargarCategorias();
+
+                // Configurar filtro de categorías inicial
+                if (cmbCategoriaFiltro != null)
+                {
+                    // El filtro se cargará automáticamente cuando se carguen las categorías
+                    ConfigurarFiltroCategoria();
+                }
             }
             catch (Exception ex)
             {
@@ -110,6 +120,63 @@ namespace SistemVeterinario.Forms
         private void ConfigurarControlesIniciales()
         {
             LimpiarFormulario();
+        }
+
+        private void ConfigurarValidacionEnTiempoReal()
+        {
+            // Validación de campos en tiempo real
+            if (txtNombre != null)
+            {
+                txtNombre.TextChanged += (s, e) => ValidarCampoObligatorio(txtNombre, lblNombre);
+                txtNombre.Leave += (s, e) => ValidarCampoCompleto(txtNombre, "nombre");
+            }
+
+            if (txtCodigo != null)
+            {
+                txtCodigo.Leave += (s, e) => ValidarCampoCompleto(txtCodigo, "codigo");
+            }
+
+            // Validación de precio
+            if (nudPrecio != null)
+            {
+                nudPrecio.ValueChanged += (s, e) => ValidarPrecio();
+            }
+
+            // Validación de stock
+            if (nudStockActual != null && nudStockMinimo != null)
+            {
+                nudStockActual.ValueChanged += (s, e) => ValidarStock();
+                nudStockMinimo.ValueChanged += (s, e) => ValidarStock();
+            }
+        }
+
+        private void ConfigurarEstilosModernos()
+        {
+            // Configurar efectos hover para botones
+            ConfigurarEfectoHover(btnBuscar);
+            ConfigurarEfectoHover(btnNuevo);
+            ConfigurarEfectoHover(btnGenerarCodigo);
+            ConfigurarEfectoHover(btnNuevaCategoria);
+            ConfigurarEfectoHover(btnStockBajo);
+
+            // Aplicar efectos de enfoque a los controles
+            AplicarEfectosFocusTextBox(txtCodigo);
+            AplicarEfectosFocusTextBox(txtNombre);
+            AplicarEfectosFocusTextBox(txtDescripcion);
+
+            // Configurar filtro de categoría
+            ConfigurarFiltroCategoria();
+        }
+
+        private void ConfigurarFiltroCategoria()
+        {
+            if (cmbCategoriaFiltro != null)
+            {
+                cmbCategoriaFiltro.Items.Clear();
+                cmbCategoriaFiltro.Items.Add("Todas las categorías");
+                cmbCategoriaFiltro.SelectedIndex = 0;
+                cmbCategoriaFiltro.SelectedIndexChanged += CmbCategoriaFiltro_SelectedIndexChanged;
+            }
         }
         #endregion
 
@@ -808,6 +875,235 @@ namespace SistemVeterinario.Forms
             if (lblContador != null)
             {
                 lblContador.Text = $"Total de registros: {cantidad}";
+            }
+        }
+        #endregion
+
+        #region Métodos de Validación y Efectos Visuales
+        private void ValidarCampoObligatorio(TextBox textBox, Label label)
+        {
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                label.ForeColor = Color.FromArgb(231, 76, 60); // Rojo para campos obligatorios
+                textBox.BackColor = Color.FromArgb(255, 240, 240); // Fondo rojo claro
+            }
+            else
+            {
+                label.ForeColor = Color.FromArgb(52, 73, 94); // Color normal
+                textBox.BackColor = Color.FromArgb(240, 248, 255); // Fondo azul claro (válido)
+            }
+        }
+
+        private void ValidarCampoCompleto(TextBox textBox, string tipoCampo)
+        {
+            Color colorValido = Color.FromArgb(240, 248, 255);
+            Color colorInvalido = Color.FromArgb(255, 240, 240);
+            Color colorNormal = Color.White;
+
+            switch (tipoCampo.ToLower())
+            {
+                case "nombre":
+                    if (!string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        textBox.BackColor = textBox.Text.Length >= 3 ? colorValido : colorInvalido;
+                    }
+                    else
+                    {
+                        textBox.BackColor = colorInvalido;
+                    }
+                    break;
+
+                case "codigo":
+                    if (!string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        textBox.BackColor = textBox.Text.Length >= 3 ? colorValido : colorInvalido;
+                    }
+                    else
+                    {
+                        textBox.BackColor = colorNormal;
+                    }
+                    break;
+            }
+        }
+
+        private void ValidarPrecio()
+        {
+            if (nudPrecio != null)
+            {
+                if (nudPrecio.Value <= 0)
+                {
+                    nudPrecio.BackColor = Color.FromArgb(255, 240, 240);
+                }
+                else
+                {
+                    nudPrecio.BackColor = Color.FromArgb(240, 248, 255);
+                }
+            }
+        }
+
+        private void ValidarStock()
+        {
+            if (nudStockActual != null && nudStockMinimo != null)
+            {
+                // Cambiar color si el stock actual está por debajo del mínimo
+                if (nudStockActual.Value < nudStockMinimo.Value)
+                {
+                    nudStockActual.BackColor = Color.FromArgb(255, 240, 240); // Rojo claro
+                }
+                else
+                {
+                    nudStockActual.BackColor = Color.FromArgb(240, 248, 255); // Azul claro
+                }
+
+                // Color del stock mínimo
+                nudStockMinimo.BackColor = Color.FromArgb(240, 248, 255);
+            }
+        }
+
+        private void ConfigurarEfectoHover(Button boton)
+        {
+            if (boton == null) return;
+
+            Color colorOriginal = boton.BackColor;
+            Color colorHover = ControlPaint.Light(colorOriginal, 0.2f);
+
+            boton.MouseEnter += (s, e) =>
+            {
+                boton.BackColor = colorHover;
+                boton.Cursor = Cursors.Hand;
+            };
+
+            boton.MouseLeave += (s, e) =>
+            {
+                boton.BackColor = colorOriginal;
+                boton.Cursor = Cursors.Default;
+            };
+        }
+
+        private void AplicarEfectosFocusTextBox(TextBox textBox)
+        {
+            if (textBox == null) return;
+
+            Color borderColorNormal = Color.FromArgb(189, 195, 199);
+            Color borderColorFocus = Color.FromArgb(52, 152, 219);
+
+            textBox.Enter += (s, e) =>
+            {
+                textBox.BackColor = Color.FromArgb(250, 253, 255);
+                // Simular cambio de borde cambiando el color de fondo ligeramente
+            };
+
+            textBox.Leave += (s, e) =>
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    textBox.BackColor = Color.White;
+                }
+                else
+                {
+                    textBox.BackColor = Color.FromArgb(240, 248, 255);
+                }
+            };
+        }
+
+        private void CmbCategoriaFiltro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbCategoriaFiltro == null) return;
+
+            _categoriaFiltroSeleccionada = cmbCategoriaFiltro.SelectedItem?.ToString() ?? "";
+            
+            // Aplicar filtro automáticamente
+            FiltrarPorCategoria();
+        }
+
+        private void FiltrarPorCategoria()
+        {
+            try
+            {
+                DataTable datos;
+
+                if (_categoriaFiltroSeleccionada == "Todas las categorías" || string.IsNullOrEmpty(_categoriaFiltroSeleccionada))
+                {
+                    datos = NProductos.Mostrar();
+                }
+                else
+                {
+                    // Obtener el ID de la categoría seleccionada
+                    int categoriaId = ObtenerIdCategoriaPorNombre(_categoriaFiltroSeleccionada);
+                    if (categoriaId > 0)
+                    {
+                        datos = NProductos.BuscarPorCategoria(categoriaId);
+                    }
+                    else
+                    {
+                        datos = NProductos.Mostrar();
+                    }
+                }
+
+                if (datos != null)
+                {
+                    base.CargarDatos(datos);
+                    ActualizarContadorRegistros(datos.Rows.Count);
+                    ConfigurarColumnasDataGridView();
+                }
+                else
+                {
+                    ActualizarContadorRegistros(0);
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje($"Error al filtrar por categoría: {ex.Message}", "Error", MessageBoxIcon.Error);
+                ActualizarContadorRegistros(0);
+            }
+        }
+
+        private int ObtenerIdCategoriaPorNombre(string nombreCategoria)
+        {
+            if (cmbCategoria?.Items == null || cmbCategoria.Items.Count == 0) return 0;
+
+            // Buscar en los items del combo de categoría del formulario
+            foreach (var item in cmbCategoria.Items)
+            {
+                if (item.ToString() == nombreCategoria)
+                {
+                    // Intentar obtener el valor asociado (ID)
+                    var dataRowView = item as DataRowView;
+                    if (dataRowView != null && int.TryParse(dataRowView["id"]?.ToString(), out int id))
+                    {
+                        return id;
+                    }
+                }
+            }
+            
+            return 0;
+        }
+
+        private void CargarFiltrosCategorias(DataTable categorias)
+        {
+            if (cmbCategoriaFiltro == null || categorias == null) return;
+
+            try
+            {
+                // Limpiar y agregar opción "Todas"
+                cmbCategoriaFiltro.Items.Clear();
+                cmbCategoriaFiltro.Items.Add("Todas las categorías");
+
+                // Agregar cada categoría
+                foreach (DataRow row in categorias.Rows)
+                {
+                    string nombreCategoria = row["nombre"]?.ToString() ?? "";
+                    if (!string.IsNullOrEmpty(nombreCategoria))
+                    {
+                        cmbCategoriaFiltro.Items.Add(nombreCategoria);
+                    }
+                }
+
+                cmbCategoriaFiltro.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error cargando filtro de categorías: {ex.Message}");
             }
         }
         #endregion

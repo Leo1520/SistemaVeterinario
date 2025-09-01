@@ -24,6 +24,13 @@ namespace SistemVeterinario.Forms
             InitializeComponent();
             ValidarControlesInicializados();
             ConfigurarModulo();
+            
+            // Configurar validación y estilos modernos después de la inicialización
+            this.Load += (s, e) => {
+                ConfigurarValidacionEnTiempoReal();
+                ConfigurarEstilosModernos();
+                ConfigurarEventosPersonalizados();
+            };
         }
 
         protected override void OnLoad()
@@ -604,28 +611,463 @@ namespace SistemVeterinario.Forms
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtPersonaId.Text))
+            if (string.IsNullOrWhiteSpace(txtClienteSeleccionado.Text))
             {
-                MessageBox.Show("El ID de la persona es requerido", "Validación",
+                MessageBox.Show("Debe seleccionar un cliente para la factura", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPersonaId.Focus();
-                return false;
-            }
-
-            if (!int.TryParse(txtPersonaId.Text, out _))
-            {
-                MessageBox.Show("El ID de la persona debe ser un número válido", "Validación",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPersonaId.Focus();
+                btnSeleccionarCliente.Focus();
                 return false;
             }
 
             return true;
         }
 
-        private void btnRefrescar_Click_1(object sender, EventArgs e)
+        /// <summary>
+        /// Configura eventos personalizados para los controles específicos de ventas
+        /// </summary>
+        private void ConfigurarEventosPersonalizados()
         {
+            // Configurar eventos del botón limpiar filtros
+            if (btnLimpiarFiltros != null)
+            {
+                btnLimpiarFiltros.Click += btnLimpiarFiltros_Click;
+            }
 
+            // Configurar eventos del botón generar número
+            if (btnGenerarNumero != null)
+            {
+                btnGenerarNumero.Click += (s, e) => GenerarNumeroFactura();
+            }
+
+            // Configurar eventos del botón seleccionar cliente
+            if (btnSeleccionarCliente != null)
+            {
+                btnSeleccionarCliente.Click += (s, e) => SeleccionarCliente();
+            }
+
+            // Configurar eventos de los botones agregar productos y servicios
+            if (btnAgregarProductos != null)
+            {
+                btnAgregarProductos.Click += (s, e) => AgregarProductos();
+            }
+
+            if (btnAgregarServicios != null)
+            {
+                btnAgregarServicios.Click += (s, e) => AgregarServicios();
+            }
+
+            // Configurar filtrado por estado
+            if (cmbEstadoFiltro != null)
+            {
+                cmbEstadoFiltro.SelectedIndexChanged += (s, e) => FiltrarPorEstado();
+            }
+
+            // Configurar búsqueda en tiempo real
+            if (txtBuscarCliente != null)
+            {
+                txtBuscarCliente.TextChanged += (s, e) => {
+                    if (txtBuscarCliente.Text.Length >= 3)
+                    {
+                        BuscarClientesEnTiempoReal();
+                    }
+                };
+            }
+        }
+
+        /// <summary>
+        /// Genera un número de factura automáticamente
+        /// </summary>
+        private void GenerarNumeroFactura()
+        {
+            if (txtNumeroFactura != null)
+            {
+                string numeroGenerado = "F" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                txtNumeroFactura.Text = numeroGenerado;
+            }
+        }
+
+        /// <summary>
+        /// Abre el diálogo para seleccionar un cliente
+        /// </summary>
+        private void SeleccionarCliente()
+        {
+            try
+            {
+                // Aquí se abriría el diálogo de selección de cliente
+                MessageBox.Show("Funcionalidad de selección de cliente en desarrollo", 
+                    "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al seleccionar cliente: {ex.Message}", 
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Abre el diálogo para agregar productos
+        /// </summary>
+        private void AgregarProductos()
+        {
+            try
+            {
+                // Aquí se abriría el diálogo de selección de productos
+                MessageBox.Show("Funcionalidad de agregar productos en desarrollo", 
+                    "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al agregar productos: {ex.Message}", 
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Abre el diálogo para agregar servicios
+        /// </summary>
+        private void AgregarServicios()
+        {
+            try
+            {
+                // Aquí se abriría el diálogo de selección de servicios
+                MessageBox.Show("Funcionalidad de agregar servicios en desarrollo", 
+                    "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al agregar servicios: {ex.Message}", 
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Realiza búsqueda de clientes en tiempo real
+        /// </summary>
+        private void BuscarClientesEnTiempoReal()
+        {
+            if (txtBuscarCliente == null) return;
+
+            try
+            {
+                string terminoBusqueda = txtBuscarCliente.Text;
+                // Aquí se implementaría la búsqueda en tiempo real
+                // Por ahora solo actualiza el contador
+                if (lblTotalRegistros != null)
+                {
+                    lblTotalRegistros.Text = $"Buscando: {terminoBusqueda}...";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en búsqueda en tiempo real: {ex.Message}");
+            }
+        }
+
+        private void btnLimpiarFiltros_Click(object sender, EventArgs e)
+        {
+            LimpiarFiltros();
+        }
+
+        #endregion
+
+        #region Validación y Estilos Modernos
+
+        /// <summary>
+        /// Configura la validación en tiempo real para los controles del formulario
+        /// </summary>
+        private void ConfigurarValidacionEnTiempoReal()
+        {
+            // Validación para número de factura
+            if (txtNumeroFactura != null)
+            {
+                txtNumeroFactura.Leave += (s, e) => ValidarNumeroFactura();
+                txtNumeroFactura.TextChanged += (s, e) => {
+                    if (txtNumeroFactura.Text.Length > 20)
+                    {
+                        txtNumeroFactura.BackColor = Color.FromArgb(255, 235, 235);
+                    }
+                    else
+                    {
+                        txtNumeroFactura.BackColor = Color.White;
+                    }
+                };
+            }
+
+            // Validación para cliente seleccionado
+            if (txtClienteSeleccionado != null)
+            {
+                txtClienteSeleccionado.Leave += (s, e) => ValidarClienteSeleccionado();
+            }
+
+            // Validación para fechas
+            if (dtpFechaEmision != null && dtpFechaVencimiento != null)
+            {
+                dtpFechaEmision.ValueChanged += (s, e) => ValidarFechas();
+                dtpFechaVencimiento.ValueChanged += (s, e) => ValidarFechas();
+            }
+
+            // Validación para montos
+            if (nudImpuestos != null)
+            {
+                nudImpuestos.ValueChanged += (s, e) => CalcularTotal();
+            }
+
+            if (nudDescuentos != null)
+            {
+                nudDescuentos.ValueChanged += (s, e) => CalcularTotal();
+            }
+        }
+
+        /// <summary>
+        /// Configura los estilos modernos para todos los controles
+        /// </summary>
+        private void ConfigurarEstilosModernos()
+        {
+            // Aplicar estilos a los controles de búsqueda
+            AplicarEstiloModerno(txtBuscarCliente, "Buscar por nombre, cédula, teléfono...");
+            AplicarEstiloCombo(cmbEstadoFiltro);
+
+            // Aplicar estilos a los controles del formulario principal
+            AplicarEstiloModerno(txtNumeroFactura, "Número de factura");
+            AplicarEstiloModerno(txtClienteSeleccionado, "Cliente seleccionado");
+            AplicarEstiloModerno(txtNotas, "Observaciones adicionales...");
+            
+            AplicarEstiloCombo(cmbEstado);
+            AplicarEstiloNumerico(nudSubtotal);
+            AplicarEstiloNumerico(nudImpuestos);
+            AplicarEstiloNumerico(nudDescuentos);
+            AplicarEstiloNumerico(nudTotal);
+
+            // Configurar DataGridView
+            ConfigurarDataGridViewModerno(dgvItems);
+        }
+
+        /// <summary>
+        /// Aplica estilo moderno a un TextBox
+        /// </summary>
+        private void AplicarEstiloModerno(TextBox textBox, string placeholder = "")
+        {
+            if (textBox == null) return;
+
+            textBox.Font = new Font("Segoe UI", 10F);
+            textBox.ForeColor = Color.FromArgb(44, 62, 80);
+            textBox.BackColor = Color.White;
+            textBox.BorderStyle = BorderStyle.FixedSingle;
+
+            if (!string.IsNullOrEmpty(placeholder))
+            {
+                // Placeholder personalizado para .NET Framework
+                textBox.Text = placeholder;
+                textBox.ForeColor = Color.Gray;
+                
+                textBox.Enter += (s, e) => {
+                    if (textBox.Text == placeholder)
+                    {
+                        textBox.Text = "";
+                        textBox.ForeColor = Color.FromArgb(44, 62, 80);
+                    }
+                    textBox.BackColor = Color.FromArgb(240, 248, 255);
+                };
+
+                textBox.Leave += (s, e) => {
+                    if (string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        textBox.Text = placeholder;
+                        textBox.ForeColor = Color.Gray;
+                    }
+                    textBox.BackColor = Color.White;
+                };
+            }
+            else
+            {
+                // Efectos de hover y focus sin placeholder
+                textBox.Enter += (s, e) => {
+                    textBox.BackColor = Color.FromArgb(240, 248, 255);
+                };
+
+                textBox.Leave += (s, e) => {
+                    textBox.BackColor = Color.White;
+                };
+            }
+        }
+
+        /// <summary>
+        /// Aplica estilo moderno a un ComboBox
+        /// </summary>
+        private void AplicarEstiloCombo(ComboBox comboBox)
+        {
+            if (comboBox == null) return;
+
+            comboBox.Font = new Font("Segoe UI", 10F);
+            comboBox.ForeColor = Color.FromArgb(44, 62, 80);
+            comboBox.BackColor = Color.White;
+            comboBox.FlatStyle = FlatStyle.Flat;
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        /// <summary>
+        /// Aplica estilo moderno a un NumericUpDown
+        /// </summary>
+        private void AplicarEstiloNumerico(NumericUpDown numericUpDown)
+        {
+            if (numericUpDown == null) return;
+
+            numericUpDown.Font = new Font("Segoe UI", 10F);
+            numericUpDown.ForeColor = Color.FromArgb(44, 62, 80);
+            numericUpDown.BackColor = Color.White;
+            numericUpDown.BorderStyle = BorderStyle.FixedSingle;
+            numericUpDown.TextAlign = HorizontalAlignment.Right;
+            numericUpDown.DecimalPlaces = 2;
+        }
+
+        /// <summary>
+        /// Configura el DataGridView con estilo moderno
+        /// </summary>
+        private void ConfigurarDataGridViewModerno(DataGridView dataGridView)
+        {
+            if (dataGridView == null) return;
+
+            dataGridView.BackgroundColor = Color.White;
+            dataGridView.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridView.EnableHeadersVisualStyles = false;
+
+            // Estilo de las cabeceras
+            dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
+            dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(52, 73, 94);
+
+            // Estilo de las filas
+            dataGridView.DefaultCellStyle.BackColor = Color.White;
+            dataGridView.DefaultCellStyle.ForeColor = Color.FromArgb(44, 62, 80);
+            dataGridView.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            dataGridView.DefaultCellStyle.SelectionBackColor = Color.FromArgb(52, 152, 219);
+            dataGridView.DefaultCellStyle.SelectionForeColor = Color.White;
+
+            // Configuración general
+            dataGridView.AllowUserToAddRows = false;
+            dataGridView.AllowUserToDeleteRows = false;
+            dataGridView.ReadOnly = true;
+            dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView.MultiSelect = false;
+            dataGridView.RowHeadersVisible = false;
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        /// <summary>
+        /// Valida el número de factura
+        /// </summary>
+        private bool ValidarNumeroFactura()
+        {
+            if (txtNumeroFactura == null) return true;
+
+            if (string.IsNullOrWhiteSpace(txtNumeroFactura.Text))
+            {
+                MostrarValidacion(txtNumeroFactura, "El número de factura es requerido", false);
+                return false;
+            }
+
+            if (txtNumeroFactura.Text.Length > 20)
+            {
+                MostrarValidacion(txtNumeroFactura, "El número de factura no puede exceder 20 caracteres", false);
+                return false;
+            }
+
+            MostrarValidacion(txtNumeroFactura, "", true);
+            return true;
+        }
+
+        /// <summary>
+        /// Valida que se haya seleccionado un cliente
+        /// </summary>
+        private bool ValidarClienteSeleccionado()
+        {
+            if (txtClienteSeleccionado == null) return true;
+
+            if (string.IsNullOrWhiteSpace(txtClienteSeleccionado.Text))
+            {
+                MostrarValidacion(txtClienteSeleccionado, "Debe seleccionar un cliente", false);
+                return false;
+            }
+
+            MostrarValidacion(txtClienteSeleccionado, "", true);
+            return true;
+        }
+
+        /// <summary>
+        /// Valida las fechas de emisión y vencimiento
+        /// </summary>
+        private bool ValidarFechas()
+        {
+            if (dtpFechaEmision == null || dtpFechaVencimiento == null) return true;
+
+            if (dtpFechaVencimiento.Value < dtpFechaEmision.Value)
+            {
+                MessageBox.Show("La fecha de vencimiento no puede ser anterior a la fecha de emisión",
+                    "Validación de Fechas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Calcula el total basado en subtotal, impuestos y descuentos
+        /// </summary>
+        private void CalcularTotal()
+        {
+            if (nudSubtotal == null || nudImpuestos == null || nudDescuentos == null || nudTotal == null) return;
+
+            decimal subtotal = nudSubtotal.Value;
+            decimal impuestos = nudImpuestos.Value;
+            decimal descuentos = nudDescuentos.Value;
+
+            decimal total = subtotal + impuestos - descuentos;
+            nudTotal.Value = Math.Max(0, total);
+        }
+
+        /// <summary>
+        /// Muestra indicadores visuales de validación
+        /// </summary>
+        private void MostrarValidacion(Control control, string mensaje, bool esValido)
+        {
+            if (control == null) return;
+
+            if (esValido)
+            {
+                control.BackColor = Color.White;
+                // Remover tooltip si existe
+            }
+            else
+            {
+                control.BackColor = Color.FromArgb(255, 235, 235);
+                // Mostrar tooltip con el mensaje si se implementa
+            }
+        }
+
+        /// <summary>
+        /// Limpia todos los filtros aplicados
+        /// </summary>
+        private void LimpiarFiltros()
+        {
+            if (txtBuscarCliente != null) txtBuscarCliente.Clear();
+            if (cmbEstadoFiltro != null) cmbEstadoFiltro.SelectedIndex = -1;
+
+            // Recargar datos sin filtros
+            CargarDatosVentas();
+        }
+
+        /// <summary>
+        /// Filtra las ventas por estado
+        /// </summary>
+        private void FiltrarPorEstado()
+        {
+            if (cmbEstadoFiltro == null || cmbEstadoFiltro.SelectedIndex == -1) return;
+
+            string estadoSeleccionado = cmbEstadoFiltro.SelectedItem.ToString();
+            // Implementar filtrado por estado
         }
 
         #endregion

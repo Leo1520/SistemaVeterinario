@@ -1,43 +1,16 @@
-using System.Drawing;
-using System.Windows.Forms;
-
 namespace SistemVeterinario.Forms
 {
     partial class VentasModule
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        // Controles específicos de ventas
-        private Label lblBuscarPersona;
-        private TextBox txtBuscarPersonaId;
-        private Button btnRefrescar;
-        private Label lblTotalRegistros;
-        private GroupBox grpDatosFactura;
-        private Label lblNumeroFactura;
-        private TextBox txtNumeroFactura;
-        private Label lblPersonaId;
-        private TextBox txtPersonaId;
-        private Label lblFechaEmision;
-        private DateTimePicker dtpFechaEmision;
-        private Label lblFechaVencimiento;
-        private DateTimePicker dtpFechaVencimiento;
-        private CheckBox chkTieneFechaVencimiento;
-        private Label lblEstado;
-        private ComboBox cmbEstado;
-        private GroupBox grpMontos;
-        private Label lblImpuestos;
-        private NumericUpDown nudImpuestos;
-        private Label lblDescuentos;
-        private NumericUpDown nudDescuentos;
-        private CheckBox chkFinalizar;
-        private GroupBox grpDetalles;
-        private Label lblNotas;
-        private TextBox txtNotas;
-        private Label lblProductos;
-        private TextBox txtProductosJson;
-        private Label lblServicios;
-        private TextBox txtServiciosJson;
-
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -47,386 +20,355 @@ namespace SistemVeterinario.Forms
             base.Dispose(disposing);
         }
 
+        #region Código generado por el Diseñador de Windows Forms
+
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private new void InitializeComponent()
         {
-            lblBuscarPersona = new Label();
-            txtBuscarPersonaId = new TextBox();
-            btnRefrescar = new Button();
-            lblTotalRegistros = new Label();
-            grpDatosFactura = new GroupBox();
-            lblNumeroFactura = new Label();
-            txtNumeroFactura = new TextBox();
-            lblPersonaId = new Label();
-            txtPersonaId = new TextBox();
-            lblFechaEmision = new Label();
-            dtpFechaEmision = new DateTimePicker();
-            chkTieneFechaVencimiento = new CheckBox();
-            dtpFechaVencimiento = new DateTimePicker();
-            lblEstado = new Label();
-            cmbEstado = new ComboBox();
-            lblFechaVencimiento = new Label();
-            grpMontos = new GroupBox();
-            lblImpuestos = new Label();
-            nudImpuestos = new NumericUpDown();
-            lblDescuentos = new Label();
-            nudDescuentos = new NumericUpDown();
-            chkFinalizar = new CheckBox();
-            grpDetalles = new GroupBox();
-            lblNotas = new Label();
-            txtNotas = new TextBox();
-            lblProductos = new Label();
-            txtProductosJson = new TextBox();
-            lblServicios = new Label();
-            txtServiciosJson = new TextBox();
-            tabControlPrincipal.SuspendLayout();
-            tabInicio.SuspendLayout();
-            tabConfiguraciones.SuspendLayout();
-            panelBusqueda.SuspendLayout();
-            panelFormulario.SuspendLayout();
-            panelSuperior.SuspendLayout();
-            panelBotones.SuspendLayout();
-            grpDatosFactura.SuspendLayout();
-            grpMontos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudImpuestos).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudDescuentos).BeginInit();
-            grpDetalles.SuspendLayout();
-            SuspendLayout();
-            // 
-            // tabInicio
-            // 
-            tabInicio.Text = "Gestión de Ventas";
-            // 
-            // tabConfiguraciones
-            // 
-            tabConfiguraciones.Text = "Configuración de Ventas";
-            // 
-            // panelBusqueda
-            // 
-            panelBusqueda.Controls.Add(lblBuscarPersona);
-            panelBusqueda.Controls.Add(txtBuscarPersonaId);
-            panelBusqueda.Controls.Add(btnRefrescar);
-            panelBusqueda.Controls.Add(lblTotalRegistros);
-            panelBusqueda.Controls.SetChildIndex(lblTotalRegistros, 0);
-            panelBusqueda.Controls.SetChildIndex(btnRefrescar, 0);
-            panelBusqueda.Controls.SetChildIndex(txtBuscarPersonaId, 0);
-            panelBusqueda.Controls.SetChildIndex(lblBuscarPersona, 0);
-            panelBusqueda.Controls.SetChildIndex(chkMostrarTodo, 0);
-            panelBusqueda.Controls.SetChildIndex(btnNuevo, 0);
-            panelBusqueda.Controls.SetChildIndex(btnBuscar, 0);
-            panelBusqueda.Controls.SetChildIndex(txtBuscar, 0);
-            // 
-            // panelFormulario
-            // 
-            panelFormulario.Controls.Add(grpDatosFactura);
-            panelFormulario.Controls.Add(grpMontos);
-            panelFormulario.Controls.Add(grpDetalles);
-            panelFormulario.Controls.SetChildIndex(grpDetalles, 0);
-            panelFormulario.Controls.SetChildIndex(grpMontos, 0);
-            panelFormulario.Controls.SetChildIndex(grpDatosFactura, 0);
-            panelFormulario.Controls.SetChildIndex(panelBotones, 0);
-            panelFormulario.Controls.SetChildIndex(panelSuperior, 0);
-            // 
-            // lblBuscarPersona
-            // 
-            lblBuscarPersona.Location = new Point(10, 15);
-            lblBuscarPersona.Name = "lblBuscarPersona";
-            lblBuscarPersona.Size = new Size(100, 20);
-            lblBuscarPersona.TabIndex = 4;
-            lblBuscarPersona.Text = "Buscar Persona ID:";
-            // 
-            // txtBuscarPersonaId
-            // 
-            txtBuscarPersonaId.Location = new Point(160, 85);
-            txtBuscarPersonaId.Name = "txtBuscarPersonaId";
-            txtBuscarPersonaId.Size = new Size(150, 23);
-            txtBuscarPersonaId.TabIndex = 5;
-            // 
-            // btnRefrescar
-            // 
-            btnRefrescar.Location = new Point(320, 85);
-            btnRefrescar.Name = "btnRefrescar";
-            btnRefrescar.Size = new Size(80, 25);
-            btnRefrescar.TabIndex = 6;
-            btnRefrescar.Text = "Refrescar";
-            // 
-            // lblTotalRegistros
-            // 
-            lblTotalRegistros.Location = new Point(420, 60);
-            lblTotalRegistros.Name = "lblTotalRegistros";
-            lblTotalRegistros.Size = new Size(100, 20);
-            lblTotalRegistros.TabIndex = 7;
-            lblTotalRegistros.Text = "Total: 0";
-            // 
-            // grpDatosFactura
-            // 
-            grpDatosFactura.Controls.Add(lblNumeroFactura);
-            grpDatosFactura.Controls.Add(txtNumeroFactura);
-            grpDatosFactura.Controls.Add(lblPersonaId);
-            grpDatosFactura.Controls.Add(txtPersonaId);
-            grpDatosFactura.Controls.Add(lblFechaEmision);
-            grpDatosFactura.Controls.Add(dtpFechaEmision);
-            grpDatosFactura.Controls.Add(chkTieneFechaVencimiento);
-            grpDatosFactura.Controls.Add(dtpFechaVencimiento);
-            grpDatosFactura.Controls.Add(lblEstado);
-            grpDatosFactura.Controls.Add(cmbEstado);
-            grpDatosFactura.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            grpDatosFactura.ForeColor = Color.DarkBlue;
-            grpDatosFactura.Location = new Point(15, 100);
-            grpDatosFactura.Name = "grpDatosFactura";
-            grpDatosFactura.Size = new Size(560, 180);
-            grpDatosFactura.TabIndex = 2;
-            grpDatosFactura.TabStop = false;
-            grpDatosFactura.Text = "Datos de la Factura";
-            // 
-            // lblNumeroFactura
-            // 
-            lblNumeroFactura.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblNumeroFactura.ForeColor = Color.DarkRed;
-            lblNumeroFactura.Location = new Point(15, 30);
-            lblNumeroFactura.Name = "lblNumeroFactura";
-            lblNumeroFactura.Size = new Size(130, 20);
-            lblNumeroFactura.TabIndex = 0;
-            lblNumeroFactura.Text = "Número de Factura *:";
+            // Controles básicos de formulario
+            this.txtNumeroFactura = new System.Windows.Forms.TextBox();
+            this.txtPersonaId = new System.Windows.Forms.TextBox();
+            this.txtNotas = new System.Windows.Forms.TextBox();
+            this.txtProductosJson = new System.Windows.Forms.TextBox();
+            this.txtServiciosJson = new System.Windows.Forms.TextBox();
+            this.txtBuscarPersonaId = new System.Windows.Forms.TextBox();
+            this.txtClienteSeleccionado = new System.Windows.Forms.TextBox();
+            this.txtBuscarCliente = new System.Windows.Forms.TextBox();
+            
+            // ComboBoxes
+            this.cmbEstado = new System.Windows.Forms.ComboBox();
+            this.cmbEstadoFiltro = new System.Windows.Forms.ComboBox();
+            
+            // DateTimePickers
+            this.dtpFechaEmision = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaVencimiento = new System.Windows.Forms.DateTimePicker();
+            
+            // CheckBoxes
+            this.chkTieneFechaVencimiento = new System.Windows.Forms.CheckBox();
+            this.chkFinalizar = new System.Windows.Forms.CheckBox();
+            
+            // NumericUpDowns
+            this.nudImpuestos = new System.Windows.Forms.NumericUpDown();
+            this.nudDescuentos = new System.Windows.Forms.NumericUpDown();
+            this.nudSubtotal = new System.Windows.Forms.NumericUpDown();
+            this.nudTotal = new System.Windows.Forms.NumericUpDown();
+            
+            // Botones adicionales
+            this.btnRefrescar = new System.Windows.Forms.Button();
+            this.btnSeleccionarCliente = new System.Windows.Forms.Button();
+            this.btnLimpiarFiltros = new System.Windows.Forms.Button();
+            this.btnGenerarNumero = new System.Windows.Forms.Button();
+            this.btnAgregarProductos = new System.Windows.Forms.Button();
+            this.btnAgregarServicios = new System.Windows.Forms.Button();
+            
+            // Labels
+            this.lblTotalRegistros = new System.Windows.Forms.Label();
+            
+            // DataGridView adicional
+            this.dgvItems = new System.Windows.Forms.DataGridView();
+            
+            ((System.ComponentModel.ISupportInitialize)(this.nudImpuestos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDescuentos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSubtotal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTotal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
+            this.SuspendLayout();
+            
             // 
             // txtNumeroFactura
             // 
-            txtNumeroFactura.Location = new Point(150, 28);
-            txtNumeroFactura.MaxLength = 50;
-            txtNumeroFactura.Name = "txtNumeroFactura";
-            txtNumeroFactura.Size = new Size(150, 23);
-            txtNumeroFactura.TabIndex = 1;
-            // 
-            // lblPersonaId
-            // 
-            lblPersonaId.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblPersonaId.ForeColor = Color.DarkRed;
-            lblPersonaId.Location = new Point(315, 30);
-            lblPersonaId.Name = "lblPersonaId";
-            lblPersonaId.Size = new Size(80, 20);
-            lblPersonaId.TabIndex = 2;
-            lblPersonaId.Text = "ID Persona *:";
+            this.txtNumeroFactura.Location = new System.Drawing.Point(120, 50);
+            this.txtNumeroFactura.Name = "txtNumeroFactura";
+            this.txtNumeroFactura.Size = new System.Drawing.Size(150, 20);
+            this.txtNumeroFactura.TabIndex = 0;
+            
             // 
             // txtPersonaId
             // 
-            txtPersonaId.Location = new Point(405, 28);
-            txtPersonaId.Name = "txtPersonaId";
-            txtPersonaId.Size = new Size(100, 23);
-            txtPersonaId.TabIndex = 3;
-            // 
-            // lblFechaEmision
-            // 
-            lblFechaEmision.AutoSize = true;
-            lblFechaEmision.Location = new Point(15, 65);
-            lblFechaEmision.Name = "lblFechaEmision";
-            lblFechaEmision.Size = new Size(87, 15);
-            lblFechaEmision.TabIndex = 4;
-            lblFechaEmision.Text = "Fecha Emisión:";
-            // 
-            // dtpFechaEmision
-            // 
-            dtpFechaEmision.Format = DateTimePickerFormat.Short;
-            dtpFechaEmision.Location = new Point(150, 63);
-            dtpFechaEmision.Name = "dtpFechaEmision";
-            dtpFechaEmision.Size = new Size(150, 23);
-            dtpFechaEmision.TabIndex = 5;
-            // 
-            // chkTieneFechaVencimiento
-            // 
-            chkTieneFechaVencimiento.Checked = true;
-            chkTieneFechaVencimiento.CheckState = CheckState.Checked;
-            chkTieneFechaVencimiento.Location = new Point(315, 65);
-            chkTieneFechaVencimiento.Name = "chkTieneFechaVencimiento";
-            chkTieneFechaVencimiento.Size = new Size(130, 20);
-            chkTieneFechaVencimiento.TabIndex = 6;
-            chkTieneFechaVencimiento.Text = "Fecha Vencimiento:";
-            // 
-            // dtpFechaVencimiento
-            // 
-            dtpFechaVencimiento.Format = DateTimePickerFormat.Short;
-            dtpFechaVencimiento.Location = new Point(315, 88);
-            dtpFechaVencimiento.Name = "dtpFechaVencimiento";
-            dtpFechaVencimiento.Size = new Size(150, 23);
-            dtpFechaVencimiento.TabIndex = 7;
-            // 
-            // lblEstado
-            // 
-            lblEstado.AutoSize = true;
-            lblEstado.Location = new Point(15, 100);
-            lblEstado.Name = "lblEstado";
-            lblEstado.Size = new Size(46, 15);
-            lblEstado.TabIndex = 8;
-            lblEstado.Text = "Estado:";
-            // 
-            // cmbEstado
-            // 
-            cmbEstado.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbEstado.Location = new Point(150, 98);
-            cmbEstado.Name = "cmbEstado";
-            cmbEstado.Size = new Size(150, 23);
-            cmbEstado.TabIndex = 9;
-            // 
-            // lblFechaVencimiento
-            // 
-            lblFechaVencimiento.Location = new Point(0, 0);
-            lblFechaVencimiento.Name = "lblFechaVencimiento";
-            lblFechaVencimiento.Size = new Size(100, 23);
-            lblFechaVencimiento.TabIndex = 0;
-            // 
-            // grpMontos
-            // 
-            grpMontos.Controls.Add(lblImpuestos);
-            grpMontos.Controls.Add(nudImpuestos);
-            grpMontos.Controls.Add(lblDescuentos);
-            grpMontos.Controls.Add(nudDescuentos);
-            grpMontos.Controls.Add(chkFinalizar);
-            grpMontos.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            grpMontos.ForeColor = Color.DarkGreen;
-            grpMontos.Location = new Point(580, 100);
-            grpMontos.Name = "grpMontos";
-            grpMontos.Size = new Size(280, 120);
-            grpMontos.TabIndex = 3;
-            grpMontos.TabStop = false;
-            grpMontos.Text = "Montos";
-            // 
-            // lblImpuestos
-            // 
-            lblImpuestos.AutoSize = true;
-            lblImpuestos.Location = new Point(15, 30);
-            lblImpuestos.Name = "lblImpuestos";
-            lblImpuestos.Size = new Size(68, 15);
-            lblImpuestos.TabIndex = 0;
-            lblImpuestos.Text = "Impuestos:";
-            // 
-            // nudImpuestos
-            // 
-            nudImpuestos.DecimalPlaces = 2;
-            nudImpuestos.Location = new Point(95, 28);
-            nudImpuestos.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
-            nudImpuestos.Name = "nudImpuestos";
-            nudImpuestos.Size = new Size(120, 23);
-            nudImpuestos.TabIndex = 1;
-            // 
-            // lblDescuentos
-            // 
-            lblDescuentos.AutoSize = true;
-            lblDescuentos.Location = new Point(15, 65);
-            lblDescuentos.Name = "lblDescuentos";
-            lblDescuentos.Size = new Size(75, 15);
-            lblDescuentos.TabIndex = 2;
-            lblDescuentos.Text = "Descuentos:";
-            // 
-            // nudDescuentos
-            // 
-            nudDescuentos.DecimalPlaces = 2;
-            nudDescuentos.Location = new Point(95, 63);
-            nudDescuentos.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
-            nudDescuentos.Name = "nudDescuentos";
-            nudDescuentos.Size = new Size(120, 23);
-            nudDescuentos.TabIndex = 3;
-            // 
-            // chkFinalizar
-            // 
-            chkFinalizar.Location = new Point(15, 90);
-            chkFinalizar.Name = "chkFinalizar";
-            chkFinalizar.Size = new Size(120, 20);
-            chkFinalizar.TabIndex = 4;
-            chkFinalizar.Text = "Finalizar Factura";
-            // 
-            // grpDetalles
-            // 
-            grpDetalles.Controls.Add(lblNotas);
-            grpDetalles.Controls.Add(txtNotas);
-            grpDetalles.Controls.Add(lblProductos);
-            grpDetalles.Controls.Add(txtProductosJson);
-            grpDetalles.Controls.Add(lblServicios);
-            grpDetalles.Controls.Add(txtServiciosJson);
-            grpDetalles.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            grpDetalles.ForeColor = Color.DarkSlateGray;
-            grpDetalles.Location = new Point(15, 290);
-            grpDetalles.Name = "grpDetalles";
-            grpDetalles.Size = new Size(845, 180);
-            grpDetalles.TabIndex = 4;
-            grpDetalles.TabStop = false;
-            grpDetalles.Text = "Detalles";
-            // 
-            // lblNotas
-            // 
-            lblNotas.AutoSize = true;
-            lblNotas.Location = new Point(15, 30);
-            lblNotas.Name = "lblNotas";
-            lblNotas.Size = new Size(42, 15);
-            lblNotas.TabIndex = 0;
-            lblNotas.Text = "Notas:";
+            this.txtPersonaId.Location = new System.Drawing.Point(120, 80);
+            this.txtPersonaId.Name = "txtPersonaId";
+            this.txtPersonaId.Size = new System.Drawing.Size(100, 20);
+            this.txtPersonaId.TabIndex = 1;
+            
             // 
             // txtNotas
             // 
-            txtNotas.Location = new Point(15, 53);
-            txtNotas.Multiline = true;
-            txtNotas.Name = "txtNotas";
-            txtNotas.ScrollBars = ScrollBars.Vertical;
-            txtNotas.Size = new Size(820, 40);
-            txtNotas.TabIndex = 1;
-            // 
-            // lblProductos
-            // 
-            lblProductos.AutoSize = true;
-            lblProductos.Location = new Point(15, 105);
-            lblProductos.Name = "lblProductos";
-            lblProductos.Size = new Size(107, 15);
-            lblProductos.TabIndex = 2;
-            lblProductos.Text = "Productos (JSON):";
+            this.txtNotas.Location = new System.Drawing.Point(120, 110);
+            this.txtNotas.Multiline = true;
+            this.txtNotas.Name = "txtNotas";
+            this.txtNotas.Size = new System.Drawing.Size(300, 60);
+            this.txtNotas.TabIndex = 2;
+            
             // 
             // txtProductosJson
             // 
-            txtProductosJson.Font = new Font("Consolas", 9F);
-            txtProductosJson.Location = new Point(15, 128);
-            txtProductosJson.Multiline = true;
-            txtProductosJson.Name = "txtProductosJson";
-            txtProductosJson.ScrollBars = ScrollBars.Vertical;
-            txtProductosJson.Size = new Size(400, 40);
-            txtProductosJson.TabIndex = 3;
-            // 
-            // lblServicios
-            // 
-            lblServicios.AutoSize = true;
-            lblServicios.Location = new Point(435, 105);
-            lblServicios.Name = "lblServicios";
-            lblServicios.Size = new Size(101, 15);
-            lblServicios.TabIndex = 4;
-            lblServicios.Text = "Servicios (JSON):";
+            this.txtProductosJson.Location = new System.Drawing.Point(120, 180);
+            this.txtProductosJson.Multiline = true;
+            this.txtProductosJson.Name = "txtProductosJson";
+            this.txtProductosJson.Size = new System.Drawing.Size(300, 40);
+            this.txtProductosJson.TabIndex = 3;
+            this.txtProductosJson.Visible = false;
+            
             // 
             // txtServiciosJson
             // 
-            txtServiciosJson.Font = new Font("Consolas", 9F);
-            txtServiciosJson.Location = new Point(435, 128);
-            txtServiciosJson.Multiline = true;
-            txtServiciosJson.Name = "txtServiciosJson";
-            txtServiciosJson.ScrollBars = ScrollBars.Vertical;
-            txtServiciosJson.Size = new Size(400, 40);
-            txtServiciosJson.TabIndex = 5;
+            this.txtServiciosJson.Location = new System.Drawing.Point(120, 230);
+            this.txtServiciosJson.Multiline = true;
+            this.txtServiciosJson.Name = "txtServiciosJson";
+            this.txtServiciosJson.Size = new System.Drawing.Size(300, 40);
+            this.txtServiciosJson.TabIndex = 4;
+            this.txtServiciosJson.Visible = false;
+            
             // 
-            // VentasModule
+            // txtBuscarPersonaId
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            Name = "VentasModule";
-            tabControlPrincipal.ResumeLayout(false);
-            tabInicio.ResumeLayout(false);
-            tabConfiguraciones.ResumeLayout(false);
-            panelBusqueda.ResumeLayout(false);
-            panelBusqueda.PerformLayout();
-            panelFormulario.ResumeLayout(false);
-            panelSuperior.ResumeLayout(false);
-            panelSuperior.PerformLayout();
-            panelBotones.ResumeLayout(false);
-            grpDatosFactura.ResumeLayout(false);
-            grpDatosFactura.PerformLayout();
-            grpMontos.ResumeLayout(false);
-            grpMontos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudImpuestos).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudDescuentos).EndInit();
-            grpDetalles.ResumeLayout(false);
-            grpDetalles.PerformLayout();
-            ResumeLayout(false);
+            this.txtBuscarPersonaId.Location = new System.Drawing.Point(450, 50);
+            this.txtBuscarPersonaId.Name = "txtBuscarPersonaId";
+            this.txtBuscarPersonaId.Size = new System.Drawing.Size(100, 20);
+            this.txtBuscarPersonaId.TabIndex = 5;
+            
+            // 
+            // txtClienteSeleccionado
+            // 
+            this.txtClienteSeleccionado.Location = new System.Drawing.Point(450, 80);
+            this.txtClienteSeleccionado.Name = "txtClienteSeleccionado";
+            this.txtClienteSeleccionado.ReadOnly = true;
+            this.txtClienteSeleccionado.Size = new System.Drawing.Size(200, 20);
+            this.txtClienteSeleccionado.TabIndex = 6;
+            
+            // 
+            // txtBuscarCliente
+            // 
+            this.txtBuscarCliente.Location = new System.Drawing.Point(450, 110);
+            this.txtBuscarCliente.Name = "txtBuscarCliente";
+            this.txtBuscarCliente.Size = new System.Drawing.Size(200, 20);
+            this.txtBuscarCliente.TabIndex = 7;
+            
+            // 
+            // cmbEstado
+            // 
+            this.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Location = new System.Drawing.Point(120, 280);
+            this.cmbEstado.Name = "cmbEstado";
+            this.cmbEstado.Size = new System.Drawing.Size(150, 21);
+            this.cmbEstado.TabIndex = 8;
+            
+            // 
+            // cmbEstadoFiltro
+            // 
+            this.cmbEstadoFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstadoFiltro.FormattingEnabled = true;
+            this.cmbEstadoFiltro.Location = new System.Drawing.Point(450, 140);
+            this.cmbEstadoFiltro.Name = "cmbEstadoFiltro";
+            this.cmbEstadoFiltro.Size = new System.Drawing.Size(150, 21);
+            this.cmbEstadoFiltro.TabIndex = 9;
+            
+            // 
+            // dtpFechaEmision
+            // 
+            this.dtpFechaEmision.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaEmision.Location = new System.Drawing.Point(120, 310);
+            this.dtpFechaEmision.Name = "dtpFechaEmision";
+            this.dtpFechaEmision.Size = new System.Drawing.Size(100, 20);
+            this.dtpFechaEmision.TabIndex = 10;
+            
+            // 
+            // dtpFechaVencimiento
+            // 
+            this.dtpFechaVencimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaVencimiento.Location = new System.Drawing.Point(250, 310);
+            this.dtpFechaVencimiento.Name = "dtpFechaVencimiento";
+            this.dtpFechaVencimiento.Size = new System.Drawing.Size(100, 20);
+            this.dtpFechaVencimiento.TabIndex = 11;
+            
+            // 
+            // chkTieneFechaVencimiento
+            // 
+            this.chkTieneFechaVencimiento.AutoSize = true;
+            this.chkTieneFechaVencimiento.Location = new System.Drawing.Point(120, 340);
+            this.chkTieneFechaVencimiento.Name = "chkTieneFechaVencimiento";
+            this.chkTieneFechaVencimiento.Size = new System.Drawing.Size(130, 17);
+            this.chkTieneFechaVencimiento.TabIndex = 12;
+            this.chkTieneFechaVencimiento.Text = "Tiene fecha vencimiento";
+            this.chkTieneFechaVencimiento.UseVisualStyleBackColor = true;
+            
+            // 
+            // chkFinalizar
+            // 
+            this.chkFinalizar.AutoSize = true;
+            this.chkFinalizar.Location = new System.Drawing.Point(280, 340);
+            this.chkFinalizar.Name = "chkFinalizar";
+            this.chkFinalizar.Size = new System.Drawing.Size(65, 17);
+            this.chkFinalizar.TabIndex = 13;
+            this.chkFinalizar.Text = "Finalizar";
+            this.chkFinalizar.UseVisualStyleBackColor = true;
+            
+            // 
+            // nudImpuestos
+            // 
+            this.nudImpuestos.DecimalPlaces = 2;
+            this.nudImpuestos.Location = new System.Drawing.Point(120, 370);
+            this.nudImpuestos.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
+            this.nudImpuestos.Name = "nudImpuestos";
+            this.nudImpuestos.Size = new System.Drawing.Size(80, 20);
+            this.nudImpuestos.TabIndex = 14;
+            
+            // 
+            // nudDescuentos
+            // 
+            this.nudDescuentos.DecimalPlaces = 2;
+            this.nudDescuentos.Location = new System.Drawing.Point(220, 370);
+            this.nudDescuentos.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
+            this.nudDescuentos.Name = "nudDescuentos";
+            this.nudDescuentos.Size = new System.Drawing.Size(80, 20);
+            this.nudDescuentos.TabIndex = 15;
+            
+            // 
+            // nudSubtotal
+            // 
+            this.nudSubtotal.DecimalPlaces = 2;
+            this.nudSubtotal.Location = new System.Drawing.Point(320, 370);
+            this.nudSubtotal.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
+            this.nudSubtotal.Name = "nudSubtotal";
+            this.nudSubtotal.ReadOnly = true;
+            this.nudSubtotal.Size = new System.Drawing.Size(80, 20);
+            this.nudSubtotal.TabIndex = 16;
+            
+            // 
+            // nudTotal
+            // 
+            this.nudTotal.DecimalPlaces = 2;
+            this.nudTotal.Location = new System.Drawing.Point(420, 370);
+            this.nudTotal.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
+            this.nudTotal.Name = "nudTotal";
+            this.nudTotal.ReadOnly = true;
+            this.nudTotal.Size = new System.Drawing.Size(80, 20);
+            this.nudTotal.TabIndex = 17;
+            
+            // 
+            // btnRefrescar
+            // 
+            this.btnRefrescar.Location = new System.Drawing.Point(680, 50);
+            this.btnRefrescar.Name = "btnRefrescar";
+            this.btnRefrescar.Size = new System.Drawing.Size(75, 23);
+            this.btnRefrescar.TabIndex = 18;
+            this.btnRefrescar.Text = "Refrescar";
+            this.btnRefrescar.UseVisualStyleBackColor = true;
+            
+            // 
+            // btnSeleccionarCliente
+            // 
+            this.btnSeleccionarCliente.Location = new System.Drawing.Point(680, 80);
+            this.btnSeleccionarCliente.Name = "btnSeleccionarCliente";
+            this.btnSeleccionarCliente.Size = new System.Drawing.Size(100, 23);
+            this.btnSeleccionarCliente.TabIndex = 19;
+            this.btnSeleccionarCliente.Text = "Seleccionar Cliente";
+            this.btnSeleccionarCliente.UseVisualStyleBackColor = true;
+            
+            // 
+            // btnLimpiarFiltros
+            // 
+            this.btnLimpiarFiltros.Location = new System.Drawing.Point(680, 110);
+            this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
+            this.btnLimpiarFiltros.Size = new System.Drawing.Size(100, 23);
+            this.btnLimpiarFiltros.TabIndex = 20;
+            this.btnLimpiarFiltros.Text = "Limpiar Filtros";
+            this.btnLimpiarFiltros.UseVisualStyleBackColor = true;
+            
+            // 
+            // btnGenerarNumero
+            // 
+            this.btnGenerarNumero.Location = new System.Drawing.Point(280, 50);
+            this.btnGenerarNumero.Name = "btnGenerarNumero";
+            this.btnGenerarNumero.Size = new System.Drawing.Size(100, 23);
+            this.btnGenerarNumero.TabIndex = 21;
+            this.btnGenerarNumero.Text = "Generar Número";
+            this.btnGenerarNumero.UseVisualStyleBackColor = true;
+            
+            // 
+            // btnAgregarProductos
+            // 
+            this.btnAgregarProductos.Location = new System.Drawing.Point(450, 180);
+            this.btnAgregarProductos.Name = "btnAgregarProductos";
+            this.btnAgregarProductos.Size = new System.Drawing.Size(120, 23);
+            this.btnAgregarProductos.TabIndex = 22;
+            this.btnAgregarProductos.Text = "Agregar Productos";
+            this.btnAgregarProductos.UseVisualStyleBackColor = true;
+            
+            // 
+            // btnAgregarServicios
+            // 
+            this.btnAgregarServicios.Location = new System.Drawing.Point(450, 210);
+            this.btnAgregarServicios.Name = "btnAgregarServicios";
+            this.btnAgregarServicios.Size = new System.Drawing.Size(120, 23);
+            this.btnAgregarServicios.TabIndex = 23;
+            this.btnAgregarServicios.Text = "Agregar Servicios";
+            this.btnAgregarServicios.UseVisualStyleBackColor = true;
+            
+            // 
+            // lblTotalRegistros
+            // 
+            this.lblTotalRegistros.AutoSize = true;
+            this.lblTotalRegistros.Location = new System.Drawing.Point(450, 250);
+            this.lblTotalRegistros.Name = "lblTotalRegistros";
+            this.lblTotalRegistros.Size = new System.Drawing.Size(85, 13);
+            this.lblTotalRegistros.TabIndex = 24;
+            this.lblTotalRegistros.Text = "Total registros: 0";
+            
+            // 
+            // dgvItems
+            // 
+            this.dgvItems.AllowUserToAddRows = false;
+            this.dgvItems.AllowUserToDeleteRows = false;
+            this.dgvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvItems.Location = new System.Drawing.Point(450, 280);
+            this.dgvItems.Name = "dgvItems";
+            this.dgvItems.ReadOnly = true;
+            this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvItems.Size = new System.Drawing.Size(350, 150);
+            this.dgvItems.TabIndex = 25;
+            
+            ((System.ComponentModel.ISupportInitialize)(this.nudImpuestos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDescuentos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSubtotal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTotal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
+
+        #endregion
+
+        // Controles básicos
+        private System.Windows.Forms.TextBox txtNumeroFactura;
+        private System.Windows.Forms.TextBox txtPersonaId;
+        private System.Windows.Forms.TextBox txtNotas;
+        private System.Windows.Forms.TextBox txtProductosJson;
+        private System.Windows.Forms.TextBox txtServiciosJson;
+        private System.Windows.Forms.TextBox txtBuscarPersonaId;
+        private System.Windows.Forms.TextBox txtClienteSeleccionado;
+        private System.Windows.Forms.TextBox txtBuscarCliente;
+        private System.Windows.Forms.ComboBox cmbEstado;
+        private System.Windows.Forms.ComboBox cmbEstadoFiltro;
+        private System.Windows.Forms.DateTimePicker dtpFechaEmision;
+        private System.Windows.Forms.DateTimePicker dtpFechaVencimiento;
+        private System.Windows.Forms.CheckBox chkTieneFechaVencimiento;
+        private System.Windows.Forms.CheckBox chkFinalizar;
+        private System.Windows.Forms.NumericUpDown nudImpuestos;
+        private System.Windows.Forms.NumericUpDown nudDescuentos;
+        private System.Windows.Forms.NumericUpDown nudSubtotal;
+        private System.Windows.Forms.NumericUpDown nudTotal;
+        private System.Windows.Forms.Button btnRefrescar;
+        private System.Windows.Forms.Button btnSeleccionarCliente;
+        private System.Windows.Forms.Button btnLimpiarFiltros;
+        private System.Windows.Forms.Button btnGenerarNumero;
+        private System.Windows.Forms.Button btnAgregarProductos;
+        private System.Windows.Forms.Button btnAgregarServicios;
+        private System.Windows.Forms.Label lblTotalRegistros;
+        private System.Windows.Forms.DataGridView dgvItems;
     }
 }

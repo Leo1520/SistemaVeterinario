@@ -30,384 +30,557 @@ namespace SistemVeterinario.Forms
         /// </summary>
         private new void InitializeComponent()
         {
-            lblContador = new Label();
-            grpDatosMascota = new GroupBox();
-            dtpFechaNacimiento = new DateTimePicker();
-            chkTieneFechaNacimiento = new CheckBox();
-            txtMicrochip = new TextBox();
-            lblMicrochip = new Label();
-            btnBuscarPropietario = new Button();
-            txtPropietario = new TextBox();
-            lblPropietario = new Label();
-            chkEsterilizado = new CheckBox();
-            txtColor = new TextBox();
-            lblColor = new Label();
-            nudPeso = new NumericUpDown();
-            lblPeso = new Label();
-            cmbGenero = new ComboBox();
-            lblGenero = new Label();
-            txtRaza = new TextBox();
-            cmbRaza = new ComboBox();
-            lblRaza = new Label();
-            cmbEspecie = new ComboBox();
-            lblEspecie = new Label();
-            txtNombre = new TextBox();
-            lblNombre = new Label();
-            tabControlPrincipal.SuspendLayout();
-            tabInicio.SuspendLayout();
-            tabConfiguraciones.SuspendLayout();
-            panelBusqueda.SuspendLayout();
-            panelFormulario.SuspendLayout();
-            panelSuperior.SuspendLayout();
-            panelBotones.SuspendLayout();
-            grpDatosMascota.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudPeso).BeginInit();
-            SuspendLayout();
+            this.lblContador = new System.Windows.Forms.Label();
+            this.grpDatosMascota = new System.Windows.Forms.GroupBox();
+            this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.lblEspecie = new System.Windows.Forms.Label();
+            this.cmbEspecie = new System.Windows.Forms.ComboBox();
+            this.lblGenero = new System.Windows.Forms.Label();
+            this.cmbGenero = new System.Windows.Forms.ComboBox();
+            this.lblPeso = new System.Windows.Forms.Label();
+            this.nudPeso = new System.Windows.Forms.NumericUpDown();
+            this.lblRaza = new System.Windows.Forms.Label();
+            this.cmbRaza = new System.Windows.Forms.ComboBox();
+            this.txtRaza = new System.Windows.Forms.TextBox();
+            this.lblColor = new System.Windows.Forms.Label();
+            this.txtColor = new System.Windows.Forms.TextBox();
+            this.chkEsterilizado = new System.Windows.Forms.CheckBox();
+            this.lblMicrochip = new System.Windows.Forms.Label();
+            this.txtMicrochip = new System.Windows.Forms.TextBox();
+            this.lblPropietario = new System.Windows.Forms.Label();
+            this.txtPropietario = new System.Windows.Forms.TextBox();
+            this.btnBuscarPropietario = new System.Windows.Forms.Button();
+            this.chkTieneFechaNacimiento = new System.Windows.Forms.CheckBox();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.tabControlPrincipal.SuspendLayout();
+            this.tabInicio.SuspendLayout();
+            this.tabConfiguraciones.SuspendLayout();
+            this.panelBusqueda.SuspendLayout();
+            this.panelFormulario.SuspendLayout();
+            this.panelSuperior.SuspendLayout();
+            this.panelBotones.SuspendLayout();
+            this.grpDatosMascota.SuspendLayout();
+            this.tableLayoutMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPeso)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // tabControlPrincipal
+            // 
+            this.tabControlPrincipal.Size = new System.Drawing.Size(1143, 706);
             // 
             // tabInicio
             // 
-            tabInicio.Text = "Gestión de Mascotas";
+            this.tabInicio.Location = new System.Drawing.Point(4, 39);
+            this.tabInicio.Size = new System.Drawing.Size(1135, 597);
+            this.tabInicio.Text = "Gestión de Mascotas";
             // 
             // tabConfiguraciones
             // 
-            tabConfiguraciones.Text = "Configuración de Mascota";
+            this.tabConfiguraciones.Location = new System.Drawing.Point(4, 39);
+            this.tabConfiguraciones.Size = new System.Drawing.Size(1135, 663);
+            this.tabConfiguraciones.Text = "Configuración de Mascota";
             // 
             // panelBusqueda
             // 
-            panelBusqueda.Controls.Add(lblContador);
-            panelBusqueda.Size = new Size(960, 80);
-            panelBusqueda.Controls.SetChildIndex(lblContador, 0);
-            panelBusqueda.Controls.SetChildIndex(chkMostrarTodo, 0);
-            panelBusqueda.Controls.SetChildIndex(btnNuevo, 0);
-            panelBusqueda.Controls.SetChildIndex(btnBuscar, 0);
-            panelBusqueda.Controls.SetChildIndex(txtBuscar, 0);
+            this.panelBusqueda.Controls.Add(this.lblContador);
+            this.panelBusqueda.Padding = new System.Windows.Forms.Padding(15);
+            this.panelBusqueda.Size = new System.Drawing.Size(1121, 120);
+            this.panelBusqueda.Controls.SetChildIndex(this.lblContador, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.chkMostrarTodo, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.btnNuevo, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.btnBuscar, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.txtBuscar, 0);
             // 
             // txtBuscar
             // 
-            txtBuscar.Location = new Point(17, 3);
-            txtBuscar.Size = new Size(350, 23);
+            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtBuscar.Location = new System.Drawing.Point(25, 30);
+            this.txtBuscar.Size = new System.Drawing.Size(450, 30);
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(287, 40);
+            this.btnBuscar.FlatAppearance.BorderSize = 0;
+            this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnBuscar.Location = new System.Drawing.Point(578, 30);
+            this.btnBuscar.Size = new System.Drawing.Size(138, 47);
             // 
             // btnNuevo
             // 
-            btnNuevo.Location = new Point(860, 17);
+            this.btnNuevo.FlatAppearance.BorderSize = 0;
+            this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnNuevo.Location = new System.Drawing.Point(898, 30);
+            this.btnNuevo.Size = new System.Drawing.Size(163, 47);
             // 
             // chkMostrarTodo
             // 
-            chkMostrarTodo.Location = new Point(110, 46);
+            this.chkMostrarTodo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.chkMostrarTodo.Location = new System.Drawing.Point(120, 76);
+            this.chkMostrarTodo.Size = new System.Drawing.Size(237, 24);
             // 
             // panelFormulario
             // 
-            panelFormulario.Controls.Add(grpDatosMascota);
-            panelFormulario.Controls.SetChildIndex(grpDatosMascota, 0);
-            panelFormulario.Controls.SetChildIndex(panelBotones, 0);
-            panelFormulario.Controls.SetChildIndex(panelSuperior, 0);
+            this.panelFormulario.Controls.Add(this.grpDatosMascota);
+            this.panelFormulario.Padding = new System.Windows.Forms.Padding(10);
+            this.panelFormulario.Size = new System.Drawing.Size(1113, 641);
+            this.panelFormulario.Controls.SetChildIndex(this.grpDatosMascota, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.panelSuperior, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.panelBotones, 0);
             // 
             // panelSuperior
             // 
-            panelSuperior.Size = new Size(992, 50);
+            this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.panelSuperior.Size = new System.Drawing.Size(1133, 60);
+            // 
+            // lblModo
+            // 
+            this.lblModo.Location = new System.Drawing.Point(56, 15);
+            // 
+            // cmbModo
+            // 
+            this.cmbModo.Location = new System.Drawing.Point(175, 13);
+            // 
+            // lblId
+            // 
+            this.lblId.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblId.Location = new System.Drawing.Point(448, 18);
+            this.lblId.Size = new System.Drawing.Size(33, 23);
+            // 
+            // txtId
+            // 
+            this.txtId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.txtId.Location = new System.Drawing.Point(527, 16);
+            this.txtId.Size = new System.Drawing.Size(100, 30);
             // 
             // panelBotones
             // 
-            panelBotones.Location = new Point(0, 490);
+            this.panelBotones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.panelBotones.Location = new System.Drawing.Point(17, 524);
+            this.panelBotones.Size = new System.Drawing.Size(1073, 80);
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.FlatAppearance.BorderSize = 0;
+            this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnGuardar.Location = new System.Drawing.Point(915, 20);
+            this.btnGuardar.Size = new System.Drawing.Size(120, 40);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnCancelar.Location = new System.Drawing.Point(733, 20);
+            this.btnCancelar.Size = new System.Drawing.Size(120, 40);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.FlatAppearance.BorderSize = 0;
+            this.btnEliminar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnEliminar.Location = new System.Drawing.Point(45, 21);
+            this.btnEliminar.Size = new System.Drawing.Size(120, 40);
             // 
             // lblContador
             // 
-            lblContador.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblContador.AutoSize = true;
-            lblContador.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblContador.Location = new Point(824, 45);
-            lblContador.Name = "lblContador";
-            lblContador.Size = new Size(116, 15);
-            lblContador.TabIndex = 6;
-            lblContador.Text = "Total de registros: 0";
+            this.lblContador.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblContador.AutoSize = true;
+            this.lblContador.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblContador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblContador.Location = new System.Drawing.Point(860, 80);
+            this.lblContador.Name = "lblContador";
+            this.lblContador.Size = new System.Drawing.Size(169, 23);
+            this.lblContador.TabIndex = 6;
+            this.lblContador.Text = "Total de registros: 0";
             // 
             // grpDatosMascota
             // 
-            grpDatosMascota.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            grpDatosMascota.Controls.Add(dtpFechaNacimiento);
-            grpDatosMascota.Controls.Add(chkTieneFechaNacimiento);
-            grpDatosMascota.Controls.Add(txtMicrochip);
-            grpDatosMascota.Controls.Add(lblMicrochip);
-            grpDatosMascota.Controls.Add(btnBuscarPropietario);
-            grpDatosMascota.Controls.Add(txtPropietario);
-            grpDatosMascota.Controls.Add(lblPropietario);
-            grpDatosMascota.Controls.Add(chkEsterilizado);
-            grpDatosMascota.Controls.Add(txtColor);
-            grpDatosMascota.Controls.Add(lblColor);
-            grpDatosMascota.Controls.Add(nudPeso);
-            grpDatosMascota.Controls.Add(lblPeso);
-            grpDatosMascota.Controls.Add(cmbGenero);
-            grpDatosMascota.Controls.Add(lblGenero);
-            grpDatosMascota.Controls.Add(txtRaza);
-            grpDatosMascota.Controls.Add(cmbRaza);
-            grpDatosMascota.Controls.Add(lblRaza);
-            grpDatosMascota.Controls.Add(cmbEspecie);
-            grpDatosMascota.Controls.Add(lblEspecie);
-            grpDatosMascota.Controls.Add(txtNombre);
-            grpDatosMascota.Controls.Add(lblNombre);
-            grpDatosMascota.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            grpDatosMascota.ForeColor = Color.DarkBlue;
-            grpDatosMascota.Location = new Point(15, 65);
-            grpDatosMascota.Name = "grpDatosMascota";
-            grpDatosMascota.Size = new Size(960, 320);
-            grpDatosMascota.TabIndex = 1;
-            grpDatosMascota.TabStop = false;
-            grpDatosMascota.Text = "Datos de la Mascota";
+            this.grpDatosMascota.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpDatosMascota.Controls.Add(this.tableLayoutMain);
+            this.grpDatosMascota.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.grpDatosMascota.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.grpDatosMascota.Location = new System.Drawing.Point(20, 75);
+            this.grpDatosMascota.Name = "grpDatosMascota";
+            this.grpDatosMascota.Padding = new System.Windows.Forms.Padding(15);
+            this.grpDatosMascota.Size = new System.Drawing.Size(1073, 399);
+            this.grpDatosMascota.TabIndex = 1;
+            this.grpDatosMascota.TabStop = false;
+            this.grpDatosMascota.Text = "📋 Información de la Mascota";
             // 
-            // dtpFechaNacimiento
+            // tableLayoutMain
             // 
-            dtpFechaNacimiento.Enabled = false;
-            dtpFechaNacimiento.Font = new Font("Segoe UI", 9F);
-            dtpFechaNacimiento.Format = DateTimePickerFormat.Short;
-            dtpFechaNacimiento.Location = new Point(180, 198);
-            dtpFechaNacimiento.Name = "dtpFechaNacimiento";
-            dtpFechaNacimiento.Size = new Size(120, 23);
-            dtpFechaNacimiento.TabIndex = 20;
-            // 
-            // chkTieneFechaNacimiento
-            // 
-            chkTieneFechaNacimiento.AutoSize = true;
-            chkTieneFechaNacimiento.Font = new Font("Segoe UI", 9F);
-            chkTieneFechaNacimiento.ForeColor = Color.Black;
-            chkTieneFechaNacimiento.Location = new Point(15, 200);
-            chkTieneFechaNacimiento.Name = "chkTieneFechaNacimiento";
-            chkTieneFechaNacimiento.Size = new Size(141, 19);
-            chkTieneFechaNacimiento.TabIndex = 19;
-            chkTieneFechaNacimiento.Text = "Fecha de Nacimiento:";
-            chkTieneFechaNacimiento.UseVisualStyleBackColor = false;
-            // 
-            // txtMicrochip
-            // 
-            txtMicrochip.BackColor = Color.White;
-            txtMicrochip.Font = new Font("Segoe UI", 9F);
-            txtMicrochip.ForeColor = Color.Black;
-            txtMicrochip.Location = new Point(430, 160);
-            txtMicrochip.MaxLength = 50;
-            txtMicrochip.Name = "txtMicrochip";
-            txtMicrochip.Size = new Size(180, 23);
-            txtMicrochip.TabIndex = 18;
-            // 
-            // lblMicrochip
-            // 
-            lblMicrochip.AutoSize = true;
-            lblMicrochip.Font = new Font("Segoe UI", 9F);
-            lblMicrochip.ForeColor = Color.Black;
-            lblMicrochip.Location = new Point(430, 140);
-            lblMicrochip.Name = "lblMicrochip";
-            lblMicrochip.Size = new Size(64, 15);
-            lblMicrochip.TabIndex = 17;
-            lblMicrochip.Text = "Microchip:";
-            // 
-            // btnBuscarPropietario
-            // 
-            btnBuscarPropietario.BackColor = Color.LightBlue;
-            btnBuscarPropietario.Font = new Font("Segoe UI", 9F);
-            btnBuscarPropietario.Location = new Point(330, 160);
-            btnBuscarPropietario.Name = "btnBuscarPropietario";
-            btnBuscarPropietario.Size = new Size(80, 23);
-            btnBuscarPropietario.TabIndex = 16;
-            btnBuscarPropietario.Text = "Buscar";
-            btnBuscarPropietario.UseVisualStyleBackColor = false;
-            btnBuscarPropietario.Click += BtnBuscarPropietario_Click;
-            // 
-            // txtPropietario
-            // 
-            txtPropietario.BackColor = Color.LightGray;
-            txtPropietario.Font = new Font("Segoe UI", 9F);
-            txtPropietario.ForeColor = Color.Black;
-            txtPropietario.Location = new Point(15, 160);
-            txtPropietario.Name = "txtPropietario";
-            txtPropietario.ReadOnly = true;
-            txtPropietario.Size = new Size(300, 23);
-            txtPropietario.TabIndex = 15;
-            // 
-            // lblPropietario
-            // 
-            lblPropietario.AutoSize = true;
-            lblPropietario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblPropietario.ForeColor = Color.DarkRed;
-            lblPropietario.Location = new Point(15, 140);
-            lblPropietario.Name = "lblPropietario";
-            lblPropietario.Size = new Size(77, 15);
-            lblPropietario.TabIndex = 14;
-            lblPropietario.Text = "Propietario *";
-            // 
-            // chkEsterilizado
-            // 
-            chkEsterilizado.AutoSize = true;
-            chkEsterilizado.Font = new Font("Segoe UI", 9F);
-            chkEsterilizado.ForeColor = Color.Black;
-            chkEsterilizado.Location = new Point(620, 30);
-            chkEsterilizado.Name = "chkEsterilizado";
-            chkEsterilizado.Size = new Size(85, 19);
-            chkEsterilizado.TabIndex = 13;
-            chkEsterilizado.Text = "Esterilizado";
-            chkEsterilizado.UseVisualStyleBackColor = false;
-            // 
-            // txtColor
-            // 
-            txtColor.BackColor = Color.White;
-            txtColor.Font = new Font("Segoe UI", 9F);
-            txtColor.ForeColor = Color.Black;
-            txtColor.Location = new Point(350, 105);
-            txtColor.MaxLength = 100;
-            txtColor.Name = "txtColor";
-            txtColor.Size = new Size(150, 23);
-            txtColor.TabIndex = 12;
-            // 
-            // lblColor
-            // 
-            lblColor.AutoSize = true;
-            lblColor.Font = new Font("Segoe UI", 9F);
-            lblColor.ForeColor = Color.Black;
-            lblColor.Location = new Point(350, 85);
-            lblColor.Name = "lblColor";
-            lblColor.Size = new Size(39, 15);
-            lblColor.TabIndex = 11;
-            lblColor.Text = "Color:";
-            // 
-            // nudPeso
-            // 
-            nudPeso.DecimalPlaces = 2;
-            nudPeso.Font = new Font("Segoe UI", 9F);
-            nudPeso.Location = new Point(500, 50);
-            nudPeso.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
-            nudPeso.Name = "nudPeso";
-            nudPeso.Size = new Size(100, 23);
-            nudPeso.TabIndex = 10;
-            // 
-            // lblPeso
-            // 
-            lblPeso.AutoSize = true;
-            lblPeso.Font = new Font("Segoe UI", 9F);
-            lblPeso.ForeColor = Color.Black;
-            lblPeso.Location = new Point(500, 30);
-            lblPeso.Name = "lblPeso";
-            lblPeso.Size = new Size(59, 15);
-            lblPeso.TabIndex = 9;
-            lblPeso.Text = "Peso (kg):";
-            // 
-            // cmbGenero
-            // 
-            cmbGenero.BackColor = Color.White;
-            cmbGenero.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbGenero.Font = new Font("Segoe UI", 9F);
-            cmbGenero.ForeColor = Color.Black;
-            cmbGenero.Location = new Point(400, 50);
-            cmbGenero.Name = "cmbGenero";
-            cmbGenero.Size = new Size(80, 23);
-            cmbGenero.TabIndex = 8;
-            // 
-            // lblGenero
-            // 
-            lblGenero.AutoSize = true;
-            lblGenero.Font = new Font("Segoe UI", 9F);
-            lblGenero.ForeColor = Color.Black;
-            lblGenero.Location = new Point(400, 30);
-            lblGenero.Name = "lblGenero";
-            lblGenero.Size = new Size(35, 15);
-            lblGenero.TabIndex = 7;
-            lblGenero.Text = "Sexo:";
-            // 
-            // txtRaza
-            // 
-            txtRaza.BackColor = Color.White;
-            txtRaza.Font = new Font("Segoe UI", 9F);
-            txtRaza.ForeColor = Color.Black;
-            txtRaza.Location = new Point(180, 105);
-            txtRaza.MaxLength = 100;
-            txtRaza.Name = "txtRaza";
-                txtRaza.Size = new Size(150, 23);
-            txtRaza.TabIndex = 6;
-            // 
-            // cmbRaza
-            // 
-            cmbRaza.BackColor = Color.White;
-            cmbRaza.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbRaza.Font = new Font("Segoe UI", 9F);
-            cmbRaza.ForeColor = Color.Black;
-            cmbRaza.Location = new Point(15, 105);
-            cmbRaza.Name = "cmbRaza";
-            cmbRaza.Size = new Size(150, 23);
-            cmbRaza.TabIndex = 5;
-            // 
-            // lblRaza
-            // 
-            lblRaza.AutoSize = true;
-            lblRaza.Font = new Font("Segoe UI", 9F);
-            lblRaza.ForeColor = Color.Black;
-            lblRaza.Location = new Point(15, 85);
-            lblRaza.Name = "lblRaza";
-            lblRaza.Size = new Size(34, 15);
-            lblRaza.TabIndex = 4;
-            lblRaza.Text = "Raza:";
-            // 
-            // cmbEspecie
-            // 
-            cmbEspecie.BackColor = Color.White;
-            cmbEspecie.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbEspecie.Font = new Font("Segoe UI", 9F);
-            cmbEspecie.ForeColor = Color.Black;
-            cmbEspecie.Location = new Point(230, 50);
-            cmbEspecie.Name = "cmbEspecie";
-            cmbEspecie.Size = new Size(150, 23);
-            cmbEspecie.TabIndex = 3;
-            // 
-            // lblEspecie
-            // 
-            lblEspecie.AutoSize = true;
-            lblEspecie.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblEspecie.ForeColor = Color.DarkRed;
-            lblEspecie.Location = new Point(230, 30);
-            lblEspecie.Name = "lblEspecie";
-            lblEspecie.Size = new Size(56, 15);
-            lblEspecie.TabIndex = 2;
-            lblEspecie.Text = "Especie *";
-            // 
-            // txtNombre
-            // 
-            txtNombre.BackColor = Color.White;
-            txtNombre.Font = new Font("Segoe UI", 9F);
-            txtNombre.ForeColor = Color.Black;
-            txtNombre.Location = new Point(15, 50);
-            txtNombre.MaxLength = 100;
-            txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(200, 23);
-            txtNombre.TabIndex = 1;
+            this.tableLayoutMain.ColumnCount = 6;
+            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.67F));
+            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.67F));
+            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.67F));
+            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.67F));
+            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.67F));
+            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.65F));
+            this.tableLayoutMain.Controls.Add(this.lblNombre, 0, 0);
+            this.tableLayoutMain.Controls.Add(this.txtNombre, 0, 1);
+            this.tableLayoutMain.Controls.Add(this.lblEspecie, 2, 0);
+            this.tableLayoutMain.Controls.Add(this.cmbEspecie, 2, 1);
+            this.tableLayoutMain.Controls.Add(this.lblGenero, 4, 0);
+            this.tableLayoutMain.Controls.Add(this.cmbGenero, 4, 1);
+            this.tableLayoutMain.Controls.Add(this.lblPeso, 5, 0);
+            this.tableLayoutMain.Controls.Add(this.nudPeso, 5, 1);
+            this.tableLayoutMain.Controls.Add(this.lblRaza, 0, 2);
+            this.tableLayoutMain.Controls.Add(this.cmbRaza, 0, 3);
+            this.tableLayoutMain.Controls.Add(this.txtRaza, 1, 3);
+            this.tableLayoutMain.Controls.Add(this.lblColor, 2, 2);
+            this.tableLayoutMain.Controls.Add(this.txtColor, 2, 3);
+            this.tableLayoutMain.Controls.Add(this.chkEsterilizado, 3, 3);
+            this.tableLayoutMain.Controls.Add(this.lblMicrochip, 4, 2);
+            this.tableLayoutMain.Controls.Add(this.txtMicrochip, 4, 3);
+            this.tableLayoutMain.Controls.Add(this.lblPropietario, 0, 4);
+            this.tableLayoutMain.Controls.Add(this.txtPropietario, 0, 5);
+            this.tableLayoutMain.Controls.Add(this.btnBuscarPropietario, 3, 5);
+            this.tableLayoutMain.Controls.Add(this.chkTieneFechaNacimiento, 0, 6);
+            this.tableLayoutMain.Controls.Add(this.dtpFechaNacimiento, 2, 6);
+            this.tableLayoutMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutMain.Location = new System.Drawing.Point(15, 40);
+            this.tableLayoutMain.Name = "tableLayoutMain";
+            this.tableLayoutMain.Padding = new System.Windows.Forms.Padding(10);
+            this.tableLayoutMain.RowCount = 7;
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutMain.Size = new System.Drawing.Size(1043, 344);
+            this.tableLayoutMain.TabIndex = 0;
             // 
             // lblNombre
             // 
-            lblNombre.AutoSize = true;
-            lblNombre.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblNombre.ForeColor = Color.DarkRed;
-            lblNombre.Location = new Point(15, 30);
-            lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(61, 15);
-            lblNombre.TabIndex = 0;
-            lblNombre.Text = "Nombre *";
+            this.lblNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblNombre.Location = new System.Drawing.Point(15, 15);
+            this.lblNombre.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(160, 23);
+            this.lblNombre.TabIndex = 0;
+            this.lblNombre.Text = "📝 Nombre *";
+            // 
+            // txtNombre
+            // 
+            this.txtNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNombre.BackColor = System.Drawing.Color.White;
+            this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtNombre.Location = new System.Drawing.Point(15, 50);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(5);
+            this.txtNombre.MaxLength = 100;
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(160, 30);
+            this.txtNombre.TabIndex = 1;
+            // 
+            // lblEspecie
+            // 
+            this.lblEspecie.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblEspecie.AutoSize = true;
+            this.lblEspecie.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblEspecie.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblEspecie.Location = new System.Drawing.Point(355, 15);
+            this.lblEspecie.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblEspecie.Name = "lblEspecie";
+            this.lblEspecie.Size = new System.Drawing.Size(160, 23);
+            this.lblEspecie.TabIndex = 2;
+            this.lblEspecie.Text = "🐾 Especie *";
+            // 
+            // cmbEspecie
+            // 
+            this.cmbEspecie.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbEspecie.BackColor = System.Drawing.Color.White;
+            this.cmbEspecie.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEspecie.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbEspecie.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbEspecie.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.cmbEspecie.Location = new System.Drawing.Point(355, 50);
+            this.cmbEspecie.Margin = new System.Windows.Forms.Padding(5);
+            this.cmbEspecie.Name = "cmbEspecie";
+            this.cmbEspecie.Size = new System.Drawing.Size(160, 31);
+            this.cmbEspecie.TabIndex = 3;
+            // 
+            // lblGenero
+            // 
+            this.lblGenero.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblGenero.AutoSize = true;
+            this.lblGenero.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblGenero.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblGenero.Location = new System.Drawing.Point(695, 15);
+            this.lblGenero.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblGenero.Name = "lblGenero";
+            this.lblGenero.Size = new System.Drawing.Size(160, 23);
+            this.lblGenero.TabIndex = 7;
+            this.lblGenero.Text = "🐾 Sexo";
+            // 
+            // cmbGenero
+            // 
+            this.cmbGenero.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbGenero.BackColor = System.Drawing.Color.White;
+            this.cmbGenero.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGenero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbGenero.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbGenero.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.cmbGenero.Location = new System.Drawing.Point(695, 50);
+            this.cmbGenero.Margin = new System.Windows.Forms.Padding(5);
+            this.cmbGenero.Name = "cmbGenero";
+            this.cmbGenero.Size = new System.Drawing.Size(160, 31);
+            this.cmbGenero.TabIndex = 8;
+            // 
+            // lblPeso
+            // 
+            this.lblPeso.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPeso.AutoSize = true;
+            this.lblPeso.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblPeso.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblPeso.Location = new System.Drawing.Point(865, 15);
+            this.lblPeso.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblPeso.Name = "lblPeso";
+            this.lblPeso.Size = new System.Drawing.Size(163, 23);
+            this.lblPeso.TabIndex = 9;
+            this.lblPeso.Text = "⚖️ Peso (kg)";
+            // 
+            // nudPeso
+            // 
+            this.nudPeso.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudPeso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nudPeso.DecimalPlaces = 2;
+            this.nudPeso.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.nudPeso.Location = new System.Drawing.Point(865, 50);
+            this.nudPeso.Margin = new System.Windows.Forms.Padding(5);
+            this.nudPeso.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.nudPeso.Name = "nudPeso";
+            this.nudPeso.Size = new System.Drawing.Size(163, 30);
+            this.nudPeso.TabIndex = 10;
+            // 
+            // lblRaza
+            // 
+            this.lblRaza.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRaza.AutoSize = true;
+            this.lblRaza.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblRaza.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblRaza.Location = new System.Drawing.Point(15, 95);
+            this.lblRaza.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblRaza.Name = "lblRaza";
+            this.lblRaza.Size = new System.Drawing.Size(160, 23);
+            this.lblRaza.TabIndex = 4;
+            this.lblRaza.Text = "🐕 Raza";
+            // 
+            // cmbRaza
+            // 
+            this.cmbRaza.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbRaza.BackColor = System.Drawing.Color.White;
+            this.cmbRaza.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRaza.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbRaza.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbRaza.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.cmbRaza.Location = new System.Drawing.Point(15, 130);
+            this.cmbRaza.Margin = new System.Windows.Forms.Padding(5);
+            this.cmbRaza.Name = "cmbRaza";
+            this.cmbRaza.Size = new System.Drawing.Size(160, 31);
+            this.cmbRaza.TabIndex = 5;
+            // 
+            // txtRaza
+            // 
+            this.txtRaza.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRaza.BackColor = System.Drawing.Color.White;
+            this.txtRaza.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRaza.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtRaza.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtRaza.Location = new System.Drawing.Point(185, 130);
+            this.txtRaza.Margin = new System.Windows.Forms.Padding(5);
+            this.txtRaza.MaxLength = 100;
+            this.txtRaza.Name = "txtRaza";
+            this.txtRaza.Size = new System.Drawing.Size(160, 30);
+            this.txtRaza.TabIndex = 6;
+            // 
+            // lblColor
+            // 
+            this.lblColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblColor.AutoSize = true;
+            this.lblColor.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblColor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblColor.Location = new System.Drawing.Point(355, 95);
+            this.lblColor.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblColor.Name = "lblColor";
+            this.lblColor.Size = new System.Drawing.Size(160, 23);
+            this.lblColor.TabIndex = 11;
+            this.lblColor.Text = "🎨 Color";
+            // 
+            // txtColor
+            // 
+            this.txtColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtColor.BackColor = System.Drawing.Color.White;
+            this.txtColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtColor.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtColor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtColor.Location = new System.Drawing.Point(355, 130);
+            this.txtColor.Margin = new System.Windows.Forms.Padding(5);
+            this.txtColor.MaxLength = 100;
+            this.txtColor.Name = "txtColor";
+            this.txtColor.Size = new System.Drawing.Size(160, 30);
+            this.txtColor.TabIndex = 12;
+            // 
+            // chkEsterilizado
+            // 
+            this.chkEsterilizado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkEsterilizado.AutoSize = true;
+            this.chkEsterilizado.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.chkEsterilizado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.chkEsterilizado.Location = new System.Drawing.Point(525, 130);
+            this.chkEsterilizado.Margin = new System.Windows.Forms.Padding(5);
+            this.chkEsterilizado.Name = "chkEsterilizado";
+            this.chkEsterilizado.Size = new System.Drawing.Size(160, 27);
+            this.chkEsterilizado.TabIndex = 13;
+            this.chkEsterilizado.Text = "⚕️ Esterilizado";
+            this.chkEsterilizado.UseVisualStyleBackColor = false;
+            // 
+            // lblMicrochip
+            // 
+            this.lblMicrochip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMicrochip.AutoSize = true;
+            this.lblMicrochip.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblMicrochip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblMicrochip.Location = new System.Drawing.Point(695, 95);
+            this.lblMicrochip.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblMicrochip.Name = "lblMicrochip";
+            this.lblMicrochip.Size = new System.Drawing.Size(160, 23);
+            this.lblMicrochip.TabIndex = 17;
+            this.lblMicrochip.Text = "🔍 Microchip";
+            // 
+            // txtMicrochip
+            // 
+            this.txtMicrochip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMicrochip.BackColor = System.Drawing.Color.White;
+            this.txtMicrochip.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMicrochip.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtMicrochip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtMicrochip.Location = new System.Drawing.Point(695, 130);
+            this.txtMicrochip.Margin = new System.Windows.Forms.Padding(5);
+            this.txtMicrochip.MaxLength = 50;
+            this.txtMicrochip.Name = "txtMicrochip";
+            this.txtMicrochip.Size = new System.Drawing.Size(160, 30);
+            this.txtMicrochip.TabIndex = 18;
+            // 
+            // lblPropietario
+            // 
+            this.lblPropietario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPropietario.AutoSize = true;
+            this.lblPropietario.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblPropietario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblPropietario.Location = new System.Drawing.Point(15, 175);
+            this.lblPropietario.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
+            this.lblPropietario.Name = "lblPropietario";
+            this.lblPropietario.Size = new System.Drawing.Size(160, 23);
+            this.lblPropietario.TabIndex = 14;
+            this.lblPropietario.Text = "👤 Propietario *";
+            // 
+            // txtPropietario
+            // 
+            this.txtPropietario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPropietario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.txtPropietario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPropietario.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtPropietario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtPropietario.Location = new System.Drawing.Point(15, 210);
+            this.txtPropietario.Margin = new System.Windows.Forms.Padding(5);
+            this.txtPropietario.Name = "txtPropietario";
+            this.txtPropietario.ReadOnly = true;
+            this.txtPropietario.Size = new System.Drawing.Size(160, 30);
+            this.txtPropietario.TabIndex = 15;
+            // 
+            // btnBuscarPropietario
+            // 
+            this.btnBuscarPropietario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnBuscarPropietario.FlatAppearance.BorderSize = 0;
+            this.btnBuscarPropietario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscarPropietario.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnBuscarPropietario.ForeColor = System.Drawing.Color.White;
+            this.btnBuscarPropietario.Location = new System.Drawing.Point(525, 210);
+            this.btnBuscarPropietario.Margin = new System.Windows.Forms.Padding(5);
+            this.btnBuscarPropietario.Name = "btnBuscarPropietario";
+            this.btnBuscarPropietario.Size = new System.Drawing.Size(120, 35);
+            this.btnBuscarPropietario.TabIndex = 16;
+            this.btnBuscarPropietario.Text = "🔍 Buscar";
+            this.btnBuscarPropietario.UseVisualStyleBackColor = false;
+            // 
+            // chkTieneFechaNacimiento
+            // 
+            this.chkTieneFechaNacimiento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkTieneFechaNacimiento.AutoSize = true;
+            this.chkTieneFechaNacimiento.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.chkTieneFechaNacimiento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.chkTieneFechaNacimiento.Location = new System.Drawing.Point(15, 255);
+            this.chkTieneFechaNacimiento.Margin = new System.Windows.Forms.Padding(5);
+            this.chkTieneFechaNacimiento.Name = "chkTieneFechaNacimiento";
+            this.chkTieneFechaNacimiento.Size = new System.Drawing.Size(160, 27);
+            this.chkTieneFechaNacimiento.TabIndex = 19;
+            this.chkTieneFechaNacimiento.Text = "📅 Fecha de Nacimiento";
+            this.chkTieneFechaNacimiento.UseVisualStyleBackColor = false;
+            // 
+            // dtpFechaNacimiento
+            // 
+            this.dtpFechaNacimiento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtpFechaNacimiento.Enabled = false;
+            this.dtpFechaNacimiento.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.dtpFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(355, 255);
+            this.dtpFechaNacimiento.Margin = new System.Windows.Forms.Padding(5);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(160, 30);
+            this.dtpFechaNacimiento.TabIndex = 20;
             // 
             // MascotasModule
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Name = "MascotasModule";
-            tabControlPrincipal.ResumeLayout(false);
-            tabInicio.ResumeLayout(false);
-            tabConfiguraciones.ResumeLayout(false);
-            panelBusqueda.ResumeLayout(false);
-            panelBusqueda.PerformLayout();
-            panelFormulario.ResumeLayout(false);
-            panelSuperior.ResumeLayout(false);
-            panelSuperior.PerformLayout();
-            panelBotones.ResumeLayout(false);
-            grpDatosMascota.ResumeLayout(false);
-            grpDatosMascota.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudPeso).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "MascotasModule";
+            this.Size = new System.Drawing.Size(1143, 706);
+            this.tabControlPrincipal.ResumeLayout(false);
+            this.tabInicio.ResumeLayout(false);
+            this.tabConfiguraciones.ResumeLayout(false);
+            this.panelBusqueda.ResumeLayout(false);
+            this.panelBusqueda.PerformLayout();
+            this.panelFormulario.ResumeLayout(false);
+            this.panelSuperior.ResumeLayout(false);
+            this.panelSuperior.PerformLayout();
+            this.panelBotones.ResumeLayout(false);
+            this.grpDatosMascota.ResumeLayout(false);
+            this.tableLayoutMain.ResumeLayout(false);
+            this.tableLayoutMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPeso)).EndInit();
+            this.ResumeLayout(false);
 
         }
 
@@ -415,6 +588,7 @@ namespace SistemVeterinario.Forms
 
         private Label lblContador;
         private GroupBox grpDatosMascota;
+        private TableLayoutPanel tableLayoutMain;
         private Label lblNombre;
         private TextBox txtNombre;
         private Label lblEspecie;

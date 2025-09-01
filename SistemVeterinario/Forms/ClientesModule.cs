@@ -22,6 +22,8 @@ namespace SistemVeterinario.Forms
         {
             InitializeComponent();
             ConfigurarModulo();
+            ConfigurarValidacionEnTiempoReal();
+            ConfigurarEstilosModernos();
         }
         #endregion
 
@@ -55,6 +57,49 @@ namespace SistemVeterinario.Forms
 
             // Configurar campos iniciales
             MostrarCamposSegunTipo("Física");
+        }
+
+        private void ConfigurarValidacionEnTiempoReal()
+        {
+            // Validación de email en tiempo real
+            txtEmail.TextChanged += (s, e) => ValidarEmailEnTiempoReal();
+            txtEmail.Leave += (s, e) => ValidarCampoCompleto(txtEmail, "email");
+            
+            // Validación de teléfono - solo números
+            txtTelefono.KeyPress += (s, e) => ValidarSoloNumeros(s, e);
+            txtTelefono.Leave += (s, e) => ValidarCampoCompleto(txtTelefono, "telefono");
+            
+            // Validación de CI - solo números
+            txtCi.KeyPress += (s, e) => ValidarSoloNumeros(s, e);
+            txtCi.Leave += (s, e) => ValidarCampoCompleto(txtCi, "ci");
+            
+            // Validación de NIT - solo números
+            txtNit.KeyPress += (s, e) => ValidarSoloNumeros(s, e);
+            txtNit.Leave += (s, e) => ValidarCampoCompleto(txtNit, "nit");
+            
+            // Validación de campos obligatorios
+            txtNombre.Leave += (s, e) => ValidarCampoObligatorio(txtNombre, lblNombre);
+            txtApellido.Leave += (s, e) => ValidarCampoObligatorio(txtApellido, lblApellido);
+            txtRazonSocial.Leave += (s, e) => ValidarCampoObligatorio(txtRazonSocial, lblRazonSocial);
+        }
+
+        private void ConfigurarEstilosModernos()
+        {
+            // Configurar efectos hover para botones
+            ConfigurarEfectoHover(btnBuscar);
+            ConfigurarEfectoHover(btnNuevo);
+            
+            // Aplicar efectos de enfoque a los TextBox
+            AplicarEfectosFocusTextBox(txtNombre);
+            AplicarEfectosFocusTextBox(txtApellido);
+            AplicarEfectosFocusTextBox(txtCi);
+            AplicarEfectosFocusTextBox(txtEmail);
+            AplicarEfectosFocusTextBox(txtTelefono);
+            AplicarEfectosFocusTextBox(txtDireccion);
+            AplicarEfectosFocusTextBox(txtRazonSocial);
+            AplicarEfectosFocusTextBox(txtNit);
+            AplicarEfectosFocusTextBox(txtEncargadoNombre);
+            AplicarEfectosFocusTextBox(txtEncargadoCargo);
         }
         #endregion
 
@@ -327,28 +372,60 @@ namespace SistemVeterinario.Forms
         {
             _tipoPersonaSeleccionado = tipo;
 
+            // Suspender el layout para evitar parpadeo
+            panelFormulario.SuspendLayout();
+
             if (tipo == "Física")
             {
-                // Mostrar campos de persona física
-                grpPersonaFisica.Visible = true;
+                // Mostrar campos de persona física con transición suave
                 grpPersonaJuridica.Visible = false;
+                grpPersonaFisica.Visible = true;
+                grpPersonaFisica.BringToFront();
 
-                // Hacer obligatorios los campos de persona física
-                lblNombre.ForeColor = Color.DarkRed;
-                lblApellido.ForeColor = Color.DarkRed;
+                // Configurar colores modernos para campos obligatorios
+                lblNombre.ForeColor = Color.FromArgb(231, 76, 60);
+                lblApellido.ForeColor = Color.FromArgb(231, 76, 60);
+                lblRazonSocial.ForeColor = Color.FromArgb(52, 73, 94); // Reset
+
+                // Enfocar primer campo
+                txtCi.Focus();
             }
             else
             {
-                // Mostrar campos de persona jurídica
+                // Mostrar campos de persona jurídica con transición suave
                 grpPersonaFisica.Visible = false;
                 grpPersonaJuridica.Visible = true;
+                grpPersonaJuridica.BringToFront();
 
-                // Hacer obligatorio el campo de razón social
-                lblRazonSocial.ForeColor = Color.DarkRed;
+                // Configurar colores modernos para campos obligatorios
+                lblRazonSocial.ForeColor = Color.FromArgb(231, 76, 60);
+                lblNombre.ForeColor = Color.FromArgb(52, 73, 94); // Reset
+                lblApellido.ForeColor = Color.FromArgb(52, 73, 94); // Reset
+
+                // Enfocar primer campo
+                txtRazonSocial.Focus();
             }
 
-            // Reajustar el layout del panel
-            panelFormulario.Invalidate();
+            // Reanudar el layout y actualizar
+            panelFormulario.ResumeLayout(true);
+            panelFormulario.Refresh();
+
+            // Mostrar mensaje informativo
+            MostrarMensajeInformativo(tipo);
+        }
+
+        private void MostrarMensajeInformativo(string tipo)
+        {
+            string mensaje = tipo == "Física" 
+                ? "Complete los datos de la persona física. Los campos marcados con * son obligatorios."
+                : "Complete los datos de la persona jurídica. La razón social es obligatoria.";
+            
+            // Podrías mostrar esto en un panel de información si lo deseas
+            // Por ahora solo actualizamos el título del formulario
+            if (panelFormulario.Parent is TabPage tabPage)
+            {
+                tabPage.Text = $"Configuración de Persona {tipo}";
+            }
         }
 
         private bool ValidarCampos()
@@ -404,6 +481,102 @@ namespace SistemVeterinario.Forms
         private void ActualizarContadorRegistros(int cantidad)
         {
             lblContador.Text = $"Total de registros: {cantidad}";
+        }
+        #endregion
+
+        #region Métodos de Validación y Efectos Visuales
+        private void ValidarEmailEnTiempoReal()
+        {
+            if (string.IsNullOrWhiteSpace(txtEmail.Text)) return;
+            
+            bool esValido = NPersona.ValidarEmail(txtEmail.Text);
+            txtEmail.BackColor = esValido ? Color.FromArgb(240, 248, 255) : Color.FromArgb(255, 240, 240);
+        }
+
+        private void ValidarSoloNumeros(object sender, KeyPressEventArgs e)
+        {
+            // Permitir solo números, backspace y delete
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ValidarCampoCompleto(TextBox textBox, string tipoCampo)
+        {
+            Color colorValido = Color.FromArgb(240, 248, 255);
+            Color colorInvalido = Color.FromArgb(255, 240, 240);
+            Color colorNormal = Color.White;
+
+            switch (tipoCampo.ToLower())
+            {
+                case "email":
+                    if (!string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        textBox.BackColor = NPersona.ValidarEmail(textBox.Text) ? colorValido : colorInvalido;
+                    }
+                    else
+                    {
+                        textBox.BackColor = colorNormal;
+                    }
+                    break;
+                case "telefono":
+                case "ci":
+                case "nit":
+                    if (!string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        textBox.BackColor = textBox.Text.Length >= 6 ? colorValido : colorInvalido;
+                    }
+                    else
+                    {
+                        textBox.BackColor = colorNormal;
+                    }
+                    break;
+            }
+        }
+
+        private void ValidarCampoObligatorio(TextBox textBox, Label label)
+        {
+            Color colorValido = Color.FromArgb(240, 248, 255);
+            Color colorInvalido = Color.FromArgb(255, 240, 240);
+            Color colorNormal = Color.White;
+
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.BackColor = colorInvalido;
+                label.ForeColor = Color.FromArgb(231, 76, 60);
+            }
+            else
+            {
+                textBox.BackColor = colorValido;
+                label.ForeColor = Color.FromArgb(39, 174, 96);
+            }
+        }
+
+        private void ConfigurarEfectoHover(Button boton)
+        {
+            Color colorOriginal = boton.BackColor;
+            Color colorHover = Color.FromArgb(52, 152, 219);
+
+            boton.MouseEnter += (s, e) => boton.BackColor = colorHover;
+            boton.MouseLeave += (s, e) => boton.BackColor = colorOriginal;
+        }
+
+        private void AplicarEfectosFocusTextBox(TextBox textBox)
+        {
+            Color colorFocus = Color.FromArgb(52, 152, 219);
+            Color colorNormal = Color.FromArgb(149, 165, 166);
+
+            textBox.Enter += (s, e) => 
+            {
+                textBox.BorderStyle = BorderStyle.FixedSingle;
+                ((TextBox)s).Parent.Refresh();
+            };
+
+            textBox.Leave += (s, e) => 
+            {
+                ((TextBox)s).Parent.Refresh();
+            };
         }
         #endregion
     }

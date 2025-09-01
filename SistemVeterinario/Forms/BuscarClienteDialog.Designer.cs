@@ -33,19 +33,21 @@ namespace SistemVeterinario.Forms
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.btnSeleccionar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
+            this.SuspendLayout();
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(10, 10);
+            this.txtBuscar.Location = new System.Drawing.Point(11, 11);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(200, 23);
+            this.txtBuscar.Size = new System.Drawing.Size(228, 22);
             this.txtBuscar.TabIndex = 0;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(220, 10);
+            this.btnBuscar.Location = new System.Drawing.Point(251, 11);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 25);
+            this.btnBuscar.Size = new System.Drawing.Size(86, 27);
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
@@ -55,20 +57,22 @@ namespace SistemVeterinario.Forms
             // 
             this.dgvClientes.AllowUserToAddRows = false;
             this.dgvClientes.AllowUserToDeleteRows = false;
-            this.dgvClientes.Location = new System.Drawing.Point(10, 45);
+            this.dgvClientes.ColumnHeadersHeight = 29;
+            this.dgvClientes.Location = new System.Drawing.Point(11, 48);
             this.dgvClientes.MultiSelect = false;
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.ReadOnly = true;
+            this.dgvClientes.RowHeadersWidth = 51;
             this.dgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvClientes.Size = new System.Drawing.Size(560, 280);
+            this.dgvClientes.Size = new System.Drawing.Size(640, 299);
             this.dgvClientes.TabIndex = 2;
             this.dgvClientes.DoubleClick += new System.EventHandler(this.DgvClientes_DoubleClick);
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(410, 335);
+            this.btnSeleccionar.Location = new System.Drawing.Point(469, 357);
             this.btnSeleccionar.Name = "btnSeleccionar";
-            this.btnSeleccionar.Size = new System.Drawing.Size(80, 30);
+            this.btnSeleccionar.Size = new System.Drawing.Size(91, 32);
             this.btnSeleccionar.TabIndex = 3;
             this.btnSeleccionar.Text = "Seleccionar";
             this.btnSeleccionar.UseVisualStyleBackColor = false;
@@ -76,9 +80,9 @@ namespace SistemVeterinario.Forms
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(500, 335);
+            this.btnCancelar.Location = new System.Drawing.Point(571, 357);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(80, 30);
+            this.btnCancelar.Size = new System.Drawing.Size(91, 32);
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
@@ -86,9 +90,9 @@ namespace SistemVeterinario.Forms
             // 
             // BuscarClienteDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 381);
+            this.ClientSize = new System.Drawing.Size(685, 406);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnSeleccionar);
             this.Controls.Add(this.dgvClientes);
@@ -101,6 +105,9 @@ namespace SistemVeterinario.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Buscar Cliente";
             this.Load += new System.EventHandler(this.BuscarClienteDialog_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

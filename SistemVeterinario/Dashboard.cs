@@ -25,6 +25,18 @@ namespace SistemVeterinario
             lblUsuario.Text = "Bienvenido, Falta obtener su nombre";
             lblEmail.Text = "Falta obtener su email";
             // Configurar el orden z de los paneles
+            
+            // Configurar pictureBox UPDS
+            try
+            {
+                pictureBoxUPDS.Image = Properties.Resources.UPDS;
+                pictureBoxUPDS.Visible = true;
+            }
+            catch (Exception)
+            {
+                // Si no se puede cargar la imagen, mostrar texto alternativo
+                pictureBoxUPDS.BackColor = Color.White;
+            }
         }
 
         private void InicializarNavegacion()
@@ -54,6 +66,28 @@ namespace SistemVeterinario
             panelModulo.Visible = false;
             panel2.Visible = true;
             panel2.BringToFront();
+            
+            // Asegurar que todos los pictureBox del panel2 sean visibles
+            foreach (Control control in panel2.Controls)
+            {
+                if (control is PictureBox)
+                {
+                    control.Visible = true;
+                    control.BringToFront();
+                }
+            }
+            
+            // Asegurar que los labels también estén visibles
+            if (lblTitulo != null)
+            {
+                lblTitulo.Visible = true;
+                lblTitulo.BringToFront();
+            }
+            if (lblSubtitulo != null)
+            {
+                lblSubtitulo.Visible = true;
+                lblSubtitulo.BringToFront();
+            }
 
             CambiarIconoSuperior(IconChar.Home, "Inicio");
         }
@@ -205,6 +239,8 @@ namespace SistemVeterinario
             panel1.BringToFront();
             panel2.BringToFront();
             panelModulo.SendToBack();
+            
+            
             CambiarIconoSuperior(IconChar.Home, "Home");
         }
     }
