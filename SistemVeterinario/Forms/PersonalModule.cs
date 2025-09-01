@@ -252,7 +252,20 @@ namespace SistemVeterinario.Forms
 
         protected override void OnGuardar()
         {
-            GuardarRegistro();
+            if (GuardarRegistro())
+            {
+                // Si el guardado fue exitoso, mantener en pestaña de configuraciones
+                // para permitir seguir editando o agregar más registros
+            }
+        }
+
+        protected override void OnCancelar()
+        {
+            // Implementar funcionalidad específica de cancelar para Personal
+            base.OnCancelar(); // Esto cambia a la pestaña Inicio y limpia el formulario
+            
+            // Recargar datos para asegurar que el ComboBox de filtro se mantenga
+            CargarDatos();
         }
 
         private bool GuardarRegistro()
@@ -348,17 +361,37 @@ namespace SistemVeterinario.Forms
                     }
                 }
 
-                if (resultado == "OK")
+                // Verificar si el resultado indica éxito
+                bool esExitoso = resultado == "OK" || 
+                               resultado.Contains("correctamente") || 
+                               resultado.Contains("exitosamente") ||
+                               resultado.Contains("actualizado") ||
+                               resultado.Contains("registrado") ||
+                               resultado.Contains("creado");
+
+                if (esExitoso)
                 {
                     string accion = ModoEdicion ? "actualizado" : "registrado";
                     MostrarMensaje($"Personal {accion} correctamente", "Éxito", MessageBoxIcon.Information);
-                    LimpiarFormulario();
+                    
+                    // Cambiar a la pestaña de Inicio
+                    tabControlPrincipal.SelectedTab = tabInicio;
+                    
+                    // Recargar los datos en el grid
                     CargarDatos();
+                    
+                    // Limpiar formulario y resetear modo
+                    LimpiarFormulario();
+                    cmbModo.SelectedIndex = 0; // Cambiar a modo inserción
+                    ModoEdicion = false;
+                    IdSeleccionado = 0;
+                    txtId.Text = "";
+                    
                     return true;
                 }
                 else
                 {
-                    MostrarMensaje(resultado, "Error", MessageBoxIcon.Error);
+                    MostrarMensaje($"Error al guardar: {resultado}", "Error", MessageBoxIcon.Error);
                     return false;
                 }
             }

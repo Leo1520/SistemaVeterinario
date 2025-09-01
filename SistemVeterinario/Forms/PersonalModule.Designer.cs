@@ -241,27 +241,27 @@ namespace SistemVeterinario.Forms
             // 
             // panelBotones
             // 
-            panelBotones.Location = new Point(9, 718);
+            panelBotones.Location = new Point(9, 500);
             panelBotones.Margin = new Padding(3, 2, 3, 2);
             panelBotones.Size = new Size(900, 50);
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(1988, 8);
+            btnGuardar.Location = new Point(780, 10);
             btnGuardar.Margin = new Padding(3, 2, 3, 2);
-            btnGuardar.Size = new Size(88, 22);
+            btnGuardar.Size = new Size(100, 30);
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(2084, 8);
+            btnCancelar.Location = new Point(400, 10);
             btnCancelar.Margin = new Padding(3, 2, 3, 2);
-            btnCancelar.Size = new Size(88, 22);
+            btnCancelar.Size = new Size(100, 30);
             // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(18, 8);
+            btnEliminar.Location = new Point(10, 10);
             btnEliminar.Margin = new Padding(3, 2, 3, 2);
-            btnEliminar.Size = new Size(88, 22);
+            btnEliminar.Size = new Size(100, 30);
             // 
             // cmbTipoPersonal
             // 
