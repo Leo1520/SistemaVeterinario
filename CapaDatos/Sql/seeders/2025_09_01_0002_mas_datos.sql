@@ -77,8 +77,11 @@ BEGIN
                 CASE WHEN (SELECT requiere_receta FROM producto WHERE id = @producto_id) = 1 
                      THEN ABS(CHECKSUM(NEWID())) % 2 ELSE 0 END);
         
-        -- Actualizar stock
-        UPDATE producto SET stock_actual = stock_actual - @cantidad WHERE id = @producto_id;
+        -- Actualizar stock SOLO si hay suficiente stock disponible
+        UPDATE producto 
+        SET stock_actual = stock_actual - @cantidad 
+        WHERE id = @producto_id 
+          AND stock_actual >= @cantidad; -- Validación para evitar stock negativo
         
         SET @j = @j + 1;
     END;
