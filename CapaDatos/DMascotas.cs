@@ -320,21 +320,13 @@ namespace CapaDatos
             SqlConnection connection = DbConnection.Instance.GetConnection();
             try
             {
-                // Query para obtener mascotas con información del propietario
-                string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
-                                          a.peso, a.color, a.genero, a.esterilizado, a.microchip, a.activo,
-                                          CASE 
-                                            WHEN pf.nombre IS NOT NULL THEN CONCAT(pf.nombre, ' ', ISNULL(pf.apellido, ''))
-                                            WHEN pj.razon_social IS NOT NULL THEN pj.razon_social
-                                            ELSE 'Sin propietario'
-                                          END as propietario,
-                                          p.telefono as telefono_propietario
-                                   FROM animal a
-                                   INNER JOIN persona p ON a.persona_id = p.id
-                                   LEFT JOIN persona_fisica pf ON p.id = pf.id AND p.tipo = 'Física'
-                                   LEFT JOIN persona_juridica pj ON p.id = pj.id AND p.tipo = 'Jurídica'
-                                   WHERE a.activo = 1
-                                   ORDER BY a.nombre";
+                // Usar la vista VW_AnimalesConPropietario para simplificar el query
+                string query = @"SELECT id, animal_nombre as nombre, especie, raza, fecha_nacimiento, 
+                                        peso, color, genero, esterilizado, microchip, activo,
+                                        propietario, telefono_propietario
+                                 FROM VW_AnimalesConPropietario 
+                                 WHERE activo = 1
+                                 ORDER BY animal_nombre";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 using (SqlDataAdapter adapter = new SqlDataAdapter(command))
@@ -345,7 +337,7 @@ namespace CapaDatos
             catch (Exception ex)
             {
                 dtResultado = new DataTable();
-                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error en Mostrar: {ex.Message}");
             }
             return dtResultado;
         }
@@ -356,23 +348,18 @@ namespace CapaDatos
             SqlConnection connection = DbConnection.Instance.GetConnection();
             try
             {
-                string query = @"SELECT a.id, a.nombre, a.especie, a.raza, a.fecha_nacimiento, 
-                                          a.peso, a.color, a.genero, a.esterilizado, a.microchip, a.activo,
-                                          CASE 
-                                            WHEN p.nombre IS NOT NULL THEN CONCAT(p.nombre, ' ', ISNULL(p.apellido, ''))
-                                            ELSE p.razon_social
-                                          END as propietario,
-                                          p.telefono as telefono_propietario
-                                   FROM animal a
-                                   INNER JOIN persona p ON a.persona_id = p.id
-                                   WHERE a.activo = 1 
-                                     AND (a.nombre LIKE @textoBuscar 
-                                          OR a.especie LIKE @textoBuscar
-                                          OR a.raza LIKE @textoBuscar
-                                          OR p.nombre LIKE @textoBuscar
-                                          OR p.razon_social LIKE @textoBuscar
-                                          OR a.microchip LIKE @textoBuscar)
-                                   ORDER BY a.nombre";
+                // Usar la vista VW_AnimalesConPropietario para simplificar la búsqueda
+                string query = @"SELECT id, animal_nombre as nombre, especie, raza, fecha_nacimiento, 
+                                        peso, color, genero, esterilizado, microchip, activo,
+                                        propietario, telefono_propietario
+                                 FROM VW_AnimalesConPropietario 
+                                 WHERE activo = 1 
+                                   AND (animal_nombre LIKE @textoBuscar 
+                                        OR especie LIKE @textoBuscar
+                                        OR raza LIKE @textoBuscar
+                                        OR propietario LIKE @textoBuscar
+                                        OR microchip LIKE @textoBuscar)
+                                 ORDER BY animal_nombre";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -383,8 +370,9 @@ namespace CapaDatos
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Error en BuscarPorNombre: {ex.Message}");
                 dtResultado = new DataTable();
             }
             return dtResultado;
@@ -396,12 +384,16 @@ namespace CapaDatos
             SqlConnection connection = DbConnection.Instance.GetConnection();
             try
             {
-                string query = @"SELECT a.id, a.nombre as animal_nombre, a.especie, a.raza, 
-                                          a.fecha_nacimiento, a.peso, a.color, a.genero, 
-                                          a.esterilizado, a.microchip, a.activo
-                                   FROM animal a 
-                                   WHERE a.persona_id = @propietarioId AND a.activo = 1
-                                   ORDER BY a.nombre";
+                // Podemos usar la vista o la consulta directa, ambas funcionan bien
+                // Para este caso específico, mantenemos la consulta directa ya que es eficiente
+                string query = @"SELECT id, animal_nombre as nombre, especie, raza, 
+                                        fecha_nacimiento, peso, color, genero, 
+                                        esterilizado, microchip, activo
+                                 FROM VW_AnimalesConPropietario 
+                                 WHERE tipo_propietario IS NOT NULL 
+                                   AND activo = 1
+                                   AND id IN (SELECT id FROM animal WHERE persona_id = @propietarioId)
+                                 ORDER BY animal_nombre";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -412,8 +404,9 @@ namespace CapaDatos
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Error en BuscarPorPropietario: {ex.Message}");
                 dtResultado = new DataTable();
             }
             return dtResultado;
@@ -425,7 +418,7 @@ namespace CapaDatos
             SqlConnection connection = DbConnection.Instance.GetConnection();
             try
             {
-                // Verificar y crear el procedimiento almacenado si no existe
+                // Verificar y recrear el procedimiento almacenado para usar la vista
                 if (!VerificarProcedimientoObtenerPorId())
                 {
                     if (!CrearProcedimientoObtenerPorId())
@@ -433,6 +426,11 @@ namespace CapaDatos
                         System.Diagnostics.Debug.WriteLine("No se pudo crear el procedimiento SP_ObtenerAnimalPorId");
                         return new DataTable();
                     }
+                }
+                else
+                {
+                    // Recrear el procedimiento para asegurar que use la vista
+                    RecrearProcedimientoSiExiste();
                 }
 
                 // Usar el procedimiento almacenado
@@ -473,6 +471,27 @@ namespace CapaDatos
             }
         }
 
+        private void RecrearProcedimientoSiExiste()
+        {
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
+            {
+                // Eliminar el procedimiento si existe
+                string dropSP = "IF EXISTS (SELECT 1 FROM sys.procedures WHERE name = 'SP_ObtenerAnimalPorId') DROP PROCEDURE SP_ObtenerAnimalPorId";
+                using (SqlCommand command = new SqlCommand(dropSP, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+                
+                // Recrear el procedimiento
+                CrearProcedimientoObtenerPorId();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error recreando procedimiento: {ex.Message}");
+            }
+        }
+
         private bool CrearProcedimientoObtenerPorId()
         {
             SqlConnection connection = DbConnection.Instance.GetConnection();
@@ -486,29 +505,24 @@ namespace CapaDatos
                     SET NOCOUNT ON;
                     
                     SELECT 
-                        a.id, 
-                        a.nombre, 
-                        a.especie, 
-                        a.raza, 
-                        a.fecha_nacimiento, 
-                        a.peso, 
-                        a.color, 
-                        a.genero, 
-                        a.esterilizado, 
-                        a.microchip, 
-                        a.activo, 
-                        a.persona_id,
-                        CASE 
-                            WHEN pf.nombre IS NOT NULL THEN CONCAT(pf.nombre, ' ', ISNULL(pf.apellido, ''))
-                            WHEN pj.razon_social IS NOT NULL THEN pj.razon_social
-                            ELSE 'Sin propietario'
-                        END as propietario,
-                        ISNULL(p.telefono, '') as telefono_propietario
-                    FROM animal a
-                    LEFT JOIN persona p ON a.persona_id = p.id
-                    LEFT JOIN persona_fisica pf ON p.id = pf.id AND p.tipo = 'Física'
-                    LEFT JOIN persona_juridica pj ON p.id = pj.id AND p.tipo = 'Jurídica'
-                    WHERE a.id = @id
+                        id, 
+                        animal_nombre as nombre, 
+                        especie, 
+                        raza, 
+                        fecha_nacimiento, 
+                        peso, 
+                        color, 
+                        genero, 
+                        esterilizado, 
+                        microchip, 
+                        activo, 
+                        tipo_propietario,
+                        propietario,
+                        telefono_propietario,
+                        -- Agregar persona_id para compatibilidad
+                        (SELECT persona_id FROM animal WHERE id = @id) as persona_id
+                    FROM VW_AnimalesConPropietario
+                    WHERE id = @id
                 END";
 
                 using (SqlCommand command = new SqlCommand(createSP, connection))
