@@ -108,7 +108,7 @@ namespace SistemVeterinario.Forms
             this.panelBusqueda.Location = new System.Drawing.Point(18, 11);
             this.panelBusqueda.Margin = new System.Windows.Forms.Padding(10, 8, 10, 8);
             this.panelBusqueda.Padding = new System.Windows.Forms.Padding(17, 13, 17, 13);
-            this.panelBusqueda.Size = new System.Drawing.Size(1280, 113);
+            this.panelBusqueda.Size = new System.Drawing.Size(1121, 120);
             this.panelBusqueda.Controls.SetChildIndex(this.btnVerPorCategoria, 0);
             this.panelBusqueda.Controls.SetChildIndex(this.cmbCategoriaFiltro, 0);
             this.panelBusqueda.Controls.SetChildIndex(this.lblCategoriaFiltro, 0);
@@ -127,14 +127,14 @@ namespace SistemVeterinario.Forms
             // btnBuscar
             // 
             this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.Location = new System.Drawing.Point(372, 8);
+            this.btnBuscar.Location = new System.Drawing.Point(352, 4);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnBuscar.Size = new System.Drawing.Size(120, 41);
             // 
             // btnNuevo
             // 
             this.btnNuevo.FlatAppearance.BorderSize = 0;
-            this.btnNuevo.Location = new System.Drawing.Point(1074, 9);
+            this.btnNuevo.Location = new System.Drawing.Point(975, 4);
             this.btnNuevo.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnNuevo.Size = new System.Drawing.Size(140, 40);
             this.btnNuevo.Text = "➕ Nuevo Diagnóstico";
@@ -162,11 +162,11 @@ namespace SistemVeterinario.Forms
             // 
             // lblModo
             // 
-            this.lblModo.Location = new System.Drawing.Point(35, 22);
+            this.lblModo.Location = new System.Drawing.Point(49, 23);
             // 
             // cmbModo
             // 
-            this.cmbModo.Location = new System.Drawing.Point(145, 17);
+            this.cmbModo.Location = new System.Drawing.Point(173, 17);
             this.cmbModo.Size = new System.Drawing.Size(156, 31);
             // 
             // lblId
@@ -188,19 +188,21 @@ namespace SistemVeterinario.Forms
             // btnGuardar
             // 
             this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.Location = new System.Drawing.Point(771, 16);
-            this.btnGuardar.Size = new System.Drawing.Size(140, 34);
+            this.btnGuardar.Location = new System.Drawing.Point(771, 12);
+            this.btnGuardar.Size = new System.Drawing.Size(140, 38);
             this.btnGuardar.Text = "💾 Guardar Diagnóstico";
             // 
             // btnCancelar
             // 
             this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.Location = new System.Drawing.Point(616, 16);
+            this.btnCancelar.Location = new System.Drawing.Point(616, 12);
+            this.btnCancelar.Size = new System.Drawing.Size(137, 41);
             // 
             // btnEliminar
             // 
             this.btnEliminar.FlatAppearance.BorderSize = 0;
-            this.btnEliminar.Size = new System.Drawing.Size(140, 34);
+            this.btnEliminar.Location = new System.Drawing.Point(17, 12);
+            this.btnEliminar.Size = new System.Drawing.Size(140, 38);
             this.btnEliminar.Text = "🗑️ Eliminar Diagnóstico";
             // 
             // lblContador
@@ -208,7 +210,7 @@ namespace SistemVeterinario.Forms
             this.lblContador.AutoSize = true;
             this.lblContador.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblContador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblContador.Location = new System.Drawing.Point(522, 15);
+            this.lblContador.Location = new System.Drawing.Point(550, 9);
             this.lblContador.Name = "lblContador";
             this.lblContador.Size = new System.Drawing.Size(153, 20);
             this.lblContador.TabIndex = 6;
@@ -221,7 +223,7 @@ namespace SistemVeterinario.Forms
             this.cmbCategoriaFiltro.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbCategoriaFiltro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.cmbCategoriaFiltro.FormattingEnabled = true;
-            this.cmbCategoriaFiltro.Location = new System.Drawing.Point(448, 44);
+            this.cmbCategoriaFiltro.Location = new System.Drawing.Point(509, 38);
             this.cmbCategoriaFiltro.Name = "cmbCategoriaFiltro";
             this.cmbCategoriaFiltro.Size = new System.Drawing.Size(220, 31);
             this.cmbCategoriaFiltro.TabIndex = 8;
@@ -231,7 +233,7 @@ namespace SistemVeterinario.Forms
             this.lblCategoriaFiltro.AutoSize = true;
             this.lblCategoriaFiltro.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblCategoriaFiltro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblCategoriaFiltro.Location = new System.Drawing.Point(290, 47);
+            this.lblCategoriaFiltro.Location = new System.Drawing.Point(751, 49);
             this.lblCategoriaFiltro.Name = "lblCategoriaFiltro";
             this.lblCategoriaFiltro.Size = new System.Drawing.Size(209, 23);
             this.lblCategoriaFiltro.TabIndex = 7;
@@ -246,11 +248,11 @@ namespace SistemVeterinario.Forms
             this.grpDatosDiagnostico.Controls.Add(this.tableLayoutDiagnostico);
             this.grpDatosDiagnostico.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.grpDatosDiagnostico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.grpDatosDiagnostico.Location = new System.Drawing.Point(87, 85);
+            this.grpDatosDiagnostico.Location = new System.Drawing.Point(20, 75);
             this.grpDatosDiagnostico.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpDatosDiagnostico.Name = "grpDatosDiagnostico";
-            this.grpDatosDiagnostico.Padding = new System.Windows.Forms.Padding(17, 13, 17, 13);
-            this.grpDatosDiagnostico.Size = new System.Drawing.Size(1037, 388);
+            this.grpDatosDiagnostico.Padding = new System.Windows.Forms.Padding(15);
+            this.grpDatosDiagnostico.Size = new System.Drawing.Size(1089, 349);
             this.grpDatosDiagnostico.TabIndex = 0;
             this.grpDatosDiagnostico.TabStop = false;
             this.grpDatosDiagnostico.Text = "🩺 Información del Diagnóstico";
@@ -289,7 +291,7 @@ namespace SistemVeterinario.Forms
             this.tableLayoutDiagnostico.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutDiagnostico.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutDiagnostico.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutDiagnostico.Size = new System.Drawing.Size(997, 328);
+            this.tableLayoutDiagnostico.Size = new System.Drawing.Size(1013, 278);
             this.tableLayoutDiagnostico.TabIndex = 0;
             // 
             // lblCodigo
@@ -343,7 +345,7 @@ namespace SistemVeterinario.Forms
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
             this.lblNombre.Location = new System.Drawing.Point(525, 0);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(469, 48);
+            this.lblNombre.Size = new System.Drawing.Size(485, 48);
             this.lblNombre.TabIndex = 3;
             this.lblNombre.Text = "📝 Nombre del Diagnóstico *:";
             this.lblNombre.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -360,7 +362,7 @@ namespace SistemVeterinario.Forms
             this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 2, 10, 2);
             this.txtNombre.MaxLength = 200;
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(984, 32);
+            this.txtNombre.Size = new System.Drawing.Size(1000, 32);
             this.txtNombre.TabIndex = 4;
             // 
             // chkRequiereEquipamiento
@@ -414,7 +416,7 @@ namespace SistemVeterinario.Forms
             this.btnNuevaCategoria.Location = new System.Drawing.Point(525, 102);
             this.btnNuevaCategoria.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNuevaCategoria.Name = "btnNuevaCategoria";
-            this.btnNuevaCategoria.Size = new System.Drawing.Size(469, 36);
+            this.btnNuevaCategoria.Size = new System.Drawing.Size(485, 36);
             this.btnNuevaCategoria.TabIndex = 8;
             this.btnNuevaCategoria.Text = "➕ Nueva Categoría";
             this.btnNuevaCategoria.UseVisualStyleBackColor = false;
@@ -477,7 +479,7 @@ namespace SistemVeterinario.Forms
             this.lblDescripcion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
             this.lblDescripcion.Location = new System.Drawing.Point(525, 144);
             this.lblDescripcion.Name = "lblDescripcion";
-            this.lblDescripcion.Size = new System.Drawing.Size(469, 32);
+            this.lblDescripcion.Size = new System.Drawing.Size(485, 32);
             this.lblDescripcion.TabIndex = 12;
             this.lblDescripcion.Text = "📄 Descripción:";
             this.lblDescripcion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -497,7 +499,7 @@ namespace SistemVeterinario.Forms
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescripcion.Size = new System.Drawing.Size(984, 148);
+            this.txtDescripcion.Size = new System.Drawing.Size(1000, 98);
             this.txtDescripcion.TabIndex = 13;
             // 
             // btnVerPorCategoria
@@ -507,7 +509,7 @@ namespace SistemVeterinario.Forms
             this.btnVerPorCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerPorCategoria.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnVerPorCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnVerPorCategoria.Location = new System.Drawing.Point(700, 44);
+            this.btnVerPorCategoria.Location = new System.Drawing.Point(778, 4);
             this.btnVerPorCategoria.Name = "btnVerPorCategoria";
             this.btnVerPorCategoria.Size = new System.Drawing.Size(140, 31);
             this.btnVerPorCategoria.TabIndex = 9;

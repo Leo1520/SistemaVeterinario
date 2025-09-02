@@ -50,6 +50,9 @@ namespace SistemVeterinario.Forms
             
             // Aplicar tema visual
             AplicarTemaVisual();
+            
+            // Configurar dgvDatos para que ocupe todo el ancho
+            ConfigurarDataGridView();
         }
 
         private void ConfigurarModos()
@@ -197,6 +200,27 @@ namespace SistemVeterinario.Forms
             grpDetallesHistorial.ForeColor = Color.FromArgb(52, 73, 94);
             grpDatosDetalle.ForeColor = Color.FromArgb(52, 73, 94);
         }
+
+        private void ConfigurarDataGridView()
+        {
+            // Ajustar el dgvDatos para que ocupe todo el ancho como en MascotasModule
+            dgvDatos.Size = new Size(1121, 400);
+            dgvDatos.Location = new Point(10, 150);
+            
+            // Configurar para que las columnas se distribuyan automáticamente
+            dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
+            // Configurar alineación central para encabezados
+            dgvDatos.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            
+            // Mejorar la apariencia
+            dgvDatos.AllowUserToResizeColumns = true;
+            dgvDatos.AllowUserToResizeRows = false;
+            
+            // Configurar el estilo de las celdas para mejor presentación
+            dgvDatos.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvDatos.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+        }
         #endregion
 
         #region Carga de Datos
@@ -308,54 +332,75 @@ namespace SistemVeterinario.Forms
         {
             if (dgvDatos.Columns.Count > 0)
             {
+                // Primero configurar el DataGridView para que ocupe todo el ancho
+                dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+                
                 // Ocultar ID
                 if (dgvDatos.Columns["id"] != null)
                     dgvDatos.Columns["id"].Visible = false;
                 if (dgvDatos.Columns["animal_id"] != null)
                     dgvDatos.Columns["animal_id"].Visible = false;
 
-                // Configurar encabezados y anchos
+                // Configurar encabezados y anchos proporcionales para ocupar exactamente el 100% del espacio
+                int totalWidth = 1121; // Ancho total del DataGridView
+                
                 if (dgvDatos.Columns["animal_nombre"] != null)
                 {
-                    dgvDatos.Columns["animal_nombre"].HeaderText = "Animal";
-                    dgvDatos.Columns["animal_nombre"].Width = 150;
+                    dgvDatos.Columns["animal_nombre"].HeaderText = "🐾 Animal";
+                    dgvDatos.Columns["animal_nombre"].Width = (int)(totalWidth * 0.16); // 16%
+                    dgvDatos.Columns["animal_nombre"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    dgvDatos.Columns["animal_nombre"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
                 if (dgvDatos.Columns["tipo_animal"] != null)
                 {
-                    dgvDatos.Columns["tipo_animal"].HeaderText = "Tipo";
-                    dgvDatos.Columns["tipo_animal"].Width = 100;
+                    dgvDatos.Columns["tipo_animal"].HeaderText = "📋 Tipo";
+                    dgvDatos.Columns["tipo_animal"].Width = (int)(totalWidth * 0.10); // 10%
+                    dgvDatos.Columns["tipo_animal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgvDatos.Columns["tipo_animal"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
                 if (dgvDatos.Columns["propietario_nombre"] != null)
                 {
-                    dgvDatos.Columns["propietario_nombre"].HeaderText = "Propietario";
-                    dgvDatos.Columns["propietario_nombre"].Width = 150;
+                    dgvDatos.Columns["propietario_nombre"].HeaderText = "👤 Propietario";
+                    dgvDatos.Columns["propietario_nombre"].Width = (int)(totalWidth * 0.16); // 16%
+                    dgvDatos.Columns["propietario_nombre"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    dgvDatos.Columns["propietario_nombre"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
                 if (dgvDatos.Columns["notas_generales"] != null)
                 {
-                    dgvDatos.Columns["notas_generales"].HeaderText = "Notas";
-                    dgvDatos.Columns["notas_generales"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvDatos.Columns["notas_generales"].HeaderText = "📝 Notas Generales";
+                    dgvDatos.Columns["notas_generales"].Width = (int)(totalWidth * 0.24); // 24%
+                    dgvDatos.Columns["notas_generales"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    dgvDatos.Columns["notas_generales"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
                 if (dgvDatos.Columns["alergias"] != null)
                 {
-                    dgvDatos.Columns["alergias"].HeaderText = "Alergias";
-                    dgvDatos.Columns["alergias"].Width = 120;
+                    dgvDatos.Columns["alergias"].HeaderText = "⚠️ Alergias";
+                    dgvDatos.Columns["alergias"].Width = (int)(totalWidth * 0.12); // 12%
+                    dgvDatos.Columns["alergias"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    dgvDatos.Columns["alergias"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
                 if (dgvDatos.Columns["condiciones_medicas"] != null)
                 {
-                    dgvDatos.Columns["condiciones_medicas"].HeaderText = "Condiciones";
-                    dgvDatos.Columns["condiciones_medicas"].Width = 120;
+                    dgvDatos.Columns["condiciones_medicas"].HeaderText = "🏥 Condiciones";
+                    dgvDatos.Columns["condiciones_medicas"].Width = (int)(totalWidth * 0.12); // 12%
+                    dgvDatos.Columns["condiciones_medicas"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    dgvDatos.Columns["condiciones_medicas"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
                 if (dgvDatos.Columns["created_at"] != null)
                 {
-                    dgvDatos.Columns["created_at"].HeaderText = "Creado";
-                    dgvDatos.Columns["created_at"].Width = 100;
+                    dgvDatos.Columns["created_at"].HeaderText = "📅 Creado";
+                    dgvDatos.Columns["created_at"].Width = (int)(totalWidth * 0.10); // 10%
                     dgvDatos.Columns["created_at"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                    dgvDatos.Columns["created_at"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgvDatos.Columns["created_at"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
                 if (dgvDatos.Columns["updated_at"] != null)
                 {
-                    dgvDatos.Columns["updated_at"].HeaderText = "Actualizado";
-                    dgvDatos.Columns["updated_at"].Width = 100;
+                    dgvDatos.Columns["updated_at"].HeaderText = "🔄 Actualizado";
+                    dgvDatos.Columns["updated_at"].Width = (int)(totalWidth * 0.10); // 10%
                     dgvDatos.Columns["updated_at"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                    dgvDatos.Columns["updated_at"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgvDatos.Columns["updated_at"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
             }
         }

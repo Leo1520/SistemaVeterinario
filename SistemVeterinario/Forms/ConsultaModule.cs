@@ -47,6 +47,9 @@ namespace SistemVeterinario.Forms
             
             // Aplicar tema visual
             AplicarTemaVisual();
+            
+            // Configurar dgvDatos para que ocupe todo el ancho
+            ConfigurarDataGridView();
         }
 
         private void ConfigurarModos()
@@ -99,6 +102,117 @@ namespace SistemVeterinario.Forms
         {
             boton.MouseEnter += (s, e) => boton.BackColor = colorHover;
             boton.MouseLeave += (s, e) => boton.BackColor = colorNormal;
+        }
+
+        private void ConfigurarDataGridView()
+        {
+            // Ajustar el dgvDatos para que ocupe todo el ancho como en MascotasModule
+            dgvDatos.Size = new Size(1121, 400);
+            dgvDatos.Location = new Point(10, 150);
+            
+            // Configurar alineación central para encabezados
+            dgvDatos.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            
+            // Mejorar la apariencia
+            dgvDatos.AllowUserToResizeColumns = true;
+            dgvDatos.AllowUserToResizeRows = false;
+            
+            // Configurar el estilo de las celdas para mejor presentación
+            dgvDatos.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvDatos.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            
+            if (dgvDatos.Columns.Count == 0)
+            {
+                // Configurar columnas del DataGridView
+                dgvDatos.AutoGenerateColumns = false;
+                dgvDatos.Columns.Clear();
+
+                // Columna ID (oculta)
+                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Id",
+                    DataPropertyName = "id_diagnostico",
+                    Visible = false
+                });
+
+                // Configurar distribución proporcional para ocupar exactamente el 100% del ancho
+                int totalWidth = 1121;
+
+                // Columna Código
+                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Codigo",
+                    DataPropertyName = "codigo",
+                    HeaderText = "🏷️ Código",
+                    Width = (int)(totalWidth * 0.14), // 14%
+                    ReadOnly = true,
+                    DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter },
+                    HeaderCell = { Style = { Alignment = DataGridViewContentAlignment.MiddleCenter } }
+                });
+
+                // Columna Nombre
+                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Nombre",
+                    DataPropertyName = "nombre",
+                    HeaderText = "📝 Nombre del Diagnóstico",
+                    Width = (int)(totalWidth * 0.32), // 32%
+                    ReadOnly = true,
+                    DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft },
+                    HeaderCell = { Style = { Alignment = DataGridViewContentAlignment.MiddleCenter } }
+                });
+
+                // Columna Categoría
+                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Categoria",
+                    DataPropertyName = "categoria",
+                    HeaderText = "📋 Categoría",
+                    Width = (int)(totalWidth * 0.16), // 16%
+                    ReadOnly = true,
+                    DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter },
+                    HeaderCell = { Style = { Alignment = DataGridViewContentAlignment.MiddleCenter } }
+                });
+
+                // Columna Precio
+                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "PrecioBase",
+                    DataPropertyName = "precio_base",
+                    HeaderText = "💰 Precio Base",
+                    Width = (int)(totalWidth * 0.14), // 14%
+                    ReadOnly = true,
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        Alignment = DataGridViewContentAlignment.MiddleRight,
+                        Format = "C2"
+                    },
+                    HeaderCell = { Style = { Alignment = DataGridViewContentAlignment.MiddleCenter } }
+                });
+
+                // Columna Descripción
+                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Descripcion",
+                    DataPropertyName = "descripcion",
+                    HeaderText = "📄 Descripción",
+                    Width = (int)(totalWidth * 0.16), // 16%
+                    ReadOnly = true,
+                    DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft },
+                    HeaderCell = { Style = { Alignment = DataGridViewContentAlignment.MiddleCenter } }
+                });
+
+                // Columna Estado
+                dgvDatos.Columns.Add(new DataGridViewCheckBoxColumn
+                {
+                    Name = "Activo",
+                    DataPropertyName = "activo",
+                    HeaderText = "✅ Activo",
+                    Width = (int)(totalWidth * 0.08), // 8%
+                    ReadOnly = true,
+                    HeaderCell = { Style = { Alignment = DataGridViewContentAlignment.MiddleCenter } }
+                });
+            }
         }
         #endregion
 
@@ -166,95 +280,6 @@ namespace SistemVeterinario.Forms
             {
                 isLoadingData = false;
                 MostrarError("Error al cargar los diagnósticos", ex.Message);
-            }
-        }
-
-        private void ConfigurarDataGridView()
-        {
-            if (dgvDatos.Columns.Count == 0)
-            {
-                // Configurar columnas del DataGridView
-                dgvDatos.AutoGenerateColumns = false;
-                dgvDatos.Columns.Clear();
-
-                // Columna ID (oculta)
-                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "Id",
-                    DataPropertyName = "id_diagnostico",
-                    Visible = false
-                });
-
-                // Columna Código
-                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "Codigo",
-                    DataPropertyName = "codigo",
-                    HeaderText = "🏷️ Código",
-                    Width = 120,
-                    ReadOnly = true
-                });
-
-                // Columna Nombre
-                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "Nombre",
-                    DataPropertyName = "nombre",
-                    HeaderText = "📝 Nombre del Diagnóstico",
-                    Width = 300,
-                    ReadOnly = true
-                });
-
-                // Columna Categoría
-                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "Categoria",
-                    DataPropertyName = "categoria",
-                    HeaderText = "📋 Categoría",
-                    Width = 150,
-                    ReadOnly = true
-                });
-
-                // Columna Precio
-                dgvDatos.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "PrecioBase",
-                    DataPropertyName = "precio_base",
-                    HeaderText = "💰 Precio Base",
-                    Width = 120,
-                    ReadOnly = true,
-                    DefaultCellStyle = new DataGridViewCellStyle
-                    {
-                        Format = "C2",
-                        Alignment = DataGridViewContentAlignment.MiddleRight
-                    }
-                });
-
-                // Columna Equipamiento
-                dgvDatos.Columns.Add(new DataGridViewCheckBoxColumn
-                {
-                    Name = "RequiereEquipamiento",
-                    DataPropertyName = "requiere_equipamiento",
-                    HeaderText = "🔧 Equipamiento",
-                    Width = 100,
-                    ReadOnly = true
-                });
-
-                // Columna Estado
-                dgvDatos.Columns.Add(new DataGridViewCheckBoxColumn
-                {
-                    Name = "Activo",
-                    DataPropertyName = "activo",
-                    HeaderText = "✅ Activo",
-                    Width = 80,
-                    ReadOnly = true
-                });
-
-                // Aplicar estilo
-                dgvDatos.EnableHeadersVisualStyles = false;
-                dgvDatos.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94);
-                dgvDatos.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                dgvDatos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             }
         }
 

@@ -325,8 +325,8 @@ CAMBIO: Bs. 0.00</Value>
                   <TextRun>
                     <Value>=Code.NumeroATexto(First(Fields!total.Value, "sp_factura_datos_principales"))</Value>
                     <Style>
-                      <FontSize>8pt</FontSize>
                       <FontStyle>Italic</FontStyle>
+                      <FontSize>8pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -339,7 +339,7 @@ CAMBIO: Bs. 0.00</Value>
             <Left>2.825in</Left>
             <Height>0.2in</Height>
             <Width>2.85in</Width>
-            <ZIndex>3</ZIndex>
+            <ZIndex>4</ZIndex>
             <Style>
               <Border />
               <PaddingLeft>2pt</PaddingLeft>
@@ -357,7 +357,7 @@ CAMBIO: Bs. 0.00</Value>
             <Left>2.825in</Left>
             <Height>2.85in</Height>
             <Width>2.85in</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>5</ZIndex>
             <Visibility>
               <Hidden>=IsNothing(Parameters!QRCodeImage.Value) OR Parameters!QRCodeImage.Value = ""</Hidden>
             </Visibility>
@@ -674,7 +674,7 @@ CAMBIO: Bs. 0.00</Value>
             <Left>2.825in</Left>
             <Height>0.3in</Height>
             <Width>2.8in</Width>
-            <ZIndex>5</ZIndex>
+            <ZIndex>6</ZIndex>
             <Visibility>
               <Hidden>=CountRows("sp_factura_detalle_productos") = 0</Hidden>
             </Visibility>
@@ -986,14 +986,48 @@ CAMBIO: Bs. 0.00</Value>
             <Left>2.825in</Left>
             <Height>0.3in</Height>
             <Width>2.8in</Width>
-            <ZIndex>6</ZIndex>
+            <ZIndex>7</ZIndex>
             <Visibility>
               <Hidden>=CountRows("sp_factura_detalle_servicios") = 0</Hidden>
             </Visibility>
             <Style />
           </Tablix>
+          <Textbox Name="InvoiceTitle2">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>GRACIAS POR SU COMPRA</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>InvoiceTitle</rd:DefaultName>
+            <Top>7.9in</Top>
+            <Left>2.825in</Left>
+            <Height>0.6in</Height>
+            <Width>2.85in</Width>
+            <ZIndex>8</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>7.55in</Height>
+        <Height>8.75in</Height>
         <Style />
       </Body>
       <Width>8.5in</Width>
@@ -1062,7 +1096,7 @@ CAMBIO: Bs. 0.00</Value>
     Dim resultado As String = ""
     
     ' Millones
-    If numero >= 1000000 Then
+    If numero &gt;= 1000000 Then
       Dim millones As Integer = numero \ 1000000
       If millones = 1 Then
         resultado += "un millón "
@@ -1073,7 +1107,7 @@ CAMBIO: Bs. 0.00</Value>
     End If
     
     ' Miles
-    If numero >= 1000 Then
+    If numero &gt;= 1000 Then
       Dim miles As Integer = numero \ 1000
       If miles = 1 Then
         resultado += "mil "
@@ -1084,7 +1118,7 @@ CAMBIO: Bs. 0.00</Value>
     End If
     
     ' Centenas, decenas y unidades
-    If numero > 0 Then
+    If numero &gt; 0 Then
       resultado += ConvertirCentenas(numero, unidades, decenas, especiales, centenas)
     End If
     
@@ -1095,7 +1129,7 @@ CAMBIO: Bs. 0.00</Value>
     Dim resultado As String = ""
     
     ' Centenas
-    If numero >= 100 Then
+    If numero &gt;= 100 Then
       Dim c As Integer = numero \ 100
       If numero = 100 Then
         resultado += "cien"
@@ -1106,16 +1140,16 @@ CAMBIO: Bs. 0.00</Value>
     End If
     
     ' Decenas y unidades
-    If numero >= 20 Then
+    If numero &gt;= 20 Then
       Dim d As Integer = numero \ 10
       Dim u As Integer = numero Mod 10
       resultado += decenas(d)
-      If u > 0 Then
+      If u &gt; 0 Then
         resultado += " y " + unidades(u)
       End If
-    ElseIf numero >= 10 Then
+    ElseIf numero &gt;= 10 Then
       resultado += especiales(numero - 10)
-    ElseIf numero > 0 Then
+    ElseIf numero &gt; 0 Then
       resultado += unidades(numero)
     End If
     

@@ -86,16 +86,16 @@ namespace SistemVeterinario.Forms
             this.lblAnimal = new System.Windows.Forms.Label();
             this.cmbAnimal = new System.Windows.Forms.ComboBox();
             this.btnBuscarAnimal = new System.Windows.Forms.Button();
+            this.lblFechaCreacion = new System.Windows.Forms.Label();
+            this.dtpFechaCreacion = new System.Windows.Forms.DateTimePicker();
+            this.lblFechaActualizacion = new System.Windows.Forms.Label();
+            this.dtpFechaActualizacion = new System.Windows.Forms.DateTimePicker();
             this.lblNotasGenerales = new System.Windows.Forms.Label();
             this.txtNotasGenerales = new System.Windows.Forms.TextBox();
             this.lblAlergias = new System.Windows.Forms.Label();
             this.txtAlergias = new System.Windows.Forms.TextBox();
             this.lblCondicionesMedicas = new System.Windows.Forms.Label();
             this.txtCondicionesMedicas = new System.Windows.Forms.TextBox();
-            this.lblFechaCreacion = new System.Windows.Forms.Label();
-            this.dtpFechaCreacion = new System.Windows.Forms.DateTimePicker();
-            this.lblFechaActualizacion = new System.Windows.Forms.Label();
-            this.dtpFechaActualizacion = new System.Windows.Forms.DateTimePicker();
             this.btnVerDetalles = new System.Windows.Forms.Button();
             this.grpDetallesHistorial = new System.Windows.Forms.GroupBox();
             this.dgvDetalles = new System.Windows.Forms.DataGridView();
@@ -106,12 +106,12 @@ namespace SistemVeterinario.Forms
             this.tableLayoutDetalle = new System.Windows.Forms.TableLayoutPanel();
             this.lblTipoRegistro = new System.Windows.Forms.Label();
             this.cmbTipoRegistro = new System.Windows.Forms.ComboBox();
-            this.lblDescripcionDetalle = new System.Windows.Forms.Label();
-            this.txtDescripcionDetalle = new System.Windows.Forms.TextBox();
             this.lblFechaRegistro = new System.Windows.Forms.Label();
             this.dtpFechaRegistro = new System.Windows.Forms.DateTimePicker();
             this.lblVeterinario = new System.Windows.Forms.Label();
             this.cmbVeterinario = new System.Windows.Forms.ComboBox();
+            this.lblDescripcionDetalle = new System.Windows.Forms.Label();
+            this.txtDescripcionDetalle = new System.Windows.Forms.TextBox();
             this.lblTratamiento = new System.Windows.Forms.Label();
             this.txtTratamiento = new System.Windows.Forms.TextBox();
             this.lblMedicamentos = new System.Windows.Forms.Label();
@@ -121,7 +121,6 @@ namespace SistemVeterinario.Forms
             this.panelBotonesDetalleForm = new System.Windows.Forms.Panel();
             this.btnGuardarDetalle = new System.Windows.Forms.Button();
             this.btnCancelarDetalle = new System.Windows.Forms.Button();
-
             this.tabControlPrincipal.SuspendLayout();
             this.tabInicio.SuspendLayout();
             this.tabConfiguraciones.SuspendLayout();
@@ -138,7 +137,6 @@ namespace SistemVeterinario.Forms
             this.tableLayoutDetalle.SuspendLayout();
             this.panelBotonesDetalleForm.SuspendLayout();
             this.SuspendLayout();
-
             // 
             // tabInicio
             // 
@@ -155,6 +153,9 @@ namespace SistemVeterinario.Forms
             this.tabConfiguraciones.Padding = new System.Windows.Forms.Padding(3);
             this.tabConfiguraciones.Size = new System.Drawing.Size(1135, 597);
             this.tabConfiguraciones.Text = "Detalles del Historial";
+            this.tabConfiguraciones.Controls.SetChildIndex(this.grpDatosDetalle, 0);
+            this.tabConfiguraciones.Controls.SetChildIndex(this.grpDetallesHistorial, 0);
+            this.tabConfiguraciones.Controls.SetChildIndex(this.panelFormulario, 0);
             // 
             // panelBusqueda
             // 
@@ -162,8 +163,8 @@ namespace SistemVeterinario.Forms
             this.panelBusqueda.Controls.Add(this.lblAnimalFiltro);
             this.panelBusqueda.Controls.Add(this.cmbAnimalFiltro);
             this.panelBusqueda.Controls.Add(this.btnVerDetalles);
-            this.panelBusqueda.Location = new System.Drawing.Point(12, 11);
-            this.panelBusqueda.Margin = new System.Windows.Forms.Padding(10, 8, 10, 8);
+            this.panelBusqueda.Location = new System.Drawing.Point(10, 15);
+            this.panelBusqueda.Margin = new System.Windows.Forms.Padding(0);
             this.panelBusqueda.Padding = new System.Windows.Forms.Padding(15);
             this.panelBusqueda.Size = new System.Drawing.Size(1121, 120);
             this.panelBusqueda.Controls.SetChildIndex(this.btnVerDetalles, 0);
@@ -177,7 +178,7 @@ namespace SistemVeterinario.Forms
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(22, 9);
+            this.txtBuscar.Location = new System.Drawing.Point(38, 9);
             this.txtBuscar.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtBuscar.Size = new System.Drawing.Size(308, 32);
             // 
@@ -191,14 +192,14 @@ namespace SistemVeterinario.Forms
             // btnNuevo
             // 
             this.btnNuevo.FlatAppearance.BorderSize = 0;
-            this.btnNuevo.Location = new System.Drawing.Point(1074, 9);
+            this.btnNuevo.Location = new System.Drawing.Point(950, 8);
             this.btnNuevo.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnNuevo.Size = new System.Drawing.Size(140, 40);
             this.btnNuevo.Text = "➕ Nuevo Historial";
             // 
             // chkMostrarTodo
             // 
-            this.chkMostrarTodo.Location = new System.Drawing.Point(49, 49);
+            this.chkMostrarTodo.Location = new System.Drawing.Point(61, 49);
             this.chkMostrarTodo.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             // 
             // panelFormulario
@@ -219,11 +220,11 @@ namespace SistemVeterinario.Forms
             // 
             // lblModo
             // 
-            this.lblModo.Location = new System.Drawing.Point(35, 22);
+            this.lblModo.Location = new System.Drawing.Point(56, 15);
             // 
             // cmbModo
             // 
-            this.cmbModo.Location = new System.Drawing.Point(145, 17);
+            this.cmbModo.Location = new System.Drawing.Point(177, 14);
             this.cmbModo.Size = new System.Drawing.Size(156, 31);
             // 
             // lblId
@@ -265,7 +266,7 @@ namespace SistemVeterinario.Forms
             this.lblContador.AutoSize = true;
             this.lblContador.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblContador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblContador.Location = new System.Drawing.Point(522, 15);
+            this.lblContador.Location = new System.Drawing.Point(751, 47);
             this.lblContador.Name = "lblContador";
             this.lblContador.Size = new System.Drawing.Size(153, 20);
             this.lblContador.TabIndex = 6;
@@ -278,7 +279,7 @@ namespace SistemVeterinario.Forms
             this.cmbAnimalFiltro.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbAnimalFiltro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.cmbAnimalFiltro.FormattingEnabled = true;
-            this.cmbAnimalFiltro.Location = new System.Drawing.Point(448, 44);
+            this.cmbAnimalFiltro.Location = new System.Drawing.Point(512, 35);
             this.cmbAnimalFiltro.Name = "cmbAnimalFiltro";
             this.cmbAnimalFiltro.Size = new System.Drawing.Size(220, 31);
             this.cmbAnimalFiltro.TabIndex = 8;
@@ -288,9 +289,9 @@ namespace SistemVeterinario.Forms
             this.lblAnimalFiltro.AutoSize = true;
             this.lblAnimalFiltro.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblAnimalFiltro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblAnimalFiltro.Location = new System.Drawing.Point(290, 47);
+            this.lblAnimalFiltro.Location = new System.Drawing.Point(532, 9);
             this.lblAnimalFiltro.Name = "lblAnimalFiltro";
-            this.lblAnimalFiltro.Size = new System.Drawing.Size(180, 23);
+            this.lblAnimalFiltro.Size = new System.Drawing.Size(188, 23);
             this.lblAnimalFiltro.TabIndex = 7;
             this.lblAnimalFiltro.Text = "🐕 Filtrar por Animal:";
             // 
@@ -307,7 +308,7 @@ namespace SistemVeterinario.Forms
             this.grpDatosHistorial.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grpDatosHistorial.Name = "grpDatosHistorial";
             this.grpDatosHistorial.Padding = new System.Windows.Forms.Padding(15);
-            this.grpDatosHistorial.Size = new System.Drawing.Size(1073, 510);
+            this.grpDatosHistorial.Size = new System.Drawing.Size(1089, 349);
             this.grpDatosHistorial.TabIndex = 0;
             this.grpDatosHistorial.TabStop = false;
             this.grpDatosHistorial.Text = "📋 Información del Historial Médico";
@@ -346,10 +347,8 @@ namespace SistemVeterinario.Forms
             this.tableLayoutHistorial.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutHistorial.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutHistorial.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutHistorial.Size = new System.Drawing.Size(1043, 460);
+            this.tableLayoutHistorial.Size = new System.Drawing.Size(1059, 294);
             this.tableLayoutHistorial.TabIndex = 0;
-
-            // Configuración de controles del historial principal
             // 
             // lblAnimal
             // 
@@ -363,7 +362,6 @@ namespace SistemVeterinario.Forms
             this.lblAnimal.TabIndex = 0;
             this.lblAnimal.Text = "🐕 Animal *:";
             this.lblAnimal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-
             // 
             // cmbAnimal
             // 
@@ -373,12 +371,11 @@ namespace SistemVeterinario.Forms
             this.cmbAnimal.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.cmbAnimal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.cmbAnimal.FormattingEnabled = true;
-            this.cmbAnimal.Location = new System.Drawing.Point(177, 8);
+            this.cmbAnimal.Location = new System.Drawing.Point(177, 7);
             this.cmbAnimal.Margin = new System.Windows.Forms.Padding(3, 2, 10, 2);
             this.cmbAnimal.Name = "cmbAnimal";
-            this.cmbAnimal.Size = new System.Drawing.Size(338, 33);
+            this.cmbAnimal.Size = new System.Drawing.Size(369, 33);
             this.cmbAnimal.TabIndex = 1;
-
             // 
             // btnBuscarAnimal
             // 
@@ -388,14 +385,13 @@ namespace SistemVeterinario.Forms
             this.btnBuscarAnimal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscarAnimal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnBuscarAnimal.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarAnimal.Location = new System.Drawing.Point(528, 6);
+            this.btnBuscarAnimal.Location = new System.Drawing.Point(559, 6);
             this.btnBuscarAnimal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBuscarAnimal.Name = "btnBuscarAnimal";
             this.btnBuscarAnimal.Size = new System.Drawing.Size(114, 36);
             this.btnBuscarAnimal.TabIndex = 2;
             this.btnBuscarAnimal.Text = "🔍 Buscar";
             this.btnBuscarAnimal.UseVisualStyleBackColor = false;
-
             // 
             // lblFechaCreacion
             // 
@@ -403,13 +399,12 @@ namespace SistemVeterinario.Forms
             this.lblFechaCreacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFechaCreacion.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblFechaCreacion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblFechaCreacion.Location = new System.Drawing.Point(648, 0);
+            this.lblFechaCreacion.Location = new System.Drawing.Point(679, 0);
             this.lblFechaCreacion.Name = "lblFechaCreacion";
-            this.lblFechaCreacion.Size = new System.Drawing.Size(346, 48);
+            this.lblFechaCreacion.Size = new System.Drawing.Size(377, 48);
             this.lblFechaCreacion.TabIndex = 3;
             this.lblFechaCreacion.Text = "📅 Fecha Creación:";
             this.lblFechaCreacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-
             // 
             // dtpFechaCreacion
             // 
@@ -420,9 +415,8 @@ namespace SistemVeterinario.Forms
             this.dtpFechaCreacion.Location = new System.Drawing.Point(3, 56);
             this.dtpFechaCreacion.Margin = new System.Windows.Forms.Padding(3, 2, 10, 2);
             this.dtpFechaCreacion.Name = "dtpFechaCreacion";
-            this.dtpFechaCreacion.Size = new System.Drawing.Size(158, 32);
+            this.dtpFechaCreacion.Size = new System.Drawing.Size(161, 32);
             this.dtpFechaCreacion.TabIndex = 4;
-
             // 
             // lblFechaActualizacion
             // 
@@ -432,11 +426,10 @@ namespace SistemVeterinario.Forms
             this.lblFechaActualizacion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
             this.lblFechaActualizacion.Location = new System.Drawing.Point(177, 48);
             this.lblFechaActualizacion.Name = "lblFechaActualizacion";
-            this.lblFechaActualizacion.Size = new System.Drawing.Size(338, 48);
+            this.lblFechaActualizacion.Size = new System.Drawing.Size(376, 48);
             this.lblFechaActualizacion.TabIndex = 5;
             this.lblFechaActualizacion.Text = "🔄 Última Actualización:";
             this.lblFechaActualizacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-
             // 
             // dtpFechaActualizacion
             // 
@@ -444,27 +437,25 @@ namespace SistemVeterinario.Forms
             this.dtpFechaActualizacion.Enabled = false;
             this.dtpFechaActualizacion.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.dtpFechaActualizacion.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaActualizacion.Location = new System.Drawing.Point(528, 56);
+            this.dtpFechaActualizacion.Location = new System.Drawing.Point(559, 56);
             this.dtpFechaActualizacion.Margin = new System.Windows.Forms.Padding(3, 2, 10, 2);
             this.dtpFechaActualizacion.Name = "dtpFechaActualizacion";
-            this.dtpFechaActualizacion.Size = new System.Drawing.Size(104, 32);
+            this.dtpFechaActualizacion.Size = new System.Drawing.Size(107, 32);
             this.dtpFechaActualizacion.TabIndex = 6;
-
             // 
             // lblNotasGenerales
             // 
             this.lblNotasGenerales.AutoSize = true;
+            this.tableLayoutHistorial.SetColumnSpan(this.lblNotasGenerales, 4);
             this.lblNotasGenerales.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblNotasGenerales.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblNotasGenerales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.tableLayoutHistorial.SetColumnSpan(this.lblNotasGenerales, 4);
             this.lblNotasGenerales.Location = new System.Drawing.Point(3, 96);
             this.lblNotasGenerales.Name = "lblNotasGenerales";
-            this.lblNotasGenerales.Size = new System.Drawing.Size(991, 32);
+            this.lblNotasGenerales.Size = new System.Drawing.Size(1053, 32);
             this.lblNotasGenerales.TabIndex = 7;
             this.lblNotasGenerales.Text = "📝 Notas Generales *:";
             this.lblNotasGenerales.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-
             // 
             // txtNotasGenerales
             // 
@@ -482,24 +473,22 @@ namespace SistemVeterinario.Forms
             this.txtNotasGenerales.Multiline = true;
             this.txtNotasGenerales.Name = "txtNotasGenerales";
             this.txtNotasGenerales.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNotasGenerales.Size = new System.Drawing.Size(984, 114);
+            this.txtNotasGenerales.Size = new System.Drawing.Size(1046, 76);
             this.txtNotasGenerales.TabIndex = 8;
-
             // 
             // lblAlergias
             // 
             this.lblAlergias.AutoSize = true;
+            this.tableLayoutHistorial.SetColumnSpan(this.lblAlergias, 2);
             this.lblAlergias.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAlergias.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblAlergias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
-            this.tableLayoutHistorial.SetColumnSpan(this.lblAlergias, 2);
-            this.lblAlergias.Location = new System.Drawing.Point(3, 248);
+            this.lblAlergias.Location = new System.Drawing.Point(3, 208);
             this.lblAlergias.Name = "lblAlergias";
-            this.lblAlergias.Size = new System.Drawing.Size(512, 32);
+            this.lblAlergias.Size = new System.Drawing.Size(550, 32);
             this.lblAlergias.TabIndex = 9;
             this.lblAlergias.Text = "⚠️ Alergias:";
             this.lblAlergias.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-
             // 
             // txtAlergias
             // 
@@ -511,30 +500,28 @@ namespace SistemVeterinario.Forms
             this.tableLayoutHistorial.SetColumnSpan(this.txtAlergias, 2);
             this.txtAlergias.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtAlergias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.txtAlergias.Location = new System.Drawing.Point(3, 282);
+            this.txtAlergias.Location = new System.Drawing.Point(3, 242);
             this.txtAlergias.Margin = new System.Windows.Forms.Padding(3, 2, 10, 2);
             this.txtAlergias.MaxLength = 500;
             this.txtAlergias.Multiline = true;
             this.txtAlergias.Name = "txtAlergias";
             this.txtAlergias.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAlergias.Size = new System.Drawing.Size(502, 44);
+            this.txtAlergias.Size = new System.Drawing.Size(543, 50);
             this.txtAlergias.TabIndex = 10;
-
             // 
             // lblCondicionesMedicas
             // 
             this.lblCondicionesMedicas.AutoSize = true;
+            this.tableLayoutHistorial.SetColumnSpan(this.lblCondicionesMedicas, 2);
             this.lblCondicionesMedicas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCondicionesMedicas.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblCondicionesMedicas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(89)))), ((int)(((byte)(182)))));
-            this.tableLayoutHistorial.SetColumnSpan(this.lblCondicionesMedicas, 2);
-            this.lblCondicionesMedicas.Location = new System.Drawing.Point(528, 248);
+            this.lblCondicionesMedicas.Location = new System.Drawing.Point(559, 208);
             this.lblCondicionesMedicas.Name = "lblCondicionesMedicas";
-            this.lblCondicionesMedicas.Size = new System.Drawing.Size(466, 32);
+            this.lblCondicionesMedicas.Size = new System.Drawing.Size(497, 32);
             this.lblCondicionesMedicas.TabIndex = 11;
             this.lblCondicionesMedicas.Text = "🩺 Condiciones Médicas:";
             this.lblCondicionesMedicas.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-
             // 
             // txtCondicionesMedicas
             // 
@@ -546,15 +533,14 @@ namespace SistemVeterinario.Forms
             this.tableLayoutHistorial.SetColumnSpan(this.txtCondicionesMedicas, 2);
             this.txtCondicionesMedicas.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txtCondicionesMedicas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.txtCondicionesMedicas.Location = new System.Drawing.Point(528, 282);
+            this.txtCondicionesMedicas.Location = new System.Drawing.Point(559, 242);
             this.txtCondicionesMedicas.Margin = new System.Windows.Forms.Padding(3, 2, 10, 2);
             this.txtCondicionesMedicas.MaxLength = 500;
             this.txtCondicionesMedicas.Multiline = true;
             this.txtCondicionesMedicas.Name = "txtCondicionesMedicas";
             this.txtCondicionesMedicas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCondicionesMedicas.Size = new System.Drawing.Size(456, 44);
+            this.txtCondicionesMedicas.Size = new System.Drawing.Size(490, 50);
             this.txtCondicionesMedicas.TabIndex = 12;
-
             // 
             // btnVerDetalles
             // 
@@ -563,14 +549,12 @@ namespace SistemVeterinario.Forms
             this.btnVerDetalles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerDetalles.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnVerDetalles.ForeColor = System.Drawing.Color.White;
-            this.btnVerDetalles.Location = new System.Drawing.Point(700, 44);
+            this.btnVerDetalles.Location = new System.Drawing.Point(765, 8);
             this.btnVerDetalles.Name = "btnVerDetalles";
             this.btnVerDetalles.Size = new System.Drawing.Size(130, 31);
             this.btnVerDetalles.TabIndex = 9;
             this.btnVerDetalles.Text = "📋 Ver Detalles";
             this.btnVerDetalles.UseVisualStyleBackColor = false;
-
-            // Configuración de controles para la pestaña de detalles
             // 
             // grpDetallesHistorial
             // 
@@ -589,23 +573,21 @@ namespace SistemVeterinario.Forms
             this.grpDetallesHistorial.TabIndex = 0;
             this.grpDetallesHistorial.TabStop = false;
             this.grpDetallesHistorial.Text = "📋 Detalles del Historial Médico";
-
             // 
             // dgvDetalles
             // 
             this.dgvDetalles.AllowUserToAddRows = false;
             this.dgvDetalles.AllowUserToDeleteRows = false;
             this.dgvDetalles.BackgroundColor = System.Drawing.Color.White;
-            this.dgvDetalles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dgvDetalles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDetalles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvDetalles.Location = new System.Drawing.Point(10, 35);
+            this.dgvDetalles.Location = new System.Drawing.Point(10, 37);
             this.dgvDetalles.Name = "dgvDetalles";
             this.dgvDetalles.ReadOnly = true;
+            this.dgvDetalles.RowHeadersWidth = 51;
             this.dgvDetalles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDetalles.Size = new System.Drawing.Size(1075, 195);
+            this.dgvDetalles.Size = new System.Drawing.Size(1075, 193);
             this.dgvDetalles.TabIndex = 0;
-
             // 
             // panelBotonesDetalle
             // 
@@ -616,7 +598,6 @@ namespace SistemVeterinario.Forms
             this.panelBotonesDetalle.Name = "panelBotonesDetalle";
             this.panelBotonesDetalle.Size = new System.Drawing.Size(1075, 40);
             this.panelBotonesDetalle.TabIndex = 1;
-
             // 
             // btnNuevoDetalle
             // 
@@ -631,7 +612,6 @@ namespace SistemVeterinario.Forms
             this.btnNuevoDetalle.TabIndex = 0;
             this.btnNuevoDetalle.Text = "➕ Nuevo";
             this.btnNuevoDetalle.UseVisualStyleBackColor = false;
-
             // 
             // btnEliminarDetalle
             // 
@@ -646,7 +626,6 @@ namespace SistemVeterinario.Forms
             this.btnEliminarDetalle.TabIndex = 1;
             this.btnEliminarDetalle.Text = "🗑️ Eliminar";
             this.btnEliminarDetalle.UseVisualStyleBackColor = false;
-
             // 
             // grpDatosDetalle
             // 
@@ -665,7 +644,6 @@ namespace SistemVeterinario.Forms
             this.grpDatosDetalle.TabStop = false;
             this.grpDatosDetalle.Text = "📝 Formulario de Detalle";
             this.grpDatosDetalle.Visible = false;
-
             // 
             // tableLayoutDetalle
             // 
@@ -705,10 +683,104 @@ namespace SistemVeterinario.Forms
             this.tableLayoutDetalle.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutDetalle.Size = new System.Drawing.Size(1069, 175);
             this.tableLayoutDetalle.TabIndex = 0;
-
-            // Configuración de controles del formulario de detalle (las configuraciones específicas se omiten por brevedad)
-            // pero incluirían todos los controles como lblTipoRegistro, cmbTipoRegistro, etc.
-
+            // 
+            // lblTipoRegistro
+            // 
+            this.lblTipoRegistro.Location = new System.Drawing.Point(3, 0);
+            this.lblTipoRegistro.Name = "lblTipoRegistro";
+            this.lblTipoRegistro.Size = new System.Drawing.Size(100, 23);
+            this.lblTipoRegistro.TabIndex = 0;
+            // 
+            // cmbTipoRegistro
+            // 
+            this.cmbTipoRegistro.Location = new System.Drawing.Point(3, 28);
+            this.cmbTipoRegistro.Name = "cmbTipoRegistro";
+            this.cmbTipoRegistro.Size = new System.Drawing.Size(121, 36);
+            this.cmbTipoRegistro.TabIndex = 1;
+            // 
+            // lblFechaRegistro
+            // 
+            this.lblFechaRegistro.Location = new System.Drawing.Point(270, 0);
+            this.lblFechaRegistro.Name = "lblFechaRegistro";
+            this.lblFechaRegistro.Size = new System.Drawing.Size(100, 23);
+            this.lblFechaRegistro.TabIndex = 2;
+            // 
+            // dtpFechaRegistro
+            // 
+            this.dtpFechaRegistro.Location = new System.Drawing.Point(270, 28);
+            this.dtpFechaRegistro.Name = "dtpFechaRegistro";
+            this.dtpFechaRegistro.Size = new System.Drawing.Size(200, 34);
+            this.dtpFechaRegistro.TabIndex = 3;
+            // 
+            // lblVeterinario
+            // 
+            this.lblVeterinario.Location = new System.Drawing.Point(537, 0);
+            this.lblVeterinario.Name = "lblVeterinario";
+            this.lblVeterinario.Size = new System.Drawing.Size(100, 23);
+            this.lblVeterinario.TabIndex = 4;
+            // 
+            // cmbVeterinario
+            // 
+            this.cmbVeterinario.Location = new System.Drawing.Point(537, 28);
+            this.cmbVeterinario.Name = "cmbVeterinario";
+            this.cmbVeterinario.Size = new System.Drawing.Size(121, 36);
+            this.cmbVeterinario.TabIndex = 5;
+            // 
+            // lblDescripcionDetalle
+            // 
+            this.lblDescripcionDetalle.Location = new System.Drawing.Point(3, 60);
+            this.lblDescripcionDetalle.Name = "lblDescripcionDetalle";
+            this.lblDescripcionDetalle.Size = new System.Drawing.Size(100, 23);
+            this.lblDescripcionDetalle.TabIndex = 6;
+            // 
+            // txtDescripcionDetalle
+            // 
+            this.txtDescripcionDetalle.Location = new System.Drawing.Point(3, 88);
+            this.txtDescripcionDetalle.Name = "txtDescripcionDetalle";
+            this.txtDescripcionDetalle.Size = new System.Drawing.Size(100, 34);
+            this.txtDescripcionDetalle.TabIndex = 7;
+            // 
+            // lblTratamiento
+            // 
+            this.lblTratamiento.Location = new System.Drawing.Point(3, 120);
+            this.lblTratamiento.Name = "lblTratamiento";
+            this.lblTratamiento.Size = new System.Drawing.Size(100, 23);
+            this.lblTratamiento.TabIndex = 8;
+            // 
+            // txtTratamiento
+            // 
+            this.txtTratamiento.Location = new System.Drawing.Point(3, 148);
+            this.txtTratamiento.Name = "txtTratamiento";
+            this.txtTratamiento.Size = new System.Drawing.Size(100, 34);
+            this.txtTratamiento.TabIndex = 9;
+            // 
+            // lblMedicamentos
+            // 
+            this.lblMedicamentos.Location = new System.Drawing.Point(537, 120);
+            this.lblMedicamentos.Name = "lblMedicamentos";
+            this.lblMedicamentos.Size = new System.Drawing.Size(100, 23);
+            this.lblMedicamentos.TabIndex = 10;
+            // 
+            // txtMedicamentos
+            // 
+            this.txtMedicamentos.Location = new System.Drawing.Point(537, 148);
+            this.txtMedicamentos.Name = "txtMedicamentos";
+            this.txtMedicamentos.Size = new System.Drawing.Size(100, 34);
+            this.txtMedicamentos.TabIndex = 11;
+            // 
+            // lblObservaciones
+            // 
+            this.lblObservaciones.Location = new System.Drawing.Point(3, 180);
+            this.lblObservaciones.Name = "lblObservaciones";
+            this.lblObservaciones.Size = new System.Drawing.Size(100, 23);
+            this.lblObservaciones.TabIndex = 12;
+            // 
+            // txtObservaciones
+            // 
+            this.txtObservaciones.Location = new System.Drawing.Point(3, 208);
+            this.txtObservaciones.Name = "txtObservaciones";
+            this.txtObservaciones.Size = new System.Drawing.Size(100, 34);
+            this.txtObservaciones.TabIndex = 13;
             // 
             // panelBotonesDetalleForm
             // 
@@ -719,7 +791,6 @@ namespace SistemVeterinario.Forms
             this.panelBotonesDetalleForm.Name = "panelBotonesDetalleForm";
             this.panelBotonesDetalleForm.Size = new System.Drawing.Size(1075, 30);
             this.panelBotonesDetalleForm.TabIndex = 1;
-
             // 
             // btnGuardarDetalle
             // 
@@ -734,7 +805,6 @@ namespace SistemVeterinario.Forms
             this.btnGuardarDetalle.TabIndex = 0;
             this.btnGuardarDetalle.Text = "💾 Guardar";
             this.btnGuardarDetalle.UseVisualStyleBackColor = false;
-
             // 
             // btnCancelarDetalle
             // 
@@ -749,7 +819,11 @@ namespace SistemVeterinario.Forms
             this.btnCancelarDetalle.TabIndex = 1;
             this.btnCancelarDetalle.Text = "❌ Cancelar";
             this.btnCancelarDetalle.UseVisualStyleBackColor = false;
-
+            // 
+            // HistorialModule
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.Name = "HistorialModule";
             this.tabControlPrincipal.ResumeLayout(false);
             this.tabInicio.ResumeLayout(false);
             this.tabConfiguraciones.ResumeLayout(false);
@@ -770,6 +844,7 @@ namespace SistemVeterinario.Forms
             this.tableLayoutDetalle.PerformLayout();
             this.panelBotonesDetalleForm.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         #endregion
