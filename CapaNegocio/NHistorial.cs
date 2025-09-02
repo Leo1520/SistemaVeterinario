@@ -1,386 +1,350 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 using CapaDatos;
 
 namespace CapaNegocio
 {
     public class NHistorial
     {
+        private readonly DHistorial _dataHistorial;
+
+        public NHistorial()
+        {
+            _dataHistorial = new DHistorial();
+        }
+
         #region Métodos CRUD para Historial
 
         /// <summary>
-        /// Inserta un nuevo historial médico
+        /// Obtiene la lista de historiales médicos
         /// </summary>
-        public static string Insertar(int animalId, string notasGenerales, string alergias = "", string condicionesMedicas = "")
+        public DataTable ListarHistoriales(int? animalId = null, string buscar = null)
         {
-            // Validaciones de negocio
-            if (!ValidarHistorial(animalId, notasGenerales))
-                return "Error: Datos de historial inválidos";
-
-            // Verificar si ya existe un historial para este animal
-            DHistorial objHistorial = new DHistorial();
-            if (objHistorial.ExisteHistorialParaAnimal(animalId))
-                return "Error: Ya existe un historial médico para este animal";
-
-            objHistorial.AnimalId = animalId;
-            objHistorial.NotasGenerales = notasGenerales?.Trim();
-            objHistorial.Alergias = alergias?.Trim();
-            objHistorial.CondicionesMedicas = condicionesMedicas?.Trim();
-
-            return objHistorial.Insertar();
-        }
-
-        /// <summary>
-        /// Edita un historial médico existente
-        /// </summary>
-        public static string Editar(int id, int animalId, string notasGenerales, string alergias = "", string condicionesMedicas = "")
-        {
-            // Validaciones de negocio
-            if (id <= 0)
-                return "Error: ID de historial inválido";
-
-            if (!ValidarHistorial(animalId, notasGenerales))
-                return "Error: Datos de historial inválidos";
-
-            // Verificar si ya existe otro historial para este animal (excluyendo el actual)
-            DHistorial objHistorial = new DHistorial();
-            if (objHistorial.ExisteHistorialParaAnimal(animalId, id))
-                return "Error: Ya existe un historial médico para este animal";
-
-            objHistorial.Id = id;
-            objHistorial.AnimalId = animalId;
-            objHistorial.NotasGenerales = notasGenerales?.Trim();
-            objHistorial.Alergias = alergias?.Trim();
-            objHistorial.CondicionesMedicas = condicionesMedicas?.Trim();
-
-            return objHistorial.Editar();
-        }
-
-        /// <summary>
-        /// Elimina un historial médico
-        /// </summary>
-        public static string Eliminar(int id)
-        {
-            if (id <= 0)
-                return "Error: ID de historial inválido";
-
-            // Verificar si el historial tiene detalles asociados
-            if (TieneDetallesAsociados(id))
-                return "Error: No se puede eliminar el historial porque tiene detalles médicos asociados";
-
-            DHistorial objHistorial = new DHistorial()
-            {
-                Id = id
-            };
-            return objHistorial.Eliminar();
-        }
-
-        /// <summary>
-        /// Muestra todos los historiales médicos
-        /// </summary>
-        public static DataTable Mostrar()
-        {
-            return new DHistorial().Mostrar();
-        }
-
-        /// <summary>
-        /// Busca historiales por texto
-        /// </summary>
-        public static DataTable BuscarTexto(string textoBuscar)
-        {
-            if (string.IsNullOrWhiteSpace(textoBuscar))
-                return Mostrar();
-
-            DHistorial objHistorial = new DHistorial()
-            {
-                TextoBuscar = textoBuscar.Trim()
-            };
-            return objHistorial.BuscarTexto();
-        }
-
-        /// <summary>
-        /// Busca historiales por ID de mascota/animal
-        /// </summary>
-        public static DataTable BuscarPorMascota(int animalId)
-        {
-            if (animalId <= 0)
-                return Mostrar(); // Si no hay ID válido, mostrar todos
-
             try
             {
-                DHistorial objHistorial = new DHistorial()
-                {
-                    AnimalId = animalId
-                };
-                return objHistorial.BuscarPorAnimal();
+                return _dataHistorial.ListarHistoriales(animalId, buscar);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Si hay error, devolver tabla vacía
-                return new DataTable();
+                throw new Exception("Error en capa de negocio al listar historiales: " + ex.Message);
             }
         }
 
         /// <summary>
-        /// Obtiene un historial por ID
+        /// Obtiene un historial específico por ID
         /// </summary>
-        public static DataTable ObtenerPorId(int id)
+        public DataTable ObtenerHistorialPorId(int id)
         {
-            if (id <= 0)
-                throw new ArgumentException("ID de historial inválido");
+            try
+            {
+                if (id <= 0)
+                    throw new ArgumentException("El ID del historial debe ser mayor que cero");
 
-            return new DHistorial().ObtenerPorId(id);
+                return _dataHistorial.ObtenerHistorialPorId(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en capa de negocio al obtener historial: " + ex.Message);
+            }
         }
 
         /// <summary>
-        /// Obtiene todos los animales disponibles para historial
+        /// Inserta un nuevo historial médico con validaciones de negocio
         /// </summary>
-        public static DataTable ObtenerAnimales()
+        public bool InsertarHistorial(int animalId, string notasGenerales, string alergias, string condicionesMedicas)
         {
-            return new DHistorial().ObtenerAnimales();
+            try
+            {
+                // Validaciones de negocio
+                if (animalId <= 0)
+                    throw new ArgumentException("El ID del animal debe ser mayor que cero");
+
+                if (string.IsNullOrWhiteSpace(notasGenerales))
+                    throw new ArgumentException("Las notas generales son obligatorias");
+
+                if (notasGenerales.Trim().Length > 2000)
+                    throw new ArgumentException("Las notas generales no pueden superar los 2000 caracteres");
+
+                if (!string.IsNullOrEmpty(alergias) && alergias.Trim().Length > 500)
+                    throw new ArgumentException("Las alergias no pueden superar los 500 caracteres");
+
+                if (!string.IsNullOrEmpty(condicionesMedicas) && condicionesMedicas.Trim().Length > 500)
+                    throw new ArgumentException("Las condiciones médicas no pueden superar los 500 caracteres");
+
+                // Verificar si ya existe un historial para este animal
+                if (_dataHistorial.ExisteHistorialParaAnimal(animalId))
+                    throw new InvalidOperationException("Ya existe un historial médico para este animal");
+
+                return _dataHistorial.InsertarHistorial(
+                    animalId, 
+                    notasGenerales?.Trim(), 
+                    alergias?.Trim(), 
+                    condicionesMedicas?.Trim()
+                );
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en capa de negocio al insertar historial: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Actualiza un historial médico existente con validaciones
+        /// </summary>
+        public bool ActualizarHistorial(int id, int animalId, string notasGenerales, string alergias, string condicionesMedicas)
+        {
+            try
+            {
+                // Validaciones de negocio
+                if (id <= 0)
+                    throw new ArgumentException("El ID del historial debe ser mayor que cero");
+
+                if (animalId <= 0)
+                    throw new ArgumentException("El ID del animal debe ser mayor que cero");
+
+                if (string.IsNullOrWhiteSpace(notasGenerales))
+                    throw new ArgumentException("Las notas generales son obligatorias");
+
+                if (notasGenerales.Trim().Length > 2000)
+                    throw new ArgumentException("Las notas generales no pueden superar los 2000 caracteres");
+
+                if (!string.IsNullOrEmpty(alergias) && alergias.Trim().Length > 500)
+                    throw new ArgumentException("Las alergias no pueden superar los 500 caracteres");
+
+                if (!string.IsNullOrEmpty(condicionesMedicas) && condicionesMedicas.Trim().Length > 500)
+                    throw new ArgumentException("Las condiciones médicas no pueden superar los 500 caracteres");
+
+                return _dataHistorial.ActualizarHistorial(
+                    id, 
+                    animalId, 
+                    notasGenerales?.Trim(), 
+                    alergias?.Trim(), 
+                    condicionesMedicas?.Trim()
+                );
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en capa de negocio al actualizar historial: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Elimina un historial médico con validaciones
+        /// </summary>
+        public bool EliminarHistorial(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                    throw new ArgumentException("El ID del historial debe ser mayor que cero");
+
+                // Verificar si el historial tiene detalles asociados antes de eliminar
+                if (TieneDetallesAsociados(id))
+                    throw new InvalidOperationException("No se puede eliminar el historial porque tiene detalles médicos asociados. Elimine primero los detalles.");
+
+                return _dataHistorial.EliminarHistorial(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en capa de negocio al eliminar historial: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Busca historiales por criterios específicos
+        /// </summary>
+        public DataTable BuscarHistoriales(string criterio, string valor)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(valor))
+                    return ListarHistoriales();
+
+                return _dataHistorial.BuscarHistoriales(criterio, valor.Trim());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en capa de negocio al buscar historiales: " + ex.Message);
+            }
         }
 
         #endregion
 
-        #region Métodos CRUD para Detalle Historial
+        #region Métodos para Detalle de Historial
 
         /// <summary>
-        /// Inserta un nuevo detalle de historial médico
+        /// Obtiene los detalles de un historial específico
         /// </summary>
-        public static string InsertarDetalle(int historialId, string tipoEvento, DateTime fechaEvento, 
-            string observaciones, string tratamiento = "", string medicamentos = "", string dosis = "", 
-            int veterinarioId = 0, decimal? pesoAnimal = null, decimal? temperatura = null, 
-            bool cobrado = false, decimal costo = 0)
+        public DataTable ListarDetallesHistorial(int historialId)
         {
-            // Validaciones de negocio
-            if (!ValidarDetalleHistorial(historialId, tipoEvento, fechaEvento, observaciones))
-                return "Error: Datos de detalle de historial inválidos";
-
             try
             {
-                DDetalleHistorial objDetalle = new DDetalleHistorial()
-                {
-                    HistorialId = historialId,
-                    TipoEvento = tipoEvento.Trim(),
-                    FechaEvento = fechaEvento,
-                    Observaciones = observaciones?.Trim(),
-                    Tratamiento = tratamiento?.Trim(),
-                    Medicamentos = medicamentos?.Trim(),
-                    Dosis = dosis?.Trim(),
-                    VeterinarioId = veterinarioId > 0 ? veterinarioId : (int?)null,
-                    PesoAnimal = pesoAnimal,
-                    Temperatura = temperatura,
-                    Cobrado = cobrado,
-                    Costo = costo
-                };
+                if (historialId <= 0)
+                    throw new ArgumentException("El ID del historial debe ser mayor que cero");
 
-                return objDetalle.Insertar();
+                return _dataHistorial.ListarDetallesHistorial(historialId);
             }
             catch (Exception ex)
             {
-                return $"Error: {ex.Message}";
+                throw new Exception("Error en capa de negocio al obtener detalles del historial: " + ex.Message);
             }
         }
 
         /// <summary>
-        /// Edita un detalle de historial médico
+        /// Inserta un nuevo detalle de historial con validaciones
         /// </summary>
-        public static string EditarDetalle(int id, int historialId, string tipoEvento, DateTime fechaEvento,
-            string observaciones, string tratamiento = "", string medicamentos = "", string dosis = "",
-            int veterinarioId = 0, decimal? pesoAnimal = null, decimal? temperatura = null,
-            bool cobrado = false, decimal costo = 0)
+        public bool InsertarDetalleHistorial(int historialId, string tipoRegistro, string descripcion, 
+            DateTime fechaRegistro, int? veterinarioId, string tratamiento, string medicamentos, string observaciones)
         {
-            // Validaciones de negocio
-            if (id <= 0)
-                return "Error: ID de detalle inválido";
-
-            if (!ValidarDetalleHistorial(historialId, tipoEvento, fechaEvento, observaciones))
-                return "Error: Datos de detalle de historial inválidos";
-
             try
             {
-                DDetalleHistorial objDetalle = new DDetalleHistorial()
-                {
-                    Id = id,
-                    HistorialId = historialId,
-                    TipoEvento = tipoEvento.Trim(),
-                    FechaEvento = fechaEvento,
-                    Observaciones = observaciones?.Trim(),
-                    Tratamiento = tratamiento?.Trim(),
-                    Medicamentos = medicamentos?.Trim(),
-                    Dosis = dosis?.Trim(),
-                    VeterinarioId = veterinarioId > 0 ? veterinarioId : (int?)null,
-                    PesoAnimal = pesoAnimal,
-                    Temperatura = temperatura,
-                    Cobrado = cobrado,
-                    Costo = costo
-                };
+                // Validaciones de negocio
+                if (historialId <= 0)
+                    throw new ArgumentException("El ID del historial debe ser mayor que cero");
 
-                return objDetalle.Editar();
+                if (string.IsNullOrWhiteSpace(tipoRegistro))
+                    throw new ArgumentException("El tipo de registro es obligatorio");
+
+                if (string.IsNullOrWhiteSpace(descripcion))
+                    throw new ArgumentException("La descripción es obligatoria");
+
+                if (descripcion.Trim().Length > 1000)
+                    throw new ArgumentException("La descripción no puede superar los 1000 caracteres");
+
+                if (fechaRegistro > DateTime.Now)
+                    throw new ArgumentException("La fecha de registro no puede ser futura");
+
+                if (fechaRegistro < DateTime.Now.AddYears(-10))
+                    throw new ArgumentException("La fecha de registro no puede ser anterior a 10 años");
+
+                if (!string.IsNullOrEmpty(tratamiento) && tratamiento.Trim().Length > 500)
+                    throw new ArgumentException("El tratamiento no puede superar los 500 caracteres");
+
+                if (!string.IsNullOrEmpty(medicamentos) && medicamentos.Trim().Length > 500)
+                    throw new ArgumentException("Los medicamentos no pueden superar los 500 caracteres");
+
+                if (!string.IsNullOrEmpty(observaciones) && observaciones.Trim().Length > 1000)
+                    throw new ArgumentException("Las observaciones no pueden superar los 1000 caracteres");
+
+                // Validar que el tipo de registro sea válido
+                var tiposValidos = ObtenerTiposRegistro();
+                if (!tiposValidos.Contains(tipoRegistro.Trim()))
+                    throw new ArgumentException("El tipo de registro no es válido");
+
+                return _dataHistorial.InsertarDetalleHistorial(
+                    historialId,
+                    tipoRegistro.Trim(),
+                    descripcion.Trim(),
+                    fechaRegistro,
+                    veterinarioId,
+                    tratamiento?.Trim(),
+                    medicamentos?.Trim(),
+                    observaciones?.Trim()
+                );
             }
             catch (Exception ex)
             {
-                return $"Error: {ex.Message}";
+                throw new Exception("Error en capa de negocio al insertar detalle del historial: " + ex.Message);
             }
         }
 
         /// <summary>
-        /// Elimina un detalle de historial médico
+        /// Elimina un detalle de historial
         /// </summary>
-        public static string EliminarDetalle(int id)
+        public bool EliminarDetalleHistorial(int detalleId)
         {
-            if (id <= 0)
-                return "Error: ID de detalle inválido";
-
-            DDetalleHistorial objDetalle = new DDetalleHistorial()
+            try
             {
-                Id = id
-            };
-            return objDetalle.Eliminar();
+                if (detalleId <= 0)
+                    throw new ArgumentException("El ID del detalle debe ser mayor que cero");
+
+                return _dataHistorial.EliminarDetalleHistorial(detalleId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en capa de negocio al eliminar detalle del historial: " + ex.Message);
+            }
         }
 
+        #endregion
+
+        #region Métodos de Apoyo
+
         /// <summary>
-        /// Obtiene todos los detalles de un historial específico
+        /// Obtiene la lista de animales para ComboBox
         /// </summary>
-        public static DataTable ObtenerDetallesPorHistorial(int historialId)
+        public DataTable ObtenerAnimales()
         {
-            if (historialId <= 0)
-                throw new ArgumentException("ID de historial inválido");
-
-            return new DDetalleHistorial().ObtenerPorHistorial(historialId);
+            try
+            {
+                return _dataHistorial.ObtenerAnimales();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en capa de negocio al obtener animales: " + ex.Message);
+            }
         }
 
         /// <summary>
-        /// Obtiene un detalle específico por ID
+        /// Obtiene la lista de veterinarios para ComboBox
         /// </summary>
-        public static DataTable ObtenerDetallePorId(int id)
+        public DataTable ObtenerVeterinarios()
         {
-            if (id <= 0)
-                throw new ArgumentException("ID de detalle inválido");
-
-            return new DDetalleHistorial().ObtenerPorId(id);
+            try
+            {
+                return _dataHistorial.ObtenerVeterinarios();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en capa de negocio al obtener veterinarios: " + ex.Message);
+            }
         }
 
         /// <summary>
-        /// Obtiene todos los veterinarios disponibles
+        /// Obtiene los tipos de registro válidos para detalles de historial
         /// </summary>
-        public static DataTable ObtenerVeterinarios()
-        {
-            return new DDetalleHistorial().ObtenerVeterinarios();
-        }
-
-        /// <summary>
-        /// Obtiene los tipos de eventos válidos
-        /// </summary>
-        public static List<string> ObtenerTiposEvento()
+        public List<string> ObtenerTiposRegistro()
         {
             return new List<string>
             {
                 "Consulta",
-                "Cirugia",
-                "Vacunacion",
+                "Vacunación", 
+                "Cirugía",
+                "Emergencia",
                 "Control",
+                "Examen",
                 "Tratamiento",
-                "Diagnostico"
+                "Observación"
             };
         }
 
-        #endregion
-
-        #region Validaciones de Negocio
-
         /// <summary>
-        /// Valida los datos básicos de un historial médico
+        /// Verifica si existe un historial para un animal específico
         /// </summary>
-        private static bool ValidarHistorial(int animalId, string notasGenerales)
+        public bool ExisteHistorialParaAnimal(int animalId)
         {
-            if (animalId <= 0)
-                return false;
+            try
+            {
+                if (animalId <= 0)
+                    return false;
 
-            if (string.IsNullOrWhiteSpace(notasGenerales))
-                return false;
-
-            if (notasGenerales.Length > 2000)
-                return false;
-
-            return true;
+                return _dataHistorial.ExisteHistorialParaAnimal(animalId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en capa de negocio al verificar historial: " + ex.Message);
+            }
         }
-
-        /// <summary>
-        /// Valida los datos de un detalle de historial
-        /// </summary>
-        private static bool ValidarDetalleHistorial(int historialId, string tipoEvento, DateTime fechaEvento, string observaciones)
-        {
-            if (historialId <= 0)
-                return false;
-
-            if (string.IsNullOrWhiteSpace(tipoEvento))
-                return false;
-
-            // Validar que el tipo de evento sea válido
-            var tiposValidos = ObtenerTiposEvento();
-            if (!tiposValidos.Contains(tipoEvento))
-                return false;
-
-            if (fechaEvento == default(DateTime) || fechaEvento > DateTime.Now)
-                return false;
-
-            if (string.IsNullOrWhiteSpace(observaciones))
-                return false;
-
-            if (observaciones.Length > 1000)
-                return false;
-
-            return true;
-        }
-
-        /// <summary>
-        /// Valida que el peso del animal esté en un rango razonable
-        /// </summary>
-        public static bool ValidarPesoAnimal(decimal? peso)
-        {
-            if (!peso.HasValue)
-                return true; // Peso es opcional
-
-            return peso.Value > 0 && peso.Value <= 999.99m;
-        }
-
-        /// <summary>
-        /// Valida que la temperatura esté en un rango razonable para animales
-        /// </summary>
-        public static bool ValidarTemperatura(decimal? temperatura)
-        {
-            if (!temperatura.HasValue)
-                return true; // Temperatura es opcional
-
-            return temperatura.Value >= 35.0m && temperatura.Value <= 45.0m;
-        }
-
-        /// <summary>
-        /// Valida que el costo sea un valor positivo
-        /// </summary>
-        public static bool ValidarCosto(decimal costo)
-        {
-            return costo >= 0;
-        }
-
-        #endregion
-
-        #region Métodos Auxiliares
 
         /// <summary>
         /// Verifica si un historial tiene detalles asociados
         /// </summary>
-        private static bool TieneDetallesAsociados(int historialId)
+        private bool TieneDetallesAsociados(int historialId)
         {
             try
             {
-                var detalles = ObtenerDetallesPorHistorial(historialId);
+                DataTable detalles = _dataHistorial.ListarDetallesHistorial(historialId);
                 return detalles.Rows.Count > 0;
             }
             catch
@@ -389,45 +353,57 @@ namespace CapaNegocio
             }
         }
 
+        #endregion
+
+        #region Métodos de Validación
+
         /// <summary>
-        /// Obtiene estadísticas generales de historiales médicos
+        /// Valida el formato y contenido de las notas generales
         /// </summary>
-        public static DataTable ObtenerEstadisticas()
+        public bool ValidarNotasGenerales(string notas)
         {
-            DataTable estadisticas = new DataTable();
-            estadisticas.Columns.Add("Concepto", typeof(string));
-            estadisticas.Columns.Add("Valor", typeof(string));
+            if (string.IsNullOrWhiteSpace(notas))
+                return false;
 
-            try
-            {
-                var totalHistoriales = Mostrar().Rows.Count;
-                estadisticas.Rows.Add("Total de Historiales", totalHistoriales.ToString());
+            if (notas.Trim().Length > 2000)
+                return false;
 
-                // Aquí se pueden agregar más estadísticas según se necesite
-            }
-            catch (Exception ex)
-            {
-                estadisticas.Rows.Add("Error", ex.Message);
-            }
+            // Validar que no contenga solo caracteres especiales
+            string notasLimpia = notas.Trim();
+            if (string.IsNullOrWhiteSpace(notasLimpia.Replace(".", "").Replace(",", "").Replace(";", "")))
+                return false;
 
-            return estadisticas;
+            return true;
         }
 
         /// <summary>
-        /// Obtiene el historial completo de un animal específico
+        /// Valida el formato de alergias
         /// </summary>
-        public static DataTable ObtenerHistorialCompletoAnimal(int animalId)
+        public bool ValidarAlergias(string alergias)
         {
-            if (animalId <= 0)
-                throw new ArgumentException("ID de animal inválido");
+            if (string.IsNullOrEmpty(alergias))
+                return true; // Las alergias son opcionales
 
-            // Primero obtener el historial base del animal
-            var historial = new DHistorial().Mostrar();
-            var historialAnimal = historial.AsEnumerable()
-                .Where(row => row.Field<int>("animal_id") == animalId)
-                .CopyToDataTable();
+            return alergias.Trim().Length <= 500;
+        }
 
-            return historialAnimal;
+        /// <summary>
+        /// Valida el formato de condiciones médicas
+        /// </summary>
+        public bool ValidarCondicionesMedicas(string condiciones)
+        {
+            if (string.IsNullOrEmpty(condiciones))
+                return true; // Las condiciones son opcionales
+
+            return condiciones.Trim().Length <= 500;
+        }
+
+        /// <summary>
+        /// Valida una fecha de registro
+        /// </summary>
+        public bool ValidarFechaRegistro(DateTime fecha)
+        {
+            return fecha <= DateTime.Now && fecha >= DateTime.Now.AddYears(-10);
         }
 
         #endregion

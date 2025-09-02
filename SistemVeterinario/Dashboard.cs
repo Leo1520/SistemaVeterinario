@@ -178,11 +178,7 @@ namespace SistemVeterinario
             try
             {
                 CambiarIconoSuperior(IconChar.FileMedical, "Historial Médico");
-                
-                // Usar reflexión para evitar el problema de conversión en tiempo de compilación
-                var tipo = typeof(SistemVeterinario.Forms.HistorialModule);
-                var instancia = (UserControl)Activator.CreateInstance(tipo);
-                SwitchPanel(instancia);
+                SwitchPanel(new HistorialModule());
             }
             catch (Exception ex)
             {
@@ -193,9 +189,16 @@ namespace SistemVeterinario
 
         private void BtnConsultas_Click(object sender, EventArgs e)
         {
-            CambiarIconoSuperior(IconChar.UserMd, "Consultas");
-            MessageBox.Show("Módulo de Consultas - Próximamente", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                CambiarIconoSuperior(IconChar.UserMd, "Consultas y Diagnósticos");
+                SwitchPanel(new ConsultaModule());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar el módulo de Consultas: {ex.Message}\n\nDetalles: {ex.ToString()}", 
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnDashboard_Click(object sender, EventArgs e)
