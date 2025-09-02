@@ -1,11 +1,9 @@
 using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using CapaNegocio;
 using SistemVeterinario.Navigation;
-using System.Collections.Generic;
 
 namespace SistemVeterinario.Forms
 {
@@ -16,11 +14,7 @@ namespace SistemVeterinario.Forms
     public partial class ProductosModule : BaseModulos
     {
         #region Variables Privadas
-        private int _currentProductoId = 0;
-        private int _currentCategoriaId = 0;
-        private string _categoriaFiltroSeleccionada = "";
-        private bool _isEditingCategoria = false;
-        private int _currentCategoriaEditingId = 0;
+        private string _categoriaSeleccionada = "";
         #endregion
 
         #region Constructor
@@ -34,7 +28,6 @@ namespace SistemVeterinario.Forms
             // Configurar botones editables después de la inicialización
             this.Load += (s, e) => {
                 ConfigurarBotonesEditables();
-                OptimizarLayoutPaneles();
             };
             
             // También configurar cuando se cambia a la pestaña de configuración
@@ -44,19 +37,10 @@ namespace SistemVeterinario.Forms
                 {
                     if (this.tabControlPrincipal.SelectedTab == this.tabConfiguraciones)
                     {
-                        // Pequeño delay para que el tab se renderice completamente
-                        var timer = new System.Windows.Forms.Timer();
-                        timer.Interval = 50;
-                        timer.Tick += (ts, te) =>
-                        {
-                            timer.Stop();
-                            ConfigurarBotonesEditables();
-                        };
-                        timer.Start();
+                        ConfigurarBotonesEditables();
                     }
                     else if (this.tabControlPrincipal.SelectedTab == this.tabInicio)
                     {
-                        // Optimizar layout cuando se va al tab de inicio
                         OptimizarLayoutPaneles();
                     }
                 };
@@ -70,121 +54,71 @@ namespace SistemVeterinario.Forms
         #region Configuración Inicial
         private void ConfigurarModulo()
         {
-            try
-            {
-                // Configurar controles solo después de que estén inicializados
-                this.Load += (s, e) =>
-                {
-                    ConfigurarControlesEspecificos();
-                    ConfigurarEventosEspecificos();
-                    ConfigurarControlesIniciales();
-                    ConfigurarEventosCategoria();
-                };
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error configurando módulo: {ex.Message}", "Error", MessageBoxIcon.Error);
-            }
+            // Configurar ComboBox de categoría filtro
+            cmbCategoriaFiltro.Items.Clear();
+            cmbCategoriaFiltro.Items.Add("Todas");
+            CargarCategorias(cmbCategoriaFiltro);
+            cmbCategoriaFiltro.SelectedIndex = 0;
+
+            // Configurar ComboBox de categoría para formulario
+            cmbCategoria.Items.Clear();
+            CargarCategorias(cmbCategoria);
+            if (cmbCategoria.Items.Count > 0)
+                cmbCategoria.SelectedIndex = 0;
+
+            // Configurar eventos
+            cmbCategoriaFiltro.SelectedIndexChanged += CmbCategoriaFiltro_SelectedIndexChanged;
+            btnGenerarCodigo.Click += BtnGenerarCodigo_Click;
+            btnNuevaCategoria.Click += BtnNuevaCategoria_Click;
+            btnStockBajo.Click += BtnStockBajo_Click;
+
+            // Configurar valores por defecto de NumericUpDown
+            nudPrecio.DecimalPlaces = 2;
+            nudPrecio.Minimum = 0;
+            nudPrecio.Maximum = 999999;
+            
+            nudStockMinimo.Minimum = 0;
+            nudStockMinimo.Maximum = 99999;
+            
+            nudStockActual.Minimum = 0;
+            nudStockActual.Maximum = 99999;
+
+            // Configurar gestión de categorías
+            ConfigurarGestionCategorias();
         }
 
-        private void ConfigurarControlesEspecificos()
+        private void ConfigurarGestionCategorias()
         {
-            try
-            {
-                // Configurar NumericUpDown
-                if (nudPrecio != null)
-                {
-                    nudPrecio.DecimalPlaces = 2;
-                    nudPrecio.Maximum = 999999.99m;
-                    nudPrecio.Minimum = 0.01m;
-                    nudPrecio.Value = 0.01m;
-                }
+            // Configurar eventos para gestión de categorías
+            btnNuevaConfigCat.Click += BtnNuevaConfigCat_Click;
+            btnGuardarCategoria.Click += BtnGuardarCategoria_Click;
+            btnEditarCategoria.Click += BtnEditarCategoria_Click;
+            btnEliminarCategoria.Click += BtnEliminarCategoria_Click;
+            btnCancelarCategoria.Click += BtnCancelarCategoria_Click;
+            btnInicializarCategorias.Click += BtnInicializarCategorias_Click;
 
-                if (nudStockMinimo != null)
-                {
-                    nudStockMinimo.Maximum = 99999;
-                    nudStockMinimo.Minimum = 0;
-                    nudStockMinimo.Value = 5;
-                }
-
-                if (nudStockActual != null)
-                {
-                    nudStockActual.Maximum = 99999;
-                    nudStockActual.Minimum = 0;
-                    nudStockActual.Value = 0;
-                }
-
-                // Cargar categorías
-                CargarCategorias();
-
-                // Configurar filtro de categorías inicial
-                if (cmbCategoriaFiltro != null)
-                {
-                    // El filtro se cargará automáticamente cuando se carguen las categorías
-                    ConfigurarFiltroCategoria();
-                }
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error configurando controles: {ex.Message}", "Error", MessageBoxIcon.Error);
-            }
-        }
-
-        private void ConfigurarEventosEspecificos()
-        {
-            try
-            {
-                if (btnGenerarCodigo != null) btnGenerarCodigo.Click += BtnGenerarCodigo_Click;
-                if (btnNuevaCategoria != null) btnNuevaCategoria.Click += BtnNuevaCategoria_Click;
-                if (btnStockBajo != null) btnStockBajo.Click += BtnStockBajo_Click;
-                if (txtNombre != null) txtNombre.TextChanged += TxtNombre_TextChanged;
-                if (cmbCategoria != null) cmbCategoria.SelectedIndexChanged += CmbCategoria_SelectedIndexChanged;
-
-                // Configurar eventos del DataGridView
-                if (dgvDatos != null)
-                {
-                    dgvDatos.CellFormatting += DgvDatos_CellFormatting;
-                    dgvDatos.DataSourceChanged += DgvDatos_DataSourceChanged;
-                    dgvDatos.DataError += DgvDatos_DataError;
-                }
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error configurando eventos: {ex.Message}", "Error", MessageBoxIcon.Error);
-            }
-        }
-
-        private void ConfigurarControlesIniciales()
-        {
-            LimpiarFormulario();
+            // Cargar categorías en el DataGridView
+            CargarDatosCategorias();
         }
 
         private void ConfigurarValidacionEnTiempoReal()
         {
-            // Validación de campos en tiempo real
-            if (txtNombre != null)
-            {
-                txtNombre.TextChanged += (s, e) => ValidarCampoObligatorio(txtNombre, lblNombre);
-                txtNombre.Leave += (s, e) => ValidarCampoCompleto(txtNombre, "nombre");
-            }
+            // Validación de código - solo alfanumérico
+            txtCodigo.KeyPress += (s, e) => ValidarCodigoAlphaNumerico(s, e);
+            txtCodigo.Leave += (s, e) => ValidarCampoCompleto(txtCodigo, "codigo");
+            
+            // Validación de nombre - obligatorio
+            txtNombre.Leave += (s, e) => ValidarCampoObligatorio(txtNombre, lblNombre);
+            
+            // Validación de stock - alertar si stock actual < stock mínimo
+            nudStockActual.ValueChanged += (s, e) => ValidarStock();
+            nudStockMinimo.ValueChanged += (s, e) => ValidarStock();
+            
+            // Validación de precio - debe ser mayor a 0
+            nudPrecio.ValueChanged += (s, e) => ValidarPrecio();
 
-            if (txtCodigo != null)
-            {
-                txtCodigo.Leave += (s, e) => ValidarCampoCompleto(txtCodigo, "codigo");
-            }
-
-            // Validación de precio
-            if (nudPrecio != null)
-            {
-                nudPrecio.ValueChanged += (s, e) => ValidarPrecio();
-            }
-
-            // Validación de stock
-            if (nudStockActual != null && nudStockMinimo != null)
-            {
-                nudStockActual.ValueChanged += (s, e) => ValidarStock();
-                nudStockMinimo.ValueChanged += (s, e) => ValidarStock();
-            }
+            // Validación para categorías
+            txtNombreCategoria.Leave += (s, e) => ValidarCampoObligatorio(txtNombreCategoria, lblNombreCategoria);
         }
 
         private void ConfigurarEstilosModernos()
@@ -195,25 +129,13 @@ namespace SistemVeterinario.Forms
             ConfigurarEfectoHover(btnGenerarCodigo);
             ConfigurarEfectoHover(btnNuevaCategoria);
             ConfigurarEfectoHover(btnStockBajo);
-
-            // Aplicar efectos de enfoque a los controles
+            
+            // Aplicar efectos de enfoque a los TextBox
             AplicarEfectosFocusTextBox(txtCodigo);
             AplicarEfectosFocusTextBox(txtNombre);
             AplicarEfectosFocusTextBox(txtDescripcion);
-
-            // Configurar filtro de categoría
-            ConfigurarFiltroCategoria();
-        }
-
-        private void ConfigurarFiltroCategoria()
-        {
-            if (cmbCategoriaFiltro != null)
-            {
-                cmbCategoriaFiltro.Items.Clear();
-                cmbCategoriaFiltro.Items.Add("Todas las categorías");
-                cmbCategoriaFiltro.SelectedIndex = 0;
-                cmbCategoriaFiltro.SelectedIndexChanged += CmbCategoriaFiltro_SelectedIndexChanged;
-            }
+            AplicarEfectosFocusTextBox(txtNombreCategoria);
+            AplicarEfectosFocusTextBox(txtDescripcionCategoria);
         }
 
         private void ConfigurarBotonesEditables()
@@ -228,67 +150,18 @@ namespace SistemVeterinario.Forms
             timer.Tick += (s, e) =>
             {
                 timer.Stop();
+                timer.Dispose();
                 
                 try
                 {
-                    // Configurar propiedades básicas primero
-                    var buttonWidth = 100;
-                    var buttonHeight = 35;
-                    var spacing = 15;
-                    
-                    // Asegurar que los botones estén en el tab correcto
-                    if (this.tabConfiguraciones != null)
-                    {
-                        // Remover de cualquier contenedor anterior
-                        if (this.btnEliminar.Parent != this.tabConfiguraciones)
-                            this.tabConfiguraciones.Controls.Add(this.btnEliminar);
-                        if (this.btnCancelar.Parent != this.tabConfiguraciones)
-                            this.tabConfiguraciones.Controls.Add(this.btnCancelar);
-                        if (this.btnGuardar.Parent != this.tabConfiguraciones)
-                            this.tabConfiguraciones.Controls.Add(this.btnGuardar);
-                        
-                        var tabWidth = this.tabConfiguraciones.ClientSize.Width;
-                        var tabHeight = this.tabConfiguraciones.ClientSize.Height;
-                        
-                        // Calcular posición centrada más robusta
-                        var totalWidth = (buttonWidth * 3) + (spacing * 2);
-                        var startX = Math.Max(10, (tabWidth - totalWidth) / 2);
-                        var buttonY = Math.Max(10, tabHeight - 60); // 60px desde el bottom
-                        
-                        // Configurar btnEliminar
-                        this.btnEliminar.Size = new Size(buttonWidth, buttonHeight);
-                        this.btnEliminar.Location = new Point(startX, buttonY);
-                        this.btnEliminar.Visible = true;
-                        this.btnEliminar.Enabled = true;
-                        this.btnEliminar.BringToFront();
-                        this.btnEliminar.TabIndex = 0;
-                        
-                        // Configurar btnCancelar
-                        this.btnCancelar.Size = new Size(buttonWidth, buttonHeight);
-                        this.btnCancelar.Location = new Point(startX + buttonWidth + spacing, buttonY);
-                        this.btnCancelar.Visible = true;
-                        this.btnCancelar.Enabled = true;
-                        this.btnCancelar.BringToFront();
-                        this.btnCancelar.TabIndex = 1;
-                        
-                        // Configurar btnGuardar
-                        this.btnGuardar.Size = new Size(buttonWidth, buttonHeight);
-                        this.btnGuardar.Location = new Point(startX + (buttonWidth + spacing) * 2, buttonY);
-                        this.btnGuardar.Visible = true;
-                        this.btnGuardar.Enabled = true;
-                        this.btnGuardar.BringToFront();
-                        this.btnGuardar.TabIndex = 2;
-                        
-                        // Forzar actualización
-                        this.tabConfiguraciones.Refresh();
-                    }
+                    this.btnEliminar.Visible = true; // En productos sí permitimos eliminar
+                    this.btnEliminar.Enabled = ModoEdicion;
+                    this.btnGuardar.Enabled = true;
+                    this.btnCancelar.Enabled = true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Si hay algún error, al menos hacer los botones visibles
-                    this.btnEliminar.Visible = true;
-                    this.btnCancelar.Visible = true;
-                    this.btnGuardar.Visible = true;
+                    System.Diagnostics.Debug.WriteLine($"Error configurando botones: {ex.Message}");
                 }
             };
             timer.Start();
@@ -300,83 +173,16 @@ namespace SistemVeterinario.Forms
             {
                 if (this.tabInicio != null && this.panelBusqueda != null && this.dgvDatos != null)
                 {
-                    // Obtener el tamaño disponible del tab
-                    var tabWidth = this.tabInicio.ClientSize.Width;
-                    var tabHeight = this.tabInicio.ClientSize.Height;
-                    
-                    // Configurar panel de búsqueda
-                    var margin = 10;
-                    var panelBusquedaHeight = 80; // Altura óptima para el panel de búsqueda
-                    
-                    this.panelBusqueda.Location = new Point(margin, margin);
-                    this.panelBusqueda.Size = new Size(tabWidth - (margin * 2), panelBusquedaHeight);
-                    this.panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                    
-                    // Configurar DataGridView para ocupar todo el espacio restante
-                    var dgvTop = this.panelBusqueda.Bottom + margin;
-                    var dgvHeight = tabHeight - dgvTop - margin;
-                    
-                    this.dgvDatos.Location = new Point(margin, dgvTop);
-                    this.dgvDatos.Size = new Size(tabWidth - (margin * 2), dgvHeight);
-                    this.dgvDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-                    
-                    // Asegurar que el DataGridView llene completamente el espacio
-                    this.dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    
-                    // Optimizar la visualización de las columnas específicas para productos
                     if (this.dgvDatos.Columns.Count > 0)
                     {
-                        // Configuración específica para columnas de productos
-                        foreach (DataGridViewColumn column in this.dgvDatos.Columns)
-                        {
-                            // Configurar anchos mínimos específicos para productos
-                            switch (column.Name.ToLower())
-                            {
-                                case "codigo":
-                                case "código":
-                                    column.MinimumWidth = 80;
-                                    column.FillWeight = 80;
-                                    break;
-                                case "nombre":
-                                    column.MinimumWidth = 150;
-                                    column.FillWeight = 150;
-                                    break;
-                                case "descripcion":
-                                case "descripción":
-                                    column.MinimumWidth = 200;
-                                    column.FillWeight = 200;
-                                    break;
-                                case "precio":
-                                    column.MinimumWidth = 80;
-                                    column.FillWeight = 80;
-                                    break;
-                                case "stock":
-                                    column.MinimumWidth = 60;
-                                    column.FillWeight = 60;
-                                    break;
-                                case "categoria":
-                                case "categoría":
-                                    column.MinimumWidth = 120;
-                                    column.FillWeight = 120;
-                                    break;
-                                default:
-                                    column.MinimumWidth = 100;
-                                    column.FillWeight = 100;
-                                    break;
-                            }
-                            column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                        }
+                        // Optimizar ancho de columnas según el contenido
+                        this.dgvDatos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
                     }
-                    
-                    // Forzar actualización visual
-                    this.tabInicio.Invalidate();
-                    this.Refresh();
                 }
             }
             catch (Exception ex)
             {
-                // Error silencioso para no interrumpir la funcionalidad
-                System.Diagnostics.Debug.WriteLine($"Error optimizando layout de productos: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error optimizando layout: {ex.Message}");
             }
         }
         #endregion
@@ -384,20 +190,13 @@ namespace SistemVeterinario.Forms
         #region Métodos Override de BaseModulos
         protected override void OnLoad()
         {
-            try
-            {
-                CargarDatos();
-                CargarDatosCategorias();
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error en OnLoad: {ex.Message}", "Error", MessageBoxIcon.Error);
-            }
+            CargarDatos();
         }
 
         protected override void OnBuscar()
         {
-            string textoBuscar = txtBuscar?.Text?.Trim() ?? string.Empty;
+            string textoBuscar = txtBuscar.Text.Trim();
+            string categoriaFiltro = cmbCategoriaFiltro.SelectedItem?.ToString() ?? "Todas";
 
             try
             {
@@ -405,30 +204,31 @@ namespace SistemVeterinario.Forms
 
                 if (!string.IsNullOrEmpty(textoBuscar))
                 {
+                    // Buscar por texto
                     datos = NProductos.BuscarPorNombre(textoBuscar);
-                    datos.TableName = "ProductosBuscados"; // Nombre descriptivo
+                }
+                else if (categoriaFiltro != "Todas")
+                {
+                    // Filtrar por categoría - obtener ID de categoría
+                    int categoriaId = ObtenerIdCategoriaPorNombre(categoriaFiltro);
+                    if (categoriaId > 0)
+                        datos = NProductos.BuscarPorCategoria(categoriaId);
+                    else
+                        datos = NProductos.Mostrar();
                 }
                 else
                 {
+                    // Mostrar todos
                     datos = NProductos.Mostrar();
-                    datos.TableName = "Productos"; // Nombre descriptivo
                 }
 
-                if (datos != null)
-                {
-                    base.CargarDatos(datos);
-                    ActualizarContadorRegistros(datos.Rows.Count);
-                    ConfigurarColumnasDataGridView();
-                }
-                else
-                {
-                    ActualizarContadorRegistros(0);
-                }
+                CargarDatos(datos);
+                PersonalizarColumnasProductos();
+                ActualizarContadorRegistros(datos.Rows.Count);
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error al buscar: {ex.Message}", "Error", MessageBoxIcon.Error);
-                ActualizarContadorRegistros(0);
+                MostrarMensaje($"Error al buscar productos: {ex.Message}", "Error", MessageBoxIcon.Error);
             }
         }
 
@@ -436,10 +236,7 @@ namespace SistemVeterinario.Forms
         {
             base.OnNuevo();
             LimpiarFormulario();
-            if (cmbCategoria != null && cmbCategoria.Items.Count > 0)
-            {
-                cmbCategoria.SelectedIndex = 0;
-            }
+            GenerarCodigoAutomatico();
         }
 
         protected override void OnGuardar()
@@ -449,46 +246,50 @@ namespace SistemVeterinario.Forms
 
             try
             {
-                string resultado = "";
-                string codigo = txtCodigo?.Text?.Trim() ?? "";
-                string nombre = txtNombre?.Text?.Trim() ?? "";
-                string descripcion = txtDescripcion?.Text?.Trim() ?? "";
-                decimal precio = nudPrecio?.Value ?? 0;
-                int stockMinimo = (int)(nudStockMinimo?.Value ?? 0);
-                int stockActual = (int)(nudStockActual?.Value ?? 0);
-                bool requiereReceta = chkRequiereReceta?.Checked ?? false;
-                int categoriaId = 0;
-
-                if (cmbCategoria?.SelectedValue != null)
-                {
-                    int.TryParse(cmbCategoria.SelectedValue.ToString(), out categoriaId);
-                }
+                string resultado;
 
                 if (ModoEdicion)
                 {
-                    resultado = NProductos.Editar(_currentProductoId, codigo, nombre, precio, categoriaId,
-                        descripcion, stockMinimo, stockActual, requiereReceta);
+                    resultado = NProductos.Editar(
+                        IdSeleccionado,
+                        txtCodigo.Text.Trim(),
+                        txtNombre.Text.Trim(),
+                        nudPrecio.Value,
+                        ObtenerIdCategoriaSeleccionada(),
+                        txtDescripcion.Text.Trim(),
+                        (int)nudStockMinimo.Value,
+                        (int)nudStockActual.Value,
+                        chkRequiereReceta.Checked
+                    );
                 }
                 else
                 {
-                    resultado = NProductos.Insertar(codigo, nombre, precio, categoriaId,
-                        descripcion, stockMinimo, stockActual, requiereReceta);
+                    resultado = NProductos.Insertar(
+                        txtCodigo.Text.Trim(),
+                        txtNombre.Text.Trim(),
+                        nudPrecio.Value,
+                        ObtenerIdCategoriaSeleccionada(),
+                        txtDescripcion.Text.Trim(),
+                        (int)nudStockMinimo.Value,
+                        (int)nudStockActual.Value,
+                        chkRequiereReceta.Checked
+                    );
                 }
 
-                if (resultado == "OK" || resultado.Contains("exitosamente"))
+                if (resultado == "OK" || resultado.Contains("actualizado exitosamente") || resultado.Contains("creado exitosamente"))
                 {
-                    MostrarMensaje(ModoEdicion ? "Producto actualizado exitosamente" : "Producto registrado exitosamente");
-                    OnCancelar();
-                    OnBuscar();
+                    MostrarMensaje("Producto guardado exitosamente", "Éxito", MessageBoxIcon.Information);
+                    OnCancelar(); // Volver al inicio
+                    OnBuscar(); // Refrescar la lista
                 }
                 else
                 {
-                    MostrarMensaje($"Error: {resultado}", "Error", MessageBoxIcon.Error);
+                    MostrarMensaje($"Error al guardar: {resultado}", "Error", MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error al guardar: {ex.Message}", "Error", MessageBoxIcon.Error);
+                MostrarMensaje($"Error al guardar producto: {ex.Message}", "Error", MessageBoxIcon.Error);
             }
         }
 
@@ -500,7 +301,7 @@ namespace SistemVeterinario.Forms
 
                 if (resultado == "OK")
                 {
-                    MostrarMensaje("Producto eliminado correctamente");
+                    MostrarMensaje("Producto eliminado exitosamente", "Éxito", MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -509,7 +310,7 @@ namespace SistemVeterinario.Forms
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error al eliminar: {ex.Message}", "Error", MessageBoxIcon.Error);
+                MostrarMensaje($"Error al eliminar producto: {ex.Message}", "Error", MessageBoxIcon.Error);
             }
         }
 
@@ -518,181 +319,82 @@ namespace SistemVeterinario.Forms
             try
             {
                 DataTable datos = NProductos.ObtenerPorId(id);
-                datos.TableName = "ProductoPorId"; // Nombre descriptivo
-
+                
                 if (datos.Rows.Count > 0)
                 {
                     DataRow row = datos.Rows[0];
 
-                    _currentProductoId = id;
+                    txtCodigo.Text = row["codigo"].ToString();
+                    txtNombre.Text = row["nombre"].ToString();
+                    txtDescripcion.Text = row["descripcion"].ToString();
+                    nudPrecio.Value = Convert.ToDecimal(row["precio"]);
+                    nudStockMinimo.Value = Convert.ToInt32(row["stock_minimo"]);
+                    nudStockActual.Value = Convert.ToInt32(row["stock_actual"]);
+                    chkRequiereReceta.Checked = Convert.ToBoolean(row["requiere_receta"]);
 
-                    // Cargar datos básicos
-                    if (txtCodigo != null) txtCodigo.Text = row["codigo"]?.ToString() ?? string.Empty;
-                    if (txtNombre != null) txtNombre.Text = row["nombre"]?.ToString() ?? string.Empty;
-                    if (txtDescripcion != null) txtDescripcion.Text = row["descripcion"]?.ToString() ?? string.Empty;
-
-                    // Configurar precio
-                    if (row["precio"] != DBNull.Value && row["precio"] != null && nudPrecio != null)
+                    // Seleccionar la categoría correspondiente
+                    if (row["categoria_id"] != DBNull.Value)
                     {
-                        nudPrecio.Value = Convert.ToDecimal(row["precio"]);
-                    }
-
-                    // Configurar stock
-                    if (row["stock_minimo"] != DBNull.Value && nudStockMinimo != null)
-                    {
-                        nudStockMinimo.Value = Convert.ToDecimal(row["stock_minimo"]);
-                    }
-
-                    if (row["stock_actual"] != DBNull.Value && nudStockActual != null)
-                    {
-                        nudStockActual.Value = Convert.ToDecimal(row["stock_actual"]);
-                    }
-
-                    // Configurar requiere receta
-                    if (row["requiere_receta"] != DBNull.Value && chkRequiereReceta != null)
-                    {
-                        chkRequiereReceta.Checked = Convert.ToBoolean(row["requiere_receta"]);
-                    }
-
-                    // Seleccionar categoría
-                    if (cmbCategoria != null)
-                    {
-                        var categoriaId = row["categoria_id"];
-                        if (categoriaId != null && categoriaId != DBNull.Value)
+                        int categoriaId = Convert.ToInt32(row["categoria_id"]);
+                        for (int i = 0; i < cmbCategoria.Items.Count; i++)
                         {
-                            _currentCategoriaId = Convert.ToInt32(categoriaId);
-                            cmbCategoria.SelectedValue = _currentCategoriaId;
+                            if (((DataRowView)cmbCategoria.Items[i])["id"].ToString() == categoriaId.ToString())
+                            {
+                                cmbCategoria.SelectedIndex = i;
+                                break;
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error al cargar datos: {ex.Message}", "Error", MessageBoxIcon.Error);
+                MostrarMensaje($"Error al cargar datos del producto: {ex.Message}", "Error", MessageBoxIcon.Error);
             }
         }
 
         protected override void LimpiarFormulario()
         {
-            // Limpiar campos de producto
-            if (txtCodigo != null) txtCodigo.Text = "";
-            if (txtNombre != null) txtNombre.Text = "";
-            if (txtDescripcion != null) txtDescripcion.Text = "";
-            if (nudPrecio != null) nudPrecio.Value = 0.01m;
-            if (nudStockMinimo != null) nudStockMinimo.Value = 5;
-            if (nudStockActual != null) nudStockActual.Value = 0;
-            if (chkRequiereReceta != null) chkRequiereReceta.Checked = false;
-            if (cmbCategoria != null && cmbCategoria.Items.Count > 0) cmbCategoria.SelectedIndex = 0;
+            // Limpiar campos del producto
+            txtCodigo.Text = "";
+            txtNombre.Text = "";
+            txtDescripcion.Text = "";
+            nudPrecio.Value = 0;
+            nudStockMinimo.Value = 0;
+            nudStockActual.Value = 0;
+            chkRequiereReceta.Checked = false;
+            
+            if (cmbCategoria.Items.Count > 0)
+                cmbCategoria.SelectedIndex = 0;
+        }
 
-            _currentProductoId = 0;
-            _currentCategoriaId = 0;
+        protected override void OnCambioModo(bool esEdicion)
+        {
+            base.OnCambioModo(esEdicion);
+            // En productos permitimos eliminar
+            if (btnEliminar != null)
+                btnEliminar.Visible = esEdicion;
         }
         #endregion
 
-        #region Eventos Específicos de Productos
+        #region Eventos
+        private void CmbCategoriaFiltro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Filtrar automáticamente cuando cambie la categoría
+            OnBuscar();
+        }
+
         private void BtnGenerarCodigo_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string nombre = txtNombre?.Text?.Trim() ?? "";
-                string categoria = cmbCategoria?.Text?.Trim() ?? "";
-
-                if (string.IsNullOrEmpty(nombre))
-                {
-                    MostrarMensaje("Ingrese primero el nombre del producto", "Información", MessageBoxIcon.Information);
-                    return;
-                }
-
-                string codigoGenerado = NProductos.GenerarCodigoAutomatico(nombre, categoria);
-                if (txtCodigo != null)
-                {
-                    txtCodigo.Text = codigoGenerado;
-                }
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error generando código: {ex.Message}", "Error", MessageBoxIcon.Error);
-            }
+            GenerarCodigoAutomatico();
         }
 
         private void BtnNuevaCategoria_Click(object sender, EventArgs e)
         {
-            try
+            // Cambiar a la pestaña de gestión de categorías
+            if (tabControlPrincipal.TabPages.Count > 2)
             {
-                using (var frmCategoria = new NuevaCategoriaDialog())
-                {
-                    if (frmCategoria.ShowDialog() == DialogResult.OK)
-                    {
-                        // Recargar categorías sin mostrar el mensaje de inicialización
-                        CargarCategoriassilencioso();
-
-                        // Seleccionar la nueva categoría si fue creada
-                        if (frmCategoria.CategoriaCreatedId > 0 && cmbCategoria != null)
-                        {
-                            cmbCategoria.SelectedValue = frmCategoria.CategoriaCreatedId;
-                        }
-
-                        MostrarMensaje("Categoría creada exitosamente", "Éxito", MessageBoxIcon.Information);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error creando categoría: {ex.Message}", "Error", MessageBoxIcon.Error);
-            }
-        }
-
-        private void CargarCategoriassilencioso()
-        {
-            try
-            {
-                if (cmbCategoria == null) return;
-
-                cmbCategoria.Items.Clear();
-                cmbCategoria.DisplayMember = "nombre";
-                cmbCategoria.ValueMember = "id";
-
-                DataTable categorias = NProductos.ObtenerCategorias();
-                categorias.TableName = "Categorias"; // Nombre descriptivo
-
-                // Si no hay categorías, intentar crear las categorías iniciales automáticamente
-                if (categorias == null || categorias.Rows.Count == 0)
-                {
-                    bool categoriasCreadas = NProductos.VerificarYCrearCategoriasIniciales();
-
-                    if (categoriasCreadas)
-                    {
-                        // Recargar categorías después de crearlas
-                        categorias = NProductos.ObtenerCategorias();
-                        categorias.TableName = "Categorias"; // Nombre descriptivo
-
-                        if (categorias != null && categorias.Rows.Count > 0)
-                        {
-                            cmbCategoria.DataSource = categorias;
-                            cmbCategoria.SelectedIndex = 0;
-
-                            // Mensaje informativo mejorado
-                            MostrarMensaje("Se han creado las categorías veterinarias básicas automáticamente.\n" +
-                                         "Puede agregar más categorías usando el botón 'Nueva'.",
-                                         "Categorías Inicializadas", MessageBoxIcon.Information);
-                        }
-                    }
-                    else
-                    {
-                        MostrarMensaje("No se pudieron crear las categorías automáticamente.\n" +
-                                     "Use el botón 'Nueva' para crear categorías manualmente.",
-                                     "Error de Inicialización", MessageBoxIcon.Warning);
-                    }
-                }
-                else
-                {
-                    cmbCategoria.DataSource = categorias;
-                    cmbCategoria.SelectedIndex = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error cargando categorías: {ex.Message}", "Error", MessageBoxIcon.Error);
+                tabControlPrincipal.SelectedIndex = 2; // Asumiendo que es la tercera pestaña
             }
         }
 
@@ -701,155 +403,129 @@ namespace SistemVeterinario.Forms
             try
             {
                 DataTable datos = NProductos.ObtenerProductosBajoStock();
-                if (datos != null)
-                {
-                    base.CargarDatos(datos);
-                    ConfigurarColumnasDataGridView();
-                    ActualizarContadorRegistros(datos.Rows.Count);
-
-                    if (datos.Rows.Count == 0)
-                    {
-                        MostrarMensaje("No hay productos con stock bajo", "Información", MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MostrarMensaje($"Se encontraron {datos.Rows.Count} productos con stock bajo", "Stock Bajo", MessageBoxIcon.Warning);
-                    }
-                }
+                CargarDatos(datos);
+                PersonalizarColumnasProductos();
+                ActualizarContadorRegistros(datos.Rows.Count);
+                
+                MostrarMensaje($"Se encontraron {datos.Rows.Count} productos con stock bajo", "Información", MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error obteniendo productos con stock bajo: {ex.Message}", "Error", MessageBoxIcon.Error);
+                MostrarMensaje($"Error al obtener productos con stock bajo: {ex.Message}", "Error", MessageBoxIcon.Error);
             }
         }
 
-        private void TxtNombre_TextChanged(object sender, EventArgs e)
+        // Eventos para gestión de categorías
+        private void BtnNuevaConfigCat_Click(object sender, EventArgs e)
         {
-            // Actualizar sugerencia de código si está vacío
-            if (string.IsNullOrEmpty(txtCodigo?.Text))
-            {
-                // Mostrar vista previa del código que se generaría
-                // Esto es opcional, solo para UX
-            }
+            LimpiarFormularioCategoria();
+            HabilitarFormularioCategoria(true);
         }
 
-        private void CmbCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        private void BtnGuardarCategoria_Click(object sender, EventArgs e)
         {
+            if (!ValidarCamposCategoria())
+                return;
+
             try
             {
-                if (cmbCategoria?.SelectedValue != null)
+                string resultado = NProductos.CrearCategoria(
+                    txtNombreCategoria.Text.Trim(),
+                    txtDescripcionCategoria.Text.Trim()
+                );
+
+                if (resultado == "OK")
                 {
-                    int.TryParse(cmbCategoria.SelectedValue.ToString(), out _currentCategoriaId);
+                    MostrarMensaje("Categoría guardada exitosamente", "Éxito", MessageBoxIcon.Information);
+                    CargarDatosCategorias();
+                    ActualizarComboBoxCategorias();
+                    LimpiarFormularioCategoria();
+                    HabilitarFormularioCategoria(false);
+                }
+                else
+                {
+                    MostrarMensaje($"Error al guardar categoría: {resultado}", "Error", MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error cambiando categoría: {ex.Message}");
+                MostrarMensaje($"Error al guardar categoría: {ex.Message}", "Error", MessageBoxIcon.Error);
             }
         }
 
-        private void DgvDatos_DataSourceChanged(object sender, EventArgs e)
+        private void BtnEditarCategoria_Click(object sender, EventArgs e)
         {
-            ConfigurarColumnasDataGridView();
+            if (dgvCategorias.SelectedRows.Count == 0)
+            {
+                MostrarMensaje("Seleccione una categoría para editar", "Información", MessageBoxIcon.Information);
+                return;
+            }
+
+            // Cargar datos de la categoría seleccionada para edición
+            DataGridViewRow row = dgvCategorias.SelectedRows[0];
+            txtNombreCategoria.Text = row.Cells["nombre"].Value?.ToString() ?? "";
+            txtDescripcionCategoria.Text = row.Cells["descripcion"].Value?.ToString() ?? "";
+            
+            HabilitarFormularioCategoria(true);
         }
 
-        private void DgvDatos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void BtnEliminarCategoria_Click(object sender, EventArgs e)
         {
-            try
+            if (dgvCategorias.SelectedRows.Count == 0)
             {
-                if (dgvDatos?.Columns[e.ColumnIndex].Name == "estado_stock" && e.Value != null && e.Value != DBNull.Value)
-                {
-                    string estado = e.Value.ToString() ?? "";
-                    if (e.CellStyle != null)
-                    {
-                        switch (estado.ToLower())
-                        {
-                            case "sin stock":
-                                e.CellStyle.BackColor = Color.LightCoral;
-                                e.CellStyle.ForeColor = Color.DarkRed;
-                                break;
-                            case "stock bajo":
-                                e.CellStyle.BackColor = Color.LightYellow;
-                                e.CellStyle.ForeColor = Color.DarkOrange;
-                                break;
-                            case "stock ok":
-                                e.CellStyle.BackColor = Color.LightGreen;
-                                e.CellStyle.ForeColor = Color.DarkGreen;
-                                break;
-                            default:
-                                e.CellStyle.BackColor = Color.White;
-                                e.CellStyle.ForeColor = Color.Black;
-                                break;
-                        }
-                    }
-                }
-
-                if (dgvDatos?.Columns[e.ColumnIndex].Name == "requiere_receta" && e.Value != null && e.Value != DBNull.Value)
-                {
-                    if (bool.TryParse(e.Value.ToString(), out bool requiere))
-                    {
-                        e.Value = requiere ? "Sí" : "No";
-                        e.FormattingApplied = true;
-                    }
-                    else
-                    {
-                        // Si no se puede convertir, mostrar valor por defecto
-                        e.Value = "No";
-                        e.FormattingApplied = true;
-                    }
-                }
-
-                if (dgvDatos?.Columns[e.ColumnIndex].Name == "precio" && e.Value != null && e.Value != DBNull.Value)
-                {
-                    if (decimal.TryParse(e.Value.ToString(), out decimal precio))
-                    {
-                        e.Value = precio.ToString("C2");
-                        e.FormattingApplied = true;
-                    }
-                    else
-                    {
-                        e.Value = "$0.00";
-                        e.FormattingApplied = true;
-                    }
-                }
+                MostrarMensaje("Seleccione una categoría para eliminar", "Información", MessageBoxIcon.Information);
+                return;
             }
-            catch (Exception ex)
+
+            DataGridViewRow row = dgvCategorias.SelectedRows[0];
+            int idCategoria = Convert.ToInt32(row.Cells["id"].Value);
+            string nombreCategoria = row.Cells["nombre"].Value?.ToString() ?? "";
+
+            var resultado = MostrarConfirmacion(
+                $"¿Está seguro que desea eliminar la categoría '{nombreCategoria}'?",
+                "Confirmar eliminación"
+            );
+
+            if (resultado == DialogResult.Yes)
             {
-                System.Diagnostics.Debug.WriteLine($"Error en CellFormatting: {ex.Message}");
-                // En caso de error, no aplicar formato personalizado
-                e.FormattingApplied = false;
+                try
+                {
+                    // Por ahora mostrar mensaje que no está implementado
+                    MostrarMensaje("La eliminación de categorías no está implementada por seguridad.", "Información", MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MostrarMensaje($"Error al eliminar categoría: {ex.Message}", "Error", MessageBoxIcon.Error);
+                }
             }
         }
 
-        private void DgvDatos_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void BtnCancelarCategoria_Click(object sender, EventArgs e)
         {
-            try
+            LimpiarFormularioCategoria();
+            HabilitarFormularioCategoria(false);
+        }
+
+        private void BtnInicializarCategorias_Click(object sender, EventArgs e)
+        {
+            var resultado = MostrarConfirmacion(
+                "¿Desea inicializar las categorías predeterminadas? Esto agregará categorías básicas si no existen.",
+                "Confirmar inicialización"
+            );
+
+            if (resultado == DialogResult.Yes)
             {
-                string columnName = dgvDatos.Columns[e.ColumnIndex].Name;
-                string errorMsg = e.Exception != null ? $"Error en columna '{columnName}', fila {e.RowIndex + 1}: {e.Exception.Message}" : string.Empty;
-
-                System.Diagnostics.Debug.WriteLine(errorMsg);
-
-                // Marcar como manejado para evitar el diálogo por defecto
-                e.ThrowException = false;
-
-                // Log adicional para diferentes tipos de errores
-                if (e.Exception is FormatException)
+                try
                 {
-                    System.Diagnostics.Debug.WriteLine($"Error de formato en columna {columnName}: {e.Exception.Message}");
+                    string resultadoInicializacion = NProductos.InicializarCategoriasVeterinarias();
+                    MostrarMensaje($"Resultado: {resultadoInicializacion}", "Información", MessageBoxIcon.Information);
+                    CargarDatosCategorias();
+                    ActualizarComboBoxCategorias();
                 }
-                else if (e.Exception is InvalidCastException)
+                catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Error de conversión en columna {columnName}: {e.Exception.Message}");
+                    MostrarMensaje($"Error al inicializar categorías: {ex.Message}", "Error", MessageBoxIcon.Error);
                 }
-
-                // Log del contexto del error (solo lectura)
-                System.Diagnostics.Debug.WriteLine($"Contexto del error: {e.Context}");
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error en manejo de DataError: {ex.Message}");
-                e.ThrowException = false;
             }
         }
         #endregion
@@ -860,212 +536,158 @@ namespace SistemVeterinario.Forms
             try
             {
                 DataTable datos = NProductos.Mostrar();
-                if (datos != null)
-                {
-                    base.CargarDatos(datos);
-                    ActualizarContadorRegistros(datos.Rows.Count);
-                    ConfigurarColumnasDataGridView();
-                }
-                else
-                {
-                    ActualizarContadorRegistros(0);
-                }
+                CargarDatos(datos);
+                PersonalizarColumnasProductos();
+                ActualizarContadorRegistros(datos.Rows.Count);
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error al cargar datos: {ex.Message}", "Error", MessageBoxIcon.Error);
-                ActualizarContadorRegistros(0);
+                MostrarMensaje($"Error al cargar productos: {ex.Message}", "Error", MessageBoxIcon.Error);
             }
         }
 
-        private void CargarCategorias()
+        private void PersonalizarColumnasProductos()
+        {
+            if (dgvDatos?.DataSource == null) return;
+
+            try
+            {
+                // Ocultar columna ID
+                if (dgvDatos.Columns["id"] != null)
+                    dgvDatos.Columns["id"].Visible = false;
+
+                // Personalizar headers
+                if (dgvDatos.Columns["codigo"] != null)
+                    dgvDatos.Columns["codigo"].HeaderText = "Código";
+                
+                if (dgvDatos.Columns["nombre"] != null)
+                    dgvDatos.Columns["nombre"].HeaderText = "Nombre";
+                
+                if (dgvDatos.Columns["categoria"] != null)
+                    dgvDatos.Columns["categoria"].HeaderText = "Categoría";
+                
+                if (dgvDatos.Columns["precio"] != null)
+                {
+                    dgvDatos.Columns["precio"].HeaderText = "Precio";
+                    dgvDatos.Columns["precio"].DefaultCellStyle.Format = "C2";
+                }
+                
+                if (dgvDatos.Columns["stock_actual"] != null)
+                    dgvDatos.Columns["stock_actual"].HeaderText = "Stock Actual";
+                
+                if (dgvDatos.Columns["stock_minimo"] != null)
+                    dgvDatos.Columns["stock_minimo"].HeaderText = "Stock Mínimo";
+
+                if (dgvDatos.Columns["requiere_receta"] != null)
+                    dgvDatos.Columns["requiere_receta"].HeaderText = "Requiere Receta";
+
+                // Ajustar anchos de columnas
+                if (dgvDatos.Columns["codigo"] != null)
+                    dgvDatos.Columns["codigo"].Width = 100;
+                if (dgvDatos.Columns["nombre"] != null)
+                    dgvDatos.Columns["nombre"].Width = 200;
+                if (dgvDatos.Columns["categoria"] != null)
+                    dgvDatos.Columns["categoria"].Width = 120;
+                if (dgvDatos.Columns["precio"] != null)
+                    dgvDatos.Columns["precio"].Width = 80;
+                if (dgvDatos.Columns["stock_actual"] != null)
+                    dgvDatos.Columns["stock_actual"].Width = 80;
+                if (dgvDatos.Columns["stock_minimo"] != null)
+                    dgvDatos.Columns["stock_minimo"].Width = 80;
+
+                // Resaltar productos con stock bajo
+                ResaltarProductosStockBajo();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error personalizando columnas: {ex.Message}");
+            }
+        }
+
+        private void ResaltarProductosStockBajo()
+        {
+            foreach (DataGridViewRow row in dgvDatos.Rows)
+            {
+                if (row.Cells["stock_actual"] != null && row.Cells["stock_minimo"] != null)
+                {
+                    var stockActual = Convert.ToInt32(row.Cells["stock_actual"].Value ?? 0);
+                    var stockMinimo = Convert.ToInt32(row.Cells["stock_minimo"].Value ?? 0);
+                    
+                    if (stockActual <= stockMinimo)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.FromArgb(255, 235, 235);
+                        row.DefaultCellStyle.ForeColor = Color.FromArgb(200, 0, 0);
+                    }
+                }
+            }
+        }
+
+        private void CargarCategorias(ComboBox combo)
         {
             try
             {
-                if (cmbCategoria == null) return;
-
-                cmbCategoria.Items.Clear();
-                cmbCategoria.DisplayMember = "nombre";
-                cmbCategoria.ValueMember = "id";
-
                 DataTable categorias = NProductos.ObtenerCategorias();
-                categorias.TableName = "Categorias"; // Nombre descriptivo
-
-                // Si no hay categorías, intentar crear las categorías iniciales automáticamente
-                if (categorias == null || categorias.Rows.Count == 0)
-                {
-                    bool categoriasCreadas = NProductos.VerificarYCrearCategoriasIniciales();
-
-                    if (categoriasCreadas)
-                    {
-                        // Recargar categorías después de crearlas
-                        categorias = NProductos.ObtenerCategorias();
-                        categorias.TableName = "Categorias"; // Nombre descriptivo
-
-                        if (categorias != null && categorias.Rows.Count > 0)
-                        {
-                            cmbCategoria.DataSource = categorias;
-                            cmbCategoria.SelectedIndex = 0;
-
-                            // Mensaje informativo mejorado
-                            MostrarMensaje("Se han creado las categorías veterinarias básicas automáticamente.\n" +
-                                         "Puede agregar más categorías usando el botón 'Nueva'.",
-                                         "Categorías Inicializadas", MessageBoxIcon.Information);
-                        }
-                    }
-                    else
-                    {
-                        MostrarMensaje("No se pudieron crear las categorías automáticamente.\n" +
-                                     "Use el botón 'Nueva' para crear categorías manualmente.",
-                                     "Error de Inicialización", MessageBoxIcon.Warning);
-                    }
-                }
-                else
-                {
-                    cmbCategoria.DataSource = categorias;
-                    cmbCategoria.SelectedIndex = 0;
-                }
+                combo.DataSource = categorias;
+                combo.DisplayMember = "nombre";
+                combo.ValueMember = "id";
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error cargando categorías: {ex.Message}", "Error", MessageBoxIcon.Error);
+                System.Diagnostics.Debug.WriteLine($"Error cargando categorías: {ex.Message}");
             }
         }
 
-        private void ConfigurarColumnasDataGridView()
+        private void ActualizarComboBoxCategorias()
         {
-            if (dgvDatos?.DataSource == null || dgvDatos.Columns.Count == 0)
-                return;
+            // Actualizar ambos ComboBox de categorías
+            CargarCategorias(cmbCategoria);
+            
+            // Para el filtro, agregar "Todas" al inicio
+            cmbCategoriaFiltro.Items.Clear();
+            cmbCategoriaFiltro.Items.Add("Todas");
+            CargarCategorias(cmbCategoriaFiltro);
+            cmbCategoriaFiltro.SelectedIndex = 0;
+        }
 
+        private int ObtenerIdCategoriaSeleccionada()
+        {
+            if (cmbCategoria.SelectedValue != null)
+                return Convert.ToInt32(cmbCategoria.SelectedValue);
+            return 1; // ID por defecto
+        }
+
+        private int ObtenerIdCategoriaPorNombre(string nombreCategoria)
+        {
             try
             {
-                foreach (DataGridViewColumn column in dgvDatos.Columns)
+                DataTable categorias = NProductos.ObtenerCategorias();
+                foreach (DataRow row in categorias.Rows)
                 {
-                    if (column == null) continue;
-
-                    string columnName = column.Name?.ToLower() ?? "";
-
-                    switch (columnName)
+                    if (row["nombre"].ToString() == nombreCategoria)
                     {
-                        case "id":
-                            column.HeaderText = "ID";
-                            column.Width = 50;
-                            column.Visible = false; // BaseModulos ya oculta esta columna
-                            break;
-                        case "codigo":
-                            column.HeaderText = "Código";
-                            column.Width = 80;
-                            column.Visible = true;
-                            column.DefaultCellStyle.NullValue = "-";
-                            break;
-                        case "nombre":
-                            column.HeaderText = "Nombre";
-                            column.Width = 200;
-                            column.Visible = true;
-                            column.DefaultCellStyle.NullValue = "";
-                            break;
-                        case "categoria_nombre":
-                            column.HeaderText = "Categoría";
-                            column.Width = 120;
-                            column.Visible = true;
-                            column.DefaultCellStyle.NullValue = "Sin categoría";
-                            break;
-                        case "precio":
-                            column.HeaderText = "Precio";
-                            column.Width = 80;
-                            column.Visible = true;
-                            // No aplicar formato automático aquí para evitar errores
-                            // El formato se maneja en CellFormatting
-                            column.DefaultCellStyle.NullValue = "$0.00";
-                            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                            break;
-                        case "stock_actual":
-                            column.HeaderText = "Stock";
-                            column.Width = 60;
-                            column.Visible = true;
-                            column.DefaultCellStyle.NullValue = "0";
-                            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                            break;
-                        case "stock_minimo":
-                            column.HeaderText = "Stock Mín.";
-                            column.Width = 70;
-                            column.Visible = true;
-                            column.DefaultCellStyle.NullValue = "0";
-                            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                            break;
-                        case "estado_stock":
-                            column.HeaderText = "Estado";
-                            column.Width = 80;
-                            column.Visible = true;
-                            column.DefaultCellStyle.NullValue = "Stock OK";
-                            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                            break;
-                        case "requiere_receta":
-                            column.HeaderText = "Receta";
-                            column.Width = 60;
-                            column.Visible = true;
-                            column.DefaultCellStyle.NullValue = "No";
-                            column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                            break;
-                        case "descripcion":
-                            column.HeaderText = "Descripción";
-                            column.Width = 150;
-                            column.Visible = true;
-                            column.DefaultCellStyle.NullValue = "";
-                            break;
-                        case "categoria_id":
-                            column.Visible = false;
-                            break;
+                        return Convert.ToInt32(row["id"]);
                     }
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error configurando columnas: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error obteniendo ID de categoría: {ex.Message}");
             }
+            return 1; // ID por defecto si no se encuentra
         }
 
-        private bool ValidarCampos()
+        private void GenerarCodigoAutomatico()
         {
             try
             {
-                string codigo = txtCodigo?.Text?.Trim() ?? "";
-                string nombre = txtNombre?.Text?.Trim() ?? "";
-                string descripcion = txtDescripcion?.Text?.Trim() ?? "";
-                decimal precio = nudPrecio?.Value ?? 0;
-                int stockMinimo = (int)(nudStockMinimo?.Value ?? 0);
-                int stockActual = (int)(nudStockActual?.Value ?? 0);
-                int categoriaId = 0;
-
-                if (cmbCategoria?.SelectedValue != null)
-                {
-                    int.TryParse(cmbCategoria.SelectedValue.ToString(), out categoriaId);
-                }
-
-                string errores = NProductos.ValidarDatosProducto(codigo, nombre, precio, categoriaId,
-                    stockMinimo, stockActual, descripcion);
-
-                if (!string.IsNullOrEmpty(errores))
-                {
-                    MostrarMensaje(errores, "Errores de Validación", MessageBoxIcon.Warning);
-                    return false;
-                }
-
-                // Validar código único
-                int? idExcluir = ModoEdicion ? (int?)_currentProductoId : null;
-                string errorCodigo = NProductos.ValidarCodigoUnico(codigo, idExcluir);
-                if (!string.IsNullOrEmpty(errorCodigo))
-                {
-                    MostrarMensaje(errorCodigo, "Error de Código", MessageBoxIcon.Warning);
-                    return false;
-                }
-
-                return true;
+                string nuevoCodigo = NProductos.GenerarCodigoAutomatico("PRODUCTO", "GEN");
+                txtCodigo.Text = nuevoCodigo;
             }
             catch (Exception ex)
             {
-                MostrarMensaje($"Error validando campos: {ex.Message}", "Error", MessageBoxIcon.Error);
-                return false;
+                System.Diagnostics.Debug.WriteLine($"Error generando código: {ex.Message}");
+                // Generar código básico como fallback
+                txtCodigo.Text = "PROD" + DateTime.Now.ToString("yyyyMMddHHmmss");
             }
         }
 
@@ -1077,48 +699,22 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void ConfigurarEventosCategoria()
-        {
-            try
-            {
-                // Configurar eventos de botones de categorías
-                if (btnNuevaConfigCat != null) btnNuevaConfigCat.Click += BtnNuevaConfigCat_Click;
-                if (btnGuardarCategoria != null) btnGuardarCategoria.Click += BtnGuardarCategoria_Click;
-                if (btnEditarCategoria != null) btnEditarCategoria.Click += BtnEditarCategoria_Click;
-                if (btnEliminarCategoria != null) btnEliminarCategoria.Click += BtnEliminarCategoria_Click;
-                if (btnCancelarCategoria != null) btnCancelarCategoria.Click += BtnCancelarCategoria_Click;
-                if (btnInicializarCategorias != null) btnInicializarCategorias.Click += BtnInicializarCategorias_Click;
-
-                // Eventos del DataGridView de categorías
-                if (dgvCategorias != null)
-                {
-                    dgvCategorias.SelectionChanged += DgvCategorias_SelectionChanged;
-                    dgvCategorias.CellDoubleClick += DgvCategorias_CellDoubleClick;
-                }
-
-                // Estado inicial de categorías
-                ConfigurarEstadoBotonesCategoria(false);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error configurando eventos de categoría: {ex.Message}");
-            }
-        }
-
+        // Métodos para gestión de categorías
         private void CargarDatosCategorias()
         {
             try
             {
-                if (dgvCategorias == null) return;
+                DataTable categorias = NProductos.ObtenerCategorias();
+                dgvCategorias.DataSource = categorias;
 
-                DataTable dt = NProductos.ObtenerCategorias();
-                if (dt != null)
-                {
-                    dgvCategorias.DataSource = dt;
-
-                    // Asegurar que la personalización se ejecute después del enlace
-                    this.BeginInvoke(new Action(() => PersonalizarColumnasCategorias()));
-                }
+                if (dgvCategorias.Columns["id"] != null)
+                    dgvCategorias.Columns["id"].Visible = false;
+                
+                if (dgvCategorias.Columns["nombre"] != null)
+                    dgvCategorias.Columns["nombre"].HeaderText = "Nombre";
+                
+                if (dgvCategorias.Columns["descripcion"] != null)
+                    dgvCategorias.Columns["descripcion"].HeaderText = "Descripción";
             }
             catch (Exception ex)
             {
@@ -1126,275 +722,26 @@ namespace SistemVeterinario.Forms
             }
         }
 
-        private void PersonalizarColumnasCategorias()
-        {
-            if (dgvCategorias?.DataSource == null) return;
-
-            try
-            {
-                // Verificar que el DataGridView esté completamente inicializado
-                if (dgvCategorias.Columns.Count == 0)
-                {
-                    // Si no hay columnas, programar para ejecutar después
-                    this.BeginInvoke(new Action(() => PersonalizarColumnasCategorias()));
-                    return;
-                }
-
-                // Verificar que el control esté visible y creado
-                if (!dgvCategorias.IsHandleCreated || !dgvCategorias.Visible)
-                {
-                    return;
-                }
-
-                foreach (DataGridViewColumn column in dgvCategorias.Columns)
-                {
-                    if (column == null || string.IsNullOrEmpty(column.Name))
-                        continue;
-
-                    // Verificar que la columna esté completamente inicializada
-                    if (column.DataGridView == null)
-                        continue;
-
-                    switch (column.Name.ToLower())
-                    {
-                        case "id":
-                            column.HeaderText = "ID";
-                            // Verificar antes de establecer Width
-                            if (column.Visible)
-                            {
-                                column.Width = 50;
-                            }
-                            column.Visible = false;
-                            break;
-                        case "nombre":
-                            column.HeaderText = "Nombre";
-                            if (column.Visible)
-                            {
-                                column.Width = 150;
-                            }
-                            break;
-                        case "descripcion":
-                            column.HeaderText = "Descripción";
-                            if (column.Visible)
-                            {
-                                column.Width = 300;
-                            }
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error en PersonalizarColumnasCategorias: {ex.Message}");
-
-                // Intentar nuevamente después de un breve retraso
-                Timer timer = new Timer();
-                timer.Interval = 100;
-                timer.Tick += (s, e) =>
-                {
-                    timer.Stop();
-                    timer.Dispose();
-                    PersonalizarColumnasCategorias();
-                };
-                timer.Start();
-            }
-        }
-
-        private void BtnNuevaConfigCat_Click(object sender, EventArgs e)
-        {
-            LimpiarFormularioCategoria();
-            _isEditingCategoria = false;
-            _currentCategoriaEditingId = 0;
-            ConfigurarEstadoBotonesCategoria(true);
-            txtNombreCategoria?.Focus();
-        }
-
-        private void BtnGuardarCategoria_Click(object sender, EventArgs e)
-        {
-            if (ValidarDatosCategoria())
-            {
-                try
-                {
-                    string nombre = txtNombreCategoria?.Text?.Trim() ?? "";
-                    string descripcion = txtDescripcionCategoria?.Text?.Trim() ?? "";
-                    string resultado = NProductos.CrearCategoria(nombre, descripcion);
-
-                    if (resultado == "OK")
-                    {
-                        MostrarMensaje("Categoría creada exitosamente", "Éxito", MessageBoxIcon.Information);
-                        CargarDatosCategorias();
-                        CargarCategoriassilencioso(); // Actualizar el ComboBox de la pestaña principal
-                        LimpiarFormularioCategoria();
-                        ConfigurarEstadoBotonesCategoria(false);
-                    }
-                    else
-                    {
-                        MostrarMensaje($"Error: {resultado}", "Error", MessageBoxIcon.Error);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MostrarMensaje($"Error inesperado: {ex.Message}", "Error", MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void BtnEditarCategoria_Click(object sender, EventArgs e)
-        {
-            if (dgvCategorias?.CurrentRow != null)
-            {
-                CargarDatosParaEdicionCategoria(dgvCategorias.CurrentRow);
-                _isEditingCategoria = true;
-                ConfigurarEstadoBotonesCategoria(true);
-                txtNombreCategoria?.Focus();
-            }
-            else
-            {
-                MostrarMensaje("Seleccione una categoría para editar", "Información", MessageBoxIcon.Information);
-            }
-        }
-
-        private void BtnEliminarCategoria_Click(object sender, EventArgs e)
-        {
-            if (dgvCategorias?.CurrentRow != null)
-            {
-                if (MessageBox.Show("¿Está seguro de eliminar esta categoría?\n\nEsta acción no se puede deshacer.", 
-                    "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        int categoriaId = Convert.ToInt32(dgvCategorias.CurrentRow.Cells["id"].Value);
-                        
-                        // Verificar si la categoría tiene productos asociados
-                        DataTable productosEnCategoria = NProductos.BuscarPorCategoria(categoriaId);
-                        if (productosEnCategoria != null && productosEnCategoria.Rows.Count > 0)
-                        {
-                            MostrarMensaje($"No se puede eliminar la categoría porque tiene {productosEnCategoria.Rows.Count} productos asociados.", 
-                                "Error", MessageBoxIcon.Warning);
-                            return;
-                        }
-
-                        // Por simplicidad, marcar como inactiva en lugar de eliminar físicamente
-                        MostrarMensaje("La eliminación física de categorías no está implementada por seguridad.\n" +
-                                     "Las categorías se marcan como inactivas.", "Información", MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MostrarMensaje($"Error al eliminar: {ex.Message}", "Error", MessageBoxIcon.Error);
-                    }
-                }
-            }
-            else
-            {
-                MostrarMensaje("Seleccione una categoría para eliminar", "Información", MessageBoxIcon.Information);
-            }
-        }
-
-        private void BtnCancelarCategoria_Click(object sender, EventArgs e)
-        {
-            LimpiarFormularioCategoria();
-            ConfigurarEstadoBotonesCategoria(false);
-            _isEditingCategoria = false;
-            _currentCategoriaEditingId = 0;
-        }
-
-        private void BtnInicializarCategorias_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("¿Está seguro de inicializar las categorías por defecto?\n\nEsto creará categorías veterinarias estándar si no existen.", 
-                "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                try
-                {
-                    string resultado = NProductos.InicializarCategoriasVeterinarias();
-                    MostrarMensaje(resultado, "Resultado", MessageBoxIcon.Information);
-                    CargarDatosCategorias();
-                    CargarCategoriassilencioso(); // Actualizar el ComboBox de la pestaña principal
-                }
-                catch (Exception ex)
-                {
-                    MostrarMensaje($"Error al inicializar categorías: {ex.Message}", "Error", MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void DgvCategorias_SelectionChanged(object sender, EventArgs e)
-        {
-            bool haySeleccion = dgvCategorias?.CurrentRow != null;
-            if (btnEditarCategoria != null) btnEditarCategoria.Enabled = haySeleccion && !_isEditingCategoria;
-            if (btnEliminarCategoria != null) btnEliminarCategoria.Enabled = haySeleccion && !_isEditingCategoria;
-        }
-
-        private void DgvCategorias_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && dgvCategorias?.Rows[e.RowIndex] != null)
-            {
-                CargarDatosParaEdicionCategoria(dgvCategorias.Rows[e.RowIndex]);
-                _isEditingCategoria = true;
-                ConfigurarEstadoBotonesCategoria(true);
-                txtNombreCategoria?.Focus();
-            }
-        }
-
         private void LimpiarFormularioCategoria()
         {
-            try
-            {
-                txtNombreCategoria?.Clear();
-                txtDescripcionCategoria?.Clear();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error in LimpiarFormularioCategoria: {ex.Message}");
-            }
+            txtNombreCategoria.Text = "";
+            txtDescripcionCategoria.Text = "";
         }
 
-        private void ConfigurarEstadoBotonesCategoria(bool editando)
+        private void HabilitarFormularioCategoria(bool habilitar)
         {
-            try
-            {
-                if (btnNuevaConfigCat != null) btnNuevaConfigCat.Enabled = !editando;
-                if (btnGuardarCategoria != null) btnGuardarCategoria.Enabled = editando;
-                if (btnCancelarCategoria != null) btnCancelarCategoria.Enabled = editando;
-                if (btnEditarCategoria != null) btnEditarCategoria.Enabled = !editando && dgvCategorias?.CurrentRow != null;
-                if (btnEliminarCategoria != null) btnEliminarCategoria.Enabled = !editando && dgvCategorias?.CurrentRow != null;
-                if (btnInicializarCategorias != null) btnInicializarCategorias.Enabled = !editando;
-
-                // Habilitar/deshabilitar controles de edición
-                if (txtNombreCategoria != null) txtNombreCategoria.Enabled = editando;
-                if (txtDescripcionCategoria != null) txtDescripcionCategoria.Enabled = editando;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error in ConfigurarEstadoBotonesCategoria: {ex.Message}");
-            }
+            grpFormCategoria.Enabled = habilitar;
+            btnGuardarCategoria.Enabled = habilitar;
+            btnCancelarCategoria.Enabled = habilitar;
+            btnNuevaConfigCat.Enabled = !habilitar;
         }
 
-        private void CargarDatosParaEdicionCategoria(DataGridViewRow fila)
+        private bool ValidarCamposCategoria()
         {
-            if (fila != null)
+            if (string.IsNullOrWhiteSpace(txtNombreCategoria.Text))
             {
-                _currentCategoriaEditingId = Convert.ToInt32(fila.Cells["id"].Value);
-                
-                if (txtNombreCategoria != null)
-                    txtNombreCategoria.Text = fila.Cells["nombre"].Value?.ToString() ?? "";
-                if (txtDescripcionCategoria != null)
-                    txtDescripcionCategoria.Text = fila.Cells["descripcion"].Value?.ToString() ?? "";
-            }
-        }
-
-        private bool ValidarDatosCategoria()
-        {
-            if (string.IsNullOrWhiteSpace(txtNombreCategoria?.Text))
-            {
-                MostrarMensaje("El nombre de la categoría es requerido", "Validación", MessageBoxIcon.Warning);
-                txtNombreCategoria?.Focus();
-                return false;
-            }
-
-            if (txtNombreCategoria.Text.Trim().Length < 2)
-            {
-                MostrarMensaje("El nombre debe tener al menos 2 caracteres", "Validación", MessageBoxIcon.Warning);
-                txtNombreCategoria?.Focus();
+                MostrarMensaje("El nombre de la categoría es obligatorio", "Validación", MessageBoxIcon.Warning);
+                txtNombreCategoria.Focus();
                 return false;
             }
 
@@ -1403,399 +750,122 @@ namespace SistemVeterinario.Forms
         #endregion
 
         #region Métodos de Validación y Efectos Visuales
-        private void ValidarCampoObligatorio(TextBox textBox, Label label)
+        private bool ValidarCampos()
         {
-            if (string.IsNullOrWhiteSpace(textBox.Text))
+            if (string.IsNullOrWhiteSpace(txtCodigo.Text))
             {
-                label.ForeColor = Color.FromArgb(231, 76, 60); // Rojo para campos obligatorios
-                textBox.BackColor = Color.FromArgb(255, 240, 240); // Fondo rojo claro
+                MostrarMensaje("El código del producto es obligatorio", "Validación", MessageBoxIcon.Warning);
+                txtCodigo.Focus();
+                return false;
             }
-            else
+
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                label.ForeColor = Color.FromArgb(52, 73, 94); // Color normal
-                textBox.BackColor = Color.FromArgb(240, 248, 255); // Fondo azul claro (válido)
+                MostrarMensaje("El nombre del producto es obligatorio", "Validación", MessageBoxIcon.Warning);
+                txtNombre.Focus();
+                return false;
+            }
+
+            if (nudPrecio.Value <= 0)
+            {
+                MostrarMensaje("El precio debe ser mayor a 0", "Validación", MessageBoxIcon.Warning);
+                nudPrecio.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        private void ValidarCodigoAlphaNumerico(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
 
         private void ValidarCampoCompleto(TextBox textBox, string tipoCampo)
         {
-            Color colorValido = Color.FromArgb(240, 248, 255);
-            Color colorInvalido = Color.FromArgb(255, 240, 240);
-            Color colorNormal = Color.White;
-
             switch (tipoCampo.ToLower())
             {
-                case "nombre":
-                    if (!string.IsNullOrWhiteSpace(textBox.Text))
-                    {
-                        textBox.BackColor = textBox.Text.Length >= 3 ? colorValido : colorInvalido;
-                    }
-                    else
-                    {
-                        textBox.BackColor = colorInvalido;
-                    }
-                    break;
-
                 case "codigo":
                     if (!string.IsNullOrWhiteSpace(textBox.Text))
                     {
-                        textBox.BackColor = textBox.Text.Length >= 3 ? colorValido : colorInvalido;
+                        textBox.BackColor = Color.White;
                     }
                     else
                     {
-                        textBox.BackColor = colorNormal;
+                        textBox.BackColor = Color.FromArgb(255, 235, 235);
                     }
                     break;
             }
         }
 
-        private void ValidarPrecio()
+        private void ValidarCampoObligatorio(TextBox textBox, Label label)
         {
-            if (nudPrecio != null)
+            if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                if (nudPrecio.Value <= 0)
-                {
-                    nudPrecio.BackColor = Color.FromArgb(255, 240, 240);
-                }
-                else
-                {
-                    nudPrecio.BackColor = Color.FromArgb(240, 248, 255);
-                }
+                textBox.BackColor = Color.FromArgb(255, 235, 235);
+                label.ForeColor = Color.FromArgb(231, 76, 60);
+            }
+            else
+            {
+                textBox.BackColor = Color.White;
+                label.ForeColor = Color.FromArgb(52, 73, 94);
             }
         }
 
         private void ValidarStock()
         {
-            if (nudStockActual != null && nudStockMinimo != null)
+            if (nudStockActual.Value <= nudStockMinimo.Value)
             {
-                // Cambiar color si el stock actual está por debajo del mínimo
-                if (nudStockActual.Value < nudStockMinimo.Value)
-                {
-                    nudStockActual.BackColor = Color.FromArgb(255, 240, 240); // Rojo claro
-                }
-                else
-                {
-                    nudStockActual.BackColor = Color.FromArgb(240, 248, 255); // Azul claro
-                }
+                nudStockActual.BackColor = Color.FromArgb(255, 235, 235);
+                nudStockMinimo.BackColor = Color.FromArgb(255, 235, 235);
+            }
+            else
+            {
+                nudStockActual.BackColor = Color.White;
+                nudStockMinimo.BackColor = Color.White;
+            }
+        }
 
-                // Color del stock mínimo
-                nudStockMinimo.BackColor = Color.FromArgb(240, 248, 255);
+        private void ValidarPrecio()
+        {
+            if (nudPrecio.Value <= 0)
+            {
+                nudPrecio.BackColor = Color.FromArgb(255, 235, 235);
+            }
+            else
+            {
+                nudPrecio.BackColor = Color.White;
             }
         }
 
         private void ConfigurarEfectoHover(Button boton)
         {
-            if (boton == null) return;
-
             Color colorOriginal = boton.BackColor;
-            Color colorHover = ControlPaint.Light(colorOriginal, 0.2f);
+            Color colorHover = Color.FromArgb(Math.Max(0, colorOriginal.R - 30), 
+                                           Math.Max(0, colorOriginal.G - 30), 
+                                           Math.Max(0, colorOriginal.B - 30));
 
-            boton.MouseEnter += (s, e) =>
-            {
-                boton.BackColor = colorHover;
-                boton.Cursor = Cursors.Hand;
-            };
-
-            boton.MouseLeave += (s, e) =>
-            {
-                boton.BackColor = colorOriginal;
-                boton.Cursor = Cursors.Default;
-            };
+            boton.MouseEnter += (s, e) => boton.BackColor = colorHover;
+            boton.MouseLeave += (s, e) => boton.BackColor = colorOriginal;
         }
 
         private void AplicarEfectosFocusTextBox(TextBox textBox)
         {
-            if (textBox == null) return;
+            Color colorBordeOriginal = Color.FromArgb(204, 204, 204);
+            Color colorBordeFocus = Color.FromArgb(0, 120, 215);
 
-            Color borderColorNormal = Color.FromArgb(189, 195, 199);
-            Color borderColorFocus = Color.FromArgb(52, 152, 219);
-
-            textBox.Enter += (s, e) =>
-            {
-                textBox.BackColor = Color.FromArgb(250, 253, 255);
-                // Simular cambio de borde cambiando el color de fondo ligeramente
+            textBox.Enter += (s, e) => {
+                textBox.BorderStyle = BorderStyle.FixedSingle;
+                // Simular cambio de color de borde con efecto visual
             };
 
-            textBox.Leave += (s, e) =>
-            {
-                if (string.IsNullOrWhiteSpace(textBox.Text))
-                {
-                    textBox.BackColor = Color.White;
-                }
-                else
-                {
-                    textBox.BackColor = Color.FromArgb(240, 248, 255);
-                }
+            textBox.Leave += (s, e) => {
+                textBox.BorderStyle = BorderStyle.Fixed3D;
             };
-        }
-
-        private void CmbCategoriaFiltro_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbCategoriaFiltro == null) return;
-
-            _categoriaFiltroSeleccionada = cmbCategoriaFiltro.SelectedItem?.ToString() ?? "";
-            
-            // Aplicar filtro automáticamente
-            FiltrarPorCategoria();
-        }
-
-        private void FiltrarPorCategoria()
-        {
-            try
-            {
-                DataTable datos;
-
-                if (_categoriaFiltroSeleccionada == "Todas las categorías" || string.IsNullOrEmpty(_categoriaFiltroSeleccionada))
-                {
-                    datos = NProductos.Mostrar();
-                }
-                else
-                {
-                    // Obtener el ID de la categoría seleccionada
-                    int categoriaId = ObtenerIdCategoriaPorNombre(_categoriaFiltroSeleccionada);
-                    if (categoriaId > 0)
-                    {
-                        datos = NProductos.BuscarPorCategoria(categoriaId);
-                    }
-                    else
-                    {
-                        datos = NProductos.Mostrar();
-                    }
-                }
-
-                if (datos != null)
-                {
-                    base.CargarDatos(datos);
-                    ActualizarContadorRegistros(datos.Rows.Count);
-                    ConfigurarColumnasDataGridView();
-                }
-                else
-                {
-                    ActualizarContadorRegistros(0);
-                }
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error al filtrar por categoría: {ex.Message}", "Error", MessageBoxIcon.Error);
-                ActualizarContadorRegistros(0);
-            }
-        }
-
-        private int ObtenerIdCategoriaPorNombre(string nombreCategoria)
-        {
-            if (cmbCategoria?.Items == null || cmbCategoria.Items.Count == 0) return 0;
-
-            // Buscar en los items del combo de categoría del formulario
-            foreach (var item in cmbCategoria.Items)
-            {
-                if (item.ToString() == nombreCategoria)
-                {
-                    // Intentar obtener el valor asociado (ID)
-                    var dataRowView = item as DataRowView;
-                    if (dataRowView != null && int.TryParse(dataRowView["id"]?.ToString(), out int id))
-                    {
-                        return id;
-                    }
-                }
-            }
-            
-            return 0;
-        }
-
-        private void CargarFiltrosCategorias(DataTable categorias)
-        {
-            if (cmbCategoriaFiltro == null || categorias == null) return;
-
-            try
-            {
-                // Limpiar y agregar opción "Todas"
-                cmbCategoriaFiltro.Items.Clear();
-                cmbCategoriaFiltro.Items.Add("Todas las categorías");
-
-                // Agregar cada categoría
-                foreach (DataRow row in categorias.Rows)
-                {
-                    string nombreCategoria = row["nombre"]?.ToString() ?? "";
-                    if (!string.IsNullOrEmpty(nombreCategoria))
-                    {
-                        cmbCategoriaFiltro.Items.Add(nombreCategoria);
-                    }
-                }
-
-                cmbCategoriaFiltro.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error cargando filtro de categorías: {ex.Message}");
-            }
         }
         #endregion
-    }
-
-    // Clase auxiliar para el diálogo de nueva categoría
-    public class NuevaCategoriaDialog : Form
-    {
-        public int CategoriaCreatedId { get; private set; }
-
-        private ComboBox cmbSugerencias;
-        private TextBox txtNombre;
-        private TextBox txtDescripcion;
-        private Button btnGuardar;
-        private Button btnCancelar;
-
-        public NuevaCategoriaDialog()
-        {
-            InitializeComponent();
-
-            cmbSugerencias = new ComboBox();
-            txtNombre = new TextBox();
-            txtDescripcion = new TextBox();
-            btnGuardar = new Button();
-            btnCancelar = new Button();
-        }
-
-        private void CargarSugerencias()
-        {
-            try
-            {
-                var sugerencias = NProductos.ObtenerCategoriasComunes();
-                cmbSugerencias.Items.Add("-- Seleccionar sugerencia --");
-                for (int i = 0; i < sugerencias.Count; i++)
-                {
-                    string sugerencia = sugerencias[i];
-                    cmbSugerencias.Items.Add(sugerencia);
-                }
-            }
-            catch (Exception ex)
-            {
-                // En caso de error, solo agregar la opción por defecto
-                cmbSugerencias.Items.Add("-- Seleccionar sugerencia --");
-                System.Diagnostics.Debug.WriteLine($"Error cargando sugerencias: {ex.Message}");
-            }
-        }
-
-        private void InitializeComponent()
-        {
-            Text = "Nueva Categoría Veterinaria";
-            this.Size = new Size(450, 280);
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-
-            Label lblSugerencias = new Label();
-            lblSugerencias.Text = "Sugerencias:";
-            lblSugerencias.Location = new Point(20, 20);
-            lblSugerencias.Size = new Size(80, 20);
-
-            cmbSugerencias = new ComboBox();
-            cmbSugerencias.Location = new Point(110, 18);
-            cmbSugerencias.Size = new Size(300, 23);
-            cmbSugerencias.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbSugerencias.SelectedIndexChanged += CmbSugerencias_SelectedIndexChanged;
-
-            // Cargar sugerencias veterinarias
-            CargarSugerencias();
-            cmbSugerencias.SelectedIndex = 0;
-
-            Label lblNombre = new Label();
-            lblNombre.Text = "Nombre *:";
-            lblNombre.Location = new Point(20, 60);
-            lblNombre.Size = new Size(60, 20);
-
-            txtNombre = new TextBox();
-            txtNombre.Location = new Point(110, 58);
-            txtNombre.Size = new Size(300, 23);
-
-            Label lblDescripcion = new Label();
-            lblDescripcion.Text = "Descripción:";
-            lblDescripcion.Location = new Point(20, 95);
-            lblDescripcion.Size = new Size(80, 20);
-
-            txtDescripcion = new TextBox();
-            txtDescripcion.Location = new Point(20, 120);
-            txtDescripcion.Size = new Size(390, 80);
-            txtDescripcion.Multiline = true;
-            txtDescripcion.ScrollBars = ScrollBars.Vertical;
-
-            btnGuardar = new Button();
-            btnGuardar.Text = "Guardar";
-            btnGuardar.Location = new Point(250, 220);
-            btnGuardar.Size = new Size(80, 30);
-            btnGuardar.Click += BtnGuardar_Click;
-
-            btnCancelar = new Button();
-            btnCancelar.Text = "Cancelar";
-            btnCancelar.Location = new Point(340, 220);
-            btnCancelar.Size = new Size(80, 30);
-
-            this.Controls.AddRange(new Control[] {
-                lblSugerencias, cmbSugerencias, lblNombre, txtNombre, lblDescripcion, txtDescripcion, btnGuardar, btnCancelar
-            });
-        }
-
-        private void CmbSugerencias_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbSugerencias.SelectedIndex > 0)
-            {
-                string categoriaSeleccionada = cmbSugerencias.SelectedItem?.ToString() ?? "";
-                txtNombre.Text = categoriaSeleccionada;
-
-                // Agregar descripción automática
-                var descripciones = new Dictionary<string, string>
-                {
-                    {"Medicamentos", "Fármacos y medicinas para tratamiento veterinario"},
-                    {"Suplementos", "Complementos nutricionales y vitamínicos"},
-                    {"Alimentos", "Alimentación especializada para mascotas"},
-                    {"Juguetes", "Elementos de entretenimiento para animales"},
-                    {"Higiene y Cuidado", "Productos de aseo y cuidado animal"},
-                    {"Accesorios", "Collares, correas, camas y elementos complementarios"},
-                    {"Equipos Médicos", "Dispositivos e instrumentos veterinarios"},
-                    {"Material Quirúrgico", "Instrumental y suministros médicos quirúrgicos"},
-                    {"Vacunas", "Inmunizaciones preventivas para animales"},
-                    {"Antiparasitarios", "Tratamientos contra parásitos internos y externos"},
-                    {"Antibióticos", "Medicamentos antibacterianos para animales"},
-                    {"Analgésicos", "Medicamentos para el control del dolor"},
-                    {"Vitaminas", "Suplementos vitamínicos esenciales"},
-                    {"Collares y Correas", "Elementos de sujeción y paseo"},
-                    {"Camas y Casas", "Elementos de descanso y refugio"},
-                    {"Comederos y Bebederos", "Recipientes para alimentación e hidratación"}
-                };
-
-                if (descripciones.ContainsKey(categoriaSeleccionada))
-                {
-                    txtDescripcion.Text = descripciones[categoriaSeleccionada];
-                }
-            }
-        }
-
-        private void BtnGuardar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string nombre = txtNombre.Text.Trim();
-                if (string.IsNullOrEmpty(nombre))
-                {
-                    MessageBox.Show("El nombre es requerido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                string descripcion = txtDescripcion.Text.Trim();
-                string resultado = NProductos.CrearCategoria(nombre, descripcion);
-
-                if (resultado == "OK")
-                {
-                    MessageBox.Show("Categoría creada exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
-                }
-                else
-                {
-                    MessageBox.Show($"Error creando categoría: {resultado}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
     }
 }

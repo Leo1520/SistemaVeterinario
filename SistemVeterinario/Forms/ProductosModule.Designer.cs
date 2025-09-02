@@ -70,8 +70,6 @@ namespace SistemVeterinario.Forms
         {
             this.components = new System.ComponentModel.Container();
             
-            // Llamar al InitializeComponent base primero
-            base.InitializeComponent();
             
             // Inicializar controles específicos de productos
             this.lblContador = new System.Windows.Forms.Label();
@@ -564,27 +562,6 @@ namespace SistemVeterinario.Forms
             this.btnInicializarCategorias.TabIndex = 5;
             this.btnInicializarCategorias.Text = "Inicializar Categorías";
             this.btnInicializarCategorias.UseVisualStyleBackColor = true;
-            
-            // Agregar controles al panel de búsqueda si existe
-            if (this.panelBusqueda != null)
-            {
-                this.panelBusqueda.Controls.Add(this.lblContador);
-                this.panelBusqueda.Controls.Add(this.lblCategoriaFiltro);
-                this.panelBusqueda.Controls.Add(this.cmbCategoriaFiltro);
-                this.panelBusqueda.Controls.Add(this.btnStockBajo);
-            }
-            
-            // Agregar el grupo de datos al tab de inicio si existe
-            if (this.tabInicio != null)
-            {
-                this.tabInicio.Controls.Add(this.grpDatosProducto);
-            }
-            
-            // Agregar la gestión de categorías al tab de configuraciones si existe
-            if (this.tabConfiguraciones != null)
-            {
-                this.tabConfiguraciones.Controls.Add(this.grpGestionCategorias);
-            }
             
             // Reanudar el layout
             this.grpDatosProducto.ResumeLayout(false);
