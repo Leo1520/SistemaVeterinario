@@ -375,6 +375,28 @@ namespace SistemVeterinario.Forms
             if (btnEliminar != null)
                 btnEliminar.Visible = esEdicion;
         }
+
+        protected override void OnEliminarFila(DataGridViewRow row)
+        {
+            // Obtener ID de la fila seleccionada
+            if (row.DataBoundItem is DataRowView dataRow)
+            {
+                int id = Convert.ToInt32(dataRow["id"]);
+                // Para productos usamos la columna "nombre" en lugar de "nombre_completo"
+                string nombre = dataRow["nombre"]?.ToString() ?? "registro";
+
+                var resultado = MostrarConfirmacion(
+                    $"¿Está seguro que desea eliminar el producto '{nombre}'?",
+                    "Confirmar eliminación"
+                );
+
+                if (resultado == DialogResult.Yes)
+                {
+                    EliminarRegistro(id);
+                    OnBuscar(); // Refrescar la lista
+                }
+            }
+        }
         #endregion
 
         #region Eventos
