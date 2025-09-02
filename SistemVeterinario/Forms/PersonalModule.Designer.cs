@@ -55,7 +55,6 @@ namespace SistemVeterinario.Forms
             this.txtContrasena = new System.Windows.Forms.TextBox();
             this.lblSalario = new System.Windows.Forms.Label();
             this.txtSalario = new System.Windows.Forms.TextBox();
-
             this.lblFechaContratacion = new System.Windows.Forms.Label();
             this.dtpFechaContratacion = new System.Windows.Forms.DateTimePicker();
             this.grpDatosEspecificos = new System.Windows.Forms.GroupBox();
@@ -100,7 +99,7 @@ namespace SistemVeterinario.Forms
             this.tabInicio.Location = new System.Drawing.Point(4, 39);
             this.tabInicio.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabInicio.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabInicio.Size = new System.Drawing.Size(1298, 810);
+            this.tabInicio.Size = new System.Drawing.Size(1135, 597);
             this.tabInicio.Text = "Gestión de Personal";
             // 
             // tabConfiguraciones
@@ -175,7 +174,7 @@ namespace SistemVeterinario.Forms
             // 
             this.panelSuperior.Location = new System.Drawing.Point(30, 41);
             this.panelSuperior.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panelSuperior.Size = new System.Drawing.Size(2005, 79);
+            this.panelSuperior.Size = new System.Drawing.Size(2168, 79);
             // 
             // lblModo
             // 
@@ -199,18 +198,18 @@ namespace SistemVeterinario.Forms
             // 
             // panelBotones
             // 
-            this.panelBotones.Location = new System.Drawing.Point(100, 2412);
-            this.panelBotones.Size = new System.Drawing.Size(2540, 65);
+            this.panelBotones.Location = new System.Drawing.Point(100, 2625);
+            this.panelBotones.Size = new System.Drawing.Size(2703, 65);
             // 
             // btnGuardar
             // 
             this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.Location = new System.Drawing.Point(2403, 15);
+            this.btnGuardar.Location = new System.Drawing.Point(2566, 15);
             // 
             // btnCancelar
             // 
             this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.Location = new System.Drawing.Point(2220, 15);
+            this.btnCancelar.Location = new System.Drawing.Point(2383, 15);
             // 
             // btnEliminar
             // 
@@ -262,9 +261,9 @@ namespace SistemVeterinario.Forms
             this.lblTipoPersonalForm.AutoSize = true;
             this.lblTipoPersonalForm.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblTipoPersonalForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblTipoPersonalForm.Location = new System.Drawing.Point(49, 117);
+            this.lblTipoPersonalForm.Location = new System.Drawing.Point(49, 127);
             this.lblTipoPersonalForm.Name = "lblTipoPersonalForm";
-            this.lblTipoPersonalForm.Size = new System.Drawing.Size(160, 25);
+            this.lblTipoPersonalForm.Size = new System.Drawing.Size(165, 25);
             this.lblTipoPersonalForm.TabIndex = 20;
             this.lblTipoPersonalForm.Text = "Tipo de Personal:";
             // 
@@ -274,7 +273,7 @@ namespace SistemVeterinario.Forms
             this.cmbTipoPersonalForm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoPersonalForm.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.cmbTipoPersonalForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.cmbTipoPersonalForm.Location = new System.Drawing.Point(229, 114);
+            this.cmbTipoPersonalForm.Location = new System.Drawing.Point(229, 124);
             this.cmbTipoPersonalForm.Name = "cmbTipoPersonalForm";
             this.cmbTipoPersonalForm.Size = new System.Drawing.Size(250, 33);
             this.cmbTipoPersonalForm.TabIndex = 21;
@@ -521,7 +520,7 @@ namespace SistemVeterinario.Forms
             this.lblUsuario.Location = new System.Drawing.Point(15, 15);
             this.lblUsuario.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(230, 23);
+            this.lblUsuario.Size = new System.Drawing.Size(290, 23);
             this.lblUsuario.TabIndex = 0;
             this.lblUsuario.Text = "👤 Usuario *";
             // 
@@ -537,7 +536,7 @@ namespace SistemVeterinario.Forms
             this.txtUsuario.Margin = new System.Windows.Forms.Padding(5);
             this.txtUsuario.MaxLength = 50;
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(230, 30);
+            this.txtUsuario.Size = new System.Drawing.Size(290, 30);
             this.txtUsuario.TabIndex = 1;
             // 
             // lblContrasena
@@ -547,10 +546,10 @@ namespace SistemVeterinario.Forms
             this.lblContrasena.AutoSize = true;
             this.lblContrasena.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblContrasena.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.lblContrasena.Location = new System.Drawing.Point(255, 15);
+            this.lblContrasena.Location = new System.Drawing.Point(315, 15);
             this.lblContrasena.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblContrasena.Name = "lblContrasena";
-            this.lblContrasena.Size = new System.Drawing.Size(230, 23);
+            this.lblContrasena.Size = new System.Drawing.Size(290, 23);
             this.lblContrasena.TabIndex = 2;
             this.lblContrasena.Text = "🔒 Contraseña *";
             // 
@@ -562,12 +561,12 @@ namespace SistemVeterinario.Forms
             this.txtContrasena.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtContrasena.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtContrasena.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.txtContrasena.Location = new System.Drawing.Point(255, 50);
+            this.txtContrasena.Location = new System.Drawing.Point(315, 50);
             this.txtContrasena.Margin = new System.Windows.Forms.Padding(5);
             this.txtContrasena.MaxLength = 255;
             this.txtContrasena.Name = "txtContrasena";
             this.txtContrasena.PasswordChar = '*';
-            this.txtContrasena.Size = new System.Drawing.Size(230, 30);
+            this.txtContrasena.Size = new System.Drawing.Size(290, 30);
             this.txtContrasena.TabIndex = 3;
             // 
             // lblSalario
@@ -577,10 +576,10 @@ namespace SistemVeterinario.Forms
             this.lblSalario.AutoSize = true;
             this.lblSalario.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblSalario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.lblSalario.Location = new System.Drawing.Point(495, 15);
+            this.lblSalario.Location = new System.Drawing.Point(615, 15);
             this.lblSalario.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblSalario.Name = "lblSalario";
-            this.lblSalario.Size = new System.Drawing.Size(230, 23);
+            this.lblSalario.Size = new System.Drawing.Size(290, 23);
             this.lblSalario.TabIndex = 4;
             this.lblSalario.Text = "💰 Salario";
             // 
@@ -592,12 +591,13 @@ namespace SistemVeterinario.Forms
             this.txtSalario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSalario.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtSalario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.txtSalario.Location = new System.Drawing.Point(495, 50);
+            this.txtSalario.Location = new System.Drawing.Point(615, 50);
             this.txtSalario.Margin = new System.Windows.Forms.Padding(5);
             this.txtSalario.MaxLength = 10;
             this.txtSalario.Name = "txtSalario";
-            this.txtSalario.Size = new System.Drawing.Size(230, 30);
+            this.txtSalario.Size = new System.Drawing.Size(290, 30);
             this.txtSalario.TabIndex = 5;
+            // 
             // lblFechaContratacion
             // 
             this.lblFechaContratacion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -605,10 +605,10 @@ namespace SistemVeterinario.Forms
             this.lblFechaContratacion.AutoSize = true;
             this.lblFechaContratacion.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblFechaContratacion.ForeColor = System.Drawing.Color.Black;
-            this.lblFechaContratacion.Location = new System.Drawing.Point(735, 15);
+            this.lblFechaContratacion.Location = new System.Drawing.Point(915, 15);
             this.lblFechaContratacion.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblFechaContratacion.Name = "lblFechaContratacion";
-            this.lblFechaContratacion.Size = new System.Drawing.Size(472, 20);
+            this.lblFechaContratacion.Size = new System.Drawing.Size(292, 20);
             this.lblFechaContratacion.TabIndex = 18;
             this.lblFechaContratacion.Text = "F. Contratación:";
             // 
@@ -618,10 +618,10 @@ namespace SistemVeterinario.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpFechaContratacion.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpFechaContratacion.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaContratacion.Location = new System.Drawing.Point(733, 47);
+            this.dtpFechaContratacion.Location = new System.Drawing.Point(913, 47);
             this.dtpFechaContratacion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtpFechaContratacion.Name = "dtpFechaContratacion";
-            this.dtpFechaContratacion.Size = new System.Drawing.Size(476, 27);
+            this.dtpFechaContratacion.Size = new System.Drawing.Size(296, 27);
             this.dtpFechaContratacion.TabIndex = 19;
             // 
             // grpDatosEspecificos
@@ -650,7 +650,6 @@ namespace SistemVeterinario.Forms
             this.tableLayoutEspecificos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutEspecificos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutEspecificos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            // Campos de veterinario (fila 0 y 1)
             this.tableLayoutEspecificos.Controls.Add(this.lblLicencia, 0, 0);
             this.tableLayoutEspecificos.Controls.Add(this.txtLicencia, 0, 1);
             this.tableLayoutEspecificos.Controls.Add(this.lblEspecialidad, 1, 0);
@@ -659,7 +658,6 @@ namespace SistemVeterinario.Forms
             this.tableLayoutEspecificos.Controls.Add(this.txtUniversidad, 2, 1);
             this.tableLayoutEspecificos.Controls.Add(this.lblExperiencia, 3, 0);
             this.tableLayoutEspecificos.Controls.Add(this.numExperiencia, 3, 1);
-            // Campos de auxiliar (fila 2 y 3)
             this.tableLayoutEspecificos.Controls.Add(this.lblArea, 0, 2);
             this.tableLayoutEspecificos.Controls.Add(this.txtArea, 0, 3);
             this.tableLayoutEspecificos.Controls.Add(this.lblTurno, 1, 2);
@@ -675,7 +673,7 @@ namespace SistemVeterinario.Forms
             this.tableLayoutEspecificos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutEspecificos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutEspecificos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutEspecificos.Size = new System.Drawing.Size(1222, 180);
+            this.tableLayoutEspecificos.Size = new System.Drawing.Size(1222, 158);
             this.tableLayoutEspecificos.TabIndex = 0;
             // 
             // lblLicencia
@@ -803,10 +801,10 @@ namespace SistemVeterinario.Forms
             this.lblArea.AutoSize = true;
             this.lblArea.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblArea.ForeColor = System.Drawing.Color.Black;
-            this.lblArea.Location = new System.Drawing.Point(15, 125);
+            this.lblArea.Location = new System.Drawing.Point(15, 95);
             this.lblArea.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblArea.Name = "lblArea";
-            this.lblArea.Size = new System.Drawing.Size(37, 20);
+            this.lblArea.Size = new System.Drawing.Size(230, 20);
             this.lblArea.TabIndex = 30;
             this.lblArea.Text = "🏢 Área:";
             // 
@@ -818,11 +816,11 @@ namespace SistemVeterinario.Forms
             this.txtArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtArea.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtArea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.txtArea.Location = new System.Drawing.Point(15, 150);
+            this.txtArea.Location = new System.Drawing.Point(15, 130);
             this.txtArea.Margin = new System.Windows.Forms.Padding(5);
             this.txtArea.MaxLength = 100;
             this.txtArea.Name = "txtArea";
-            this.txtArea.Size = new System.Drawing.Size(232, 27);
+            this.txtArea.Size = new System.Drawing.Size(230, 27);
             this.txtArea.TabIndex = 31;
             // 
             // lblTurno
@@ -832,10 +830,10 @@ namespace SistemVeterinario.Forms
             this.lblTurno.AutoSize = true;
             this.lblTurno.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblTurno.ForeColor = System.Drawing.Color.Black;
-            this.lblTurno.Location = new System.Drawing.Point(251, 125);
+            this.lblTurno.Location = new System.Drawing.Point(255, 95);
             this.lblTurno.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblTurno.Name = "lblTurno";
-            this.lblTurno.Size = new System.Drawing.Size(42, 20);
+            this.lblTurno.Size = new System.Drawing.Size(230, 20);
             this.lblTurno.TabIndex = 32;
             this.lblTurno.Text = "🕐 Turno:";
             // 
@@ -847,10 +845,10 @@ namespace SistemVeterinario.Forms
             this.cmbTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTurno.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cmbTurno.ForeColor = System.Drawing.Color.Black;
-            this.cmbTurno.Location = new System.Drawing.Point(251, 150);
+            this.cmbTurno.Location = new System.Drawing.Point(255, 130);
             this.cmbTurno.Margin = new System.Windows.Forms.Padding(5);
             this.cmbTurno.Name = "cmbTurno";
-            this.cmbTurno.Size = new System.Drawing.Size(232, 28);
+            this.cmbTurno.Size = new System.Drawing.Size(230, 28);
             this.cmbTurno.TabIndex = 33;
             // 
             // lblNivel
@@ -860,10 +858,10 @@ namespace SistemVeterinario.Forms
             this.lblNivel.AutoSize = true;
             this.lblNivel.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblNivel.ForeColor = System.Drawing.Color.Black;
-            this.lblNivel.Location = new System.Drawing.Point(493, 125);
+            this.lblNivel.Location = new System.Drawing.Point(495, 95);
             this.lblNivel.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblNivel.Name = "lblNivel";
-            this.lblNivel.Size = new System.Drawing.Size(37, 20);
+            this.lblNivel.Size = new System.Drawing.Size(230, 20);
             this.lblNivel.TabIndex = 34;
             this.lblNivel.Text = "📊 Nivel:";
             // 
@@ -875,10 +873,10 @@ namespace SistemVeterinario.Forms
             this.cmbNivel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNivel.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cmbNivel.ForeColor = System.Drawing.Color.Black;
-            this.cmbNivel.Location = new System.Drawing.Point(493, 150);
+            this.cmbNivel.Location = new System.Drawing.Point(495, 130);
             this.cmbNivel.Margin = new System.Windows.Forms.Padding(5);
             this.cmbNivel.Name = "cmbNivel";
-            this.cmbNivel.Size = new System.Drawing.Size(232, 28);
+            this.cmbNivel.Size = new System.Drawing.Size(230, 28);
             this.cmbNivel.TabIndex = 35;
             // 
             // PersonalModule
