@@ -72,9 +72,6 @@ class Program
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
-
-        Console.WriteLine("Presiona cualquier tecla para salir...");
-        Console.ReadKey();
     }
 
     static void ExecuteSqlFiles(string connectionString, string directoryPath)

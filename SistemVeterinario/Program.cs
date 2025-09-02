@@ -23,13 +23,13 @@ namespace SistemVeterinario
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error fatal en la aplicación: {ex.Message}", "Error", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DbConnection.CloseInstance();
+                throw ex;
             }
             finally
             {
-                // Cerrar la conexión de base de datos al finalizar la aplicación
                 DbConnection.CloseInstance();
+                // Cerrar la conexión de base de datos al finalizar la aplicación
             }
         }
     }

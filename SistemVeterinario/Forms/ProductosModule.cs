@@ -19,6 +19,8 @@ namespace SistemVeterinario.Forms
         private int _currentProductoId = 0;
         private int _currentCategoriaId = 0;
         private string _categoriaFiltroSeleccionada = "";
+        private bool _isEditingCategoria = false;
+        private int _currentCategoriaEditingId = 0;
         #endregion
 
         #region Constructor
@@ -76,6 +78,7 @@ namespace SistemVeterinario.Forms
                     ConfigurarControlesEspecificos();
                     ConfigurarEventosEspecificos();
                     ConfigurarControlesIniciales();
+                    ConfigurarEventosCategoria();
                 };
             }
             catch (Exception ex)
@@ -384,6 +387,7 @@ namespace SistemVeterinario.Forms
             try
             {
                 CargarDatos();
+                CargarDatosCategorias();
             }
             catch (Exception ex)
             {
@@ -473,12 +477,9 @@ namespace SistemVeterinario.Forms
 
                 if (resultado == "OK" || resultado.Contains("exitosamente"))
                 {
-                    MostrarMensaje(ModoEdicion ? "Producto actualizado correctamente" : "Producto registrado correctamente");
-                    // Cambiar a la pestaña de inicio y recargar datos
-                    tabControlPrincipal.SelectedTab = tabInicio;
-                    LimpiarFormulario();
-                    // Recargar los datos para mostrar el registro recién guardado
-                    CargarDatos();
+                    MostrarMensaje(ModoEdicion ? "Producto actualizado exitosamente" : "Producto registrado exitosamente");
+                    OnCancelar();
+                    OnBuscar();
                 }
                 else
                 {
@@ -1074,6 +1075,330 @@ namespace SistemVeterinario.Forms
             {
                 lblContador.Text = $"Total de registros: {cantidad}";
             }
+        }
+
+        private void ConfigurarEventosCategoria()
+        {
+            try
+            {
+                // Configurar eventos de botones de categorías
+                if (btnNuevaConfigCat != null) btnNuevaConfigCat.Click += BtnNuevaConfigCat_Click;
+                if (btnGuardarCategoria != null) btnGuardarCategoria.Click += BtnGuardarCategoria_Click;
+                if (btnEditarCategoria != null) btnEditarCategoria.Click += BtnEditarCategoria_Click;
+                if (btnEliminarCategoria != null) btnEliminarCategoria.Click += BtnEliminarCategoria_Click;
+                if (btnCancelarCategoria != null) btnCancelarCategoria.Click += BtnCancelarCategoria_Click;
+                if (btnInicializarCategorias != null) btnInicializarCategorias.Click += BtnInicializarCategorias_Click;
+
+                // Eventos del DataGridView de categorías
+                if (dgvCategorias != null)
+                {
+                    dgvCategorias.SelectionChanged += DgvCategorias_SelectionChanged;
+                    dgvCategorias.CellDoubleClick += DgvCategorias_CellDoubleClick;
+                }
+
+                // Estado inicial de categorías
+                ConfigurarEstadoBotonesCategoria(false);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error configurando eventos de categoría: {ex.Message}");
+            }
+        }
+
+        private void CargarDatosCategorias()
+        {
+            try
+            {
+                if (dgvCategorias == null) return;
+
+                DataTable dt = NProductos.ObtenerCategorias();
+                if (dt != null)
+                {
+                    dgvCategorias.DataSource = dt;
+
+                    // Asegurar que la personalización se ejecute después del enlace
+                    this.BeginInvoke(new Action(() => PersonalizarColumnasCategorias()));
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje($"Error al cargar categorías: {ex.Message}", "Error", MessageBoxIcon.Error);
+            }
+        }
+
+        private void PersonalizarColumnasCategorias()
+        {
+            if (dgvCategorias?.DataSource == null) return;
+
+            try
+            {
+                // Verificar que el DataGridView esté completamente inicializado
+                if (dgvCategorias.Columns.Count == 0)
+                {
+                    // Si no hay columnas, programar para ejecutar después
+                    this.BeginInvoke(new Action(() => PersonalizarColumnasCategorias()));
+                    return;
+                }
+
+                // Verificar que el control esté visible y creado
+                if (!dgvCategorias.IsHandleCreated || !dgvCategorias.Visible)
+                {
+                    return;
+                }
+
+                foreach (DataGridViewColumn column in dgvCategorias.Columns)
+                {
+                    if (column == null || string.IsNullOrEmpty(column.Name))
+                        continue;
+
+                    // Verificar que la columna esté completamente inicializada
+                    if (column.DataGridView == null)
+                        continue;
+
+                    switch (column.Name.ToLower())
+                    {
+                        case "id":
+                            column.HeaderText = "ID";
+                            // Verificar antes de establecer Width
+                            if (column.Visible)
+                            {
+                                column.Width = 50;
+                            }
+                            column.Visible = false;
+                            break;
+                        case "nombre":
+                            column.HeaderText = "Nombre";
+                            if (column.Visible)
+                            {
+                                column.Width = 150;
+                            }
+                            break;
+                        case "descripcion":
+                            column.HeaderText = "Descripción";
+                            if (column.Visible)
+                            {
+                                column.Width = 300;
+                            }
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error en PersonalizarColumnasCategorias: {ex.Message}");
+
+                // Intentar nuevamente después de un breve retraso
+                Timer timer = new Timer();
+                timer.Interval = 100;
+                timer.Tick += (s, e) =>
+                {
+                    timer.Stop();
+                    timer.Dispose();
+                    PersonalizarColumnasCategorias();
+                };
+                timer.Start();
+            }
+        }
+
+        private void BtnNuevaConfigCat_Click(object sender, EventArgs e)
+        {
+            LimpiarFormularioCategoria();
+            _isEditingCategoria = false;
+            _currentCategoriaEditingId = 0;
+            ConfigurarEstadoBotonesCategoria(true);
+            txtNombreCategoria?.Focus();
+        }
+
+        private void BtnGuardarCategoria_Click(object sender, EventArgs e)
+        {
+            if (ValidarDatosCategoria())
+            {
+                try
+                {
+                    string nombre = txtNombreCategoria?.Text?.Trim() ?? "";
+                    string descripcion = txtDescripcionCategoria?.Text?.Trim() ?? "";
+                    string resultado = NProductos.CrearCategoria(nombre, descripcion);
+
+                    if (resultado == "OK")
+                    {
+                        MostrarMensaje("Categoría creada exitosamente", "Éxito", MessageBoxIcon.Information);
+                        CargarDatosCategorias();
+                        CargarCategoriassilencioso(); // Actualizar el ComboBox de la pestaña principal
+                        LimpiarFormularioCategoria();
+                        ConfigurarEstadoBotonesCategoria(false);
+                    }
+                    else
+                    {
+                        MostrarMensaje($"Error: {resultado}", "Error", MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MostrarMensaje($"Error inesperado: {ex.Message}", "Error", MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void BtnEditarCategoria_Click(object sender, EventArgs e)
+        {
+            if (dgvCategorias?.CurrentRow != null)
+            {
+                CargarDatosParaEdicionCategoria(dgvCategorias.CurrentRow);
+                _isEditingCategoria = true;
+                ConfigurarEstadoBotonesCategoria(true);
+                txtNombreCategoria?.Focus();
+            }
+            else
+            {
+                MostrarMensaje("Seleccione una categoría para editar", "Información", MessageBoxIcon.Information);
+            }
+        }
+
+        private void BtnEliminarCategoria_Click(object sender, EventArgs e)
+        {
+            if (dgvCategorias?.CurrentRow != null)
+            {
+                if (MessageBox.Show("¿Está seguro de eliminar esta categoría?\n\nEsta acción no se puede deshacer.", 
+                    "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        int categoriaId = Convert.ToInt32(dgvCategorias.CurrentRow.Cells["id"].Value);
+                        
+                        // Verificar si la categoría tiene productos asociados
+                        DataTable productosEnCategoria = NProductos.BuscarPorCategoria(categoriaId);
+                        if (productosEnCategoria != null && productosEnCategoria.Rows.Count > 0)
+                        {
+                            MostrarMensaje($"No se puede eliminar la categoría porque tiene {productosEnCategoria.Rows.Count} productos asociados.", 
+                                "Error", MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Por simplicidad, marcar como inactiva en lugar de eliminar físicamente
+                        MostrarMensaje("La eliminación física de categorías no está implementada por seguridad.\n" +
+                                     "Las categorías se marcan como inactivas.", "Información", MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MostrarMensaje($"Error al eliminar: {ex.Message}", "Error", MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MostrarMensaje("Seleccione una categoría para eliminar", "Información", MessageBoxIcon.Information);
+            }
+        }
+
+        private void BtnCancelarCategoria_Click(object sender, EventArgs e)
+        {
+            LimpiarFormularioCategoria();
+            ConfigurarEstadoBotonesCategoria(false);
+            _isEditingCategoria = false;
+            _currentCategoriaEditingId = 0;
+        }
+
+        private void BtnInicializarCategorias_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Está seguro de inicializar las categorías por defecto?\n\nEsto creará categorías veterinarias estándar si no existen.", 
+                "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    string resultado = NProductos.InicializarCategoriasVeterinarias();
+                    MostrarMensaje(resultado, "Resultado", MessageBoxIcon.Information);
+                    CargarDatosCategorias();
+                    CargarCategoriassilencioso(); // Actualizar el ComboBox de la pestaña principal
+                }
+                catch (Exception ex)
+                {
+                    MostrarMensaje($"Error al inicializar categorías: {ex.Message}", "Error", MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void DgvCategorias_SelectionChanged(object sender, EventArgs e)
+        {
+            bool haySeleccion = dgvCategorias?.CurrentRow != null;
+            if (btnEditarCategoria != null) btnEditarCategoria.Enabled = haySeleccion && !_isEditingCategoria;
+            if (btnEliminarCategoria != null) btnEliminarCategoria.Enabled = haySeleccion && !_isEditingCategoria;
+        }
+
+        private void DgvCategorias_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvCategorias?.Rows[e.RowIndex] != null)
+            {
+                CargarDatosParaEdicionCategoria(dgvCategorias.Rows[e.RowIndex]);
+                _isEditingCategoria = true;
+                ConfigurarEstadoBotonesCategoria(true);
+                txtNombreCategoria?.Focus();
+            }
+        }
+
+        private void LimpiarFormularioCategoria()
+        {
+            try
+            {
+                txtNombreCategoria?.Clear();
+                txtDescripcionCategoria?.Clear();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in LimpiarFormularioCategoria: {ex.Message}");
+            }
+        }
+
+        private void ConfigurarEstadoBotonesCategoria(bool editando)
+        {
+            try
+            {
+                if (btnNuevaConfigCat != null) btnNuevaConfigCat.Enabled = !editando;
+                if (btnGuardarCategoria != null) btnGuardarCategoria.Enabled = editando;
+                if (btnCancelarCategoria != null) btnCancelarCategoria.Enabled = editando;
+                if (btnEditarCategoria != null) btnEditarCategoria.Enabled = !editando && dgvCategorias?.CurrentRow != null;
+                if (btnEliminarCategoria != null) btnEliminarCategoria.Enabled = !editando && dgvCategorias?.CurrentRow != null;
+                if (btnInicializarCategorias != null) btnInicializarCategorias.Enabled = !editando;
+
+                // Habilitar/deshabilitar controles de edición
+                if (txtNombreCategoria != null) txtNombreCategoria.Enabled = editando;
+                if (txtDescripcionCategoria != null) txtDescripcionCategoria.Enabled = editando;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in ConfigurarEstadoBotonesCategoria: {ex.Message}");
+            }
+        }
+
+        private void CargarDatosParaEdicionCategoria(DataGridViewRow fila)
+        {
+            if (fila != null)
+            {
+                _currentCategoriaEditingId = Convert.ToInt32(fila.Cells["id"].Value);
+                
+                if (txtNombreCategoria != null)
+                    txtNombreCategoria.Text = fila.Cells["nombre"].Value?.ToString() ?? "";
+                if (txtDescripcionCategoria != null)
+                    txtDescripcionCategoria.Text = fila.Cells["descripcion"].Value?.ToString() ?? "";
+            }
+        }
+
+        private bool ValidarDatosCategoria()
+        {
+            if (string.IsNullOrWhiteSpace(txtNombreCategoria?.Text))
+            {
+                MostrarMensaje("El nombre de la categoría es requerido", "Validación", MessageBoxIcon.Warning);
+                txtNombreCategoria?.Focus();
+                return false;
+            }
+
+            if (txtNombreCategoria.Text.Trim().Length < 2)
+            {
+                MostrarMensaje("El nombre debe tener al menos 2 caracteres", "Validación", MessageBoxIcon.Warning);
+                txtNombreCategoria?.Focus();
+                return false;
+            }
+
+            return true;
         }
         #endregion
 

@@ -33,6 +33,21 @@ namespace SistemVeterinario.Forms
         private Label lblDescripcion;
         private TextBox txtDescripcion;
         private Button btnStockBajo;
+        
+        // Controls for Category Configuration
+        private GroupBox grpGestionCategorias;
+        private DataGridView dgvCategorias;
+        private GroupBox grpFormCategoria;
+        private Label lblNombreCategoria;
+        private TextBox txtNombreCategoria;
+        private Label lblDescripcionCategoria;
+        private TextBox txtDescripcionCategoria;
+        private Button btnNuevaConfigCat;
+        private Button btnGuardarCategoria;
+        private Button btnEditarCategoria;
+        private Button btnEliminarCategoria;
+        private Button btnCancelarCategoria;
+        private Button btnInicializarCategorias;
 
         /// <summary> 
         /// Limpiar los recursos que se estén usando.
@@ -589,6 +604,158 @@ namespace SistemVeterinario.Forms
             this.btnStockBajo.TabIndex = 6;
             this.btnStockBajo.Text = "⚠️ Stock Bajo";
             this.btnStockBajo.UseVisualStyleBackColor = false;
+            // 
+            // grpGestionCategorias
+            // 
+            grpGestionCategorias.Controls.Add(dgvCategorias);
+            grpGestionCategorias.Controls.Add(grpFormCategoria);
+            grpGestionCategorias.Controls.Add(btnNuevaConfigCat);
+            grpGestionCategorias.Controls.Add(btnEditarCategoria);
+            grpGestionCategorias.Controls.Add(btnEliminarCategoria);
+            grpGestionCategorias.Controls.Add(btnInicializarCategorias);
+            grpGestionCategorias.Dock = DockStyle.Fill;
+            grpGestionCategorias.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            grpGestionCategorias.ForeColor = Color.DarkBlue;
+            grpGestionCategorias.Location = new Point(3, 2);
+            grpGestionCategorias.Name = "grpGestionCategorias";
+            grpGestionCategorias.Size = new Size(861, 418);
+            grpGestionCategorias.TabIndex = 0;
+            grpGestionCategorias.TabStop = false;
+            grpGestionCategorias.Text = "Gestión de Categorías de Productos";
+            // 
+            // dgvCategorias
+            // 
+            dgvCategorias.AllowUserToAddRows = false;
+            dgvCategorias.AllowUserToDeleteRows = false;
+            dgvCategorias.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCategorias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCategorias.Location = new Point(15, 60);
+            dgvCategorias.Name = "dgvCategorias";
+            dgvCategorias.ReadOnly = true;
+            dgvCategorias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCategorias.Size = new Size(500, 300);
+            dgvCategorias.TabIndex = 0;
+            // 
+            // grpFormCategoria
+            // 
+            grpFormCategoria.Controls.Add(lblNombreCategoria);
+            grpFormCategoria.Controls.Add(txtNombreCategoria);
+            grpFormCategoria.Controls.Add(lblDescripcionCategoria);
+            grpFormCategoria.Controls.Add(txtDescripcionCategoria);
+            grpFormCategoria.Controls.Add(btnGuardarCategoria);
+            grpFormCategoria.Controls.Add(btnCancelarCategoria);
+            grpFormCategoria.Font = new Font("Segoe UI", 9F);
+            grpFormCategoria.ForeColor = Color.DarkGreen;
+            grpFormCategoria.Location = new Point(530, 60);
+            grpFormCategoria.Name = "grpFormCategoria";
+            grpFormCategoria.Size = new Size(320, 220);
+            grpFormCategoria.TabIndex = 1;
+            grpFormCategoria.TabStop = false;
+            grpFormCategoria.Text = "Datos de Categoría";
+            // 
+            // lblNombreCategoria
+            // 
+            lblNombreCategoria.AutoSize = true;
+            lblNombreCategoria.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblNombreCategoria.ForeColor = Color.DarkRed;
+            lblNombreCategoria.Location = new Point(15, 30);
+            lblNombreCategoria.Name = "lblNombreCategoria";
+            lblNombreCategoria.Size = new Size(62, 15);
+            lblNombreCategoria.TabIndex = 0;
+            lblNombreCategoria.Text = "Nombre *:";
+            // 
+            // txtNombreCategoria
+            // 
+            txtNombreCategoria.Location = new Point(15, 48);
+            txtNombreCategoria.MaxLength = 100;
+            txtNombreCategoria.Name = "txtNombreCategoria";
+            txtNombreCategoria.Size = new Size(290, 23);
+            txtNombreCategoria.TabIndex = 1;
+            // 
+            // lblDescripcionCategoria
+            // 
+            lblDescripcionCategoria.AutoSize = true;
+            lblDescripcionCategoria.Location = new Point(15, 85);
+            lblDescripcionCategoria.Name = "lblDescripcionCategoria";
+            lblDescripcionCategoria.Size = new Size(72, 15);
+            lblDescripcionCategoria.TabIndex = 2;
+            lblDescripcionCategoria.Text = "Descripción:";
+            // 
+            // txtDescripcionCategoria
+            // 
+            txtDescripcionCategoria.Location = new Point(15, 103);
+            txtDescripcionCategoria.MaxLength = 500;
+            txtDescripcionCategoria.Multiline = true;
+            txtDescripcionCategoria.Name = "txtDescripcionCategoria";
+            txtDescripcionCategoria.ScrollBars = ScrollBars.Vertical;
+            txtDescripcionCategoria.Size = new Size(290, 80);
+            txtDescripcionCategoria.TabIndex = 3;
+            // 
+            // btnGuardarCategoria
+            // 
+            btnGuardarCategoria.BackColor = Color.Green;
+            btnGuardarCategoria.ForeColor = Color.White;
+            btnGuardarCategoria.Location = new Point(130, 190);
+            btnGuardarCategoria.Name = "btnGuardarCategoria";
+            btnGuardarCategoria.Size = new Size(80, 25);
+            btnGuardarCategoria.TabIndex = 4;
+            btnGuardarCategoria.Text = "Guardar";
+            btnGuardarCategoria.UseVisualStyleBackColor = false;
+            // 
+            // btnCancelarCategoria
+            // 
+            btnCancelarCategoria.BackColor = Color.Gray;
+            btnCancelarCategoria.ForeColor = Color.White;
+            btnCancelarCategoria.Location = new Point(220, 190);
+            btnCancelarCategoria.Name = "btnCancelarCategoria";
+            btnCancelarCategoria.Size = new Size(80, 25);
+            btnCancelarCategoria.TabIndex = 5;
+            btnCancelarCategoria.Text = "Cancelar";
+            btnCancelarCategoria.UseVisualStyleBackColor = false;
+            // 
+            // btnNuevaConfigCat
+            // 
+            btnNuevaConfigCat.BackColor = Color.Blue;
+            btnNuevaConfigCat.ForeColor = Color.White;
+            btnNuevaConfigCat.Location = new Point(15, 25);
+            btnNuevaConfigCat.Name = "btnNuevaConfigCat";
+            btnNuevaConfigCat.Size = new Size(80, 30);
+            btnNuevaConfigCat.TabIndex = 2;
+            btnNuevaConfigCat.Text = "Nueva";
+            btnNuevaConfigCat.UseVisualStyleBackColor = false;
+            // 
+            // btnEditarCategoria
+            // 
+            btnEditarCategoria.BackColor = Color.Orange;
+            btnEditarCategoria.ForeColor = Color.White;
+            btnEditarCategoria.Location = new Point(105, 25);
+            btnEditarCategoria.Name = "btnEditarCategoria";
+            btnEditarCategoria.Size = new Size(80, 30);
+            btnEditarCategoria.TabIndex = 3;
+            btnEditarCategoria.Text = "Editar";
+            btnEditarCategoria.UseVisualStyleBackColor = false;
+            // 
+            // btnEliminarCategoria
+            // 
+            btnEliminarCategoria.BackColor = Color.Red;
+            btnEliminarCategoria.ForeColor = Color.White;
+            btnEliminarCategoria.Location = new Point(195, 25);
+            btnEliminarCategoria.Name = "btnEliminarCategoria";
+            btnEliminarCategoria.Size = new Size(80, 30);
+            btnEliminarCategoria.TabIndex = 4;
+            btnEliminarCategoria.Text = "Eliminar";
+            btnEliminarCategoria.UseVisualStyleBackColor = false;
+            // 
+            // btnInicializarCategorias
+            // 
+            btnInicializarCategorias.BackColor = Color.Purple;
+            btnInicializarCategorias.ForeColor = Color.White;
+            btnInicializarCategorias.Location = new Point(285, 25);
+            btnInicializarCategorias.Name = "btnInicializarCategorias";
+            btnInicializarCategorias.Size = new Size(120, 30);
+            btnInicializarCategorias.TabIndex = 5;
+            btnInicializarCategorias.Text = "Categorías por defecto";
+            btnInicializarCategorias.UseVisualStyleBackColor = false;
             // 
             // ProductosModule
             // 

@@ -219,31 +219,17 @@ namespace SistemVeterinario.Reportes
                 // Inicializar el ReportViewer si no existe
                 InicializarReportViewer();
 
-                // Crear el DataSet y llenar los datos desde el procedimiento almacenado
-                DataSetReportes dataSet = new DataSetReportes();
-                SqlConnection connection = DbConnection.Instance.GetConnection();
-                using (SqlCommand command = new SqlCommand("sp_ReporteVentasAgrupadas", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
+                // Usar DataTable simple en lugar del DataSet tipado para evitar problemas de constraint
+                DataTable dataTable = DVentas.ReporteVentasAgrupadas(fechaInicio, fechaFin, ConvertirPeriodoAAgrupacion(tipoPeriodo));
 
-                    // Agregar parámetros al procedimiento almacenado
-                    command.Parameters.Add(new SqlParameter("@FechaInicio", SqlDbType.Date) { Value = fechaInicio });
-                    command.Parameters.Add(new SqlParameter("@FechaFin", SqlDbType.Date) { Value = fechaFin });
-                    command.Parameters.Add(new SqlParameter("@Agrupamiento", SqlDbType.VarChar, 10) { Value = ConvertirPeriodoAAgrupacion(tipoPeriodo) });
-
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        adapter.Fill(dataSet, "sp_ReporteVentasAgrupadas");
-                    }
-                }
-
-                // Verificar si hay datos en el DataSet
-                if (dataSet.Tables["sp_ReporteVentasAgrupadas"].Rows.Count == 0)
+                // Verificar si hay datos en el DataTable
+                if (dataTable.Rows.Count == 0)
                 {
                     MessageBox.Show("No se encontraron resultados para el reporte.",
                         "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
+
                 string currentDir = Directory.GetCurrentDirectory();
                 string repoRoot = currentDir;
 
@@ -263,8 +249,8 @@ namespace SistemVeterinario.Reportes
                 reportViewer1.LocalReport.ReportPath = reportPath;
                 reportViewer1.LocalReport.DataSources.Clear();
 
-                // Asignar el DataSet al ReportViewer
-                ReportDataSource reportDataSource = new ReportDataSource("ReporteVententaAgrupadasDataSet", dataSet.Tables["sp_ReporteVentasAgrupadas"]);
+                // Asignar el DataTable al ReportViewer
+                ReportDataSource reportDataSource = new ReportDataSource("ReporteVententaAgrupadasDataSet", dataTable);
                 reportViewer1.LocalReport.DataSources.Add(reportDataSource);
 
                 // Refrescar el ReportViewer

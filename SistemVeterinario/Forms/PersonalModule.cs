@@ -109,8 +109,24 @@ namespace SistemVeterinario.Forms
             cmbTipoPersonalForm.SelectedIndexChanged += CmbTipoPersonalForm_SelectedIndexChanged;
             dtpFechaContratacion.Value = DateTime.Now;
 
+            // Configurar scroll horizontal del DataGridView
+            ConfigurarScrollDataGrid();
+
             // Ocultar campos específicos inicialmente
             MostrarCamposSegunTipo();
+        }
+
+        private void ConfigurarScrollDataGrid()
+        {
+            // Configuración inicial del DataGridView para scroll horizontal y vertical
+            dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvDatos.ScrollBars = ScrollBars.Both;
+            dgvDatos.AllowUserToResizeColumns = true;
+            dgvDatos.AllowUserToResizeRows = false;
+            
+            // Asegurar que el DataGridView use scroll cuando sea necesario
+            dgvDatos.AutoSize = false;
+            dgvDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         }
 
         private void CmbTipoPersonalForm_SelectedIndexChanged(object sender, EventArgs e)
@@ -304,7 +320,6 @@ namespace SistemVeterinario.Forms
                     dt = NPersonal.BuscarPorTipo(_tipoPersonalSeleccionado);
                 }
 
-                // Usar el método base para cargar datos (esto limpia los duplicados)
                 base.CargarDatos(dt);
                 ConfigurarColumnasGrid();
             }
@@ -328,7 +343,6 @@ namespace SistemVeterinario.Forms
                 }
 
                 dt = NPersonal.BuscarTexto(textoBuscar);
-                // Usar el método base para cargar datos (esto limpia los duplicados)
                 base.CargarDatos(dt);
                 ConfigurarColumnasGrid();
             }
@@ -406,7 +420,20 @@ namespace SistemVeterinario.Forms
 
         protected override void OnGuardar()
         {
-            GuardarRegistro();
+            if (GuardarRegistro())
+            {
+                // Si el guardado fue exitoso, mantener en pestaña de configuraciones
+                // para permitir seguir editando o agregar más registros
+            }
+        }
+
+        protected override void OnCancelar()
+        {
+            // Implementar funcionalidad específica de cancelar para Personal
+            base.OnCancelar(); // Esto cambia a la pestaña Inicio y limpia el formulario
+            
+            // Recargar datos para asegurar que el ComboBox de filtro se mantenga
+            CargarDatos();
         }
 
         private bool GuardarRegistro()
@@ -502,17 +529,37 @@ namespace SistemVeterinario.Forms
                     }
                 }
 
-                if (resultado == "OK")
+                // Verificar si el resultado indica éxito
+                bool esExitoso = resultado == "OK" || 
+                               resultado.Contains("correctamente") || 
+                               resultado.Contains("exitosamente") ||
+                               resultado.Contains("actualizado") ||
+                               resultado.Contains("registrado") ||
+                               resultado.Contains("creado");
+
+                if (esExitoso)
                 {
                     string accion = ModoEdicion ? "actualizado" : "registrado";
                     MostrarMensaje($"Personal {accion} correctamente", "Éxito", MessageBoxIcon.Information);
-                    LimpiarFormulario();
+                    
+                    // Cambiar a la pestaña de Inicio
+                    tabControlPrincipal.SelectedTab = tabInicio;
+                    
+                    // Recargar los datos en el grid
                     CargarDatos();
+                    
+                    // Limpiar formulario y resetear modo
+                    LimpiarFormulario();
+                    cmbModo.SelectedIndex = 0; // Cambiar a modo inserción
+                    ModoEdicion = false;
+                    IdSeleccionado = 0;
+                    txtId.Text = "";
+                    
                     return true;
                 }
                 else
                 {
-                    MostrarMensaje(resultado, "Error", MessageBoxIcon.Error);
+                    MostrarMensaje($"Error al guardar: {resultado}", "Error", MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -809,6 +856,7 @@ namespace SistemVeterinario.Forms
         private void ConfigurarColumnasGrid()
         {
             PersonalizarColumnas();
+            ConfigurarScrollHorizontal();
 
             // Configurar formato de columnas específicas
             if (dgvDatos.Columns.Contains("salario"))
@@ -820,6 +868,25 @@ namespace SistemVeterinario.Forms
             if (dgvDatos.Columns.Contains("fecha_contratacion"))
             {
                 dgvDatos.Columns["fecha_contratacion"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            }
+        }
+
+        private void ConfigurarScrollHorizontal()
+        {
+            // Configurar scroll horizontal automático
+            dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvDatos.ScrollBars = ScrollBars.Both;
+            
+            // Permitir que las columnas mantengan su ancho fijo para habilitar scroll horizontal
+            foreach (DataGridViewColumn column in dgvDatos.Columns)
+            {
+                if (column.Name != "btnEditar" && column.Name != "btnEliminar")
+                {
+                    column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    // Asegurar un ancho mínimo para que sea necesario hacer scroll
+                    if (column.Width < 100)
+                        column.Width = 120;
+                }
             }
         }
 

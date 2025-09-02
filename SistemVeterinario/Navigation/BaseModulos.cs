@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace SistemVeterinario.Navigation
 {
@@ -12,6 +13,7 @@ namespace SistemVeterinario.Navigation
 
         protected int IdSeleccionado { get; set; }
         protected bool ModoEdicion { get; set; }
+        protected string[] ColumnasPersonalizadas { get; set; }
 
         // Diccionario para recordar el estado de visibilidad de las columnas
         private Dictionary<string, bool> _columnasVisibles = new Dictionary<string, bool>();
@@ -39,6 +41,7 @@ namespace SistemVeterinario.Navigation
             
             // Limpiar cualquier columna de acción duplicada existente
             LimpiarColumnasDuplicadas();
+            ColumnasPersonalizadas = new string[0]; // Inicializar array vacío
         }
 
         private void SearchBase_Load(object sender, EventArgs e)
@@ -118,6 +121,7 @@ namespace SistemVeterinario.Navigation
             {
                 var row = dgvDatos.Rows[e.RowIndex];
                 var column = dgvDatos.Columns[e.ColumnIndex];
+                var columnName = dgvDatos.Columns[e.ColumnIndex].Name;
 
                 // Verificar si es una columna de botón y que sea la correcta
                 if (column is DataGridViewButtonColumn)
@@ -132,6 +136,11 @@ namespace SistemVeterinario.Navigation
                     {
                         OnEliminarFila(row);
                     }
+                }
+                // Verificar si se hizo click en una columna personalizada
+                else if (ColumnasPersonalizadas.Contains(columnName))
+                {
+                    OnAccionPersonalizada(row, columnName);
                 }
             }
         }
@@ -279,6 +288,11 @@ namespace SistemVeterinario.Navigation
             // Implementar en clase hija
         }
 
+        protected virtual void OnAccionPersonalizada(DataGridViewRow row, string accion)
+        {
+            // Implementar en clase hija para manejar acciones de columnas personalizadas
+        }
+
         #endregion
 
         #region Métodos Auxiliares
@@ -336,6 +350,12 @@ namespace SistemVeterinario.Navigation
             btnEliminar.DefaultCellStyle.SelectionBackColor = Color.FromArgb(200, 33, 49);
             btnEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dgvDatos.Columns.Add(btnEliminar);
+            this.AddBtnCustom();
+
+        }
+        public virtual void AddBtnCustom()
+        {
+            // Implementar lógica para agregar botones personalizados
         }
 
         public void MostrarMensaje(string mensaje, string titulo = "Información", MessageBoxIcon icono = MessageBoxIcon.Information)
@@ -369,7 +389,8 @@ namespace SistemVeterinario.Navigation
                 // Ocultar todas las columnas excepto las de acción y ID
                 foreach (DataGridViewColumn column in dgvDatos.Columns)
                 {
-                    if (column.Name != "btnEditar" && column.Name != "btnEliminar" && column.Name != "id")
+                    var inColumnasPersonalizadas = ColumnasPersonalizadas.Contains(column.Name);
+                    if (column.Name != "btnEditar" && column.Name != "btnEliminar" && column.Name != "id" && !inColumnasPersonalizadas)
                     {
                         column.Visible = false;
                         _columnasVisibles[column.Name] = false;
@@ -396,7 +417,8 @@ namespace SistemVeterinario.Navigation
 
             foreach (DataGridViewColumn column in dgvDatos.Columns)
             {
-                if (column.Name != "btnEditar" && column.Name != "btnEliminar" && column.Name != "id")
+                var inColumnasPersonalizadas = ColumnasPersonalizadas.Contains(column.Name);
+                if (column.Name != "btnEditar" && column.Name != "btnEliminar" && column.Name != "id" && !inColumnasPersonalizadas)
                 {
                     if (!column.Visible)
                         todasVisibles = false;

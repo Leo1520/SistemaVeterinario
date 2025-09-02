@@ -399,9 +399,9 @@ namespace SistemVeterinario.Forms
                     }
                 }
 
-                if (resultado == "OK")
+                if (resultado == "OK" || resultado.Contains("actualizada exitosamente") || resultado.Contains("creada exitosamente"))
                 {
-                    MostrarMensaje(ModoEdicion ? "Persona actualizada correctamente" : "Persona registrada correctamente");
+                    MostrarMensaje(ModoEdicion ? "Cliente actualizado exitosamente" : "Cliente registrado exitosamente");
                     OnCancelar();
                     OnBuscar();
                 }
@@ -505,6 +505,12 @@ namespace SistemVeterinario.Forms
             txtNit.Text = "";
             txtEncargadoNombre.Text = "";
             txtEncargadoCargo.Text = "";
+        }
+        protected override void OnCambioModo(bool esEdicion)
+        {
+            base.OnCambioModo(esEdicion);
+            // Siempre mantener oculto el botón de eliminar en el módulo de Cliente
+            btnEliminar.Visible = false;
         }
         #endregion
 
