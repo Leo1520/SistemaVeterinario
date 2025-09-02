@@ -1,20 +1,4 @@
--- =============================================
--- Script: 2025_09_01_0001_datos_base_y_facturas.sql
--- Descripción: Crear datos base y generar 100 facturas con productos y servicios
--- Fecha: 1 de septiembre de 2025
--- Autor: Sistema Veterinario
--- Versión: 1.0
--- Optimizado para evitar anidamiento excesivo
--- =============================================
 
-PRINT 'Iniciando creación de datos base y 100 facturas...'
-PRINT '=================================================='
-
--- =============================================
--- 1. CREAR DATOS BASE - CATEGORÍAS
--- =============================================
-
-PRINT '1. Creando categorías base...'
 BEGIN TRANSACTION;
 
 IF NOT EXISTS (SELECT 1 FROM categoria WHERE nombre = 'Medicamentos')
@@ -31,19 +15,17 @@ IF NOT EXISTS (SELECT 1 FROM categoria WHERE nombre = 'Higiene')
 
 COMMIT TRANSACTION;
 
+-- Declarar variables para las categorías
 DECLARE @CatMedicamentos INT, @CatAlimentos INT, @CatAccesorios INT, @CatHigiene INT;
 SELECT @CatMedicamentos = id FROM categoria WHERE nombre = 'Medicamentos';
 SELECT @CatAlimentos = id FROM categoria WHERE nombre = 'Alimentos';
 SELECT @CatAccesorios = id FROM categoria WHERE nombre = 'Accesorios';
 SELECT @CatHigiene = id FROM categoria WHERE nombre = 'Higiene';
 
-PRINT 'Categorías creadas correctamente'
-
 -- =============================================
 -- 2. CREAR DATOS BASE - PRODUCTOS
 -- =============================================
 
-PRINT '2. Creando productos base...'
 BEGIN TRANSACTION;
 
 -- Medicamentos
@@ -91,13 +73,12 @@ INSERT INTO producto (codigo, nombre, descripcion, precio, stock_minimo, stock_a
 
 COMMIT TRANSACTION;
 
-PRINT 'Productos creados correctamente'
+
 
 -- =============================================
--- 3. CREAR DATOS BASE - DIAGNÓSTICOS/SERVICIOS
+-- 3. CREAR DATOS BASE - SERVICIOS MEDICOS
 -- =============================================
 
-PRINT '3. Creando servicios base...'
 
 INSERT INTO diagnostico (codigo, nombre, descripcion, precio_base, categoria_diagnostico, requiere_equipamiento, activo) VALUES
 ('SERV001', 'Consulta Veterinaria General', 'Consulta médica general', 50.00, 'Consultas', 0, 1),
@@ -116,13 +97,11 @@ INSERT INTO diagnostico (codigo, nombre, descripcion, precio_base, categoria_dia
 ('SERV014', 'Aplicación de Inyecciones', 'Administración de medicamentos inyectables', 25.00, 'Tratamiento', 0, 1),
 ('SERV015', 'Corte de Uñas', 'Recorte de uñas profesional', 20.00, 'Estética', 0, 1);
 
-PRINT 'Servicios creados: ' + CAST(@@ROWCOUNT AS VARCHAR(10))
+
 
 -- =============================================
 -- 4. CREAR DATOS BASE - PERSONAS
 -- =============================================
-
-PRINT '4. Creando personas base...'
 
 -- Personas Físicas
 DECLARE @i INT = 1;
@@ -134,7 +113,7 @@ BEGIN
     
     -- Generar datos aleatorios
     SET @nombre = CASE (ABS(CHECKSUM(NEWID())) % 20)
-        WHEN 0 THEN 'Juan' WHEN 1 THEN 'María' WHEN 2 THEN 'Carlos' WHEN 3 THEN 'Ana'
+        WHEN 0 THEN 'Juan' WHEN 1 THEN 'Maria' WHEN 2 THEN 'Carlos' WHEN 3 THEN 'Ana'
         WHEN 4 THEN 'Luis' WHEN 5 THEN 'Carmen' WHEN 6 THEN 'Pedro' WHEN 7 THEN 'Rosa'
         WHEN 8 THEN 'Diego' WHEN 9 THEN 'Elena' WHEN 10 THEN 'Miguel' WHEN 11 THEN 'Laura'
         WHEN 12 THEN 'José' WHEN 13 THEN 'Patricia' WHEN 14 THEN 'Antonio' WHEN 15 THEN 'Isabel'
@@ -203,13 +182,136 @@ BEGIN
     SET @i = @i + 1;
 END;
 
-PRINT 'Personas creadas: 50 físicas + 10 jurídicas = 60 total'
+
+-- =============================================
+-- 4.1. CREAR MASCOTAS PARA LAS PERSONAS FÍSICAS
+-- =============================================
+
+
+-- Solo crear mascotas para personas físicas (no jurídicas)
+DECLARE persona_cursor CURSOR FOR 
+    SELECT p.id 
+    FROM persona p 
+    INNER JOIN persona_fisica pf ON p.id = pf.id 
+    WHERE p.activo = 1;
+
+OPEN persona_cursor;
+DECLARE @persona_fisica_id INT;
+
+FETCH NEXT FROM persona_cursor INTO @persona_fisica_id;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    -- Crear 1-3 mascotas por persona física (70% probabilidad de tener mascota)
+    IF (ABS(CHECKSUM(NEWID())) % 100) < 70 
+    BEGIN
+        DECLARE @num_mascotas INT = (ABS(CHECKSUM(NEWID())) % 3) + 1;
+        DECLARE @k INT = 1;
+        
+        WHILE @k <= @num_mascotas
+        BEGIN
+            DECLARE @animal_nombre VARCHAR(100), @especie VARCHAR(50), @raza VARCHAR(100);
+            DECLARE @fecha_nac DATE, @peso DECIMAL(5,2), @color VARCHAR(50), @genero CHAR(1);
+            DECLARE @animal_id INT, @historico_id INT;
+            
+            -- Generar datos aleatorios para la mascota
+            SET @especie = CASE (ABS(CHECKSUM(NEWID())) % 4)
+                WHEN 0 THEN 'Perro' WHEN 1 THEN 'Gato' 
+                WHEN 2 THEN 'Ave' ELSE 'Conejo'
+            END;
+            
+            SET @animal_nombre = CASE (ABS(CHECKSUM(NEWID())) % 20)
+                WHEN 0 THEN 'Max' WHEN 1 THEN 'Bella' WHEN 2 THEN 'Charlie' WHEN 3 THEN 'Luna'
+                WHEN 4 THEN 'Rocky' WHEN 5 THEN 'Lola' WHEN 6 THEN 'Buddy' WHEN 7 THEN 'Molly'
+                WHEN 8 THEN 'Jack' WHEN 9 THEN 'Sophie' WHEN 10 THEN 'Rex' WHEN 11 THEN 'Coco'
+                WHEN 12 THEN 'Duke' WHEN 13 THEN 'Zoe' WHEN 14 THEN 'Bear' WHEN 15 THEN 'Princess'
+                WHEN 16 THEN 'Toby' WHEN 17 THEN 'Daisy' WHEN 18 THEN 'Oscar' ELSE 'Ruby'
+            END;
+            
+            SET @raza = CASE @especie
+                WHEN 'Perro' THEN CASE (ABS(CHECKSUM(NEWID())) % 8)
+                    WHEN 0 THEN 'Labrador' WHEN 1 THEN 'Golden Retriever' WHEN 2 THEN 'Bulldog'
+                    WHEN 3 THEN 'Pastor Alemán' WHEN 4 THEN 'Chihuahua' WHEN 5 THEN 'Mestizo'
+                    WHEN 6 THEN 'Poodle' ELSE 'Beagle'
+                END
+                WHEN 'Gato' THEN CASE (ABS(CHECKSUM(NEWID())) % 6)
+                    WHEN 0 THEN 'Persa' WHEN 1 THEN 'Siamés' WHEN 2 THEN 'Angora'
+                    WHEN 3 THEN 'Maine Coon' WHEN 4 THEN 'Mestizo' ELSE 'Bengalí'
+                END
+                WHEN 'Ave' THEN CASE (ABS(CHECKSUM(NEWID())) % 4)
+                    WHEN 0 THEN 'Canario' WHEN 1 THEN 'Periquito' WHEN 2 THEN 'Loro' ELSE 'Cacatúa'
+                END
+                ELSE CASE (ABS(CHECKSUM(NEWID())) % 3)
+                    WHEN 0 THEN 'Holandés' WHEN 1 THEN 'Angora' ELSE 'Rex'
+                END
+            END;
+            
+            SET @genero = CASE ABS(CHECKSUM(NEWID())) % 2 WHEN 0 THEN 'M' ELSE 'F' END;
+            SET @color = CASE (ABS(CHECKSUM(NEWID())) % 8)
+                WHEN 0 THEN 'Negro' WHEN 1 THEN 'Blanco' WHEN 2 THEN 'Marrón' WHEN 3 THEN 'Gris'
+                WHEN 4 THEN 'Dorado' WHEN 5 THEN 'Tricolor' WHEN 6 THEN 'Atigrado' ELSE 'Mixto'
+            END;
+            
+            SET @fecha_nac = DATEADD(YEAR, -(ABS(CHECKSUM(NEWID())) % 12) - 1, GETDATE());
+            SET @peso = CASE @especie
+                WHEN 'Perro' THEN (ABS(CHECKSUM(NEWID())) % 400) / 10.0 + 5  -- 5-45 kg
+                WHEN 'Gato' THEN (ABS(CHECKSUM(NEWID())) % 50) / 10.0 + 2   -- 2-7 kg
+                WHEN 'Ave' THEN (ABS(CHECKSUM(NEWID())) % 20) / 10.0 + 0.1  -- 0.1-2 kg
+                ELSE (ABS(CHECKSUM(NEWID())) % 30) / 10.0 + 1  -- 1-4 kg
+            END;
+            
+            -- Generar microchip único (opcional) - 30% de los animales tienen microchip
+            DECLARE @microchip VARCHAR(50) = NULL;
+            IF (ABS(CHECKSUM(NEWID())) % 100) < 30 
+            BEGIN
+                -- Generar microchip único basado en timestamp y IDs únicos
+                SET @microchip = 'MC' + FORMAT(@persona_fisica_id, '0000') + 
+                                FORMAT(@k, '00') + 
+                                FORMAT(ABS(CHECKSUM(NEWID())) % 10000, '0000') +
+                                FORMAT(DATEDIFF(SECOND, '2020-01-01', GETDATE()) % 10000, '0000');
+            END;
+            
+            -- Insertar animal con microchip único o NULL
+            INSERT INTO animal (nombre, especie, raza, fecha_nacimiento, peso, color, genero, 
+                              esterilizado, microchip, persona_id, activo)
+            VALUES (@animal_nombre, @especie, @raza, @fecha_nac, @peso, @color, @genero, 
+                    ABS(CHECKSUM(NEWID())) % 2, @microchip, @persona_fisica_id, 1);
+            
+            SET @animal_id = SCOPE_IDENTITY();
+            
+            -- Verificar si ya existe un historico para este animal (no deberia, pero por seguridad)
+            IF NOT EXISTS (SELECT 1 FROM historico WHERE animal_id = @animal_id)
+            BEGIN
+                -- Crear histórico médico para el animal
+                INSERT INTO historico (animal_id, notas_generales, alergias, condiciones_medicas)
+                VALUES (@animal_id, 'Animal saludable', NULL, NULL);
+                
+                SET @historico_id = SCOPE_IDENTITY();
+            END
+            ELSE
+            BEGIN
+                -- Si ya existe, obtener el ID del histórico existente
+                SELECT @historico_id = id FROM historico WHERE animal_id = @animal_id;
+            END;
+            
+            SET @k = @k + 1;
+        END;
+    END;
+    
+    FETCH NEXT FROM persona_cursor INTO @persona_fisica_id;
+END;
+
+CLOSE persona_cursor;
+DEALLOCATE persona_cursor;
+
+-- Contar mascotas creadas
+DECLARE @total_mascotas INT;
+SELECT @total_mascotas = COUNT(*) FROM animal WHERE activo = 1;
 
 -- =============================================
 -- 5. CREAR DATOS BASE - PERSONAL VETERINARIO
 -- =============================================
 
-PRINT '5. Creando personal veterinario...'
 
 INSERT INTO personal (nombre, apellido, email, usuario, contrasena, telefono, direccion, salario, rol, activo) VALUES
 ('Dr. Carlos', 'Mendoza Silva', 'cmendoza@vet.com', 'cmendoza', 'vet123', '78123456', 'Av. América #123', 8000.00, 'Veterinario', 1),
@@ -234,210 +336,3 @@ INSERT INTO personal_veterinario (id, num_licencia, especialidad, universidad, a
 (@id4, 'VET004', 'Medicina Interna', 'Universidad Veterinaria', 10),
 (@id5, 'VET005', 'Dermatología', 'Universidad Veterinaria', 7);
 
-PRINT 'Personal veterinario creado: 5 veterinarios'
-
--- =============================================
--- 6. GENERAR 100 FACTURAS CON PRODUCTOS Y SERVICIOS
--- =============================================
-
-BEGIN TRANSACTION;
-
-PRINT '6. Generando 100 facturas...'
-
-SET @i = 1;
-WHILE @i <= 100
-BEGIN
-    DECLARE @factura_id INT;
-    DECLARE @numero_factura VARCHAR(50) = 'FAC-' + RIGHT('0000' + CAST(@i AS VARCHAR), 4);
-    DECLARE @fecha_emision DATE;
-    DECLARE @fecha_vencimiento DATE;
-    DECLARE @subtotal DECIMAL(10,2) = 0;
-    DECLARE @impuestos DECIMAL(10,2);
-    DECLARE @descuentos DECIMAL(10,2) = 0;
-    DECLARE @total DECIMAL(10,2);
-    DECLARE @estado VARCHAR(20);
-    
-    -- Seleccionar persona aleatoria
-    SELECT TOP 1 @persona_id = id FROM persona WHERE activo = 1 ORDER BY NEWID();
-    
-    -- Fecha aleatoria en los últimos 365 días
-    SET @fecha_emision = DATEADD(DAY, -(ABS(CHECKSUM(NEWID())) % 365), GETDATE());
-    SET @fecha_vencimiento = DATEADD(DAY, 30, @fecha_emision);
-    
-    -- Estado aleatorio
-    SET @estado = CASE ABS(CHECKSUM(NEWID())) % 100
-        WHEN 0 THEN 'Cancelada' 
-        WHEN 1 THEN 'Anulada'
-        ELSE CASE WHEN ABS(CHECKSUM(NEWID())) % 100 < 85 THEN 'Pagada' ELSE 'Pendiente' END
-    END;
-    
-    -- Crear factura
-    INSERT INTO factura (numero_factura, fecha_emision, fecha_vencimiento, persona_id, 
-                        subtotal, impuestos, descuentos, total, estado, notas)
-    VALUES (@numero_factura, @fecha_emision, @fecha_vencimiento, @persona_id,
-            0, 0, 0, 0, @estado, 'Factura generada automáticamente');
-    
-    SET @factura_id = SCOPE_IDENTITY();
-    
-    -- Agregar productos (1-4 productos por factura)
-    DECLARE @num_productos INT = (ABS(CHECKSUM(NEWID())) % 4) + 1;
-    DECLARE @j INT = 1;
-    
-    WHILE @j <= @num_productos
-    BEGIN
-        DECLARE @producto_id INT, @cantidad INT, @precio_unitario DECIMAL(10,2);
-        DECLARE @descuento_unitario DECIMAL(10,2) = 0, @subtotal_producto DECIMAL(10,2);
-        
-        -- Seleccionar producto aleatorio
-        SELECT TOP 1 @producto_id = id, @precio_unitario = precio 
-        FROM producto WHERE activo = 1 ORDER BY NEWID();
-        
-        SET @cantidad = (ABS(CHECKSUM(NEWID())) % 5) + 1;
-        
-        -- 20% probabilidad de descuento
-        IF (ABS(CHECKSUM(NEWID())) % 100) < 20
-            SET @descuento_unitario = @precio_unitario * 0.1; -- 10% descuento
-        
-        SET @subtotal_producto = (@precio_unitario - @descuento_unitario) * @cantidad;
-        SET @subtotal = @subtotal + @subtotal_producto;
-        
-        -- Insertar detalle producto
-        INSERT INTO detalle_productos (factura_id, producto_id, cantidad, precio_unitario, 
-                                     descuento_unitario, subtotal, receta_verificada)
-        VALUES (@factura_id, @producto_id, @cantidad, @precio_unitario, 
-                @descuento_unitario, @subtotal_producto, 
-                CASE WHEN (SELECT requiere_receta FROM producto WHERE id = @producto_id) = 1 
-                     THEN ABS(CHECKSUM(NEWID())) % 2 ELSE 0 END);
-        
-        -- Actualizar stock
-        UPDATE producto SET stock_actual = stock_actual - @cantidad WHERE id = @producto_id;
-        
-        SET @j = @j + 1;
-    END;
-    
-    -- Agregar servicios (1-3 servicios por factura)
-    DECLARE @num_servicios INT = (ABS(CHECKSUM(NEWID())) % 3) + 1;
-    SET @j = 1;
-    
-    WHILE @j <= @num_servicios
-    BEGIN
-        DECLARE @diagnostico_id INT, @precio_servicio DECIMAL(10,2);
-        DECLARE @descuento_servicio DECIMAL(10,2) = 0, @subtotal_servicio DECIMAL(10,2);
-        DECLARE @veterinario_id INT;
-        
-        -- Seleccionar servicio aleatorio
-        SELECT TOP 1 @diagnostico_id = id, @precio_servicio = precio_base 
-        FROM diagnostico WHERE activo = 1 ORDER BY NEWID();
-        
-        -- Seleccionar veterinario aleatorio
-        SELECT TOP 1 @veterinario_id = id FROM personal_veterinario ORDER BY NEWID();
-        
-        -- 15% probabilidad de descuento en servicios
-        IF (ABS(CHECKSUM(NEWID())) % 100) < 15
-            SET @descuento_servicio = @precio_servicio * 0.05; -- 5% descuento
-        
-        SET @subtotal_servicio = @precio_servicio - @descuento_servicio;
-        SET @subtotal = @subtotal + @subtotal_servicio;
-        
-        -- Insertar detalle servicio
-        INSERT INTO detalle_servicios (factura_id, diagnostico_id, cantidad, precio_unitario,
-                                     descuento_unitario, subtotal, veterinario_id)
-        VALUES (@factura_id, @diagnostico_id, 1, @precio_servicio, 
-                @descuento_servicio, @subtotal_servicio, @veterinario_id);
-        
-        SET @j = @j + 1;
-    END;
-    
-    -- Calcular totales
-    SET @impuestos = @subtotal * 0.13; -- 13% IVA
-    SET @total = @subtotal + @impuestos - @descuentos;
-    
-    -- Actualizar factura con totales
-    UPDATE factura 
-    SET subtotal = @subtotal, impuestos = @impuestos, descuentos = @descuentos, total = @total
-    WHERE id = @factura_id;
-    
-    IF @i % 10 = 0 
-        PRINT 'Procesadas ' + CAST(@i AS VARCHAR) + '/100 facturas...';
-    
-    SET @i = @i + 1;
-END;
-
-PRINT 'Facturas generadas: 100'
-
--- =============================================
--- REHABILITAR TODOS LOS TRIGGERS
--- =============================================
-
-PRINT 'Rehabilitando triggers...'
-ALTER TABLE persona ENABLE TRIGGER ALL;
-ALTER TABLE persona_fisica ENABLE TRIGGER ALL;
-ALTER TABLE persona_juridica ENABLE TRIGGER ALL;  
-ALTER TABLE personal ENABLE TRIGGER ALL;
-ALTER TABLE personal_veterinario ENABLE TRIGGER ALL;
-ALTER TABLE producto ENABLE TRIGGER ALL;
-ALTER TABLE categoria ENABLE TRIGGER ALL;
-ALTER TABLE diagnostico ENABLE TRIGGER ALL;
-ALTER TABLE factura ENABLE TRIGGER ALL;
-ALTER TABLE detalle_productos ENABLE TRIGGER ALL;
-ALTER TABLE detalle_servicios ENABLE TRIGGER ALL;
-PRINT 'Triggers rehabilitados exitosamente'
-
--- Confirmar transacción
-COMMIT TRANSACTION;
-
-PRINT '=================================================='
-PRINT 'SCRIPT COMPLETADO EXITOSAMENTE'
-PRINT '=================================================='
-
--- =============================================
--- 7. VERIFICAR RESULTADOS
--- =============================================
-
-PRINT '7. Verificando resultados...'
-
--- Contar registros creados
-SELECT 
-    'Categorías' as Tabla, COUNT(*) as Registros FROM categoria
-UNION ALL SELECT 'Productos', COUNT(*) FROM producto
-UNION ALL SELECT 'Diagnósticos', COUNT(*) FROM diagnostico  
-UNION ALL SELECT 'Personas', COUNT(*) FROM persona
-UNION ALL SELECT 'Personal', COUNT(*) FROM personal
-UNION ALL SELECT 'Veterinarios', COUNT(*) FROM personal_veterinario
-UNION ALL SELECT 'Facturas', COUNT(*) FROM factura
-UNION ALL SELECT 'Detalles Productos', COUNT(*) FROM detalle_productos
-UNION ALL SELECT 'Detalles Servicios', COUNT(*) FROM detalle_servicios;
-
--- Estadísticas de facturas por estado
-PRINT 'Facturas por estado:';
-SELECT estado, COUNT(*) as cantidad, FORMAT(SUM(total), 'C', 'es-BO') as total_monto
-FROM factura GROUP BY estado ORDER BY COUNT(*) DESC;
-
--- Top 5 productos más vendidos
-PRINT 'Top 5 productos más vendidos:';
-SELECT TOP 5 p.codigo, p.nombre, SUM(dp.cantidad) as total_vendido,
-       FORMAT(SUM(dp.subtotal), 'C', 'es-BO') as ingresos
-FROM detalle_productos dp
-INNER JOIN producto p ON dp.producto_id = p.id
-GROUP BY p.codigo, p.nombre
-ORDER BY SUM(dp.cantidad) DESC;
-
--- Top 5 servicios más prestados
-PRINT 'Top 5 servicios más prestados:';
-SELECT TOP 5 d.codigo, d.nombre, COUNT(*) as veces_prestado,
-       FORMAT(SUM(ds.subtotal), 'C', 'es-BO') as ingresos
-FROM detalle_servicios ds
-INNER JOIN diagnostico d ON ds.diagnostico_id = d.id
-GROUP BY d.codigo, d.nombre
-ORDER BY COUNT(*) DESC;
-
--- OBTENEMOS UN ID DE UNA FACTURA GENERADA PARA PRUEBAS
-DECLARE @FacturaID INT;
-SELECT @FacturaID = MAX(id) FROM factura;
-PRINT 'Probando stored procedures con factura ID: ' + CAST(@FacturaID AS VARCHAR);
-
-EXEC sp_factura_datos_principales @factura_id = @FacturaID;
-EXEC sp_factura_detalle_productos @factura_id = @FacturaID;
-EXEC sp_factura_detalle_servicios @factura_id = @FacturaID;
-
-PRINT 'Script completado exitosamente. Fecha: ' + CONVERT(VARCHAR(20), GETDATE(), 120);

@@ -128,8 +128,7 @@ CREATE TABLE animal (
     CONSTRAINT CK_animal_peso CHECK (
         peso > 0
         OR peso IS NULL
-    ),
-    CONSTRAINT UK_animal_microchip UNIQUE (microchip)
+    )
 );
 
 CREATE TABLE historico (
