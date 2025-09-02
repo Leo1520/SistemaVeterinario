@@ -850,7 +850,9 @@ namespace SistemVeterinario.Forms
                 if (dt != null)
                 {
                     dgvCategorias.DataSource = dt;
-                    PersonalizarColumnasCategorias();
+
+                    // Asegurar que la personalización se ejecute después del enlace
+                    this.BeginInvoke(new Action(() => PersonalizarColumnasCategorias()));
                 }
             }
             catch (Exception ex)
@@ -865,25 +867,53 @@ namespace SistemVeterinario.Forms
 
             try
             {
+                // Verificar que el DataGridView esté completamente inicializado
+                if (dgvCategorias.Columns.Count == 0)
+                {
+                    // Si no hay columnas, programar para ejecutar después
+                    this.BeginInvoke(new Action(() => PersonalizarColumnasCategorias()));
+                    return;
+                }
+
+                // Verificar que el control esté visible y creado
+                if (!dgvCategorias.IsHandleCreated || !dgvCategorias.Visible)
+                {
+                    return;
+                }
+
                 foreach (DataGridViewColumn column in dgvCategorias.Columns)
                 {
                     if (column == null || string.IsNullOrEmpty(column.Name))
+                        continue;
+
+                    // Verificar que la columna esté completamente inicializada
+                    if (column.DataGridView == null)
                         continue;
 
                     switch (column.Name.ToLower())
                     {
                         case "id":
                             column.HeaderText = "ID";
-                            column.Width = 50;
+                            // Verificar antes de establecer Width
+                            if (column.Visible)
+                            {
+                                column.Width = 50;
+                            }
                             column.Visible = false;
                             break;
                         case "nombre":
                             column.HeaderText = "Nombre";
-                            column.Width = 150;
+                            if (column.Visible)
+                            {
+                                column.Width = 150;
+                            }
                             break;
                         case "descripcion":
                             column.HeaderText = "Descripción";
-                            column.Width = 300;
+                            if (column.Visible)
+                            {
+                                column.Width = 300;
+                            }
                             break;
                     }
                 }
@@ -891,6 +921,17 @@ namespace SistemVeterinario.Forms
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error en PersonalizarColumnasCategorias: {ex.Message}");
+
+                // Intentar nuevamente después de un breve retraso
+                Timer timer = new Timer();
+                timer.Interval = 100;
+                timer.Tick += (s, e) =>
+                {
+                    timer.Stop();
+                    timer.Dispose();
+                    PersonalizarColumnasCategorias();
+                };
+                timer.Start();
             }
         }
 
