@@ -70,7 +70,6 @@ namespace SistemVeterinario.Forms
         {
             this.components = new System.ComponentModel.Container();
             
-            
             // Inicializar controles específicos de productos
             this.lblContador = new System.Windows.Forms.Label();
             this.cmbCategoriaFiltro = new System.Windows.Forms.ComboBox();
@@ -112,6 +111,13 @@ namespace SistemVeterinario.Forms
             this.btnInicializarCategorias = new System.Windows.Forms.Button();
             
             // Suspender el layout durante la configuración
+            this.tabControlPrincipal.SuspendLayout();
+            this.tabInicio.SuspendLayout();
+            this.tabConfiguraciones.SuspendLayout();
+            this.panelBusqueda.SuspendLayout();
+            this.panelFormulario.SuspendLayout();
+            this.panelSuperior.SuspendLayout();
+            this.panelBotones.SuspendLayout();
             this.grpDatosProducto.SuspendLayout();
             this.tableLayoutProducto.SuspendLayout();
             this.grpGestionCategorias.SuspendLayout();
@@ -123,12 +129,152 @@ namespace SistemVeterinario.Forms
             this.SuspendLayout();
             
             // 
+            // tabControlPrincipal
+            // 
+            this.tabControlPrincipal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControlPrincipal.Size = new System.Drawing.Size(1143, 640);
+            // 
+            // tabInicio
+            // 
+            this.tabInicio.Location = new System.Drawing.Point(4, 39);
+            this.tabInicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabInicio.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.tabInicio.Size = new System.Drawing.Size(1135, 597);
+            this.tabInicio.Text = "Gestión de Productos";
+            // 
+            // tabConfiguraciones
+            // 
+            this.tabConfiguraciones.Location = new System.Drawing.Point(4, 39);
+            this.tabConfiguraciones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabConfiguraciones.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.tabConfiguraciones.Size = new System.Drawing.Size(1135, 597);
+            this.tabConfiguraciones.Text = "Configuración de Producto";
+            // 
+            // panelBusqueda
+            // 
+            this.panelBusqueda.Controls.Add(this.btnStockBajo);
+            this.panelBusqueda.Controls.Add(this.cmbCategoriaFiltro);
+            this.panelBusqueda.Controls.Add(this.lblCategoriaFiltro);
+            this.panelBusqueda.Controls.Add(this.lblContador);
+            this.panelBusqueda.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelBusqueda.Padding = new System.Windows.Forms.Padding(11, 12, 11, 12);
+            this.panelBusqueda.Size = new System.Drawing.Size(1121, 98);
+            this.panelBusqueda.Controls.SetChildIndex(this.lblContador, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.lblCategoriaFiltro, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.cmbCategoriaFiltro, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.btnStockBajo, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.chkMostrarTodo, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.btnNuevo, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.btnBuscar, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.txtBuscar, 0);
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtBuscar.Location = new System.Drawing.Point(27, 18);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBuscar.Size = new System.Drawing.Size(338, 25);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.FlatAppearance.BorderSize = 0;
+            this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnBuscar.Location = new System.Drawing.Point(415, 11);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBuscar.Size = new System.Drawing.Size(104, 38);
+            // 
+            // btnNuevo
+            // 
+            this.btnNuevo.FlatAppearance.BorderSize = 0;
+            this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnNuevo.Location = new System.Drawing.Point(935, 11);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNuevo.Size = new System.Drawing.Size(122, 38);
+            // 
+            // chkMostrarTodo
+            // 
+            this.chkMostrarTodo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.chkMostrarTodo.Location = new System.Drawing.Point(118, 47);
+            this.chkMostrarTodo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkMostrarTodo.Size = new System.Drawing.Size(186, 19);
+            // 
+            // panelFormulario
+            // 
+            this.panelFormulario.Controls.Add(this.grpDatosProducto);
+            this.panelFormulario.Location = new System.Drawing.Point(7, 7);
+            this.panelFormulario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelFormulario.Padding = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.panelFormulario.Size = new System.Drawing.Size(1121, 583);
+            this.panelFormulario.Controls.SetChildIndex(this.grpDatosProducto, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.panelSuperior, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.panelBotones, 0);
+            // 
+            // panelSuperior
+            // 
+            this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.panelSuperior.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelSuperior.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.panelSuperior.Size = new System.Drawing.Size(1105, 49);
+            // 
+            // lblModo
+            // 
+            this.lblModo.Location = new System.Drawing.Point(42, 12);
+            this.lblModo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            // 
+            // cmbModo
+            // 
+            this.cmbModo.Location = new System.Drawing.Point(138, 11);
+            this.cmbModo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            // 
+            // lblId
+            // 
+            this.lblId.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblId.Location = new System.Drawing.Point(336, 15);
+            this.lblId.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblId.Size = new System.Drawing.Size(27, 19);
+            // 
+            // txtId
+            // 
+            this.txtId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.txtId.Location = new System.Drawing.Point(406, 11);
+            this.txtId.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtId.Size = new System.Drawing.Size(76, 25);
+            // 
+            // panelBotones
+            // 
+            this.panelBotones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.panelBotones.Location = new System.Drawing.Point(8, 525);
+            this.panelBotones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelBotones.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.panelBotones.Size = new System.Drawing.Size(1105, 50);
+            this.panelBotones.TabIndex = 0;
+            this.panelBotones.Tag = "EditableButtonPanel";
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.FlatAppearance.BorderSize = 0;
+            this.btnGuardar.Location = new System.Drawing.Point(993, 13);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.Location = new System.Drawing.Point(877, 13);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.FlatAppearance.BorderSize = 0;
+            
+            // 
             // lblContador
             // 
             this.lblContador.AutoSize = true;
-            this.lblContador.Location = new System.Drawing.Point(12, 15);
+            this.lblContador.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblContador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.lblContador.Location = new System.Drawing.Point(27, 55);
             this.lblContador.Name = "lblContador";
-            this.lblContador.Size = new System.Drawing.Size(125, 15);
+            this.lblContador.Size = new System.Drawing.Size(158, 19);
             this.lblContador.TabIndex = 0;
             this.lblContador.Text = "Total de registros: 0";
             
@@ -136,51 +282,69 @@ namespace SistemVeterinario.Forms
             // lblCategoriaFiltro
             // 
             this.lblCategoriaFiltro.AutoSize = true;
-            this.lblCategoriaFiltro.Location = new System.Drawing.Point(250, 15);
+            this.lblCategoriaFiltro.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblCategoriaFiltro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblCategoriaFiltro.Location = new System.Drawing.Point(540, 22);
             this.lblCategoriaFiltro.Name = "lblCategoriaFiltro";
-            this.lblCategoriaFiltro.Size = new System.Drawing.Size(66, 15);
+            this.lblCategoriaFiltro.Size = new System.Drawing.Size(85, 19);
             this.lblCategoriaFiltro.TabIndex = 1;
-            this.lblCategoriaFiltro.Text = "Categoría:";
+            this.lblCategoriaFiltro.Text = "📂 Filtrar por:";
             
             // 
             // cmbCategoriaFiltro
             // 
             this.cmbCategoriaFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategoriaFiltro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbCategoriaFiltro.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbCategoriaFiltro.FormattingEnabled = true;
-            this.cmbCategoriaFiltro.Location = new System.Drawing.Point(322, 12);
+            this.cmbCategoriaFiltro.Location = new System.Drawing.Point(631, 19);
             this.cmbCategoriaFiltro.Name = "cmbCategoriaFiltro";
-            this.cmbCategoriaFiltro.Size = new System.Drawing.Size(200, 23);
+            this.cmbCategoriaFiltro.Size = new System.Drawing.Size(180, 25);
             this.cmbCategoriaFiltro.TabIndex = 2;
             
             // 
             // btnStockBajo
             // 
-            this.btnStockBajo.Location = new System.Drawing.Point(550, 12);
+            this.btnStockBajo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
+            this.btnStockBajo.FlatAppearance.BorderSize = 0;
+            this.btnStockBajo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockBajo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnStockBajo.ForeColor = System.Drawing.Color.White;
+            this.btnStockBajo.Location = new System.Drawing.Point(817, 16);
             this.btnStockBajo.Name = "btnStockBajo";
-            this.btnStockBajo.Size = new System.Drawing.Size(150, 23);
+            this.btnStockBajo.Size = new System.Drawing.Size(165, 32);
             this.btnStockBajo.TabIndex = 3;
-            this.btnStockBajo.Text = "Productos con Stock Bajo";
-            this.btnStockBajo.UseVisualStyleBackColor = true;
+            this.btnStockBajo.Text = "⚠️ Stock Bajo";
+            this.btnStockBajo.UseVisualStyleBackColor = false;
             
             // 
             // grpDatosProducto
             // 
+            this.grpDatosProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDatosProducto.Controls.Add(this.tableLayoutProducto);
-            this.grpDatosProducto.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpDatosProducto.Location = new System.Drawing.Point(3, 3);
+            this.grpDatosProducto.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.grpDatosProducto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.grpDatosProducto.Location = new System.Drawing.Point(8, 65);
             this.grpDatosProducto.Name = "grpDatosProducto";
-            this.grpDatosProducto.Size = new System.Drawing.Size(800, 400);
-            this.grpDatosProducto.TabIndex = 0;
+            this.grpDatosProducto.Padding = new System.Windows.Forms.Padding(3, 8, 3, 3);
+            this.grpDatosProducto.Size = new System.Drawing.Size(1105, 452);
+            this.grpDatosProducto.TabIndex = 1;
             this.grpDatosProducto.TabStop = false;
-            this.grpDatosProducto.Text = "Datos del Producto";
+            this.grpDatosProducto.Text = "📦 Información del Producto";
             
             // 
             // tableLayoutProducto
             // 
+            this.tableLayoutProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutProducto.BackColor = System.Drawing.Color.White;
             this.tableLayoutProducto.ColumnCount = 4;
-            this.tableLayoutProducto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutProducto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutProducto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutProducto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutProducto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutProducto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutProducto.Controls.Add(this.lblCodigo, 0, 0);
             this.tableLayoutProducto.Controls.Add(this.txtCodigo, 1, 0);
@@ -192,26 +356,24 @@ namespace SistemVeterinario.Forms
             this.tableLayoutProducto.Controls.Add(this.btnNuevaCategoria, 2, 2);
             this.tableLayoutProducto.Controls.Add(this.lblPrecio, 0, 3);
             this.tableLayoutProducto.Controls.Add(this.nudPrecio, 1, 3);
-            this.tableLayoutProducto.Controls.Add(this.lblStockMinimo, 0, 4);
-            this.tableLayoutProducto.Controls.Add(this.nudStockMinimo, 1, 4);
-            this.tableLayoutProducto.Controls.Add(this.lblStockActual, 2, 4);
-            this.tableLayoutProducto.Controls.Add(this.nudStockActual, 3, 4);
-            this.tableLayoutProducto.Controls.Add(this.chkRequiereReceta, 1, 5);
-            this.tableLayoutProducto.Controls.Add(this.lblDescripcion, 0, 6);
-            this.tableLayoutProducto.Controls.Add(this.txtDescripcion, 1, 6);
-            this.tableLayoutProducto.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutProducto.Location = new System.Drawing.Point(3, 19);
+            this.tableLayoutProducto.Controls.Add(this.lblStockMinimo, 2, 3);
+            this.tableLayoutProducto.Controls.Add(this.nudStockMinimo, 3, 3);
+            this.tableLayoutProducto.Controls.Add(this.lblStockActual, 0, 4);
+            this.tableLayoutProducto.Controls.Add(this.nudStockActual, 1, 4);
+            this.tableLayoutProducto.Controls.Add(this.chkRequiereReceta, 2, 4);
+            this.tableLayoutProducto.Controls.Add(this.lblDescripcion, 0, 5);
+            this.tableLayoutProducto.Controls.Add(this.txtDescripcion, 1, 5);
+            this.tableLayoutProducto.Location = new System.Drawing.Point(15, 35);
             this.tableLayoutProducto.Name = "tableLayoutProducto";
-            this.tableLayoutProducto.Padding = new System.Windows.Forms.Padding(10);
-            this.tableLayoutProducto.RowCount = 7;
-            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutProducto.Padding = new System.Windows.Forms.Padding(20);
+            this.tableLayoutProducto.RowCount = 6;
+            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutProducto.Size = new System.Drawing.Size(794, 378);
+            this.tableLayoutProducto.Size = new System.Drawing.Size(1075, 409);
             this.tableLayoutProducto.TabIndex = 0;
             
             // 
@@ -219,51 +381,66 @@ namespace SistemVeterinario.Forms
             // 
             this.lblCodigo.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCodigo.AutoSize = true;
-            this.lblCodigo.Location = new System.Drawing.Point(13, 20);
+            this.lblCodigo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblCodigo.Location = new System.Drawing.Point(23, 35);
             this.lblCodigo.Name = "lblCodigo";
-            this.lblCodigo.Size = new System.Drawing.Size(49, 15);
+            this.lblCodigo.Size = new System.Drawing.Size(74, 19);
             this.lblCodigo.TabIndex = 0;
-            this.lblCodigo.Text = "Código:";
+            this.lblCodigo.Text = "🔖 Código";
             
             // 
             // txtCodigo
             // 
             this.txtCodigo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCodigo.Location = new System.Drawing.Point(113, 16);
+            this.txtCodigo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCodigo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtCodigo.Location = new System.Drawing.Point(143, 31);
+            this.txtCodigo.MaxLength = 50;
             this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(301, 23);
+            this.txtCodigo.Size = new System.Drawing.Size(411, 25);
             this.txtCodigo.TabIndex = 1;
             
             // 
             // btnGenerarCodigo
             // 
             this.btnGenerarCodigo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnGenerarCodigo.Location = new System.Drawing.Point(420, 16);
+            this.btnGenerarCodigo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnGenerarCodigo.FlatAppearance.BorderSize = 0;
+            this.btnGenerarCodigo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerarCodigo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnGenerarCodigo.ForeColor = System.Drawing.Color.White;
+            this.btnGenerarCodigo.Location = new System.Drawing.Point(560, 29);
             this.btnGenerarCodigo.Name = "btnGenerarCodigo";
-            this.btnGenerarCodigo.Size = new System.Drawing.Size(74, 23);
+            this.btnGenerarCodigo.Size = new System.Drawing.Size(85, 30);
             this.btnGenerarCodigo.TabIndex = 2;
-            this.btnGenerarCodigo.Text = "Generar";
-            this.btnGenerarCodigo.UseVisualStyleBackColor = true;
+            this.btnGenerarCodigo.Text = "📋 Generar";
+            this.btnGenerarCodigo.UseVisualStyleBackColor = false;
             
             // 
             // lblNombre
             // 
             this.lblNombre.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(13, 55);
+            this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblNombre.Location = new System.Drawing.Point(23, 80);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(54, 15);
+            this.lblNombre.Size = new System.Drawing.Size(81, 19);
             this.lblNombre.TabIndex = 3;
-            this.lblNombre.Text = "Nombre:";
+            this.lblNombre.Text = "📝 Nombre";
             
             // 
             // txtNombre
             // 
             this.txtNombre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutProducto.SetColumnSpan(this.txtNombre, 3);
-            this.txtNombre.Location = new System.Drawing.Point(113, 51);
+            this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtNombre.Location = new System.Drawing.Point(143, 76);
+            this.txtNombre.MaxLength = 255;
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(668, 23);
+            this.txtNombre.Size = new System.Drawing.Size(909, 25);
             this.txtNombre.TabIndex = 4;
             
             // 
@@ -271,56 +448,71 @@ namespace SistemVeterinario.Forms
             // 
             this.lblCategoria.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCategoria.AutoSize = true;
-            this.lblCategoria.Location = new System.Drawing.Point(13, 90);
+            this.lblCategoria.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblCategoria.Location = new System.Drawing.Point(23, 125);
             this.lblCategoria.Name = "lblCategoria";
-            this.lblCategoria.Size = new System.Drawing.Size(66, 15);
+            this.lblCategoria.Size = new System.Drawing.Size(95, 19);
             this.lblCategoria.TabIndex = 5;
-            this.lblCategoria.Text = "Categoría:";
+            this.lblCategoria.Text = "🗂️ Categoría";
             
             // 
             // cmbCategoria
             // 
             this.cmbCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbCategoria.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbCategoria.FormattingEnabled = true;
-            this.cmbCategoria.Location = new System.Drawing.Point(113, 86);
+            this.cmbCategoria.Location = new System.Drawing.Point(143, 121);
             this.cmbCategoria.Name = "cmbCategoria";
-            this.cmbCategoria.Size = new System.Drawing.Size(301, 23);
+            this.cmbCategoria.Size = new System.Drawing.Size(411, 25);
             this.cmbCategoria.TabIndex = 6;
             
             // 
             // btnNuevaCategoria
             // 
             this.btnNuevaCategoria.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnNuevaCategoria.Location = new System.Drawing.Point(420, 86);
+            this.btnNuevaCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnNuevaCategoria.FlatAppearance.BorderSize = 0;
+            this.btnNuevaCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNuevaCategoria.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnNuevaCategoria.ForeColor = System.Drawing.Color.White;
+            this.btnNuevaCategoria.Location = new System.Drawing.Point(560, 119);
             this.btnNuevaCategoria.Name = "btnNuevaCategoria";
-            this.btnNuevaCategoria.Size = new System.Drawing.Size(74, 23);
+            this.btnNuevaCategoria.Size = new System.Drawing.Size(85, 30);
             this.btnNuevaCategoria.TabIndex = 7;
-            this.btnNuevaCategoria.Text = "Nueva";
-            this.btnNuevaCategoria.UseVisualStyleBackColor = true;
+            this.btnNuevaCategoria.Text = "➕ Nueva";
+            this.btnNuevaCategoria.UseVisualStyleBackColor = false;
             
             // 
             // lblPrecio
             // 
             this.lblPrecio.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblPrecio.AutoSize = true;
-            this.lblPrecio.Location = new System.Drawing.Point(13, 125);
+            this.lblPrecio.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblPrecio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblPrecio.Location = new System.Drawing.Point(23, 170);
             this.lblPrecio.Name = "lblPrecio";
-            this.lblPrecio.Size = new System.Drawing.Size(43, 15);
+            this.lblPrecio.Size = new System.Drawing.Size(63, 19);
             this.lblPrecio.TabIndex = 8;
-            this.lblPrecio.Text = "Precio:";
+            this.lblPrecio.Text = "💰 Precio";
             
             // 
             // nudPrecio
             // 
             this.nudPrecio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.nudPrecio.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nudPrecio.DecimalPlaces = 2;
-            this.nudPrecio.Location = new System.Drawing.Point(113, 121);
+            this.nudPrecio.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.nudPrecio.Location = new System.Drawing.Point(143, 166);
             this.nudPrecio.Maximum = new decimal(new int[] { 999999, 0, 0, 131072 });
             this.nudPrecio.Minimum = new decimal(new int[] { 1, 0, 0, 131072 });
             this.nudPrecio.Name = "nudPrecio";
-            this.nudPrecio.Size = new System.Drawing.Size(301, 23);
+            this.nudPrecio.Size = new System.Drawing.Size(411, 25);
             this.nudPrecio.TabIndex = 9;
+            this.nudPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudPrecio.ThousandsSeparator = true;
             this.nudPrecio.Value = new decimal(new int[] { 1, 0, 0, 131072 });
             
             // 
@@ -328,21 +520,26 @@ namespace SistemVeterinario.Forms
             // 
             this.lblStockMinimo.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblStockMinimo.AutoSize = true;
-            this.lblStockMinimo.Location = new System.Drawing.Point(13, 160);
+            this.lblStockMinimo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblStockMinimo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblStockMinimo.Location = new System.Drawing.Point(560, 170);
             this.lblStockMinimo.Name = "lblStockMinimo";
-            this.lblStockMinimo.Size = new System.Drawing.Size(84, 15);
+            this.lblStockMinimo.Size = new System.Drawing.Size(114, 19);
             this.lblStockMinimo.TabIndex = 10;
-            this.lblStockMinimo.Text = "Stock Mínimo:";
+            this.lblStockMinimo.Text = "⚠️ Stock Mínimo";
             
             // 
             // nudStockMinimo
             // 
             this.nudStockMinimo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudStockMinimo.Location = new System.Drawing.Point(113, 156);
+            this.nudStockMinimo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nudStockMinimo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.nudStockMinimo.Location = new System.Drawing.Point(680, 166);
             this.nudStockMinimo.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             this.nudStockMinimo.Name = "nudStockMinimo";
-            this.nudStockMinimo.Size = new System.Drawing.Size(301, 23);
+            this.nudStockMinimo.Size = new System.Drawing.Size(372, 25);
             this.nudStockMinimo.TabIndex = 11;
+            this.nudStockMinimo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.nudStockMinimo.Value = new decimal(new int[] { 5, 0, 0, 0 });
             
             // 
@@ -350,44 +547,54 @@ namespace SistemVeterinario.Forms
             // 
             this.lblStockActual.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblStockActual.AutoSize = true;
-            this.lblStockActual.Location = new System.Drawing.Point(420, 160);
+            this.lblStockActual.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblStockActual.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblStockActual.Location = new System.Drawing.Point(23, 215);
             this.lblStockActual.Name = "lblStockActual";
-            this.lblStockActual.Size = new System.Drawing.Size(74, 15);
+            this.lblStockActual.Size = new System.Drawing.Size(103, 19);
             this.lblStockActual.TabIndex = 12;
-            this.lblStockActual.Text = "Stock Actual:";
+            this.lblStockActual.Text = "📦 Stock Actual";
             
             // 
             // nudStockActual
             // 
             this.nudStockActual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudStockActual.Location = new System.Drawing.Point(500, 156);
+            this.nudStockActual.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nudStockActual.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.nudStockActual.Location = new System.Drawing.Point(143, 211);
             this.nudStockActual.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             this.nudStockActual.Name = "nudStockActual";
-            this.nudStockActual.Size = new System.Drawing.Size(281, 23);
+            this.nudStockActual.Size = new System.Drawing.Size(411, 25);
             this.nudStockActual.TabIndex = 13;
+            this.nudStockActual.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             
             // 
             // chkRequiereReceta
             // 
             this.chkRequiereReceta.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chkRequiereReceta.AutoSize = true;
-            this.tableLayoutProducto.SetColumnSpan(this.chkRequiereReceta, 3);
-            this.chkRequiereReceta.Location = new System.Drawing.Point(113, 195);
+            this.chkRequiereReceta.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.tableLayoutProducto.SetColumnSpan(this.chkRequiereReceta, 2);
+            this.chkRequiereReceta.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.chkRequiereReceta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.chkRequiereReceta.Location = new System.Drawing.Point(560, 213);
             this.chkRequiereReceta.Name = "chkRequiereReceta";
-            this.chkRequiereReceta.Size = new System.Drawing.Size(107, 19);
+            this.chkRequiereReceta.Size = new System.Drawing.Size(142, 23);
             this.chkRequiereReceta.TabIndex = 14;
-            this.chkRequiereReceta.Text = "Requiere Receta";
+            this.chkRequiereReceta.Text = "🏥 Requiere Receta";
             this.chkRequiereReceta.UseVisualStyleBackColor = true;
             
             // 
             // lblDescripcion
             // 
             this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.Location = new System.Drawing.Point(13, 230);
+            this.lblDescripcion.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblDescripcion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblDescripcion.Location = new System.Drawing.Point(23, 245);
             this.lblDescripcion.Name = "lblDescripcion";
-            this.lblDescripcion.Size = new System.Drawing.Size(72, 15);
+            this.lblDescripcion.Size = new System.Drawing.Size(106, 19);
             this.lblDescripcion.TabIndex = 15;
-            this.lblDescripcion.Text = "Descripción:";
+            this.lblDescripcion.Text = "📄 Descripción";
             
             // 
             // txtDescripcion
@@ -395,12 +602,14 @@ namespace SistemVeterinario.Forms
             this.txtDescripcion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutProducto.SetColumnSpan(this.txtDescripcion, 3);
-            this.txtDescripcion.Location = new System.Drawing.Point(113, 233);
+            this.txtDescripcion.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtDescripcion.Location = new System.Drawing.Point(143, 248);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescripcion.Size = new System.Drawing.Size(668, 132);
+            this.txtDescripcion.Size = new System.Drawing.Size(909, 138);
             this.txtDescripcion.TabIndex = 16;
             
             // 
@@ -564,6 +773,15 @@ namespace SistemVeterinario.Forms
             this.btnInicializarCategorias.UseVisualStyleBackColor = true;
             
             // Reanudar el layout
+            this.tabControlPrincipal.ResumeLayout(false);
+            this.tabInicio.ResumeLayout(false);
+            this.tabConfiguraciones.ResumeLayout(false);
+            this.panelBusqueda.ResumeLayout(false);
+            this.panelBusqueda.PerformLayout();
+            this.panelFormulario.ResumeLayout(false);
+            this.panelSuperior.ResumeLayout(false);
+            this.panelSuperior.PerformLayout();
+            this.panelBotones.ResumeLayout(false);
             this.grpDatosProducto.ResumeLayout(false);
             this.tableLayoutProducto.ResumeLayout(false);
             this.tableLayoutProducto.PerformLayout();
