@@ -575,6 +575,60 @@ namespace SistemVeterinario.Forms
             EliminarRegistro();
         }
 
+        protected override void OnEliminarFila(DataGridViewRow row)
+        {
+            // Obtener ID de la fila seleccionada
+            if (row.DataBoundItem is DataRowView dataRow)
+            {
+                int id = Convert.ToInt32(dataRow["id"]);
+                // Para personal, construir el nombre a partir de nombre y apellido
+                string nombre = dataRow["nombre"]?.ToString() ?? "";
+                string apellido = dataRow["apellido"]?.ToString() ?? "";
+                string nombreCompleto = $"{nombre} {apellido}".Trim();
+                
+                if (string.IsNullOrEmpty(nombreCompleto))
+                    nombreCompleto = "registro";
+
+                var resultado = MostrarConfirmacion(
+                    $"¿Está seguro que desea eliminar al personal '{nombreCompleto}'?",
+                    "Confirmar eliminación"
+                );
+
+                if (resultado == DialogResult.Yes)
+                {
+                    // Usar el método de eliminación específico del módulo
+                    IdSeleccionado = id;
+                    if (EliminarRegistro())
+                    {
+                        OnBuscar(); // Refrescar la lista
+                    }
+                }
+            }
+        }
+
+        protected override void EliminarRegistro(int id)
+        {
+            try
+            {
+                string resultado = NPersonal.Eliminar(id);
+
+                if (resultado == "OK")
+                {
+                    MostrarMensaje("Personal eliminado correctamente", "Éxito", MessageBoxIcon.Information);
+                    CargarDatos();
+                    LimpiarFormulario();
+                }
+                else
+                {
+                    MostrarMensaje(resultado, "Error", MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje($"Error al eliminar: {ex.Message}", "Error", MessageBoxIcon.Error);
+            }
+        }
+
         private bool EliminarRegistro()
         {
             try
