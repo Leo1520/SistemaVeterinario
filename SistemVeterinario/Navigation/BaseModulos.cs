@@ -136,11 +136,11 @@ namespace SistemVeterinario.Navigation
                     {
                         OnEliminarFila(row);
                     }
-                }
-                // Verificar si se hizo click en una columna personalizada
-                else if (ColumnasPersonalizadas.Contains(columnName))
-                {
-                    OnAccionPersonalizada(row, columnName);
+                    // Verificar si se hizo click en una columna personalizada
+                    else if (ColumnasPersonalizadas.Contains(columnName))
+                    {
+                        OnAccionPersonalizada(row, columnName);
+                    }
                 }
             }
         }
