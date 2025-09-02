@@ -375,7 +375,7 @@ namespace CapaDatos
                 System.Diagnostics.Debug.WriteLine($"Error en BuscarPorNombre: {ex.Message}");
                 dtResultado = new DataTable();
             }
-            return dtResultado;
+                return dtResultado;
         }
 
         public DataTable BuscarPorPropietario(int propietarioId)
