@@ -154,7 +154,7 @@ namespace SistemVeterinario
             this.BtnDashboard.Name = "BtnDashboard";
             this.BtnDashboard.Size = new System.Drawing.Size(450, 56);
             this.BtnDashboard.TabIndex = 10;
-            this.BtnDashboard.Text = "Dashboard";
+            this.BtnDashboard.Text = "Inicio";
             this.BtnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnDashboard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnDashboard.UseVisualStyleBackColor = false;
@@ -177,7 +177,7 @@ namespace SistemVeterinario
             this.BtnReportes.Name = "BtnReportes";
             this.BtnReportes.Size = new System.Drawing.Size(450, 72);
             this.BtnReportes.TabIndex = 9;
-            this.BtnReportes.Text = "Reportes";
+            this.BtnReportes.Text = "Reportes y Dashboard";
             this.BtnReportes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnReportes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnReportes.UseVisualStyleBackColor = false;
