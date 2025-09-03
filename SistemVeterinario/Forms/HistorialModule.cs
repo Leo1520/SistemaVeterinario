@@ -361,7 +361,7 @@ namespace SistemVeterinario.Forms
                 if (dgvDatos.Columns["propietario_nombre"] != null)
                 {
                     dgvDatos.Columns["propietario_nombre"].HeaderText = "👤 Propietario";
-                    dgvDatos.Columns["propietario_nombre"].Width = (int)(totalWidth * 0.16); // 16%
+                    dgvDatos.Columns["propietario_nombre"].Width = (int)(totalWidth * 0.25); // 25%
                     dgvDatos.Columns["propietario_nombre"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
                     dgvDatos.Columns["propietario_nombre"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
