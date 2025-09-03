@@ -69,14 +69,6 @@ namespace SistemVeterinario.Forms
             cmbTipoPersonal.Items.Add("Auxiliar");
             cmbTipoPersonal.SelectedIndex = 0;
 
-            // Configurar ComboBox de rol
-            cmbRol.Items.Clear();
-            cmbRol.Items.Add("Seleccionar...");
-            cmbRol.Items.Add("Usuario");
-            cmbRol.Items.Add("Administrador");
-            cmbRol.Items.Add("Supervisor");
-            cmbRol.SelectedIndex = 0;
-
             // Configurar ComboBox de tipo para formulario
             cmbTipoPersonalForm.Items.Clear();
             cmbTipoPersonalForm.Items.Add("Veterinario");
@@ -97,23 +89,35 @@ namespace SistemVeterinario.Forms
             cmbNivel.Items.Add("Avanzado");
             cmbNivel.SelectedIndex = 0;
 
-            // Configurar ComboBox de rol para formulario
-            cmbRol.Items.Clear();
-            cmbRol.Items.Add("Usuario");
-            cmbRol.Items.Add("Administrador");
-            cmbRol.Items.Add("Supervisor");
-            cmbRol.SelectedIndex = 0;
-
             // Configurar eventos
             cmbTipoPersonal.SelectedIndexChanged += CmbTipoPersonal_SelectedIndexChanged;
             cmbTipoPersonalForm.SelectedIndexChanged += CmbTipoPersonalForm_SelectedIndexChanged;
             dtpFechaContratacion.Value = DateTime.Now;
+
+            // Configurar validaciones en tiempo real
+            ConfigurarValidacionEnTiempoReal();
 
             // Configurar scroll horizontal del DataGridView
             ConfigurarScrollDataGrid();
 
             // Ocultar campos específicos inicialmente
             MostrarCamposSegunTipo();
+        }
+
+        private void ConfigurarValidacionEnTiempoReal()
+        {
+            // Validación de email en tiempo real
+            txtEmail.TextChanged += (s, e) => ValidarEmailEnTiempoReal();
+            txtEmail.Leave += (s, e) => ValidarCampoCompleto(txtEmail, "email");
+            
+            // Validación de teléfono - solo números
+            txtTelefono.KeyPress += (s, e) => ValidarSoloNumeros(s, e);
+            txtTelefono.Leave += (s, e) => ValidarCampoCompleto(txtTelefono, "telefono");
+            
+            // Validación de campos obligatorios
+            txtNombre.Leave += (s, e) => ValidarCampoObligatorio(txtNombre, lblNombre);
+            txtApellido.Leave += (s, e) => ValidarCampoObligatorio(txtApellido, lblApellido);
+            txtUsuario.Leave += (s, e) => ValidarCampoObligatorio(txtUsuario, lblUsuario);
         }
 
         private void ConfigurarScrollDataGrid()
@@ -138,6 +142,9 @@ namespace SistemVeterinario.Forms
         {
             bool esVeterinario = cmbTipoPersonalForm.Text == "Veterinario";
 
+            // Suspender el layout para evitar parpadeo
+            tabConfiguraciones.SuspendLayout();
+
             // Campos específicos de veterinario
             lblLicencia.Visible = esVeterinario;
             txtLicencia.Visible = esVeterinario;
@@ -155,6 +162,29 @@ namespace SistemVeterinario.Forms
             cmbTurno.Visible = !esVeterinario;
             lblNivel.Visible = !esVeterinario;
             cmbNivel.Visible = !esVeterinario;
+
+            // CAMPOS COMUNES - SIEMPRE VISIBLES
+            // El campo rol se maneja directamente en la base de datos, no a través de la UI
+
+            // Reanudar el layout y actualizar
+            tabConfiguraciones.ResumeLayout(true);
+            tabConfiguraciones.Refresh();
+
+            // Mostrar mensaje informativo
+            MostrarMensajeInformativoPersonal(esVeterinario ? "Veterinario" : "Auxiliar");
+        }
+
+        private void MostrarMensajeInformativoPersonal(string tipo)
+        {
+            string mensaje = tipo == "Veterinario" 
+                ? "Complete los datos del veterinario. Los campos específicos de veterinario están habilitados."
+                : "Complete los datos del auxiliar. Los campos específicos de auxiliar están habilitados.";
+            
+            // Actualizar el título del formulario si es posible
+            if (tabConfiguraciones != null)
+            {
+                tabConfiguraciones.Text = $"Configuración de Personal - {tipo}";
+            }
         }
 
         private void CmbTipoPersonal_SelectedIndexChanged(object sender, EventArgs e)
@@ -390,10 +420,10 @@ namespace SistemVeterinario.Forms
                 return false;
             }
 
-            if (cmbRol.SelectedIndex == -1)
+            if (cmbTipoPersonalForm.SelectedIndex == -1)
             {
-                MostrarMensaje("Debe seleccionar un rol", "Validación", MessageBoxIcon.Warning);
-                cmbRol.Focus();
+                MostrarMensaje("Debe seleccionar un tipo de personal", "Validación", MessageBoxIcon.Warning);
+                cmbTipoPersonalForm.Focus();
                 return false;
             }
 
@@ -462,7 +492,7 @@ namespace SistemVeterinario.Forms
                             txtTelefono.Text.Trim(),
                             txtDireccion.Text.Trim(),
                             salario,
-                            cmbRol.Text,
+                            "Usuario", // Rol por defecto
                             txtLicencia.Text.Trim(),
                             txtEspecialidad.Text.Trim(),
                             txtUniversidad.Text.Trim(),
@@ -480,7 +510,7 @@ namespace SistemVeterinario.Forms
                             txtTelefono.Text.Trim(),
                             txtDireccion.Text.Trim(),
                             salario,
-                            cmbRol.Text,
+                            "Usuario", // Rol por defecto
                             txtArea.Text.Trim(),
                             cmbTurno.Text,
                             cmbNivel.Text
@@ -502,7 +532,7 @@ namespace SistemVeterinario.Forms
                             txtDireccion.Text.Trim(),
                             dtpFechaContratacion.Value,
                             salario,
-                            cmbRol.Text,
+                            "Usuario", // Rol por defecto
                             txtLicencia.Text.Trim(),
                             txtEspecialidad.Text.Trim(),
                             txtUniversidad.Text.Trim(),
@@ -521,7 +551,7 @@ namespace SistemVeterinario.Forms
                             txtDireccion.Text.Trim(),
                             dtpFechaContratacion.Value,
                             salario,
-                            cmbRol.Text,
+                            "Usuario", // Rol por defecto
                             txtArea.Text.Trim(),
                             cmbTurno.Text,
                             cmbNivel.Text
@@ -697,7 +727,7 @@ namespace SistemVeterinario.Forms
                     txtTelefono.Text = row["telefono"]?.ToString() ?? "";
                     txtDireccion.Text = row["direccion"]?.ToString() ?? "";
                     txtSalario.Text = row["salario"]?.ToString() ?? "";
-                    cmbRol.Text = row["rol"]?.ToString() ?? "Usuario";
+                    // El campo rol se almacena en la BD pero no se edita desde la UI
 
                     if (DateTime.TryParse(row["fecha_contratacion"]?.ToString(), out DateTime fechaContratacion))
                         dtpFechaContratacion.Value = fechaContratacion;
@@ -743,7 +773,6 @@ namespace SistemVeterinario.Forms
             txtTelefono.Text = "";
             txtDireccion.Text = "";
             txtSalario.Text = "";
-            cmbRol.SelectedIndex = 0;
             dtpFechaContratacion.Value = DateTime.Now;
 
             // Campos específicos
@@ -944,6 +973,74 @@ namespace SistemVeterinario.Forms
             }
         }
 
+        #endregion
+
+        #region Métodos de Validación y Efectos Visuales
+        private void ValidarEmailEnTiempoReal()
+        {
+            if (string.IsNullOrWhiteSpace(txtEmail.Text)) return;
+            
+            bool esValido = NPersonal.ValidarEmail(txtEmail.Text);
+            txtEmail.BackColor = esValido ? Color.FromArgb(240, 248, 255) : Color.FromArgb(255, 240, 240);
+        }
+
+        private void ValidarSoloNumeros(object sender, KeyPressEventArgs e)
+        {
+            // Permitir solo números, backspace y delete
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ValidarCampoCompleto(TextBox textBox, string tipoCampo)
+        {
+            Color colorValido = Color.FromArgb(240, 248, 255);
+            Color colorInvalido = Color.FromArgb(255, 240, 240);
+            Color colorNormal = Color.White;
+
+            switch (tipoCampo.ToLower())
+            {
+                case "email":
+                    if (!string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        textBox.BackColor = NPersonal.ValidarEmail(textBox.Text) ? colorValido : colorInvalido;
+                    }
+                    else
+                    {
+                        textBox.BackColor = colorNormal;
+                    }
+                    break;
+                case "telefono":
+                    if (!string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        textBox.BackColor = textBox.Text.Length >= 6 ? colorValido : colorInvalido;
+                    }
+                    else
+                    {
+                        textBox.BackColor = colorNormal;
+                    }
+                    break;
+            }
+        }
+
+        private void ValidarCampoObligatorio(TextBox textBox, Label label)
+        {
+            Color colorValido = Color.FromArgb(240, 248, 255);
+            Color colorInvalido = Color.FromArgb(255, 240, 240);
+            Color colorNormal = Color.White;
+
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.BackColor = colorInvalido;
+                if (label != null) label.ForeColor = Color.FromArgb(231, 76, 60);
+            }
+            else
+            {
+                textBox.BackColor = colorValido;
+                if (label != null) label.ForeColor = Color.FromArgb(39, 174, 96);
+            }
+        }
         #endregion
 
 
