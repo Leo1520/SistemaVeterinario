@@ -88,7 +88,7 @@ namespace SistemVeterinario.Forms
             this.tabInicio.Location = new System.Drawing.Point(4, 39);
             this.tabInicio.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabInicio.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabInicio.Size = new System.Drawing.Size(1298, 810);
+            this.tabInicio.Size = new System.Drawing.Size(1135, 597);
             this.tabInicio.Text = "Gestión de Personas";
             // 
             // tabConfiguraciones
@@ -144,6 +144,7 @@ namespace SistemVeterinario.Forms
             // panelFormulario
             // 
             this.panelFormulario.Controls.Add(this.grpDatosComunes);
+            this.panelFormulario.Controls.Add(this.grpPersonaJuridica);
             this.panelFormulario.Controls.Add(this.grpPersonaFisica);
             this.panelFormulario.Controls.Add(this.cmbTipoPersonaForm);
             this.panelFormulario.Controls.Add(this.lblTipoPersonaForm);
@@ -153,6 +154,7 @@ namespace SistemVeterinario.Forms
             this.panelFormulario.Controls.SetChildIndex(this.lblTipoPersonaForm, 0);
             this.panelFormulario.Controls.SetChildIndex(this.cmbTipoPersonaForm, 0);
             this.panelFormulario.Controls.SetChildIndex(this.grpPersonaFisica, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.grpPersonaJuridica, 0);
             this.panelFormulario.Controls.SetChildIndex(this.grpDatosComunes, 0);
             this.panelFormulario.Controls.SetChildIndex(this.panelBotones, 0);
             this.panelFormulario.Controls.SetChildIndex(this.panelSuperior, 0);
@@ -161,7 +163,7 @@ namespace SistemVeterinario.Forms
             // 
             this.panelSuperior.Location = new System.Drawing.Point(35, 35);
             this.panelSuperior.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panelSuperior.Size = new System.Drawing.Size(1222, 72);
+            this.panelSuperior.Size = new System.Drawing.Size(1385, 72);
             // 
             // lblModo
             // 
@@ -185,18 +187,18 @@ namespace SistemVeterinario.Forms
             // 
             // panelBotones
             // 
-            this.panelBotones.Location = new System.Drawing.Point(100, 1973);
-            this.panelBotones.Size = new System.Drawing.Size(2051, 65);
+            this.panelBotones.Location = new System.Drawing.Point(100, 2186);
+            this.panelBotones.Size = new System.Drawing.Size(2214, 65);
             // 
             // btnGuardar
             // 
             this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.Location = new System.Drawing.Point(1914, 15);
+            this.btnGuardar.Location = new System.Drawing.Point(2077, 15);
             // 
             // btnCancelar
             // 
             this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.Location = new System.Drawing.Point(1731, 15);
+            this.btnCancelar.Location = new System.Drawing.Point(1894, 15);
             // 
             // btnEliminar
             // 
@@ -270,7 +272,6 @@ namespace SistemVeterinario.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpPersonaFisica.BackColor = System.Drawing.Color.White;
             this.grpPersonaFisica.Controls.Add(this.tableLayoutFisica);
-            this.grpPersonaFisica.Controls.Add(this.grpPersonaJuridica);
             this.grpPersonaFisica.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.grpPersonaFisica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
             this.grpPersonaFisica.Location = new System.Drawing.Point(20, 180);
@@ -457,122 +458,158 @@ namespace SistemVeterinario.Forms
             this.grpPersonaJuridica.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpPersonaJuridica.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.grpPersonaJuridica.Controls.Add(this.txtEncargadoCargo);
-            this.grpPersonaJuridica.Controls.Add(this.lblEncargadoCargo);
-            this.grpPersonaJuridica.Controls.Add(this.txtEncargadoNombre);
-            this.grpPersonaJuridica.Controls.Add(this.lblEncargadoNombre);
-            this.grpPersonaJuridica.Controls.Add(this.txtNit);
-            this.grpPersonaJuridica.Controls.Add(this.lblNit);
-            this.grpPersonaJuridica.Controls.Add(this.txtRazonSocial);
-            this.grpPersonaJuridica.Controls.Add(this.lblRazonSocial);
-            this.grpPersonaJuridica.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.grpPersonaJuridica.Controls.Add(this.tableLayoutJuridica);
+            this.grpPersonaJuridica.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.grpPersonaJuridica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
-            this.grpPersonaJuridica.Location = new System.Drawing.Point(109, 12);
+            this.grpPersonaJuridica.Location = new System.Drawing.Point(20, 180);
+            this.grpPersonaJuridica.Margin = new System.Windows.Forms.Padding(10);
             this.grpPersonaJuridica.Name = "grpPersonaJuridica";
             this.grpPersonaJuridica.Padding = new System.Windows.Forms.Padding(15);
-            this.grpPersonaJuridica.Size = new System.Drawing.Size(1069, 118);
+            this.grpPersonaJuridica.Size = new System.Drawing.Size(1252, 176);
             this.grpPersonaJuridica.TabIndex = 3;
             this.grpPersonaJuridica.TabStop = false;
-            this.grpPersonaJuridica.Text = "Datos de Persona Jurídica";
+            this.grpPersonaJuridica.Text = "🏢 Datos de Persona Jurídica";
             this.grpPersonaJuridica.Visible = false;
             // 
             // txtEncargadoCargo
             // 
+            this.txtEncargadoCargo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEncargadoCargo.BackColor = System.Drawing.Color.White;
             this.txtEncargadoCargo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEncargadoCargo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtEncargadoCargo.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtEncargadoCargo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.txtEncargadoCargo.Location = new System.Drawing.Point(870, 50);
+            this.txtEncargadoCargo.Location = new System.Drawing.Point(991, 50);
+            this.txtEncargadoCargo.Margin = new System.Windows.Forms.Padding(5);
             this.txtEncargadoCargo.MaxLength = 100;
             this.txtEncargadoCargo.Name = "txtEncargadoCargo";
-            this.txtEncargadoCargo.Size = new System.Drawing.Size(130, 27);
+            this.txtEncargadoCargo.Size = new System.Drawing.Size(216, 30);
             this.txtEncargadoCargo.TabIndex = 7;
             // 
             // lblEncargadoCargo
             // 
+            this.lblEncargadoCargo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEncargadoCargo.AutoSize = true;
-            this.lblEncargadoCargo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblEncargadoCargo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblEncargadoCargo.Location = new System.Drawing.Point(870, 30);
+            this.lblEncargadoCargo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblEncargadoCargo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblEncargadoCargo.Location = new System.Drawing.Point(991, 15);
+            this.lblEncargadoCargo.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblEncargadoCargo.Name = "lblEncargadoCargo";
-            this.lblEncargadoCargo.Size = new System.Drawing.Size(52, 20);
+            this.lblEncargadoCargo.Size = new System.Drawing.Size(216, 23);
             this.lblEncargadoCargo.TabIndex = 6;
-            this.lblEncargadoCargo.Text = "Cargo:";
+            this.lblEncargadoCargo.Text = "💼 Cargo";
             // 
             // txtEncargadoNombre
             // 
+            this.txtEncargadoNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEncargadoNombre.BackColor = System.Drawing.Color.White;
             this.txtEncargadoNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEncargadoNombre.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtEncargadoNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtEncargadoNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.txtEncargadoNombre.Location = new System.Drawing.Point(690, 50);
+            this.txtEncargadoNombre.Location = new System.Drawing.Point(747, 50);
+            this.txtEncargadoNombre.Margin = new System.Windows.Forms.Padding(5);
             this.txtEncargadoNombre.MaxLength = 100;
             this.txtEncargadoNombre.Name = "txtEncargadoNombre";
-            this.txtEncargadoNombre.Size = new System.Drawing.Size(150, 27);
+            this.txtEncargadoNombre.Size = new System.Drawing.Size(234, 30);
             this.txtEncargadoNombre.TabIndex = 5;
             // 
             // lblEncargadoNombre
             // 
+            this.lblEncargadoNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEncargadoNombre.AutoSize = true;
-            this.lblEncargadoNombre.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblEncargadoNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblEncargadoNombre.Location = new System.Drawing.Point(690, 30);
+            this.lblEncargadoNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblEncargadoNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblEncargadoNombre.Location = new System.Drawing.Point(747, 15);
+            this.lblEncargadoNombre.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblEncargadoNombre.Name = "lblEncargadoNombre";
-            this.lblEncargadoNombre.Size = new System.Drawing.Size(83, 20);
+            this.lblEncargadoNombre.Size = new System.Drawing.Size(234, 23);
             this.lblEncargadoNombre.TabIndex = 4;
-            this.lblEncargadoNombre.Text = "Encargado:";
+            this.lblEncargadoNombre.Text = "👤 Encargado";
             // 
             // txtNit
             // 
+            this.txtNit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNit.BackColor = System.Drawing.Color.White;
             this.txtNit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNit.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtNit.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtNit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.txtNit.Location = new System.Drawing.Point(480, 50);
+            this.txtNit.Location = new System.Drawing.Point(503, 50);
+            this.txtNit.Margin = new System.Windows.Forms.Padding(5);
             this.txtNit.MaxLength = 15;
             this.txtNit.Name = "txtNit";
-            this.txtNit.Size = new System.Drawing.Size(180, 27);
+            this.txtNit.Size = new System.Drawing.Size(234, 30);
             this.txtNit.TabIndex = 3;
             // 
             // lblNit
             // 
+            this.lblNit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNit.AutoSize = true;
-            this.lblNit.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblNit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblNit.Location = new System.Drawing.Point(480, 30);
+            this.lblNit.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblNit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblNit.Location = new System.Drawing.Point(503, 15);
+            this.lblNit.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblNit.Name = "lblNit";
-            this.lblNit.Size = new System.Drawing.Size(35, 20);
+            this.lblNit.Size = new System.Drawing.Size(234, 23);
             this.lblNit.TabIndex = 2;
-            this.lblNit.Text = "NIT:";
+            this.lblNit.Text = "🎫 NIT";
             // 
             // txtRazonSocial
             // 
+            this.txtRazonSocial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRazonSocial.BackColor = System.Drawing.Color.White;
             this.txtRazonSocial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRazonSocial.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtRazonSocial.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtRazonSocial.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.txtRazonSocial.Location = new System.Drawing.Point(50, 50);
+            this.txtRazonSocial.Location = new System.Drawing.Point(15, 50);
+            this.txtRazonSocial.Margin = new System.Windows.Forms.Padding(5);
             this.txtRazonSocial.MaxLength = 255;
             this.txtRazonSocial.Name = "txtRazonSocial";
-            this.txtRazonSocial.Size = new System.Drawing.Size(400, 27);
+            this.txtRazonSocial.Size = new System.Drawing.Size(478, 30);
             this.txtRazonSocial.TabIndex = 1;
             // 
             // lblRazonSocial
             // 
+            this.lblRazonSocial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblRazonSocial.AutoSize = true;
-            this.lblRazonSocial.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblRazonSocial.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblRazonSocial.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.lblRazonSocial.Location = new System.Drawing.Point(50, 30);
+            this.lblRazonSocial.Location = new System.Drawing.Point(15, 15);
+            this.lblRazonSocial.Margin = new System.Windows.Forms.Padding(5, 5, 5, 0);
             this.lblRazonSocial.Name = "lblRazonSocial";
-            this.lblRazonSocial.Size = new System.Drawing.Size(97, 20);
+            this.lblRazonSocial.Size = new System.Drawing.Size(478, 23);
             this.lblRazonSocial.TabIndex = 0;
-            this.lblRazonSocial.Text = "Razón Social:";
+            this.lblRazonSocial.Text = "🏢 Razón Social *";
             // 
             // tableLayoutJuridica
             // 
-            this.tableLayoutJuridica.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutJuridica.ColumnCount = 4;
+            this.tableLayoutJuridica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutJuridica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutJuridica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutJuridica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutJuridica.Controls.Add(this.lblRazonSocial, 0, 0);
+            this.tableLayoutJuridica.Controls.Add(this.txtRazonSocial, 0, 1);
+            this.tableLayoutJuridica.Controls.Add(this.lblNit, 1, 0);
+            this.tableLayoutJuridica.Controls.Add(this.txtNit, 1, 1);
+            this.tableLayoutJuridica.Controls.Add(this.lblEncargadoNombre, 2, 0);
+            this.tableLayoutJuridica.Controls.Add(this.txtEncargadoNombre, 2, 1);
+            this.tableLayoutJuridica.Controls.Add(this.lblEncargadoCargo, 3, 0);
+            this.tableLayoutJuridica.Controls.Add(this.txtEncargadoCargo, 3, 1);
+            this.tableLayoutJuridica.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutJuridica.Location = new System.Drawing.Point(15, 40);
             this.tableLayoutJuridica.Name = "tableLayoutJuridica";
-            this.tableLayoutJuridica.Size = new System.Drawing.Size(200, 100);
+            this.tableLayoutJuridica.Padding = new System.Windows.Forms.Padding(10);
+            this.tableLayoutJuridica.RowCount = 2;
+            this.tableLayoutJuridica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutJuridica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutJuridica.Size = new System.Drawing.Size(1222, 121);
             this.tableLayoutJuridica.TabIndex = 0;
             // 
             // grpDatosComunes

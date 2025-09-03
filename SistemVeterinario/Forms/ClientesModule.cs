@@ -691,7 +691,7 @@ namespace SistemVeterinario.Forms
                 grpPersonaJuridica.Visible = false;
                 grpPersonaFisica.Visible = true;
                 grpPersonaFisica.BringToFront();
-
+                grpPersonaJuridica.SendToBack();
                 // Configurar colores modernos para campos obligatorios
                 lblNombre.ForeColor = Color.FromArgb(231, 76, 60);
                 lblApellido.ForeColor = Color.FromArgb(231, 76, 60);
@@ -706,7 +706,7 @@ namespace SistemVeterinario.Forms
                 grpPersonaFisica.Visible = false;
                 grpPersonaJuridica.Visible = true;
                 grpPersonaJuridica.BringToFront();
-
+                grpPersonaFisica.SendToBack();
                 // Configurar colores modernos para campos obligatorios
                 lblRazonSocial.ForeColor = Color.FromArgb(231, 76, 60);
                 lblNombre.ForeColor = Color.FromArgb(52, 73, 94); // Reset
