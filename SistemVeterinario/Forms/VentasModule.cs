@@ -186,7 +186,7 @@ namespace SistemVeterinario.Forms
                             break;
                         case "cliente":
                             column.HeaderText = "Cliente";
-                            column.MinimumWidth = 150;
+                            column.MinimumWidth = 320;
                             break;
                         case "subtotal":
                             column.HeaderText = "Subtotal";
