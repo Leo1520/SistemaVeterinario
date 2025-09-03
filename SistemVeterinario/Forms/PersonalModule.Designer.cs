@@ -80,7 +80,19 @@ namespace SistemVeterinario.Forms
             this.panelFormulario.SuspendLayout();
             this.panelSuperior.SuspendLayout();
             this.panelBotones.SuspendLayout();
+            this.grpDatosPersonales.SuspendLayout();
+            this.tableLayoutPersonales.SuspendLayout();
+            this.grpDatosLaborales.SuspendLayout();
+            this.tableLayoutLaborales.SuspendLayout();
+            this.grpDatosEspecificos.SuspendLayout();
+            this.tableLayoutEspecificos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numExperiencia)).BeginInit();
             this.SuspendLayout();
+            // 
+            // tabControlPrincipal
+            // 
+            this.tabControlPrincipal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabControlPrincipal.Size = new System.Drawing.Size(1306, 853);
             // 
             // tabInicio
             // 
@@ -93,29 +105,70 @@ namespace SistemVeterinario.Forms
             // tabConfiguraciones
             // 
             this.tabConfiguraciones.Location = new System.Drawing.Point(4, 39);
-            this.tabConfiguraciones.Size = new System.Drawing.Size(1135, 597);
+            this.tabConfiguraciones.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabConfiguraciones.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabConfiguraciones.Size = new System.Drawing.Size(1298, 810);
+            this.tabConfiguraciones.Text = "Configuración de Personal";
             // 
             // panelBusqueda
             // 
-            this.panelBusqueda.Size = new System.Drawing.Size(1112, 128);
+            this.panelBusqueda.Controls.Add(this.lblContador);
+            this.panelBusqueda.Controls.Add(this.lblTipoPersonal);
+            this.panelBusqueda.Controls.Add(this.cmbTipoPersonal);
+            this.panelBusqueda.Location = new System.Drawing.Point(13, 14);
+            this.panelBusqueda.Margin = new System.Windows.Forms.Padding(10);
+            this.panelBusqueda.Size = new System.Drawing.Size(2087, 120);
+            this.panelBusqueda.Controls.SetChildIndex(this.cmbTipoPersonal, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.lblTipoPersonal, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.lblContador, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.chkMostrarTodo, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.btnNuevo, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.btnBuscar, 0);
+            this.panelBusqueda.Controls.SetChildIndex(this.txtBuscar, 0);
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Size = new System.Drawing.Size(515, 32);
+            this.txtBuscar.Location = new System.Drawing.Point(31, 11);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(5);
+            this.txtBuscar.Size = new System.Drawing.Size(1259, 32);
             // 
             // btnBuscar
             // 
             this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.Location = new System.Drawing.Point(555, 25);
+            this.btnBuscar.Location = new System.Drawing.Point(1332, 7);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(5);
+            this.btnBuscar.Size = new System.Drawing.Size(120, 36);
             // 
             // btnNuevo
             // 
             this.btnNuevo.FlatAppearance.BorderSize = 0;
-            this.btnNuevo.Location = new System.Drawing.Point(944, 25);
+            this.btnNuevo.Location = new System.Drawing.Point(1744, 11);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(5);
+            this.btnNuevo.Size = new System.Drawing.Size(140, 36);
+            this.btnNuevo.Text = "➕ Nuevo Personal";
+            // 
+            // chkMostrarTodo
+            // 
+            this.chkMostrarTodo.Location = new System.Drawing.Point(180, 53);
+            this.chkMostrarTodo.Margin = new System.Windows.Forms.Padding(5);
             // 
             // panelFormulario
             // 
-            this.panelFormulario.Size = new System.Drawing.Size(1113, 575);
+            this.panelFormulario.Controls.Add(this.grpDatosEspecificos);
+            this.panelFormulario.Controls.Add(this.grpDatosLaborales);
+            this.panelFormulario.Controls.Add(this.grpDatosPersonales);
+            this.panelFormulario.Controls.Add(this.cmbTipoPersonalForm);
+            this.panelFormulario.Controls.Add(this.lblTipoPersonalForm);
+            this.panelFormulario.Location = new System.Drawing.Point(3, 4);
+            this.panelFormulario.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelFormulario.Size = new System.Drawing.Size(1292, 802);
+            this.panelFormulario.Controls.SetChildIndex(this.lblTipoPersonalForm, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.cmbTipoPersonalForm, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.grpDatosPersonales, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.grpDatosLaborales, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.grpDatosEspecificos, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.panelBotones, 0);
+            this.panelFormulario.Controls.SetChildIndex(this.panelSuperior, 0);
             // 
             // panelSuperior
             // 
@@ -829,16 +882,30 @@ namespace SistemVeterinario.Forms
             // PersonalModule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "PersonalModule";
+            this.Size = new System.Drawing.Size(1306, 853);
             this.tabControlPrincipal.ResumeLayout(false);
             this.tabInicio.ResumeLayout(false);
             this.tabConfiguraciones.ResumeLayout(false);
             this.panelBusqueda.ResumeLayout(false);
             this.panelBusqueda.PerformLayout();
             this.panelFormulario.ResumeLayout(false);
+            this.panelFormulario.PerformLayout();
             this.panelSuperior.ResumeLayout(false);
             this.panelSuperior.PerformLayout();
             this.panelBotones.ResumeLayout(false);
+            this.grpDatosPersonales.ResumeLayout(false);
+            this.tableLayoutPersonales.ResumeLayout(false);
+            this.tableLayoutPersonales.PerformLayout();
+            this.grpDatosLaborales.ResumeLayout(false);
+            this.tableLayoutLaborales.ResumeLayout(false);
+            this.tableLayoutLaborales.PerformLayout();
+            this.grpDatosEspecificos.ResumeLayout(false);
+            this.tableLayoutEspecificos.ResumeLayout(false);
+            this.tableLayoutEspecificos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numExperiencia)).EndInit();
             this.ResumeLayout(false);
 
         }
