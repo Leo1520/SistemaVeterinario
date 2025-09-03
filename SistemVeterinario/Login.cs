@@ -13,7 +13,7 @@ namespace SistemVeterinario
     public partial class Login : Form
     {
         private Dashboard _dashboardInstance;
-        private bool ommitLogin = true;
+        private bool ommitLogin = false;
         public Login()
         {
             InitializeComponent();
