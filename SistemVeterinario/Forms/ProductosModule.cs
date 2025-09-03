@@ -24,30 +24,15 @@ namespace SistemVeterinario.Forms
             ConfigurarModulo();
             ConfigurarValidacionEnTiempoReal();
             ConfigurarEstilosModernos();
-            
+
             // Configurar botones editables después de la inicialización
-            this.Load += (s, e) => {
+            this.Load += (s, e) =>
+            {
                 ConfigurarBotonesEditables();
             };
-            
+
             // También configurar cuando se cambia a la pestaña de configuración
-            if (this.tabControlPrincipal != null)
-            {
-                this.tabControlPrincipal.SelectedIndexChanged += (s, e) =>
-                {
-                    if (this.tabControlPrincipal.SelectedTab == this.tabConfiguraciones)
-                    {
-                        ConfigurarBotonesEditables();
-                    }
-                    else if (this.tabControlPrincipal.SelectedTab == this.tabInicio)
-                    {
-                        OptimizarLayoutPaneles();
-                    }
-                };
-            }
-            
-            // Configurar redimensionamiento automático
-            this.Resize += (s, e) => OptimizarLayoutPaneles();
+            ConfigurarBotonesEditables();
         }
         #endregion
 
@@ -76,10 +61,10 @@ namespace SistemVeterinario.Forms
             nudPrecio.DecimalPlaces = 2;
             nudPrecio.Minimum = 0;
             nudPrecio.Maximum = 999999;
-            
+
             nudStockMinimo.Minimum = 0;
             nudStockMinimo.Maximum = 99999;
-            
+
             nudStockActual.Minimum = 0;
             nudStockActual.Maximum = 99999;
 
@@ -106,14 +91,14 @@ namespace SistemVeterinario.Forms
             // Validación de código - solo alfanumérico
             txtCodigo.KeyPress += (s, e) => ValidarCodigoAlphaNumerico(s, e);
             txtCodigo.Leave += (s, e) => ValidarCampoCompleto(txtCodigo, "codigo");
-            
+
             // Validación de nombre - obligatorio
             txtNombre.Leave += (s, e) => ValidarCampoObligatorio(txtNombre, lblNombre);
-            
+
             // Validación de stock - alertar si stock actual < stock mínimo
             nudStockActual.ValueChanged += (s, e) => ValidarStock();
             nudStockMinimo.ValueChanged += (s, e) => ValidarStock();
-            
+
             // Validación de precio - debe ser mayor a 0
             nudPrecio.ValueChanged += (s, e) => ValidarPrecio();
 
@@ -129,7 +114,7 @@ namespace SistemVeterinario.Forms
             ConfigurarEfectoHover(btnGenerarCodigo);
             ConfigurarEfectoHover(btnNuevaCategoria);
             ConfigurarEfectoHover(btnStockBajo);
-            
+
             // Aplicar efectos de enfoque a los TextBox
             AplicarEfectosFocusTextBox(txtCodigo);
             AplicarEfectosFocusTextBox(txtNombre);
@@ -151,7 +136,7 @@ namespace SistemVeterinario.Forms
             {
                 timer.Stop();
                 timer.Dispose();
-                
+
                 try
                 {
                     this.btnEliminar.Visible = true; // En productos sí permitimos eliminar
@@ -167,21 +152,7 @@ namespace SistemVeterinario.Forms
             timer.Start();
         }
 
-        private void OptimizarLayoutPaneles()
-        {
-            try
-            {
-                if (this.tabInicio != null && this.panelBusqueda != null && this.dgvDatos != null)
-                {
-                    // Removed AutoResizeColumns to prevent layout issues
-                    System.Diagnostics.Debug.WriteLine("Layout optimization completed without column resizing");
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error optimizando layout: {ex.Message}");
-            }
-        }
+
         #endregion
 
         #region Métodos Override de BaseModulos
@@ -316,7 +287,7 @@ namespace SistemVeterinario.Forms
             try
             {
                 DataTable datos = NProductos.ObtenerPorId(id);
-                
+
                 if (datos.Rows.Count > 0)
                 {
                     DataRow row = datos.Rows[0];
@@ -360,7 +331,7 @@ namespace SistemVeterinario.Forms
             nudStockMinimo.Value = 0;
             nudStockActual.Value = 0;
             chkRequiereReceta.Checked = false;
-            
+
             if (cmbCategoria.Items.Count > 0)
                 cmbCategoria.SelectedIndex = 0;
         }
@@ -425,7 +396,7 @@ namespace SistemVeterinario.Forms
                 CargarDatos(datos);
                 PersonalizarColumnasProductos();
                 ActualizarContadorRegistros(datos.Rows.Count);
-                
+
                 MostrarMensaje($"Se encontraron {datos.Rows.Count} productos con stock bajo", "Información", MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -484,7 +455,7 @@ namespace SistemVeterinario.Forms
             DataGridViewRow row = dgvCategorias.SelectedRows[0];
             txtNombreCategoria.Text = row.Cells["nombre"].Value?.ToString() ?? "";
             txtDescripcionCategoria.Text = row.Cells["descripcion"].Value?.ToString() ?? "";
-            
+
             HabilitarFormularioCategoria(true);
         }
 
@@ -578,22 +549,23 @@ namespace SistemVeterinario.Forms
                 // Personalizar headers solamente
                 if (dgvDatos.Columns["codigo"] != null)
                     dgvDatos.Columns["codigo"].HeaderText = "Código";
-                
+
                 if (dgvDatos.Columns["nombre"] != null)
                     dgvDatos.Columns["nombre"].HeaderText = "Nombre";
-                
+                    dgvDatos.Columns["nombre"].Width = 420;
+
                 if (dgvDatos.Columns["categoria"] != null)
                     dgvDatos.Columns["categoria"].HeaderText = "Categoría";
-                
+
                 if (dgvDatos.Columns["precio"] != null)
                 {
                     dgvDatos.Columns["precio"].HeaderText = "Precio";
                     dgvDatos.Columns["precio"].DefaultCellStyle.Format = "C2";
                 }
-                
+
                 if (dgvDatos.Columns["stock_actual"] != null)
                     dgvDatos.Columns["stock_actual"].HeaderText = "Stock Actual";
-                
+
                 if (dgvDatos.Columns["stock_minimo"] != null)
                     dgvDatos.Columns["stock_minimo"].HeaderText = "Stock Mínimo";
 
@@ -627,7 +599,7 @@ namespace SistemVeterinario.Forms
         {
             // Actualizar ambos ComboBox de categorías
             CargarCategorias(cmbCategoria);
-            
+
             // Para el filtro, agregar "Todas" al inicio
             cmbCategoriaFiltro.Items.Clear();
             cmbCategoriaFiltro.Items.Add("Todas");
@@ -695,10 +667,10 @@ namespace SistemVeterinario.Forms
 
                 if (dgvCategorias.Columns["id"] != null)
                     dgvCategorias.Columns["id"].Visible = false;
-                
+
                 if (dgvCategorias.Columns["nombre"] != null)
                     dgvCategorias.Columns["nombre"].HeaderText = "Nombre";
-                
+
                 if (dgvCategorias.Columns["descripcion"] != null)
                     dgvCategorias.Columns["descripcion"].HeaderText = "Descripción";
             }
@@ -830,8 +802,8 @@ namespace SistemVeterinario.Forms
         private void ConfigurarEfectoHover(Button boton)
         {
             Color colorOriginal = boton.BackColor;
-            Color colorHover = Color.FromArgb(Math.Max(0, colorOriginal.R - 30), 
-                                           Math.Max(0, colorOriginal.G - 30), 
+            Color colorHover = Color.FromArgb(Math.Max(0, colorOriginal.R - 30),
+                                           Math.Max(0, colorOriginal.G - 30),
                                            Math.Max(0, colorOriginal.B - 30));
 
             boton.MouseEnter += (s, e) => boton.BackColor = colorHover;
@@ -843,12 +815,14 @@ namespace SistemVeterinario.Forms
             Color colorBordeOriginal = Color.FromArgb(204, 204, 204);
             Color colorBordeFocus = Color.FromArgb(0, 120, 215);
 
-            textBox.Enter += (s, e) => {
+            textBox.Enter += (s, e) =>
+            {
                 textBox.BorderStyle = BorderStyle.FixedSingle;
                 // Simular cambio de color de borde con efecto visual
             };
 
-            textBox.Leave += (s, e) => {
+            textBox.Leave += (s, e) =>
+            {
                 textBox.BorderStyle = BorderStyle.Fixed3D;
             };
         }

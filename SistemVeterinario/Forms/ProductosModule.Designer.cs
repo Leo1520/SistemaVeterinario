@@ -68,9 +68,6 @@ namespace SistemVeterinario.Forms
         /// </summary>
         private new void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            
-            // Inicializar controles específicos de productos
             this.lblContador = new System.Windows.Forms.Label();
             this.cmbCategoriaFiltro = new System.Windows.Forms.ComboBox();
             this.lblCategoriaFiltro = new System.Windows.Forms.Label();
@@ -94,8 +91,6 @@ namespace SistemVeterinario.Forms
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.btnStockBajo = new System.Windows.Forms.Button();
-            
-            // Controles de gestión de categorías
             this.grpGestionCategorias = new System.Windows.Forms.GroupBox();
             this.dgvCategorias = new System.Windows.Forms.DataGridView();
             this.grpFormCategoria = new System.Windows.Forms.GroupBox();
@@ -103,14 +98,12 @@ namespace SistemVeterinario.Forms
             this.txtNombreCategoria = new System.Windows.Forms.TextBox();
             this.lblDescripcionCategoria = new System.Windows.Forms.Label();
             this.txtDescripcionCategoria = new System.Windows.Forms.TextBox();
-            this.btnNuevaConfigCat = new System.Windows.Forms.Button();
             this.btnGuardarCategoria = new System.Windows.Forms.Button();
+            this.btnCancelarCategoria = new System.Windows.Forms.Button();
+            this.btnNuevaConfigCat = new System.Windows.Forms.Button();
             this.btnEditarCategoria = new System.Windows.Forms.Button();
             this.btnEliminarCategoria = new System.Windows.Forms.Button();
-            this.btnCancelarCategoria = new System.Windows.Forms.Button();
             this.btnInicializarCategorias = new System.Windows.Forms.Button();
-            
-            // Suspender el layout durante la configuración
             this.tabControlPrincipal.SuspendLayout();
             this.tabInicio.SuspendLayout();
             this.tabConfiguraciones.SuspendLayout();
@@ -120,33 +113,31 @@ namespace SistemVeterinario.Forms
             this.panelBotones.SuspendLayout();
             this.grpDatosProducto.SuspendLayout();
             this.tableLayoutProducto.SuspendLayout();
-            this.grpGestionCategorias.SuspendLayout();
-            this.grpFormCategoria.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStockMinimo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStockActual)).BeginInit();
+            this.grpGestionCategorias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategorias)).BeginInit();
+            this.grpFormCategoria.SuspendLayout();
             this.SuspendLayout();
-            
             // 
             // tabControlPrincipal
             // 
-            this.tabControlPrincipal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabControlPrincipal.Size = new System.Drawing.Size(1143, 640);
+            this.tabControlPrincipal.Margin = new System.Windows.Forms.Padding(2);
             // 
             // tabInicio
             // 
             this.tabInicio.Location = new System.Drawing.Point(4, 39);
-            this.tabInicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabInicio.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.tabInicio.Margin = new System.Windows.Forms.Padding(2);
+            this.tabInicio.Padding = new System.Windows.Forms.Padding(7);
             this.tabInicio.Size = new System.Drawing.Size(1135, 597);
             this.tabInicio.Text = "Gestión de Productos";
             // 
             // tabConfiguraciones
             // 
             this.tabConfiguraciones.Location = new System.Drawing.Point(4, 39);
-            this.tabConfiguraciones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tabConfiguraciones.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.tabConfiguraciones.Margin = new System.Windows.Forms.Padding(2);
+            this.tabConfiguraciones.Padding = new System.Windows.Forms.Padding(7);
             this.tabConfiguraciones.Size = new System.Drawing.Size(1135, 597);
             this.tabConfiguraciones.Text = "Configuración de Producto";
             // 
@@ -156,7 +147,7 @@ namespace SistemVeterinario.Forms
             this.panelBusqueda.Controls.Add(this.cmbCategoriaFiltro);
             this.panelBusqueda.Controls.Add(this.lblCategoriaFiltro);
             this.panelBusqueda.Controls.Add(this.lblContador);
-            this.panelBusqueda.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelBusqueda.Margin = new System.Windows.Forms.Padding(2);
             this.panelBusqueda.Padding = new System.Windows.Forms.Padding(11, 12, 11, 12);
             this.panelBusqueda.Size = new System.Drawing.Size(1121, 98);
             this.panelBusqueda.Controls.SetChildIndex(this.lblContador, 0);
@@ -172,38 +163,38 @@ namespace SistemVeterinario.Forms
             // 
             this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtBuscar.Location = new System.Drawing.Point(27, 18);
-            this.txtBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.txtBuscar.Size = new System.Drawing.Size(338, 25);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBuscar.Size = new System.Drawing.Size(338, 30);
             // 
             // btnBuscar
             // 
             this.btnBuscar.FlatAppearance.BorderSize = 0;
             this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnBuscar.Location = new System.Drawing.Point(415, 11);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBuscar.Location = new System.Drawing.Point(384, 13);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(2);
             this.btnBuscar.Size = new System.Drawing.Size(104, 38);
             // 
             // btnNuevo
             // 
             this.btnNuevo.FlatAppearance.BorderSize = 0;
             this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnNuevo.Location = new System.Drawing.Point(935, 11);
-            this.btnNuevo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNuevo.Location = new System.Drawing.Point(951, 11);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(2);
             this.btnNuevo.Size = new System.Drawing.Size(122, 38);
             // 
             // chkMostrarTodo
             // 
             this.chkMostrarTodo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.chkMostrarTodo.Location = new System.Drawing.Point(118, 47);
-            this.chkMostrarTodo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.chkMostrarTodo.Size = new System.Drawing.Size(186, 19);
+            this.chkMostrarTodo.Location = new System.Drawing.Point(384, 59);
+            this.chkMostrarTodo.Margin = new System.Windows.Forms.Padding(2);
+            this.chkMostrarTodo.Size = new System.Drawing.Size(237, 24);
             // 
             // panelFormulario
             // 
             this.panelFormulario.Controls.Add(this.grpDatosProducto);
             this.panelFormulario.Location = new System.Drawing.Point(7, 7);
-            this.panelFormulario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.panelFormulario.Padding = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.panelFormulario.Margin = new System.Windows.Forms.Padding(2);
+            this.panelFormulario.Padding = new System.Windows.Forms.Padding(8);
             this.panelFormulario.Size = new System.Drawing.Size(1121, 583);
             this.panelFormulario.Controls.SetChildIndex(this.grpDatosProducto, 0);
             this.panelFormulario.Controls.SetChildIndex(this.panelSuperior, 0);
@@ -212,8 +203,8 @@ namespace SistemVeterinario.Forms
             // panelSuperior
             // 
             this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.panelSuperior.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.panelSuperior.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.panelSuperior.Margin = new System.Windows.Forms.Padding(2);
+            this.panelSuperior.Padding = new System.Windows.Forms.Padding(7);
             this.panelSuperior.Size = new System.Drawing.Size(1105, 49);
             // 
             // lblModo
@@ -224,28 +215,28 @@ namespace SistemVeterinario.Forms
             // cmbModo
             // 
             this.cmbModo.Location = new System.Drawing.Point(138, 11);
-            this.cmbModo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbModo.Margin = new System.Windows.Forms.Padding(2);
             // 
             // lblId
             // 
             this.lblId.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblId.Location = new System.Drawing.Point(336, 15);
             this.lblId.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblId.Size = new System.Drawing.Size(27, 19);
+            this.lblId.Size = new System.Drawing.Size(33, 23);
             // 
             // txtId
             // 
             this.txtId.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.txtId.Location = new System.Drawing.Point(406, 11);
-            this.txtId.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.txtId.Size = new System.Drawing.Size(76, 25);
+            this.txtId.Margin = new System.Windows.Forms.Padding(2);
+            this.txtId.Size = new System.Drawing.Size(76, 30);
             // 
             // panelBotones
             // 
             this.panelBotones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.panelBotones.Location = new System.Drawing.Point(8, 525);
-            this.panelBotones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.panelBotones.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.panelBotones.Margin = new System.Windows.Forms.Padding(2);
+            this.panelBotones.Padding = new System.Windows.Forms.Padding(7);
             this.panelBotones.Size = new System.Drawing.Size(1105, 50);
             this.panelBotones.TabIndex = 0;
             this.panelBotones.Tag = "EditableButtonPanel";
@@ -254,18 +245,17 @@ namespace SistemVeterinario.Forms
             // 
             this.btnGuardar.FlatAppearance.BorderSize = 0;
             this.btnGuardar.Location = new System.Drawing.Point(993, 13);
-            this.btnGuardar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
             // 
             // btnCancelar
             // 
             this.btnCancelar.FlatAppearance.BorderSize = 0;
             this.btnCancelar.Location = new System.Drawing.Point(877, 13);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             // 
             // btnEliminar
             // 
             this.btnEliminar.FlatAppearance.BorderSize = 0;
-            
             // 
             // lblContador
             // 
@@ -274,22 +264,9 @@ namespace SistemVeterinario.Forms
             this.lblContador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.lblContador.Location = new System.Drawing.Point(27, 55);
             this.lblContador.Name = "lblContador";
-            this.lblContador.Size = new System.Drawing.Size(158, 19);
+            this.lblContador.Size = new System.Drawing.Size(169, 23);
             this.lblContador.TabIndex = 0;
             this.lblContador.Text = "Total de registros: 0";
-            
-            // 
-            // lblCategoriaFiltro
-            // 
-            this.lblCategoriaFiltro.AutoSize = true;
-            this.lblCategoriaFiltro.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblCategoriaFiltro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            this.lblCategoriaFiltro.Location = new System.Drawing.Point(540, 22);
-            this.lblCategoriaFiltro.Name = "lblCategoriaFiltro";
-            this.lblCategoriaFiltro.Size = new System.Drawing.Size(85, 19);
-            this.lblCategoriaFiltro.TabIndex = 1;
-            this.lblCategoriaFiltro.Text = "📂 Filtrar por:";
-            
             // 
             // cmbCategoriaFiltro
             // 
@@ -297,26 +274,21 @@ namespace SistemVeterinario.Forms
             this.cmbCategoriaFiltro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbCategoriaFiltro.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbCategoriaFiltro.FormattingEnabled = true;
-            this.cmbCategoriaFiltro.Location = new System.Drawing.Point(631, 19);
+            this.cmbCategoriaFiltro.Location = new System.Drawing.Point(686, 47);
             this.cmbCategoriaFiltro.Name = "cmbCategoriaFiltro";
-            this.cmbCategoriaFiltro.Size = new System.Drawing.Size(180, 25);
+            this.cmbCategoriaFiltro.Size = new System.Drawing.Size(180, 31);
             this.cmbCategoriaFiltro.TabIndex = 2;
-            
             // 
-            // btnStockBajo
+            // lblCategoriaFiltro
             // 
-            this.btnStockBajo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
-            this.btnStockBajo.FlatAppearance.BorderSize = 0;
-            this.btnStockBajo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStockBajo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnStockBajo.ForeColor = System.Drawing.Color.White;
-            this.btnStockBajo.Location = new System.Drawing.Point(817, 16);
-            this.btnStockBajo.Name = "btnStockBajo";
-            this.btnStockBajo.Size = new System.Drawing.Size(165, 32);
-            this.btnStockBajo.TabIndex = 3;
-            this.btnStockBajo.Text = "⚠️ Stock Bajo";
-            this.btnStockBajo.UseVisualStyleBackColor = false;
-            
+            this.lblCategoriaFiltro.AutoSize = true;
+            this.lblCategoriaFiltro.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblCategoriaFiltro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.lblCategoriaFiltro.Location = new System.Drawing.Point(739, 18);
+            this.lblCategoriaFiltro.Name = "lblCategoriaFiltro";
+            this.lblCategoriaFiltro.Size = new System.Drawing.Size(127, 23);
+            this.lblCategoriaFiltro.TabIndex = 1;
+            this.lblCategoriaFiltro.Text = "📂 Filtrar por:";
             // 
             // grpDatosProducto
             // 
@@ -333,7 +305,6 @@ namespace SistemVeterinario.Forms
             this.grpDatosProducto.TabIndex = 1;
             this.grpDatosProducto.TabStop = false;
             this.grpDatosProducto.Text = "📦 Información del Producto";
-            
             // 
             // tableLayoutProducto
             // 
@@ -375,7 +346,6 @@ namespace SistemVeterinario.Forms
             this.tableLayoutProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutProducto.Size = new System.Drawing.Size(1075, 409);
             this.tableLayoutProducto.TabIndex = 0;
-            
             // 
             // lblCodigo
             // 
@@ -383,24 +353,22 @@ namespace SistemVeterinario.Forms
             this.lblCodigo.AutoSize = true;
             this.lblCodigo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.lblCodigo.Location = new System.Drawing.Point(23, 35);
+            this.lblCodigo.Location = new System.Drawing.Point(23, 31);
             this.lblCodigo.Name = "lblCodigo";
-            this.lblCodigo.Size = new System.Drawing.Size(74, 19);
+            this.lblCodigo.Size = new System.Drawing.Size(97, 23);
             this.lblCodigo.TabIndex = 0;
             this.lblCodigo.Text = "🔖 Código";
-            
             // 
             // txtCodigo
             // 
             this.txtCodigo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCodigo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCodigo.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtCodigo.Location = new System.Drawing.Point(143, 31);
+            this.txtCodigo.Location = new System.Drawing.Point(143, 27);
             this.txtCodigo.MaxLength = 50;
             this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(411, 25);
+            this.txtCodigo.Size = new System.Drawing.Size(391, 30);
             this.txtCodigo.TabIndex = 1;
-            
             // 
             // btnGenerarCodigo
             // 
@@ -410,13 +378,12 @@ namespace SistemVeterinario.Forms
             this.btnGenerarCodigo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerarCodigo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnGenerarCodigo.ForeColor = System.Drawing.Color.White;
-            this.btnGenerarCodigo.Location = new System.Drawing.Point(560, 29);
+            this.btnGenerarCodigo.Location = new System.Drawing.Point(540, 27);
             this.btnGenerarCodigo.Name = "btnGenerarCodigo";
             this.btnGenerarCodigo.Size = new System.Drawing.Size(85, 30);
             this.btnGenerarCodigo.TabIndex = 2;
             this.btnGenerarCodigo.Text = "📋 Generar";
             this.btnGenerarCodigo.UseVisualStyleBackColor = false;
-            
             // 
             // lblNombre
             // 
@@ -424,12 +391,11 @@ namespace SistemVeterinario.Forms
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.lblNombre.Location = new System.Drawing.Point(23, 80);
+            this.lblNombre.Location = new System.Drawing.Point(23, 76);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(81, 19);
+            this.lblNombre.Size = new System.Drawing.Size(105, 23);
             this.lblNombre.TabIndex = 3;
             this.lblNombre.Text = "📝 Nombre";
-            
             // 
             // txtNombre
             // 
@@ -437,12 +403,11 @@ namespace SistemVeterinario.Forms
             this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutProducto.SetColumnSpan(this.txtNombre, 3);
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtNombre.Location = new System.Drawing.Point(143, 76);
+            this.txtNombre.Location = new System.Drawing.Point(143, 72);
             this.txtNombre.MaxLength = 255;
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(909, 25);
+            this.txtNombre.Size = new System.Drawing.Size(909, 30);
             this.txtNombre.TabIndex = 4;
-            
             // 
             // lblCategoria
             // 
@@ -450,12 +415,11 @@ namespace SistemVeterinario.Forms
             this.lblCategoria.AutoSize = true;
             this.lblCategoria.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.lblCategoria.Location = new System.Drawing.Point(23, 125);
+            this.lblCategoria.Location = new System.Drawing.Point(23, 110);
             this.lblCategoria.Name = "lblCategoria";
-            this.lblCategoria.Size = new System.Drawing.Size(95, 19);
+            this.lblCategoria.Size = new System.Drawing.Size(88, 45);
             this.lblCategoria.TabIndex = 5;
             this.lblCategoria.Text = "🗂️ Categoría";
-            
             // 
             // cmbCategoria
             // 
@@ -464,11 +428,10 @@ namespace SistemVeterinario.Forms
             this.cmbCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbCategoria.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbCategoria.FormattingEnabled = true;
-            this.cmbCategoria.Location = new System.Drawing.Point(143, 121);
+            this.cmbCategoria.Location = new System.Drawing.Point(143, 117);
             this.cmbCategoria.Name = "cmbCategoria";
-            this.cmbCategoria.Size = new System.Drawing.Size(411, 25);
+            this.cmbCategoria.Size = new System.Drawing.Size(391, 31);
             this.cmbCategoria.TabIndex = 6;
-            
             // 
             // btnNuevaCategoria
             // 
@@ -478,13 +441,12 @@ namespace SistemVeterinario.Forms
             this.btnNuevaCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaCategoria.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnNuevaCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaCategoria.Location = new System.Drawing.Point(560, 119);
+            this.btnNuevaCategoria.Location = new System.Drawing.Point(540, 117);
             this.btnNuevaCategoria.Name = "btnNuevaCategoria";
             this.btnNuevaCategoria.Size = new System.Drawing.Size(85, 30);
             this.btnNuevaCategoria.TabIndex = 7;
             this.btnNuevaCategoria.Text = "➕ Nueva";
             this.btnNuevaCategoria.UseVisualStyleBackColor = false;
-            
             // 
             // lblPrecio
             // 
@@ -492,12 +454,11 @@ namespace SistemVeterinario.Forms
             this.lblPrecio.AutoSize = true;
             this.lblPrecio.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblPrecio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.lblPrecio.Location = new System.Drawing.Point(23, 170);
+            this.lblPrecio.Location = new System.Drawing.Point(23, 166);
             this.lblPrecio.Name = "lblPrecio";
-            this.lblPrecio.Size = new System.Drawing.Size(63, 19);
+            this.lblPrecio.Size = new System.Drawing.Size(88, 23);
             this.lblPrecio.TabIndex = 8;
             this.lblPrecio.Text = "💰 Precio";
-            
             // 
             // nudPrecio
             // 
@@ -505,16 +466,27 @@ namespace SistemVeterinario.Forms
             this.nudPrecio.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nudPrecio.DecimalPlaces = 2;
             this.nudPrecio.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.nudPrecio.Location = new System.Drawing.Point(143, 166);
-            this.nudPrecio.Maximum = new decimal(new int[] { 999999, 0, 0, 131072 });
-            this.nudPrecio.Minimum = new decimal(new int[] { 1, 0, 0, 131072 });
+            this.nudPrecio.Location = new System.Drawing.Point(143, 162);
+            this.nudPrecio.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            131072});
+            this.nudPrecio.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.nudPrecio.Name = "nudPrecio";
-            this.nudPrecio.Size = new System.Drawing.Size(411, 25);
+            this.nudPrecio.Size = new System.Drawing.Size(391, 30);
             this.nudPrecio.TabIndex = 9;
             this.nudPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.nudPrecio.ThousandsSeparator = true;
-            this.nudPrecio.Value = new decimal(new int[] { 1, 0, 0, 131072 });
-            
+            this.nudPrecio.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             // 
             // lblStockMinimo
             // 
@@ -522,26 +494,32 @@ namespace SistemVeterinario.Forms
             this.lblStockMinimo.AutoSize = true;
             this.lblStockMinimo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblStockMinimo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.lblStockMinimo.Location = new System.Drawing.Point(560, 170);
+            this.lblStockMinimo.Location = new System.Drawing.Point(540, 155);
             this.lblStockMinimo.Name = "lblStockMinimo";
-            this.lblStockMinimo.Size = new System.Drawing.Size(114, 19);
+            this.lblStockMinimo.Size = new System.Drawing.Size(89, 45);
             this.lblStockMinimo.TabIndex = 10;
             this.lblStockMinimo.Text = "⚠️ Stock Mínimo";
-            
             // 
             // nudStockMinimo
             // 
             this.nudStockMinimo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.nudStockMinimo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nudStockMinimo.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.nudStockMinimo.Location = new System.Drawing.Point(680, 166);
-            this.nudStockMinimo.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
+            this.nudStockMinimo.Location = new System.Drawing.Point(660, 162);
+            this.nudStockMinimo.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
             this.nudStockMinimo.Name = "nudStockMinimo";
-            this.nudStockMinimo.Size = new System.Drawing.Size(372, 25);
+            this.nudStockMinimo.Size = new System.Drawing.Size(392, 30);
             this.nudStockMinimo.TabIndex = 11;
             this.nudStockMinimo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.nudStockMinimo.Value = new decimal(new int[] { 5, 0, 0, 0 });
-            
+            this.nudStockMinimo.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // lblStockActual
             // 
@@ -549,25 +527,27 @@ namespace SistemVeterinario.Forms
             this.lblStockActual.AutoSize = true;
             this.lblStockActual.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblStockActual.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.lblStockActual.Location = new System.Drawing.Point(23, 215);
+            this.lblStockActual.Location = new System.Drawing.Point(23, 200);
             this.lblStockActual.Name = "lblStockActual";
-            this.lblStockActual.Size = new System.Drawing.Size(103, 19);
+            this.lblStockActual.Size = new System.Drawing.Size(89, 45);
             this.lblStockActual.TabIndex = 12;
             this.lblStockActual.Text = "📦 Stock Actual";
-            
             // 
             // nudStockActual
             // 
             this.nudStockActual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.nudStockActual.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nudStockActual.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.nudStockActual.Location = new System.Drawing.Point(143, 211);
-            this.nudStockActual.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
+            this.nudStockActual.Location = new System.Drawing.Point(143, 207);
+            this.nudStockActual.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
             this.nudStockActual.Name = "nudStockActual";
-            this.nudStockActual.Size = new System.Drawing.Size(411, 25);
+            this.nudStockActual.Size = new System.Drawing.Size(391, 30);
             this.nudStockActual.TabIndex = 13;
             this.nudStockActual.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            
             // 
             // chkRequiereReceta
             // 
@@ -577,13 +557,12 @@ namespace SistemVeterinario.Forms
             this.tableLayoutProducto.SetColumnSpan(this.chkRequiereReceta, 2);
             this.chkRequiereReceta.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.chkRequiereReceta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.chkRequiereReceta.Location = new System.Drawing.Point(560, 213);
+            this.chkRequiereReceta.Location = new System.Drawing.Point(540, 209);
             this.chkRequiereReceta.Name = "chkRequiereReceta";
-            this.chkRequiereReceta.Size = new System.Drawing.Size(142, 23);
+            this.chkRequiereReceta.Size = new System.Drawing.Size(190, 27);
             this.chkRequiereReceta.TabIndex = 14;
             this.chkRequiereReceta.Text = "🏥 Requiere Receta";
             this.chkRequiereReceta.UseVisualStyleBackColor = true;
-            
             // 
             // lblDescripcion
             // 
@@ -592,10 +571,9 @@ namespace SistemVeterinario.Forms
             this.lblDescripcion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
             this.lblDescripcion.Location = new System.Drawing.Point(23, 245);
             this.lblDescripcion.Name = "lblDescripcion";
-            this.lblDescripcion.Size = new System.Drawing.Size(106, 19);
+            this.lblDescripcion.Size = new System.Drawing.Size(103, 46);
             this.lblDescripcion.TabIndex = 15;
             this.lblDescripcion.Text = "📄 Descripción";
-            
             // 
             // txtDescripcion
             // 
@@ -611,7 +589,20 @@ namespace SistemVeterinario.Forms
             this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescripcion.Size = new System.Drawing.Size(909, 138);
             this.txtDescripcion.TabIndex = 16;
-            
+            // 
+            // btnStockBajo
+            // 
+            this.btnStockBajo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
+            this.btnStockBajo.FlatAppearance.BorderSize = 0;
+            this.btnStockBajo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockBajo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnStockBajo.ForeColor = System.Drawing.Color.White;
+            this.btnStockBajo.Location = new System.Drawing.Point(908, 51);
+            this.btnStockBajo.Name = "btnStockBajo";
+            this.btnStockBajo.Size = new System.Drawing.Size(165, 32);
+            this.btnStockBajo.TabIndex = 3;
+            this.btnStockBajo.Text = "⚠️ Stock Bajo";
+            this.btnStockBajo.UseVisualStyleBackColor = false;
             // 
             // grpGestionCategorias
             // 
@@ -628,7 +619,6 @@ namespace SistemVeterinario.Forms
             this.grpGestionCategorias.TabIndex = 0;
             this.grpGestionCategorias.TabStop = false;
             this.grpGestionCategorias.Text = "Gestión de Categorías";
-            
             // 
             // dgvCategorias
             // 
@@ -641,10 +631,10 @@ namespace SistemVeterinario.Forms
             this.dgvCategorias.Location = new System.Drawing.Point(10, 25);
             this.dgvCategorias.Name = "dgvCategorias";
             this.dgvCategorias.ReadOnly = true;
+            this.dgvCategorias.RowHeadersWidth = 51;
             this.dgvCategorias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCategorias.Size = new System.Drawing.Size(450, 200);
             this.dgvCategorias.TabIndex = 0;
-            
             // 
             // grpFormCategoria
             // 
@@ -662,17 +652,15 @@ namespace SistemVeterinario.Forms
             this.grpFormCategoria.TabIndex = 1;
             this.grpFormCategoria.TabStop = false;
             this.grpFormCategoria.Text = "Datos de Categoría";
-            
             // 
             // lblNombreCategoria
             // 
             this.lblNombreCategoria.AutoSize = true;
             this.lblNombreCategoria.Location = new System.Drawing.Point(15, 30);
             this.lblNombreCategoria.Name = "lblNombreCategoria";
-            this.lblNombreCategoria.Size = new System.Drawing.Size(54, 15);
+            this.lblNombreCategoria.Size = new System.Drawing.Size(59, 16);
             this.lblNombreCategoria.TabIndex = 0;
             this.lblNombreCategoria.Text = "Nombre:";
-            
             // 
             // txtNombreCategoria
             // 
@@ -680,19 +668,17 @@ namespace SistemVeterinario.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNombreCategoria.Location = new System.Drawing.Point(15, 50);
             this.txtNombreCategoria.Name = "txtNombreCategoria";
-            this.txtNombreCategoria.Size = new System.Drawing.Size(290, 23);
+            this.txtNombreCategoria.Size = new System.Drawing.Size(290, 22);
             this.txtNombreCategoria.TabIndex = 1;
-            
             // 
             // lblDescripcionCategoria
             // 
             this.lblDescripcionCategoria.AutoSize = true;
             this.lblDescripcionCategoria.Location = new System.Drawing.Point(15, 85);
             this.lblDescripcionCategoria.Name = "lblDescripcionCategoria";
-            this.lblDescripcionCategoria.Size = new System.Drawing.Size(72, 15);
+            this.lblDescripcionCategoria.Size = new System.Drawing.Size(82, 16);
             this.lblDescripcionCategoria.TabIndex = 2;
             this.lblDescripcionCategoria.Text = "Descripción:";
-            
             // 
             // txtDescripcionCategoria
             // 
@@ -705,7 +691,6 @@ namespace SistemVeterinario.Forms
             this.txtDescripcionCategoria.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescripcionCategoria.Size = new System.Drawing.Size(290, 150);
             this.txtDescripcionCategoria.TabIndex = 3;
-            
             // 
             // btnGuardarCategoria
             // 
@@ -716,7 +701,6 @@ namespace SistemVeterinario.Forms
             this.btnGuardarCategoria.TabIndex = 4;
             this.btnGuardarCategoria.Text = "Guardar";
             this.btnGuardarCategoria.UseVisualStyleBackColor = true;
-            
             // 
             // btnCancelarCategoria
             // 
@@ -727,7 +711,6 @@ namespace SistemVeterinario.Forms
             this.btnCancelarCategoria.TabIndex = 5;
             this.btnCancelarCategoria.Text = "Cancelar";
             this.btnCancelarCategoria.UseVisualStyleBackColor = true;
-            
             // 
             // btnNuevaConfigCat
             // 
@@ -738,7 +721,6 @@ namespace SistemVeterinario.Forms
             this.btnNuevaConfigCat.TabIndex = 2;
             this.btnNuevaConfigCat.Text = "Nueva";
             this.btnNuevaConfigCat.UseVisualStyleBackColor = true;
-            
             // 
             // btnEditarCategoria
             // 
@@ -749,7 +731,6 @@ namespace SistemVeterinario.Forms
             this.btnEditarCategoria.TabIndex = 3;
             this.btnEditarCategoria.Text = "Editar";
             this.btnEditarCategoria.UseVisualStyleBackColor = true;
-            
             // 
             // btnEliminarCategoria
             // 
@@ -760,7 +741,6 @@ namespace SistemVeterinario.Forms
             this.btnEliminarCategoria.TabIndex = 4;
             this.btnEliminarCategoria.Text = "Eliminar";
             this.btnEliminarCategoria.UseVisualStyleBackColor = true;
-            
             // 
             // btnInicializarCategorias
             // 
@@ -771,8 +751,11 @@ namespace SistemVeterinario.Forms
             this.btnInicializarCategorias.TabIndex = 5;
             this.btnInicializarCategorias.Text = "Inicializar Categorías";
             this.btnInicializarCategorias.UseVisualStyleBackColor = true;
-            
-            // Reanudar el layout
+            // 
+            // ProductosModule
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.Name = "ProductosModule";
             this.tabControlPrincipal.ResumeLayout(false);
             this.tabInicio.ResumeLayout(false);
             this.tabConfiguraciones.ResumeLayout(false);
@@ -785,14 +768,15 @@ namespace SistemVeterinario.Forms
             this.grpDatosProducto.ResumeLayout(false);
             this.tableLayoutProducto.ResumeLayout(false);
             this.tableLayoutProducto.PerformLayout();
-            this.grpGestionCategorias.ResumeLayout(false);
-            this.grpFormCategoria.ResumeLayout(false);
-            this.grpFormCategoria.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStockMinimo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStockActual)).EndInit();
+            this.grpGestionCategorias.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategorias)).EndInit();
+            this.grpFormCategoria.ResumeLayout(false);
+            this.grpFormCategoria.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion
