@@ -223,10 +223,7 @@ namespace SistemVeterinario.Forms
                     }
                 }
 
-                // Configurar que todas las columnas (excepto los botones) se expandan automáticamente
-                dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                
-                // Configurar los botones para que mantengan su tamaño fijo
+                // Solo configurar los botones para que mantengan su tamaño fijo
                 if (dgvDatos.Columns["btnEditar"] != null)
                 {
                     dgvDatos.Columns["btnEditar"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;

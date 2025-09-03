@@ -173,11 +173,8 @@ namespace SistemVeterinario.Forms
             {
                 if (this.tabInicio != null && this.panelBusqueda != null && this.dgvDatos != null)
                 {
-                    if (this.dgvDatos.Columns.Count > 0)
-                    {
-                        // Optimizar ancho de columnas según el contenido
-                        this.dgvDatos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
-                    }
+                    // Removed AutoResizeColumns to prevent layout issues
+                    System.Diagnostics.Debug.WriteLine("Layout optimization completed without column resizing");
                 }
             }
             catch (Exception ex)
@@ -574,11 +571,11 @@ namespace SistemVeterinario.Forms
 
             try
             {
-                // Ocultar columna ID
+                // Solo configurar headers y ocultar ID - sin modificar anchos ni estilos
                 if (dgvDatos.Columns["id"] != null)
                     dgvDatos.Columns["id"].Visible = false;
 
-                // Personalizar headers
+                // Personalizar headers solamente
                 if (dgvDatos.Columns["codigo"] != null)
                     dgvDatos.Columns["codigo"].HeaderText = "Código";
                 
@@ -603,44 +600,11 @@ namespace SistemVeterinario.Forms
                 if (dgvDatos.Columns["requiere_receta"] != null)
                     dgvDatos.Columns["requiere_receta"].HeaderText = "Requiere Receta";
 
-                // Ajustar anchos de columnas
-                if (dgvDatos.Columns["codigo"] != null)
-                    dgvDatos.Columns["codigo"].Width = 100;
-                if (dgvDatos.Columns["nombre"] != null)
-                    dgvDatos.Columns["nombre"].Width = 200;
-                if (dgvDatos.Columns["categoria"] != null)
-                    dgvDatos.Columns["categoria"].Width = 120;
-                if (dgvDatos.Columns["precio"] != null)
-                    dgvDatos.Columns["precio"].Width = 80;
-                if (dgvDatos.Columns["stock_actual"] != null)
-                    dgvDatos.Columns["stock_actual"].Width = 80;
-                if (dgvDatos.Columns["stock_minimo"] != null)
-                    dgvDatos.Columns["stock_minimo"].Width = 80;
-
-                // Resaltar productos con stock bajo
-                ResaltarProductosStockBajo();
+                // Removed width configurations and stock highlighting to prevent layout issues
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error personalizando columnas: {ex.Message}");
-            }
-        }
-
-        private void ResaltarProductosStockBajo()
-        {
-            foreach (DataGridViewRow row in dgvDatos.Rows)
-            {
-                if (row.Cells["stock_actual"] != null && row.Cells["stock_minimo"] != null)
-                {
-                    var stockActual = Convert.ToInt32(row.Cells["stock_actual"].Value ?? 0);
-                    var stockMinimo = Convert.ToInt32(row.Cells["stock_minimo"].Value ?? 0);
-                    
-                    if (stockActual <= stockMinimo)
-                    {
-                        row.DefaultCellStyle.BackColor = Color.FromArgb(255, 235, 235);
-                        row.DefaultCellStyle.ForeColor = Color.FromArgb(200, 0, 0);
-                    }
-                }
             }
         }
 
