@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class DProductos : DbConnection
+    public class DProductos
     {
         private int _id;
-        private string _codigo;
-        private string _nombre;
-        private string _descripcion;
+        private string _codigo = string.Empty;
+        private string _nombre = string.Empty;
+        private string _descripcion = string.Empty;
         private decimal _precio;
         private int _stockMinimo;
         private int _stockActual;
         private bool _requiereReceta;
         private int _categoriaId;
         private bool _activo;
-        private string _textoBuscar;
+        private string _textoBuscar = string.Empty;
 
         #region Propiedades
         public int Id { get => _id; set => _id = value; }
@@ -63,48 +63,45 @@ namespace CapaDatos
         public string Insertar(DProductos producto)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
+                using (SqlCommand command = new SqlCommand("SP07_CreateOrUpdateProducto", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP07_CreateOrUpdateProducto", connection))
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id", DBNull.Value);
+                    command.Parameters.AddWithValue("@codigo", producto.Codigo ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@nombre", producto.Nombre ?? "");
+                    command.Parameters.AddWithValue("@descripcion", producto.Descripcion ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@precio", producto.Precio);
+                    command.Parameters.AddWithValue("@stock_minimo", producto.StockMinimo);
+                    command.Parameters.AddWithValue("@stock_actual", producto.StockActual);
+                    command.Parameters.AddWithValue("@requiere_receta", producto.RequiereReceta);
+                    command.Parameters.AddWithValue("@categoria_id", producto.CategoriaId);
+                    command.Parameters.AddWithValue("@activo", producto.Activo);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        command.Parameters.AddWithValue("@id", DBNull.Value);
-                        command.Parameters.AddWithValue("@codigo", producto.Codigo ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@nombre", producto.Nombre ?? "");
-                        command.Parameters.AddWithValue("@descripcion", producto.Descripcion ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@precio", producto.Precio);
-                        command.Parameters.AddWithValue("@stock_minimo", producto.StockMinimo);
-                        command.Parameters.AddWithValue("@stock_actual", producto.StockActual);
-                        command.Parameters.AddWithValue("@requiere_receta", producto.RequiereReceta);
-                        command.Parameters.AddWithValue("@categoria_id", producto.CategoriaId);
-                        command.Parameters.AddWithValue("@activo", producto.Activo);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            int id = Convert.ToInt32(reader["id"]);
+                            if (id > 0)
                             {
-                                int id = Convert.ToInt32(reader["id"]);
-                                if (id > 0)
-                                {
-                                    producto.Id = id;
-                                    rpta = "OK";
-                                }
-                                else
-                                {
-                                    rpta = reader["mensaje"].ToString();
-                                }
+                                producto.Id = id;
+                                rpta = "OK";
+                            }
+                            else
+                            {
+                                rpta = reader["mensaje"]?.ToString() ?? "No se recibió mensaje del procedimiento";
                             }
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
             }
             return rpta;
         }
@@ -112,39 +109,36 @@ namespace CapaDatos
         public string Editar(DProductos producto)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
+                using (SqlCommand command = new SqlCommand("SP07_CreateOrUpdateProducto", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP07_CreateOrUpdateProducto", connection))
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id", producto.Id);
+                    command.Parameters.AddWithValue("@codigo", producto.Codigo ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@nombre", producto.Nombre ?? "");
+                    command.Parameters.AddWithValue("@descripcion", producto.Descripcion ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@precio", producto.Precio);
+                    command.Parameters.AddWithValue("@stock_minimo", producto.StockMinimo);
+                    command.Parameters.AddWithValue("@stock_actual", producto.StockActual);
+                    command.Parameters.AddWithValue("@requiere_receta", producto.RequiereReceta);
+                    command.Parameters.AddWithValue("@categoria_id", producto.CategoriaId);
+                    command.Parameters.AddWithValue("@activo", producto.Activo);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        command.Parameters.AddWithValue("@id", producto.Id);
-                        command.Parameters.AddWithValue("@codigo", producto.Codigo ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@nombre", producto.Nombre ?? "");
-                        command.Parameters.AddWithValue("@descripcion", producto.Descripcion ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@precio", producto.Precio);
-                        command.Parameters.AddWithValue("@stock_minimo", producto.StockMinimo);
-                        command.Parameters.AddWithValue("@stock_actual", producto.StockActual);
-                        command.Parameters.AddWithValue("@requiere_receta", producto.RequiereReceta);
-                        command.Parameters.AddWithValue("@categoria_id", producto.CategoriaId);
-                        command.Parameters.AddWithValue("@activo", producto.Activo);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                rpta = reader["mensaje"].ToString();
-                            }
+                            rpta = reader["mensaje"]?.ToString() ?? "No se recibió mensaje del procedimiento";
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
             }
             return rpta;
         }
@@ -152,25 +146,22 @@ namespace CapaDatos
         public string Eliminar(DProductos producto)
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
+                string query = "UPDATE producto SET activo = 0 WHERE id = @id";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    string query = "UPDATE producto SET activo = 0 WHERE id = @id";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@id", producto.Id);
-                        
-                        int filasAfectadas = command.ExecuteNonQuery();
-                        rpta = filasAfectadas > 0 ? "OK" : "No se encontró el producto";
-                    }
+                    command.Parameters.AddWithValue("@id", producto.Id);
+
+                    int filasAfectadas = command.ExecuteNonQuery();
+                    rpta = filasAfectadas > 0 ? "OK" : "No se encontró el producto";
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
             }
             return rpta;
         }
@@ -178,34 +169,31 @@ namespace CapaDatos
         public DataTable Mostrar()
         {
             DataTable dtResultado = new DataTable("Productos");
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
-                {
-                    string query = @"SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, 
+                string query = @"SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, 
                                           p.stock_minimo, p.stock_actual, p.requiere_receta, p.activo,
                                           c.nombre as categoria_nombre, p.categoria_id,
                                           CASE 
-                                            WHEN p.stock_actual <= p.stock_minimo THEN 'Stock Bajo'
                                             WHEN p.stock_actual = 0 THEN 'Sin Stock'
+                                            WHEN p.stock_actual <= p.stock_minimo THEN 'Stock Bajo'
                                             ELSE 'Stock OK'
                                           END as estado_stock
                                    FROM producto p
                                    INNER JOIN categoria c ON p.categoria_id = c.id
                                    WHERE p.activo = 1
                                    ORDER BY p.nombre";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        adapter.Fill(dtResultado);
-                    }
-                }
-                catch
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
-                    dtResultado = null;
+                    adapter.Fill(dtResultado);
                 }
+            }
+            catch
+            {
+                dtResultado = new DataTable("Productos");
             }
             return dtResultado;
         }
@@ -213,17 +201,15 @@ namespace CapaDatos
         public DataTable BuscarPorNombre(DProductos producto)
         {
             DataTable dtResultado = new DataTable("ProductosBusqueda");
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
-                {
-                    string query = @"SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, 
+                string query = @"SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, 
                                           p.stock_minimo, p.stock_actual, p.requiere_receta, p.activo,
                                           c.nombre as categoria_nombre, p.categoria_id,
                                           CASE 
-                                            WHEN p.stock_actual <= p.stock_minimo THEN 'Stock Bajo'
                                             WHEN p.stock_actual = 0 THEN 'Sin Stock'
+                                            WHEN p.stock_actual <= p.stock_minimo THEN 'Stock Bajo'
                                             ELSE 'Stock OK'
                                           END as estado_stock
                                    FROM producto p
@@ -234,20 +220,19 @@ namespace CapaDatos
                                           OR p.descripcion LIKE @textoBuscar
                                           OR c.nombre LIKE @textoBuscar)
                                    ORDER BY p.nombre";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@textoBuscar", "%" + (producto.TextoBuscar ?? "") + "%");
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        command.Parameters.AddWithValue("@textoBuscar", "%" + (producto.TextoBuscar ?? "") + "%");
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable("ProductosBusqueda");
             }
             return dtResultado;
         }
@@ -255,32 +240,29 @@ namespace CapaDatos
         public DataTable BuscarPorCategoria(int categoriaId)
         {
             DataTable dtResultado = new DataTable("ProductosPorCategoria");
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
-                {
-                    string query = @"SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, 
+                string query = @"SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, 
                                           p.stock_minimo, p.stock_actual, p.requiere_receta, p.activo,
                                           c.nombre as categoria_nombre
                                    FROM producto p
                                    INNER JOIN categoria c ON p.categoria_id = c.id
                                    WHERE p.activo = 1 AND p.categoria_id = @categoriaId
                                    ORDER BY p.nombre";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@categoriaId", categoriaId);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        command.Parameters.AddWithValue("@categoriaId", categoriaId);
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable("ProductosPorCategoria");
             }
             return dtResultado;
         }
@@ -288,29 +270,26 @@ namespace CapaDatos
         public DataTable ObtenerPorId(DProductos producto)
         {
             DataTable dtResultado = new DataTable("ProductoPorId");
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
-                {
-                    string query = @"SELECT p.*, c.nombre as categoria_nombre 
+                string query = @"SELECT p.*, c.nombre as categoria_nombre 
                                    FROM producto p
                                    INNER JOIN categoria c ON p.categoria_id = c.id
                                    WHERE p.id = @id";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", producto.Id);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        command.Parameters.AddWithValue("@id", producto.Id);
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                        {
-                            adapter.Fill(dtResultado);
-                        }
+                        adapter.Fill(dtResultado);
                     }
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable("ProductoPorId");
             }
             return dtResultado;
         }
@@ -318,29 +297,26 @@ namespace CapaDatos
         public DataTable ObtenerProductosBajoStock()
         {
             DataTable dtResultado = new DataTable("ProductosBajoStock");
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
-                {
-                    string query = @"SELECT p.id, p.codigo, p.nombre, p.stock_actual, p.stock_minimo,
+                string query = @"SELECT p.id, p.codigo, p.nombre, p.stock_actual, p.stock_minimo,
                                           c.nombre as categoria_nombre,
                                           (p.stock_minimo - p.stock_actual) as cantidad_necesaria
                                    FROM producto p
                                    INNER JOIN categoria c ON p.categoria_id = c.id
                                    WHERE p.activo = 1 AND p.stock_actual <= p.stock_minimo
                                    ORDER BY p.stock_actual ASC, p.nombre";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        adapter.Fill(dtResultado);
-                    }
-                }
-                catch
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
-                    dtResultado = null;
+                    adapter.Fill(dtResultado);
                 }
+            }
+            catch
+            {
+                dtResultado = new DataTable("ProductosBajoStock");
             }
             return dtResultado;
         }
@@ -348,78 +324,72 @@ namespace CapaDatos
         public string ActualizarStock(int productoId, int nuevaCantidad, string operacion = "SET")
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
+                string query = "";
+                switch (operacion.ToUpper())
                 {
-                    string query = "";
-                    switch (operacion.ToUpper())
+                    case "ADD":
+                        query = "UPDATE producto SET stock_actual = stock_actual + @cantidad WHERE id = @id";
+                        break;
+                    case "SUBTRACT":
+                        query = "UPDATE producto SET stock_actual = stock_actual - @cantidad WHERE id = @id AND stock_actual >= @cantidad";
+                        break;
+                    default: // SET
+                        query = "UPDATE producto SET stock_actual = @cantidad WHERE id = @id";
+                        break;
+                }
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", productoId);
+                    command.Parameters.AddWithValue("@cantidad", nuevaCantidad);
+
+                    int filasAfectadas = command.ExecuteNonQuery();
+                    if (filasAfectadas > 0)
                     {
-                        case "ADD":
-                            query = "UPDATE producto SET stock_actual = stock_actual + @cantidad WHERE id = @id";
-                            break;
-                        case "SUBTRACT":
-                            query = "UPDATE producto SET stock_actual = stock_actual - @cantidad WHERE id = @id AND stock_actual >= @cantidad";
-                            break;
-                        default: // SET
-                            query = "UPDATE producto SET stock_actual = @cantidad WHERE id = @id";
-                            break;
+                        rpta = "OK";
                     }
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    else
                     {
-                        command.Parameters.AddWithValue("@id", productoId);
-                        command.Parameters.AddWithValue("@cantidad", nuevaCantidad);
-                        
-                        int filasAfectadas = command.ExecuteNonQuery();
-                        if (filasAfectadas > 0)
-                        {
-                            rpta = "OK";
-                        }
-                        else
-                        {
-                            rpta = operacion == "SUBTRACT" ? "Stock insuficiente" : "No se encontró el producto";
-                        }
+                        rpta = operacion == "SUBTRACT" ? "Stock insuficiente" : "No se encontró el producto";
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
             }
             return rpta;
         }
 
         public bool ExisteCodigo(string codigo, int? idExcluir = null)
         {
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
+                string query = "SELECT COUNT(*) FROM producto WHERE codigo = @codigo AND activo = 1";
+                if (idExcluir.HasValue)
                 {
-                    string query = "SELECT COUNT(*) FROM producto WHERE codigo = @codigo AND activo = 1";
+                    query += " AND id != @idExcluir";
+                }
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@codigo", codigo);
                     if (idExcluir.HasValue)
                     {
-                        query += " AND id != @idExcluir";
+                        command.Parameters.AddWithValue("@idExcluir", idExcluir.Value);
                     }
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@codigo", codigo);
-                        if (idExcluir.HasValue)
-                        {
-                            command.Parameters.AddWithValue("@idExcluir", idExcluir.Value);
-                        }
-                        
-                        int count = Convert.ToInt32(command.ExecuteScalar());
-                        return count > 0;
-                    }
+
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    return count > 0;
                 }
-                catch
-                {
-                    return false;
-                }
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -430,23 +400,20 @@ namespace CapaDatos
         public DataTable ObtenerCategorias()
         {
             DataTable dtResultado = new DataTable("Categorias");
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
+                string query = @"SELECT id, nombre, descripcion FROM categoria WHERE activo = 1 ORDER BY nombre";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
-                    string query = @"SELECT id, nombre, descripcion FROM categoria WHERE activo = 1 ORDER BY nombre";
-                    
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                    {
-                        adapter.Fill(dtResultado);
-                    }
+                    adapter.Fill(dtResultado);
                 }
-                catch
-                {
-                    dtResultado = null;
-                }
+            }
+            catch
+            {
+                dtResultado = new DataTable();
             }
             return dtResultado;
         }
@@ -454,34 +421,31 @@ namespace CapaDatos
         public string CrearCategoria(string nombre, string descripcion = "")
         {
             string rpta = string.Empty;
-            using (SqlConnection connection = GetConnection())
+            SqlConnection connection = DbConnection.Instance.GetConnection();
+            try
             {
-                connection.Open();
-                try
+                using (SqlCommand command = new SqlCommand("SP06_CreateOrUpdateCategoria", connection))
                 {
-                    using (SqlCommand command = new SqlCommand("SP06_CreateOrUpdateCategoria", connection))
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@id", DBNull.Value);
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    command.Parameters.AddWithValue("@descripcion", descripcion ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@activo", true);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        command.Parameters.AddWithValue("@id", DBNull.Value);
-                        command.Parameters.AddWithValue("@nombre", nombre);
-                        command.Parameters.AddWithValue("@descripcion", descripcion ?? (object)DBNull.Value);
-                        command.Parameters.AddWithValue("@activo", true);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                int id = Convert.ToInt32(reader["id"]);
-                                rpta = id > 0 ? "OK" : reader["mensaje"].ToString();
-                            }
+                            int id = Convert.ToInt32(reader["id"]);
+                            rpta = id > 0 ? "OK" : reader["mensaje"]?.ToString() ?? "No se recibió mensaje del procedimiento";
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    rpta = ex.Message;
-                }
+            }
+            catch (Exception ex)
+            {
+                rpta = ex.Message;
             }
             return rpta;
         }

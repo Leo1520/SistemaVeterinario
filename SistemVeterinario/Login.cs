@@ -1,7 +1,9 @@
+using CapaDatos;
+using CapaNegocio;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using CapaNegocio;
-using CapaDatos;
+using System.Threading.Tasks;
 
 namespace SistemVeterinario
 {
@@ -10,19 +12,25 @@ namespace SistemVeterinario
     /// </summary>
     public partial class Login : Form
     {
-        private Dashboard? _dashboardInstance;
-
+        private Dashboard _dashboardInstance;
+        private bool ommitLogin = false;
         public Login()
         {
             InitializeComponent();
             ConfigurarLogin();
+            if(ommitLogin)
+            {
+                // Abrir dashboard directamente para desarrollo
+                AbrirDashboard();
+            }
         }
 
         private void ConfigurarLogin()
         {
             // Configurar eventos
-            btnLogin.Click += BtnLogin_Click;
-            btnCancelar.Click += BtnCancelar_Click;
+            btnLogin.Click += new EventHandler(BtnLogin_Click);
+            btnCancelar.Click += new EventHandler(BtnCancelar_Click);
+
 
             // Configurar tecla Enter para login
             this.KeyPreview = true;
@@ -31,15 +39,12 @@ namespace SistemVeterinario
             // Configurar focus inicial
             txtUsuario.Focus();
 
-            // Configurar placeholder text (opcional)
-            if (string.IsNullOrEmpty(txtUsuario.Text))
-                txtUsuario.PlaceholderText = "Usuario o Email";
 
             txtUsuario.Enter += TxtUsuario_Enter;
             txtUsuario.Leave += TxtUsuario_Leave;
         }
 
-        private void Login_KeyDown(object? sender, KeyEventArgs e)
+        private void Login_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -51,25 +56,20 @@ namespace SistemVeterinario
             }
         }
 
-        private void TxtUsuario_Enter(object? sender, EventArgs e)
+        private void TxtUsuario_Enter(object sender, EventArgs e)
         {
-            if (txtUsuario.PlaceholderText == "Usuario o Email")
-            {
-                txtUsuario.PlaceholderText = "";
-                txtUsuario.ForeColor = Color.Black;
-            }
+            
         }
 
-        private void TxtUsuario_Leave(object? sender, EventArgs e)
+        private void TxtUsuario_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUsuario.Text))
             {
-                txtUsuario.PlaceholderText = "Usuario o Email";
                 txtUsuario.ForeColor = Color.Gray;
             }
         }
 
-        private async void BtnLogin_Click(object? sender, EventArgs e)
+        private async void BtnLogin_Click(object sender, EventArgs e)
         {
             await RealizarLogin();
         }
@@ -103,9 +103,8 @@ namespace SistemVeterinario
                     return;
                 }
 
-                
-    // Realizar autenticación
-                bool loginExitoso = NUsuario.ValidarLogin(usuario, contrasena);
+                // Realizar autenticación en un hilo de fondo
+                bool loginExitoso = await Task.Run(() => NUsuario.ValidarLogin(usuario, contrasena));
 
                 if (loginExitoso)
                 {
@@ -168,7 +167,7 @@ namespace SistemVeterinario
         /// <summary>
         /// Se ejecuta cuando el Dashboard se cierra
         /// </summary>
-        private void Dashboard_FormClosed(object? sender, FormClosedEventArgs e)
+        private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
         {
             try
             {
@@ -178,7 +177,12 @@ namespace SistemVeterinario
                     _dashboardInstance.FormClosed -= Dashboard_FormClosed;
                     _dashboardInstance = null;
                 }
-
+                if (ommitLogin)
+                {
+                    // cerramos todo complementamente
+                    Application.Exit();
+                    return;
+                }
 
                 // Limpiar campos de login para nueva sesión
                 txtContrasena.Text = "";
@@ -188,7 +192,6 @@ namespace SistemVeterinario
                 }
                 else
                 {
-                    txtUsuario.PlaceholderText = "Usuario o Email";
                     txtUsuario.ForeColor = Color.Gray;
                 }
 
@@ -207,7 +210,7 @@ namespace SistemVeterinario
             }
         }
 
-        private void BtnCancelar_Click(object? sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("¿Está seguro que desea salir de la aplicación?",
                 "Confirmar Salida", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -218,14 +221,14 @@ namespace SistemVeterinario
             }
         }
 
-        private void LblCrearCuenta_Click(object? sender, EventArgs e)
+        private void LblCrearCuenta_Click(object sender, EventArgs e)
         {
             // TODO: Implementar formulario de registro
             MessageBox.Show("Funcionalidad de registro - Próximamente", "Información",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void LblOlvideContrasena_Click(object? sender, EventArgs e)
+        private void LblOlvideContrasena_Click(object sender, EventArgs e)
         {
             // TODO: Implementar recuperación de contraseña
             MessageBox.Show("Recuperación de contraseña - Próximamente", "Información",

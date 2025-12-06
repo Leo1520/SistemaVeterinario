@@ -1,3 +1,7 @@
+using System;
+using System.Windows.Forms;
+using CapaDatos;
+
 namespace SistemVeterinario
 {
     internal static class Program
@@ -5,13 +9,28 @@ namespace SistemVeterinario
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
-        [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Login());
+            try
+            {
+                // Inicializar la conexión singleton a la base de datos
+                var dbInstance = DbConnection.Instance;
+
+                // Ejecutar la aplicación
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new Login());
+            }
+            catch (Exception ex)
+            {
+                DbConnection.CloseInstance();
+                throw ex;
+            }
+            finally
+            {
+                DbConnection.CloseInstance();
+                // Cerrar la conexión de base de datos al finalizar la aplicación
+            }
         }
     }
 }
