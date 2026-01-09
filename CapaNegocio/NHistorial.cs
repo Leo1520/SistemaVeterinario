@@ -17,7 +17,7 @@ namespace CapaNegocio
         #region Métodos CRUD para Historial
 
         /// <summary>
-        /// Obtiene la lista de historiales médicos
+        /// Obtiene la lista de historiales médicos CRUD PARA HISTORILA
         /// </summary>
         public DataTable ListarHistoriales(int? animalId = null, string buscar = null)
         {
